@@ -42,8 +42,7 @@ ui <- fluidPage(
       helpText("Tallene er basert på månedlige innrapporteringer til Fiskeridirektoratet.
       Les mer om hvordan statistikken lages i fanen ‘Om statistikken’.
       Det er mulig å velge å se enten det totale tapet (fanen ‘Tap’),
-      eller bare tap forårsaket av dødelighet (fanen ‘Dødelighet’) 
-      –siste er bare for avsluttet produksjon av slaktefisk."),
+      eller bare tap forårsaket av dødelighet (fanen ‘Dødelighet’)."),
       width = 2),
     mainPanel(
       navbarPage(title = "",
@@ -91,11 +90,11 @@ ui <- fluidPage(
                                       #br(),
                                       hr(),
                                       #br(),
-                                      p("Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
-                                      for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.
-                                      1.kvartil og 3.kvartil angir det spennet der 50% av dødelighetsprosentene ligger innenfor. 
-                                        Det betyr, at 25% av produksjonssyklusser har dødeligheter lavere enn 1.kvartil,
-                                        og 25% har dødeligheter høyere enn 3. kvartil, mens resten ligger mellom 1. og 3. kvartil.")),
+                                      p("I tabellen er prosent døde angitt for henholdsvis laks og regnbueørret.
+                                        I disse tallene inngår ikke tap som følge av utkast, rømming eller «annet».
+                                        Se for øvrig beskrivelse av beregningsmetode i fanen ‘Om statistikken’. 
+                                        Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
+                                        for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")),
                              tabPanel("Diagram", 
                                       br(),
                                       plotlyOutput("plot_mortality"),
@@ -132,10 +131,13 @@ ui <- fluidPage(
                    Prosentene viser til hvor stor andel den pågjeldende kategorien utgjør av det
                    totale tapet (for eksempel hvor stor andel av tapet som utgjøres av dødelighet, utkast eller rømming)."),
                  
-                 p("I beregningene av ‘Dødelighet’, inngår bare avsluttede produksjonssykluser, og disse beregningene er
-                   derfor basert kun på bakgrunn av rapporteringer fra lokaliteter med kommersiell produksjon av matfisk.
-                   Det tallet som kommer opp per år, er hvor stor en andel av de produksjonssyklusser som er avsluttet
-                   det året som har dødd, og dermed ikke kommet til slakt."),
+                 p("I beregningene av ‘Dødelighet’ er prosent døde angitt for henholdsvis laks og regnbueørret.
+                   I disse tallene inngår ikke tap som følge av utkast, rømming eller «annet».
+                   Beregningene er foretatt ved bruk av rater, som tillater at populasjonen av
+                   fisk som kan dø endrer seg måned for måned. Først blir den månedlige dødsraten
+                   for hver lokalitet beregnet, og disse ratene blir deretter brukt til å beregne
+                   gjennomsnittet for hver måned. Dette gjennomsnittet blir til slutt summert og
+                   deretter konvertert til prosent dødfisk hvert år."),
                  
                  p("Geografisk område: Det er mulig å velge om en vil se tallene samlet på fylke,
                  produksjonssone eller nasjonalt nivå. Det benyttes gjeldende fylkesgrenser.
@@ -211,8 +213,11 @@ server <- function(input, output) {
                 colnames= c( "År", "Område", "Dødelighet %"), # also here
                 selection = (list(mode = 'multiple', selected = "all", target ='column')),
                 options = list(sDom  = '<"top">lrt<"bottom">ip',
+                               autoWidth = FALSE,
+                               #columnDefs = list(list(width = '100px', targets = c(1, 2))),
                                scrollX = TRUE,
-                               language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))))
+                               language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))
+                ))
                                #, autoWidth = T, columnDefs = list(list(searchable = FALSE, targets = c(1:4)), list(width='150px', className = 'dt-left', targets = list("_all"))))))
                                
     output$plot_mortality <- renderPlotly(
