@@ -1,4 +1,5 @@
 ### Layout for app 
+library(here)
 library(shiny)
 library(dplyr)
 library(DT)
@@ -6,10 +7,8 @@ library(plotly)
 library(tidyr)
 
 #import data
-#original = readRDS("Data/losses_2020-01-15.rds")
-#original = read.csv("Data/losses_2020-01-15.csv", sep = ";", dec = ",", encoding = "UTF-8")
-#original = read.csv(here("formatted_data", "losses_2021-03-04.csv"), sep = ";", dec = ",", encoding = "UTF-8")
-original = read.csv(here("formatted_data", "losses_2022-02-16.csv"), sep = ";", dec = ",", encoding = "UTF-8")
+#original = read.csv("Data/losses_2022-08-09.csv", sep = ";", dec = ",", encoding = "UTF-8")
+original = read.csv(here("formatted_data", "losses_2022-08-09.csv"), sep = ";", dec = ",", encoding = "UTF-8")
 
 new_rows = original %>% 
   filter(area == "Norway") %>% 
@@ -153,7 +152,7 @@ ui <- fluidPage(
                  
                  p("Dersom du har spørsmål eller kommentarer til tabellene, vennligst ta kontakt med  ",
                    a(href = 'mailto:victor.oliveira@vetinst.no', "Victor H.S. Oliveira ", .noWS = "outside"),
-                   "(teknisk ansvarlig) eller ", a(href = "mailto:britt-bang.jensen@vetinst.no", "Britt Bang Jensen ", .noWS = "outside"),
+                   "(teknisk ansvarlig) eller ", a(href = "mailto:Hege.Lokslett@vetinst.no", "Hege Løkslett ", .noWS = "outside"),
                    "(faglig ansvarlig).")
                  
                  )) 
