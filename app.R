@@ -7,20 +7,8 @@ library(plotly)
 library(tidyr)
 
 #import data
-#original = read.csv("Data/losses_2022-08-09.csv", sep = ";", dec = ",", encoding = "UTF-8")
-original = read.csv(here("formatted_data", "losses_2022-08-09.csv"), sep = ";", dec = ",", encoding = "UTF-8")
-
-new_rows = original %>% 
-  filter(area == "Norway") %>% 
-  mutate(viz = "all", 
-         area = "Norge")
-losses = dplyr::bind_rows(original, new_rows)
-
-losses$area <- factor (
-  losses$area,
-  levels = c("All","1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13",
-             "Agder","Møre og Romsdal", "Nordland", "Rogaland", "Troms og Finnmark",
-             "Trøndelag", "Vestland", "Viken", "Norge", "Norway"))
+# original = read.csv("Data/losses_2022-03-01.csv", sep = ";", dec = ",", encoding = "UTF-8")
+losses = read.csv("Data/losses_2023-03-01.csv", sep = ";", dec = ",", encoding = "UTF-8")
 
 ui <- fluidPage(
   titlePanel( 
@@ -53,12 +41,12 @@ ui <- fluidPage(
                              tabPanel("Tabell",
                                       br(),
                                       selectizeInput("select_years_table1","Velg år:",
-                                                     c("2021" = 2021,
+                                                     c("2022" = 2022,
+                                                       "2021" = 2021,
                                                        "2020" = 2020,
                                                        "2019" = 2019,
-                                                       "2018" = 2018,
-                                                       "2017" = 2017),
-                                                     selected = c(2021, 2020, 2019, 2018, 2017),
+                                                       "2018" = 2018),
+                                                     selected = c(2022, 2021, 2020, 2019, 2018),
                                                      multiple = T),
                                       DTOutput("table_losses"),
                              hr(),
@@ -69,7 +57,7 @@ ui <- fluidPage(
                              tabPanel("Diagram", 
                                       br(),
                                       selectInput("select_year", "Velg år:", list(
-                                        "År" = c(2021, 2020, 2019, 2018, 2017))),
+                                        "År" = c(2022, 2021, 2020, 2019, 2018))),
                                       plotlyOutput("plot_losses"))),
                  br(),
                  #hr(),
@@ -81,12 +69,12 @@ ui <- fluidPage(
                              tabPanel("Tabell",
                                       br(),
                                       selectizeInput("select_years_table2","Velg år:",
-                                                     c("2021" = 2021,
+                                                     c("2022" = 2022,
+                                                       "2021" = 2021,
                                                        "2020" = 2020,
                                                        "2019" = 2019,
-                                                       "2018" = 2018,
-                                                       "2017" = 2017),
-                                                     selected = c(2021, 2020, 2019, 2018, 2017),
+                                                       "2018" = 2018),
+                                                     selected = c(2022, 2021, 2020, 2019, 2018),
                                                      multiple = T),
                                       DTOutput("table_mortality"),
                                       #br(),
@@ -225,29 +213,29 @@ server <- function(input, output) {
     output$plot_mortality <- renderPlotly(
       plot_ly(df_losses() %>% 
                 spread(year, mort) %>% 
-                dplyr::filter (!is.na(`2021`) | !is.na(`2020`) | !is.na(`2019`) | !is.na(`2018`) | !is.na(`2017`)) %>% 
+                dplyr::filter (!is.na(`2022`) | !is.na(`2021`) | !is.na(`2020`) | !is.na(`2019`) | !is.na(`2018`)) %>% 
                 dplyr::filter (!(area == "All"| area == "Norway")) %>%
                 droplevels(),
-              x = ~area, y = ~`2021`, name = "2021", type = 'scatter',
+              x = ~area, y = ~`2022`, name = "2022", type = 'scatter',
               mode = "markers", marker = list(color = "#253494"),
               hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                "Prosentene: ", `2021`,"<br>")) %>%
-        add_trace(x = ~area, y = ~`2020`, name = "2020",type = 'scatter',
+                                                "Prosentene: ", `2022`,"<br>")) %>%
+        add_trace(x = ~area, y = ~`2021`, name = "2021",type = 'scatter',
                   mode = "markers", marker = list(color = "#2c7fb8"),
+                  hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                    "Prosentene: ", `2021`,"<br>")) %>%
+        add_trace(x = ~area, y = ~`2020`, name = "2020",type = 'scatter',
+                  mode = "markers", marker = list(color = "#41b6c4"),
                   hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
                                                     "Prosentene: ", `2020`,"<br>")) %>%
         add_trace(x = ~area, y = ~`2019`, name = "2019",type = 'scatter',
-                  mode = "markers", marker = list(color = "#41b6c4"),
+                  mode = "markers", marker = list(color = "#a1dab4"),
                   hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
                                                     "Prosentene: ", `2019`,"<br>")) %>%
         add_trace(x = ~area, y = ~`2018`, name = "2018",type = 'scatter',
-                  mode = "markers", marker = list(color = "#a1dab4"),
-                  hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                    "Prosentene: ", `2018`,"<br>")) %>%
-        add_trace(x = ~area, y = ~`2017`, name = "2017",type = 'scatter',
                   mode = "markers", marker = list(color = '#feb24c'),
                   hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                    "Prosentene: ", `2017`,"<br>")) %>%
+                                                    "Prosentene: ", `2018`,"<br>")) %>%
         layout(title = "", 
                annotations=list(yref='paper',xref="paper",y=1.09,x=.2, text="Velg år:",showarrow=F, font=list(size=14,face="bold")),
                legend = list(orientation = "h", x= .25, y = 1.1),
