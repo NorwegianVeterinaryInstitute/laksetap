@@ -103,7 +103,7 @@ ui <- fluidPage(
                  
                  p("Tap av laksefisk gjennom produksjonen i sjø fra utsett til slakting rapporteres inn 
                    til Fiskeridirektoratet, fordelt på dødfisk, utkast, rømming og «annet».
-                   Dødfisk omfatter dødelighet som skyldes sykdom og skader mv.
+                   Dødfisk omfatter dødelighet som skyldes sykdom og skader osv.
                    Smittsomme sykdommer er en av de viktigste biologiske og økonomiske
                    tapsfaktorene i fiskeoppdrett. Utkast er skrapfisk som sorteres ut ved slakting.
                    «Annet» kan omfatte dødelighetsepisoder som oppstår ved lusebehandling og annen håndtering,
@@ -113,7 +113,7 @@ ui <- fluidPage(
                  
                  h4("Databearbeiding"),
                  
-                 p("Det finnes to ulike tabeller, der tallene for ‘Tap’ og ‘Dødelighet’ er beregnet og presenteres på ulik vis:"), 
+                 p("Det finnes to ulike tabeller, der tallene for ‘Tap’ og ‘Dødelighet’ er beregnet og presentert på ulikt vis:"), 
                  
                  p("I beregningene av ‘Tap’ inngår data fra all sjøsatt laks og regnbueørret, inklusive matfisk, stamfisk,
                    fisk fra forsknings- og utviklingskonsesjoner, undervisningskonsesjoner med flere.
@@ -129,12 +129,12 @@ ui <- fluidPage(
                    gjennomsnittet for hver måned. Dette gjennomsnittet blir til slutt summert og
                    deretter konvertert til prosent dødfisk hvert år."),
                  
-                 p("Geografisk område: Det er mulig å velge om en vil se tallene samlet på fylke,
-                 produksjonssone eller nasjonalt nivå. Det benyttes gjeldende fylkesgrenser.
+                 p("Geografisk område: Det er mulig å velge om en vil se tallene samlet for fylke,
+                 produksjonssone eller på nasjonalt nivå. Det benyttes gjeldende fylkesgrenser.
                  For fylker som er slått sammen, presenteres historiske data med dagens fylkesgrenser.
-                 Produksjonssoner viser til de 13 produksjonssoner som er definert i forskrift om
+                 Produksjonssonene viser til de 13 produksjonssoner som er definert i forskrift om
                  produksjonsområder (FOR-2017-01-16-61).Produksjonsområder eller fylker med meget få
-                 lokaliteter er tatt ut av fremstillingen, for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter."),
+                 lokaliteter er tatt ut av fremstillingen, for at det ikke skal være mulig å kjenne igjen enkelt lokaliteter."),
                  
                  h4("Kontakt"),
                  
