@@ -1,4 +1,5 @@
 ### Layout for app 
+library(here)
 library(shiny)
 library(dplyr)
 library(DT)
@@ -6,21 +7,8 @@ library(plotly)
 library(tidyr)
 
 #import data
-#original = readRDS("Data/losses_2020-01-15.rds")
-#original = read.csv("Data/losses_2020-01-15.csv", sep = ";", dec = ",", encoding = "UTF-8")
-original = read.csv(here("formatted_data", "losses_2021-03-04.csv"), sep = ";", dec = ",", encoding = "UTF-8")
-
-new_rows = original %>% 
-  filter(area == "Norway") %>% 
-  mutate(viz = "all", 
-         area = "Norge")
-losses = dplyr::bind_rows(original, new_rows)
-
-losses$area <- factor (
-  losses$area,
-  levels = c("All","1","2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13",
-             "Agder","Møre og Romsdal", "Nordland", "Rogaland", "Troms og Finnmark",
-             "Trøndelag", "Vestland", "Viken", "Norge", "Norway"))
+# original = read.csv("Data/losses_2022-03-01.csv", sep = ";", dec = ",", encoding = "UTF-8")
+losses = read.csv("Data/losses_2023-03-01.csv", sep = ";", dec = ",", encoding = "UTF-8")
 
 ui <- fluidPage(
   titlePanel( 
@@ -33,17 +21,18 @@ ui <- fluidPage(
     sidebarPanel(
       selectInput("species", "Velg art:",
                   c("Laks" = "salmon", #should match what is in the data set to use as a selection (for example, "salmon" matches salmon in losses)
-                    "Regnbueørret" = "rainbowtrout")),
+                    "Regnbueørret" = "rainbowtrout"),
+                  selected = c("salmon")),
       selectInput("geo_group", "Velg geografisk område:",
                   c("Fylke" = "fylke",
                     "Produksjonssone" = "zone",
-                    "Norge" = "all")),
+                    "Norge" = "all"),
+                  selected = c("all")),
       hr(),
       helpText("Tallene er basert på månedlige innrapporteringer til Fiskeridirektoratet.
       Les mer om hvordan statistikken lages i fanen ‘Om statistikken’.
       Det er mulig å velge å se enten det totale tapet (fanen ‘Tap’),
-      eller bare tap forårsaket av dødelighet (fanen ‘Dødelighet’) 
-      –siste er bare for avsluttet produksjon av slaktefisk."),
+      eller bare tap forårsaket av dødelighet (fanen ‘Dødelighet’)."),
       width = 2),
     mainPanel(
       navbarPage(title = "",
@@ -52,12 +41,12 @@ ui <- fluidPage(
                              tabPanel("Tabell",
                                       br(),
                                       selectizeInput("select_years_table1","Velg år:",
-                                                     c("2020" = 2020,
+                                                     c("2022" = 2022,
+                                                       "2021" = 2021,
+                                                       "2020" = 2020,
                                                        "2019" = 2019,
-                                                       "2018" = 2018,
-                                                       "2017" = 2017,
-                                                       "2016" = 2016),
-                                                     selected = c(2020),
+                                                       "2018" = 2018),
+                                                     selected = c(2022, 2021, 2020, 2019, 2018),
                                                      multiple = T),
                                       DTOutput("table_losses"),
                              hr(),
@@ -68,7 +57,7 @@ ui <- fluidPage(
                              tabPanel("Diagram", 
                                       br(),
                                       selectInput("select_year", "Velg år:", list(
-                                        "År" = c(2020, 2019, 2018, 2017, 2016))),
+                                        "År" = c(2022, 2021, 2020, 2019, 2018))),
                                       plotlyOutput("plot_losses"))),
                  br(),
                  #hr(),
@@ -80,22 +69,22 @@ ui <- fluidPage(
                              tabPanel("Tabell",
                                       br(),
                                       selectizeInput("select_years_table2","Velg år:",
-                                                     c("2020" = 2020,
+                                                     c("2022" = 2022,
+                                                       "2021" = 2021,
+                                                       "2020" = 2020,
                                                        "2019" = 2019,
-                                                       "2018" = 2018,
-                                                       "2017" = 2017,
-                                                       "2016" = 2016),
-                                                     selected = c(2020),
+                                                       "2018" = 2018),
+                                                     selected = c(2022, 2021, 2020, 2019, 2018),
                                                      multiple = T),
                                       DTOutput("table_mortality"),
                                       #br(),
                                       hr(),
                                       #br(),
-                                      p("Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
-                                      for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.
-                                      1.kvartil og 3.kvartil angir det spennet der 50% av dødelighetsprosentene ligger innenfor. 
-                                        Det betyr, at 25% av produksjonssyklusser har dødeligheter lavere enn 1.kvartil,
-                                        og 25% har dødeligheter høyere enn 3. kvartil, mens resten ligger mellom 1. og 3. kvartil.")),
+                                      p("I tabellen er prosent døde angitt for henholdsvis laks og regnbueørret.
+                                        I disse tallene inngår ikke tap som følge av utkast, rømming eller «annet».
+                                        Se for øvrig beskrivelse av beregningsmetode i fanen ‘Om statistikken’. 
+                                        Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
+                                        for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")),
                              tabPanel("Diagram", 
                                       br(),
                                       plotlyOutput("plot_mortality"),
@@ -114,7 +103,7 @@ ui <- fluidPage(
                  
                  p("Tap av laksefisk gjennom produksjonen i sjø fra utsett til slakting rapporteres inn 
                    til Fiskeridirektoratet, fordelt på dødfisk, utkast, rømming og «annet».
-                   Dødfisk omfatter dødelighet som skyldes sykdom og skader mv.
+                   Dødfisk omfatter dødelighet som skyldes sykdom og skader osv.
                    Smittsomme sykdommer er en av de viktigste biologiske og økonomiske
                    tapsfaktorene i fiskeoppdrett. Utkast er skrapfisk som sorteres ut ved slakting.
                    «Annet» kan omfatte dødelighetsepisoder som oppstår ved lusebehandling og annen håndtering,
@@ -124,7 +113,7 @@ ui <- fluidPage(
                  
                  h4("Databearbeiding"),
                  
-                 p("Det finnes to ulike tabeller, der tallene for ‘Tap’ og ‘Dødelighet’ er beregnet og presenteres på ulik vis:"), 
+                 p("Det finnes to ulike tabeller, der tallene for ‘Tap’ og ‘Dødelighet’ er beregnet og presentert på ulikt vis:"), 
                  
                  p("I beregningene av ‘Tap’ inngår data fra all sjøsatt laks og regnbueørret, inklusive matfisk, stamfisk,
                    fisk fra forsknings- og utviklingskonsesjoner, undervisningskonsesjoner med flere.
@@ -132,23 +121,26 @@ ui <- fluidPage(
                    Prosentene viser til hvor stor andel den pågjeldende kategorien utgjør av det
                    totale tapet (for eksempel hvor stor andel av tapet som utgjøres av dødelighet, utkast eller rømming)."),
                  
-                 p("I beregningene av ‘Dødelighet’, inngår bare avsluttede produksjonssykluser, og disse beregningene er
-                   derfor basert kun på bakgrunn av rapporteringer fra lokaliteter med kommersiell produksjon av matfisk.
-                   Det tallet som kommer opp per år, er hvor stor en andel av de produksjonssyklusser som er avsluttet
-                   det året som har dødd, og dermed ikke kommet til slakt."),
+                 p("I beregningene av ‘Dødelighet’ er prosent døde angitt for henholdsvis laks og regnbueørret.
+                   I disse tallene inngår ikke tap som følge av utkast, rømming eller «annet».
+                   Beregningene er foretatt ved bruk av rater, som tillater at populasjonen av
+                   fisk som kan dø endrer seg måned for måned. Først blir den månedlige dødsraten
+                   for hver lokalitet beregnet, og disse ratene blir deretter brukt til å beregne
+                   gjennomsnittet for hver måned. Dette gjennomsnittet blir til slutt summert og
+                   deretter konvertert til prosent dødfisk hvert år."),
                  
-                 p("Geografisk område: Det er mulig å velge om en vil se tallene samlet på fylke,
-                 produksjonssone eller nasjonalt nivå. Det benyttes gjeldende fylkesgrenser.
+                 p("Geografisk område: Det er mulig å velge om en vil se tallene samlet for fylke,
+                 produksjonssone eller på nasjonalt nivå. Det benyttes gjeldende fylkesgrenser.
                  For fylker som er slått sammen, presenteres historiske data med dagens fylkesgrenser.
-                 Produksjonssoner viser til de 13 produksjonssoner som er definert i forskrift om
+                 Produksjonssonene viser til de 13 produksjonssoner som er definert i forskrift om
                  produksjonsområder (FOR-2017-01-16-61).Produksjonsområder eller fylker med meget få
-                 lokaliteter er tatt ut av fremstillingen, for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter."),
+                 lokaliteter er tatt ut av fremstillingen, for at det ikke skal være mulig å kjenne igjen enkelt lokaliteter."),
                  
                  h4("Kontakt"),
                  
                  p("Dersom du har spørsmål eller kommentarer til tabellene, vennligst ta kontakt med  ",
                    a(href = 'mailto:victor.oliveira@vetinst.no', "Victor H.S. Oliveira ", .noWS = "outside"),
-                   "(teknisk ansvarlig) eller ", a(href = "mailto:britt-bang.jensen@vetinst.no", "Britt Bang Jensen ", .noWS = "outside"),
+                   "(teknisk ansvarlig) eller ", a(href = "mailto:Hege.Lokslett@vetinst.no", "Hege Løkslett ", .noWS = "outside"),
                    "(faglig ansvarlig).")
                  
                  )) 
@@ -211,36 +203,39 @@ server <- function(input, output) {
                 colnames= c( "År", "Område", "Dødelighet %"), # also here
                 selection = (list(mode = 'multiple', selected = "all", target ='column')),
                 options = list(sDom  = '<"top">lrt<"bottom">ip',
+                               autoWidth = FALSE,
+                               #columnDefs = list(list(width = '100px', targets = c(1, 2))),
                                scrollX = TRUE,
-                               language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))))
+                               language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))
+                ))
                                #, autoWidth = T, columnDefs = list(list(searchable = FALSE, targets = c(1:4)), list(width='150px', className = 'dt-left', targets = list("_all"))))))
                                
     output$plot_mortality <- renderPlotly(
       plot_ly(df_losses() %>% 
                 spread(year, mort) %>% 
-                dplyr::filter (!is.na(`2020`) | !is.na(`2019`) | !is.na(`2018`) | !is.na(`2017`) | !is.na(`2016`)) %>% 
+                dplyr::filter (!is.na(`2022`) | !is.na(`2021`) | !is.na(`2020`) | !is.na(`2019`) | !is.na(`2018`)) %>% 
                 dplyr::filter (!(area == "All"| area == "Norway")) %>%
                 droplevels(),
-              x = ~area, y = ~`2020`, name = "2020", type = 'scatter',
+              x = ~area, y = ~`2022`, name = "2022", type = 'scatter',
               mode = "markers", marker = list(color = "#253494"),
               hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                "Prosentene: ", `2020`,"<br>")) %>%
-        add_trace(x = ~area, y = ~`2019`, name = "2019",type = 'scatter',
+                                                "Prosentene: ", `2022`,"<br>")) %>%
+        add_trace(x = ~area, y = ~`2021`, name = "2021",type = 'scatter',
                   mode = "markers", marker = list(color = "#2c7fb8"),
+                  hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                    "Prosentene: ", `2021`,"<br>")) %>%
+        add_trace(x = ~area, y = ~`2020`, name = "2020",type = 'scatter',
+                  mode = "markers", marker = list(color = "#41b6c4"),
+                  hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                    "Prosentene: ", `2020`,"<br>")) %>%
+        add_trace(x = ~area, y = ~`2019`, name = "2019",type = 'scatter',
+                  mode = "markers", marker = list(color = "#a1dab4"),
                   hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
                                                     "Prosentene: ", `2019`,"<br>")) %>%
         add_trace(x = ~area, y = ~`2018`, name = "2018",type = 'scatter',
-                  mode = "markers", marker = list(color = "#41b6c4"),
-                  hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                    "Prosentene: ", `2018`,"<br>")) %>%
-        add_trace(x = ~area, y = ~`2017`, name = "2017",type = 'scatter',
-                  mode = "markers", marker = list(color = "#a1dab4"),
-                  hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                    "Prosentene: ", `2017`,"<br>")) %>%
-        add_trace(x = ~area, y = ~`2016`, name = "2016",type = 'scatter',
                   mode = "markers", marker = list(color = '#feb24c'),
                   hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                    "Prosentene: ", `2016`,"<br>")) %>%
+                                                    "Prosentene: ", `2018`,"<br>")) %>%
         layout(title = "", 
                annotations=list(yref='paper',xref="paper",y=1.09,x=.2, text="Velg år:",showarrow=F, font=list(size=14,face="bold")),
                legend = list(orientation = "h", x= .25, y = 1.1),
