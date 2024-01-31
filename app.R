@@ -219,23 +219,23 @@ server <- function(input, output) {
                 dplyr::filter (!(area == "All"| area == "Norway")) %>%
                 droplevels(),
               x = ~area, y = ~`2023`, name = "2023", type = 'scatter',
-              mode = "markers", marker = list(color = "#4b7c95"),
+              mode = "markers", marker = list(color = "#253494"),
               hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
                                                 "Prosentene: ", `2023`,"<br>")) %>%
         add_trace(x = ~area, y = ~`2022`, name = "2022",type = 'scatter',
-                  mode = "markers", marker = list(color = "#6a9cb6"),
+                  mode = "markers", marker = list(color = "#2c7fb8"),
                   hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
                                                     "Prosentene: ", `2022`,"<br>")) %>%
         add_trace(x = ~area, y = ~`2021`, name = "2021",type = 'scatter',
-                  mode = "markers", marker = list(color = "#8eb6cc"),
+                  mode = "markers", marker = list(color = "#41b6c4"),
                   hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
                                                     "Prosentene: ", `2021`,"<br>")) %>%
         add_trace(x = ~area, y = ~`2020`, name = "2020",type = 'scatter',
-                  mode = "markers", marker = list(color = "#b3d1e2"),
+                  mode = "markers", marker = list(color = "#a1dab4"),
                   hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
                                                     "Prosentene: ", `2020`,"<br>")) %>%
         add_trace(x = ~area, y = ~`2019`, name = "2019",type = 'scatter',
-                  mode = "markers", marker = list(color = '#dae9f1'),
+                  mode = "markers", marker = list(color = '#feb24c'),
                   hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
                                                     "Prosentene: ", `2019`,"<br>")) %>%
         layout(title = "", 
