@@ -7,8 +7,10 @@ library(plotly)
 library(tidyr)
 
 #import data
-# original = read.csv("Data/losses_2022-03-01.csv", sep = ";", dec = ",", encoding = "UTF-8")
-losses = read.csv("Data/losses_2023-03-01.csv", sep = ";", dec = ",", encoding = "UTF-8")
+# 2021_data = read.csv("Data/losses_2022-03-01.csv", sep = ";", dec = ",", encoding = "UTF-8")
+# 2022_data = read.csv("Data/losses_2023-03-01.csv", sep = ";", dec = ",", encoding = "UTF-8")
+
+losses = readRDS("Data/losses_2024-02-03.rds")
 
 ui <- fluidPage(
   titlePanel( 
@@ -41,12 +43,12 @@ ui <- fluidPage(
                              tabPanel("Tabell",
                                       br(),
                                       selectizeInput("select_years_table1","Velg år:",
-                                                     c("2022" = 2022,
+                                                     c("2023" = 2023,
+                                                       "2022" = 2022,
                                                        "2021" = 2021,
                                                        "2020" = 2020,
-                                                       "2019" = 2019,
-                                                       "2018" = 2018),
-                                                     selected = c(2022, 2021, 2020, 2019, 2018),
+                                                       "2019" = 2019),
+                                                     selected = c(2023, 2022, 2021, 2020, 2019),
                                                      multiple = T),
                                       DTOutput("table_losses"),
                              hr(),
@@ -57,7 +59,7 @@ ui <- fluidPage(
                              tabPanel("Diagram", 
                                       br(),
                                       selectInput("select_year", "Velg år:", list(
-                                        "År" = c(2022, 2021, 2020, 2019, 2018))),
+                                        "År" = c(2023, 2022, 2021, 2020, 2019))),
                                       plotlyOutput("plot_losses"))),
                  br(),
                  #hr(),
@@ -69,12 +71,12 @@ ui <- fluidPage(
                              tabPanel("Tabell",
                                       br(),
                                       selectizeInput("select_years_table2","Velg år:",
-                                                     c("2022" = 2022,
+                                                     c("2023" = 2023,
+                                                       "2022" = 2022,
                                                        "2021" = 2021,
                                                        "2020" = 2020,
-                                                       "2019" = 2019,
-                                                       "2018" = 2018),
-                                                     selected = c(2022, 2021, 2020, 2019, 2018),
+                                                       "2019" = 2019),
+                                                     selected = c(2023, 2022, 2021, 2020, 2019),
                                                      multiple = T),
                                       DTOutput("table_mortality"),
                                       #br(),
@@ -101,8 +103,8 @@ ui <- fluidPage(
                         
                  h4("Datakilder"),
                  
-                 p("Tap av laksefisk gjennom produksjonen i sjø fra utsett til slakting rapporteres inn 
-                   til Fiskeridirektoratet, fordelt på dødfisk, utkast, rømming og «annet».
+                 p("Tap av laksefisk gjennom produksjonen i sjø fra utsett til slakting som er rapportert til Fiskeridirektoratet per januar 2024. 
+                 Tapene er fordelt på dødfisk, utkast, rømming og «annet». Dødfisk omfatter dødelighet som skyldes sykdom og skader osv. 
                    Dødfisk omfatter dødelighet som skyldes sykdom og skader osv.
                    Smittsomme sykdommer er en av de viktigste biologiske og økonomiske
                    tapsfaktorene i fiskeoppdrett. Utkast er skrapfisk som sorteres ut ved slakting.
@@ -136,12 +138,17 @@ ui <- fluidPage(
                  produksjonsområder (FOR-2017-01-16-61).Produksjonsområder eller fylker med meget få
                  lokaliteter er tatt ut av fremstillingen, for at det ikke skal være mulig å kjenne igjen enkelt lokaliteter."),
                  
+                 h4("Referanser"),
+                 
+                 p("Toft, N., Agger, J. F., Houe, H., & Bruun, J. (2004). Measures of disease frequency. In H. Houe, A. K. Ersbøll, & N. Toft (Eds.), Introduction to Veterinary Epidemiology (pp. 77–93). Frederiksberg, Denmark: Biofolia."),
+                 
+                 p("Bang Jensen, B., Qviller, L. & Toft, N. (2020). Spatio-temporal variations in mortality during the seawater production phase of Atlantic salmon (Salmo salar) in Norway. J. Fish Dis. 43, 445–457."),
+                 
                  h4("Kontakt"),
                  
                  p("Dersom du har spørsmål eller kommentarer til tabellene, vennligst ta kontakt med  ",
-                   a(href = 'mailto:victor.oliveira@vetinst.no', "Victor H.S. Oliveira ", .noWS = "outside"),
-                   "(teknisk ansvarlig) eller ", a(href = "mailto:Hege.Lokslett@vetinst.no", "Hege Løkslett ", .noWS = "outside"),
-                   "(faglig ansvarlig).")
+                   a(href = 'mailto:edgar.brun@vetinst.no', "Edgar Brun ", .noWS = "outside"),
+                   "(avdelingsdirektør, fiskehelse og fiskevelferd).")
                  
                  )) 
       )
@@ -170,7 +177,7 @@ server <- function(input, output) {
         #autoWidth =T, #columnDefs = list(list(searchable = FALSE, targets = c(1:10)),
                     # list(width='200px', targets = c(1))))))
   
-  myPallete <- c('#fb8072', '#8dd3c7','#ffffb3','#bebada')
+  myPallete <- c('#cd692c', '#98a762','#dac266','#886b9a')
   output$plot_losses <- renderPlotly(
     plot_ly(df_losses () %>% 
               dplyr::filter (!area == "Norway" & !area == "All" & year == input$select_year) %>%
@@ -213,29 +220,29 @@ server <- function(input, output) {
     output$plot_mortality <- renderPlotly(
       plot_ly(df_losses() %>% 
                 spread(year, mort) %>% 
-                dplyr::filter (!is.na(`2022`) | !is.na(`2021`) | !is.na(`2020`) | !is.na(`2019`) | !is.na(`2018`)) %>% 
+                dplyr::filter (!is.na(`2023`) | !is.na(`2022`) | !is.na(`2021`) | !is.na(`2020`) | !is.na(`2019`)) %>% 
                 dplyr::filter (!(area == "All"| area == "Norway")) %>%
                 droplevels(),
-              x = ~area, y = ~`2022`, name = "2022", type = 'scatter',
+              x = ~area, y = ~`2023`, name = "2023", type = 'scatter',
               mode = "markers", marker = list(color = "#253494"),
               hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                "Prosentene: ", `2022`,"<br>")) %>%
-        add_trace(x = ~area, y = ~`2021`, name = "2021",type = 'scatter',
+                                                "Prosentene: ", `2023`,"<br>")) %>%
+        add_trace(x = ~area, y = ~`2022`, name = "2022",type = 'scatter',
                   mode = "markers", marker = list(color = "#2c7fb8"),
+                  hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                    "Prosentene: ", `2022`,"<br>")) %>%
+        add_trace(x = ~area, y = ~`2021`, name = "2021",type = 'scatter',
+                  mode = "markers", marker = list(color = "#41b6c4"),
                   hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
                                                     "Prosentene: ", `2021`,"<br>")) %>%
         add_trace(x = ~area, y = ~`2020`, name = "2020",type = 'scatter',
-                  mode = "markers", marker = list(color = "#41b6c4"),
+                  mode = "markers", marker = list(color = "#a1dab4"),
                   hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
                                                     "Prosentene: ", `2020`,"<br>")) %>%
         add_trace(x = ~area, y = ~`2019`, name = "2019",type = 'scatter',
-                  mode = "markers", marker = list(color = "#a1dab4"),
-                  hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                    "Prosentene: ", `2019`,"<br>")) %>%
-        add_trace(x = ~area, y = ~`2018`, name = "2018",type = 'scatter',
                   mode = "markers", marker = list(color = '#feb24c'),
                   hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                    "Prosentene: ", `2018`,"<br>")) %>%
+                                                    "Prosentene: ", `2019`,"<br>")) %>%
         layout(title = "", 
                annotations=list(yref='paper',xref="paper",y=1.09,x=.2, text="Velg år:",showarrow=F, font=list(size=14,face="bold")),
                legend = list(orientation = "h", x= .25, y = 1.1),
