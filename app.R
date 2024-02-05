@@ -5,19 +5,29 @@ library(dplyr)
 library(DT)
 library(plotly)
 library(tidyr)
+library(pins)
 
 #import data
 # 2021_data = read.csv("Data/losses_2022-03-01.csv", sep = ";", dec = ",", encoding = "UTF-8")
 # 2022_data = read.csv("Data/losses_2023-03-01.csv", sep = ";", dec = ",", encoding = "UTF-8")
 
-losses = readRDS("Data/losses_2024-02-03.rds")
+
+laksetap_board <- board_connect()
+losses <- pin_read(laksetap_board, "vi2451/laksetap_data")
 
 ui <- fluidPage(
+  tags$head(tags$style(HTML('* {font-family: "Futura PT Medium"};'))),
   titlePanel( 
     windowTitle = "Laksefiskdødlighet",# creating NVI logo in the top of the app and the title following it
     fluidRow(
-      column(4, img(src="vetinstlogo_rgb_sortekst_stor.png", height='60',width='279')),
-      column(8,h3("Statistikk over tap og dødelighet av laks og regnbueørret", style = "color:#1b314f; font-style:bold")))
+      column(4, shiny::HTML(
+            '<a href="https://www.vetinst.no/">
+            <img src="vet-rgb-2.svg", alt="NVI logo" style="width:auto;height:40px;"></a>'          
+      )),
+    column(
+      8,
+      h3("Statistikk over tap og dødelighet av laks og regnbueørret", style = "color:#1b314f; font-style:bold")
+    ))
   ),
   sidebarLayout(
     sidebarPanel(
