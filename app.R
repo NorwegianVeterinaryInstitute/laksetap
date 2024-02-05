@@ -10,7 +10,7 @@ library(tidyr)
 # 2021_data = read.csv("Data/losses_2022-03-01.csv", sep = ";", dec = ",", encoding = "UTF-8")
 # 2022_data = read.csv("Data/losses_2023-03-01.csv", sep = ";", dec = ",", encoding = "UTF-8")
 
-losses = readRDS("Data/losses_2024-01-30.rds")
+losses = readRDS("Data/losses_2024-02-03.rds")
 
 ui <- fluidPage(
   titlePanel( 
@@ -103,8 +103,8 @@ ui <- fluidPage(
                         
                  h4("Datakilder"),
                  
-                 p("Tap av laksefisk gjennom produksjonen i sjø fra utsett til slakting rapporteres inn 
-                   til Fiskeridirektoratet, fordelt på dødfisk, utkast, rømming og «annet».
+                 p("Tap av laksefisk gjennom produksjonen i sjø fra utsett til slakting som er rapportert til Fiskeridirektoratet per januar 2024. 
+                 Tapene er fordelt på dødfisk, utkast, rømming og «annet». Dødfisk omfatter dødelighet som skyldes sykdom og skader osv. 
                    Dødfisk omfatter dødelighet som skyldes sykdom og skader osv.
                    Smittsomme sykdommer er en av de viktigste biologiske og økonomiske
                    tapsfaktorene i fiskeoppdrett. Utkast er skrapfisk som sorteres ut ved slakting.
@@ -138,12 +138,17 @@ ui <- fluidPage(
                  produksjonsområder (FOR-2017-01-16-61).Produksjonsområder eller fylker med meget få
                  lokaliteter er tatt ut av fremstillingen, for at det ikke skal være mulig å kjenne igjen enkelt lokaliteter."),
                  
+                 h4("Referanser"),
+                 
+                 p("Toft, N., Agger, J. F., Houe, H., & Bruun, J. (2004). Measures of disease frequency. In H. Houe, A. K. Ersbøll, & N. Toft (Eds.), Introduction to Veterinary Epidemiology (pp. 77–93). Frederiksberg, Denmark: Biofolia."),
+                 
+                 p("Bang Jensen, B., Qviller, L. & Toft, N. (2020). Spatio-temporal variations in mortality during the seawater production phase of Atlantic salmon (Salmo salar) in Norway. J. Fish Dis. 43, 445–457."),
+                 
                  h4("Kontakt"),
                  
                  p("Dersom du har spørsmål eller kommentarer til tabellene, vennligst ta kontakt med  ",
-                   a(href = 'mailto:victor.oliveira@vetinst.no', "Victor H.S. Oliveira ", .noWS = "outside"),
-                   "(teknisk ansvarlig) eller ", a(href = "mailto:Hege.Lokslett@vetinst.no", "Hege Løkslett ", .noWS = "outside"),
-                   "(faglig ansvarlig).")
+                   a(href = 'mailto:edgar.brun@vetinst.no', "Edgar Brun ", .noWS = "outside"),
+                   "(avdelingsdirektør, fiskehelse og fiskevelferd).")
                  
                  )) 
       )
