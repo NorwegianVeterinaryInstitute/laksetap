@@ -9,8 +9,6 @@ library(pins)
 library(lubridate)
 
 
-
-
 ui <- fluidPage(
   tags$head(tags$style(HTML('* {font-family: "Futura PT Medium"};'))),
   titlePanel( 
@@ -28,6 +26,7 @@ ui <- fluidPage(
   ),
   sidebarLayout(
     sidebarPanel(
+      conditionalPanel(condition = "input.tabselected1==1",
       selectInput("species", "Velg art:",
                   c("Laks" = "salmon", #should match what is in the data set to use as a selection (for example, "salmon" matches salmon in losses)
                     "Regnbueørret" = "rainbowtrout"),
@@ -43,9 +42,26 @@ ui <- fluidPage(
       Det er mulig å velge å se enten det totale tapet (fanen ‘Tap’),
       eller bare tap forårsaket av dødelighet (fanen ‘Dødelighet’)."),
       width = 2),
+      
+      conditionalPanel(condition = "input.tabselected2==2",
+                       selectInput("species", "Velg art:",
+                                   c("Laks" = "salmon", #should match what is in the data set to use as a selection (for example, "salmon" matches salmon in losses)
+                                     "Regnbueørret" = "rainbowtrout"),
+                                   selected = c("salmon")),
+                       selectInput("geo_group", "Velg geografisk område:",
+                                   c("Fylke" = "fylke",
+                                     "Produksjonssone" = "zone",
+                                     "Norge" = "all"),
+                                   selected = c("all")),
+                       hr(),
+                       helpText("NOVOTallene er basert på månedlige innrapporteringer til Fiskeridirektoratet.
+      Les mer om hvordan statistikken lages i fanen ‘Om statistikken’.
+      Det er mulig å velge å se enten det totale tapet (fanen ‘Tap’),
+      eller bare tap forårsaket av dødelighet (fanen ‘Dødelighet’)."),
+      width = 2)),
     mainPanel(
       navbarPage(title = "",
-        tabPanel(h5("Tap"),
+        tabPanel(h5("Tap"), value = 1, id = "tabselected1",
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
@@ -73,7 +89,7 @@ ui <- fluidPage(
                  br()
                  #,p("test")
         ),
-        tabPanel(h5("Dødelighet"),
+        tabPanel(h5("Dødelighet"), value = 2, id = "tabselected2",
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
@@ -198,34 +214,41 @@ ui <- fluidPage(
         #          br()
         #          #,p("test")
         # ),
-        # tabPanel(h5("Calculator"),
-        #          tabsetPanel(type = "tabs",
-        #                      tabPanel("Tabell",
-        #                               br(),
-        #                               selectizeInput("select_years_table6","Velg år:",
-        #                                              c("2023" = 2023,
-        #                                                "2022" = 2022,
-        #                                                "2021" = 2021,
-        #                                                "2020" = 2020,
-        #                                                "2019" = 2019),
-        #                                              selected = c(2023, 2022, 2021, 2020, 2019),
-        #                                              multiple = T),
-        #                               DTOutput("table_losses"),
-        #                               hr(),
-        #                               p("Forklaring av tall: ‘Total’ viser det totale tapet. ‘Døde’ viser antall døde.
-        #                      ‘Døde%’ viser hvor stor andel av det totale tapet som skyldes døde.
-        #                      Tilsvarende gjelder for ‘Utkast%’, ‘Rømt%’ og ‘Annet%’. For forklaring av kategoriene,
-        #                      se fanen ‘Om statistikken’.")),
-        #                      tabPanel("Diagram", 
-        #                               br(),
-        #                               selectInput("select_year", "Velg år:", list(
-        #                                 "År" = c(2023, 2022, 2021, 2020, 2019))),
-        #                               plotlyOutput("plot_losses"))),
-        #          br(),
-        #          #hr(),
-        #          br()
-        #          #,p("test")
-        # ),
+        tabPanel(h5("Mortality Rate Calculator"),
+           tabsetPanel(type = "tabs",
+    tabPanel("Calculate Mortality Rate",
+             sidebarLayout(
+               sidebarPanel(
+                 numericInput("beginning_count", "Number of Animals at the Beginning of the Month:", value = 100),
+                 numericInput("end_count", "Number of Animals at the End of the Month:", value = 90),
+                 numericInput("dead_count", "Number of Dead Animals During the Month:", value = 5),
+                 actionButton("calculate_button", "Calculate"),
+                 br(),
+                 verbatimTextOutput("result_text"),
+                 plotOutput("mortality_plot")
+               ),
+               
+               mainPanel()
+             )
+    ),
+    
+    tabPanel("Calculate Cumulative Mortality Risk",
+             sidebarLayout(
+               sidebarPanel(
+                 textInput("mortality_input_cum", "Enter Monthly Mortality Rates (comma-separated):", ""),
+                 actionButton("calculate_button_cum", "Calculate"),
+                 br(),
+                 verbatimTextOutput("result_text_cum"),
+                 plotOutput("cumulative_risk_plot")
+               ),
+               
+               mainPanel()
+             )
+    )
+  )
+                 
+                          
+        ),
         #fluid = T,
         tabPanel(h5("Om statistikken"),
                  
