@@ -9,15 +9,6 @@ library(pins)
 library(lubridate)
 
 
-laksetap_board <- board_connect()
-# this is the dataset used for the existing app.
-losses <- pin_read(laksetap_board, "vi2451/losses_and_mortality_yearly_data")
-
-# new datasets
-losses_monthly_data <- pin_read(laksetap_board, "vi2451/losses_monthly_data") %>%
-  dplyr::mutate(area = dplyr::if_else(area == "Norway", "Norge", area))
-mortality_rates_monthly_data <- pin_read(laksetap_board, "vi2451/mortality_rates_monthly_data")
-mortality_cohorts_data <- pin_read(laksetap_board, "vi2451/mortality_cohorts_data")
 
 
 ui <- fluidPage(
@@ -147,36 +138,38 @@ ui <- fluidPage(
                  br()
                  #,p("test")
         ),
-        # tabPanel(h5("DødelighetMonth"),
-        #          tabsetPanel(type = "tabs",
-        #                      tabPanel("Tabell",
-        #                               br(),
-        #                               selectizeInput("select_years_table4","Velg år:",
-        #                                              c("2023" = 2023,
-        #                                                "2022" = 2022,
-        #                                                "2021" = 2021,
-        #                                                "2020" = 2020,
-        #                                                "2019" = 2019),
-        #                                              selected = c(2023, 2022, 2021, 2020, 2019),
-        #                                              multiple = T),
-        #                               DTOutput("table_mortality"),
-        #                               #br(),
-        #                               hr(),
-        #                               #br(),
-        #                               p("I tabellen er prosent døde angitt for henholdsvis laks og regnbueørret.
-        #                                 I disse tallene inngår ikke tap som følge av utkast, rømming eller «annet».
-        #                                 Se for øvrig beskrivelse av beregningsmetode i fanen ‘Om statistikken’. 
-        #                                 Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
-        #                                 for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")),
-        #                      tabPanel("Diagram", 
-        #                               br(),
-        #                               plotlyOutput("plot_mortality"),
-        #                               #br(),
-        #                               hr(),
-        #                               #br(),
-        #                               p("Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
-        #                                 for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")))
-        # ),
+        tabPanel(h5("Dødelighet Måned"),
+                 tabsetPanel(type = "tabs",
+                             tabPanel("Tabell",
+                                      br(),
+                                      selectizeInput("select_years_table4","Velg år:",
+                                                     c("2023" = 2023,
+                                                       "2022" = 2022,
+                                                       "2021" = 2021,
+                                                       "2020" = 2020,
+                                                       "2019" = 2019),
+                                                     selected = c(2023, 2022, 2021, 2020, 2019),
+                                                     multiple = T),
+                                      DTOutput("table_mortality_month"),
+                                      #br(),
+                                      hr(),
+                                      #br(),
+                                      p("I tabellen er prosent døde angitt for henholdsvis laks og regnbueørret.
+                                        I disse tallene inngår ikke tap som følge av utkast, rømming eller «annet».
+                                        Se for øvrig beskrivelse av beregningsmetode i fanen ‘Om statistikken’.
+                                        Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
+                                        for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")),
+                             tabPanel("Diagram",
+                                      br(),
+                                      selectInput("select_year_mort", "Velg år:", list(
+                                        "År" = c(2023, 2022, 2021, 2020, 2019))),
+                                      plotlyOutput("plot_mortality_month"),
+                                      #br(),
+                                      hr(),
+                                      #br(),
+                                      p("Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
+                                        for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")))
+        ),
         # tabPanel(h5("Cohort"),
         #          tabsetPanel(type = "tabs",
         #                      tabPanel("Tabell",
@@ -296,7 +289,23 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   
+  #### colors ####
   myPallete <- c('#cd692c', '#98a762','#dac266','#886b9a')
+  
+  #### data ####
+  
+  laksetap_board <- board_connect()
+  # this is the dataset used for the existing app.
+  losses <- pin_read(laksetap_board, "vi2451/losses_and_mortality_yearly_data")
+  
+  # new datasets
+  losses_monthly_data <- pin_read(laksetap_board, "vi2451/losses_monthly_data") %>%
+    dplyr::mutate(area = dplyr::if_else(area == "Norway", "Norge", area)) %>% 
+    dplyr::mutate(year =  as.factor(year(ym(year_month)))) 
+  mortality_rates_monthly_data <- pin_read(laksetap_board, "vi2451/mortality_rates_monthly_data") %>% 
+    dplyr::mutate(year =  as.factor(year(date))) %>%
+    dplyr::mutate(month_name = month(date, label = TRUE))
+  mortality_cohorts_data <- pin_read(laksetap_board, "vi2451/mortality_cohorts_data")
   
   
   #### LOSSES yearly ####
@@ -408,8 +417,7 @@ server <- function(input, output) {
     eventReactive(c(input$species, input$geo_group), {
       losses_monthly_data %>%
         dplyr::filter(species == input$species &
-                        viz == input$geo_group) %>% 
-        dplyr::mutate(year =  as.factor(year(ym(year_month))))
+                        viz == input$geo_group) 
     })
   
   
@@ -449,6 +457,96 @@ server <- function(input, output) {
              yaxis = list(title = 'Antall (millioner)'),
              xaxis = list( title = "Område")))
     
+  
+  ##### MORTALITY monthly ####
+  
+  df_mort_month <-
+    eventReactive(c(input$species, input$geo_group), {
+      mortality_rates_monthly_data %>%
+        dplyr::filter(species == input$species &
+                        viz == input$geo_group) 
+    })
+  
+  
+  output$table_mortality_month <- DT::renderDT (
+    datatable(df_mort_month() %>%
+                dplyr:: filter (!is.na(median)) %>%
+                dplyr:: select (year, area, median) %>% # 
+                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table4),
+              #filter = "top",
+              rownames = F,
+              colnames= c( "År", "Område", "Dødelighet %"), # also here
+              selection = (list(mode = 'multiple', selected = "all", target ='column')),
+              options = list(sDom  = '<"top">lrt<"bottom">ip',
+                             autoWidth = FALSE,
+                             #columnDefs = list(list(width = '100px', targets = c(1, 2))),
+                             scrollX = TRUE,
+                             language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))
+    ))
+  
+  output$plot_mortality_month <- renderPlotly(
+    plot_ly(df_mort_month() %>% 
+              dplyr::filter (year %in% input$select_year_mort) %>%
+              spread(month_name, median) %>% 
+            #  dplyr::filter (!is.na(`2023`) | !is.na(`2022`) | !is.na(`2021`) | !is.na(`2020`) | !is.na(`2019`)) %>%
+              dplyr::filter (!(area == "All"| area == "Norway")) %>%
+              droplevels(),
+            x = ~area, y = ~ Jan, name = "Jan", type = 'scatter',
+            mode = "markers", marker = list(color = "#253494"),
+            hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                              "Prosentene: ", "Jan","<br>")) %>%
+      add_trace(x = ~area, y = ~ Feb, name = "Feb",type = 'scatter',
+                mode = "markers", marker = list(color = "#2c7fb8"),
+                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                  "Prosentene: ", "Feb","<br>")) %>%
+      add_trace(x = ~area, y = ~ Mar, name = "Mar",type = 'scatter',
+                mode = "markers", marker = list(color = "#41b6c4"),
+                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                  "Prosentene: ", "Mar","<br>")) %>%
+      add_trace(x = ~area, y = ~ Apr, name = "Apr",type = 'scatter',
+                mode = "markers", marker = list(color = "#a1dab4"),
+                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                  "Prosentene: ", "Apr","<br>")) %>%
+      add_trace(x = ~area, y = ~ May, name = "May",type = 'scatter',
+                mode = "markers", marker = list(color = '#feb24c'),
+                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                  "Prosentene: ", "May","<br>")) %>%
+      add_trace(x = ~area, y = ~ Jun, name = "Jun",type = 'scatter',
+                mode = "markers", marker = list(color = '#feb24c'),
+                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                  "Prosentene: ", "Jun","<br>")) %>%
+      add_trace(x = ~area, y = ~ Jul, name = "Jul",type = 'scatter',
+                mode = "markers", marker = list(color = '#feb24c'),
+                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                  "Prosentene: ", Jul,"<br>")) %>%
+      add_trace(x = ~area, y = ~ Aug, name = "Aug",type = 'scatter',
+                mode = "markers", marker = list(color = '#feb24c'),
+                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                  "Prosentene: ", "Aug","<br>")) %>%
+      add_trace(x = ~area, y = ~ Sep, name = "Sep",type = 'scatter',
+                mode = "markers", marker = list(color = '#feb24c'),
+                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                  "Prosentene: ", "Sep","<br>")) %>%
+      add_trace(x = ~area, y = ~ Oct, name = "Oct",type = 'scatter',
+                mode = "markers", marker = list(color = '#feb24c'),
+                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                  "Prosentene: ", "Oct","<br>")) %>%
+      add_trace(x = ~area, y = ~ Nov, name = "Nov",type = 'scatter',
+                mode = "markers", marker = list(color = '#feb24c'),
+                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                  "Prosentene: ", Nov,"<br>")) %>%
+      add_trace(x = ~area, y = ~ Dec, name = "Dec",type = 'scatter',
+                mode = "markers", marker = list(color = '#feb24c'),
+                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                  "Prosentene: ", "Dec","<br>")) %>%
+      
+      layout(title = "", 
+             annotations=list(yref='paper',xref="paper",y=1.09,x=.2, text="Velg år:",showarrow=F, font=list(size=14,face="bold")),
+             legend = list(orientation = "h", x= .25, y = 1.1),
+             xaxis = list(title = "Område"),
+             yaxis = list (title = "Dødelighet (%)", categoryarray = ~ area), 
+             margin = list(l = 100)))
+  
   
   
    
