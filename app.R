@@ -26,22 +26,7 @@ ui <- fluidPage(
   ),
   sidebarLayout(
     sidebarPanel(
-      renderUI("sidebar_content")),
-      # selectInput("species", "Velg art:",
-      #             c("Laks" = "salmon", #should match what is in the data set to use as a selection (for example, "salmon" matches salmon in losses)
-      #               "Regnbueørret" = "rainbowtrout"),
-      #             selected = c("salmon")),
-      # selectInput("geo_group", "Velg geografisk område:",
-      #             c("Fylke" = "fylke",
-      #               "Produksjonssone" = "zone",
-      #               "Norge" = "all"),
-      #             selected = c("all")),
-      # hr(),
-      # helpText("Tallene er basert på månedlige innrapporteringer til Fiskeridirektoratet.
-      # Les mer om hvordan statistikken lages i fanen ‘Om statistikken’.
-      # Det er mulig å velge å se enten det totale tapet (fanen ‘Tap’),
-      # eller bare tap forårsaket av dødelighet (fanen ‘Dødelighet’)."),
-      # width = 2),
+      uiOutput("sidebar_content")),
     mainPanel(
       navbarPage(title = "", id = "navbar",
         tabPanel(h5("Tap"),
@@ -162,14 +147,14 @@ ui <- fluidPage(
                                       br(),
                                      fluidRow(
                                         column(width = 6,
-                                      selectInput("select_year", "Velg år:", list(
+                                      selectInput("select_year_mort", "Velg år:", list(
                                         "År" = c(2023, 2022, 2021, 2020, 2019)))),
                                       column(width = 6,
                                              selectInput("select_zone", "Velg zone:", list(
                                                "Zone" = c("1 & 2", "2", "3", "4", "5", "6",
                                                           "7", "8", "9", "10", "11", "12 & 13"))))
                                       ),
-                                      plotOutput("plot_mortality_month"),
+                                      plotlyOutput("plot_mortality_month"),
                                       #br(),
                                       hr(),
                                       #br(),
@@ -280,18 +265,17 @@ server <- function(input, output) {
     if (input$navbar == "calc") {
       output$sidebar_content <-
         renderUI(
-            sidebarPanel(
+          tagList(
               numericInput("beginning_count", "Number of Animals at the Beginning of the Month:", value = 100),
               numericInput("end_count", "Number of Animals at the End of the Month:", value = 90),
               numericInput("dead_count", "Number of Dead Animals During the Month:", value = 5),
-              actionButton("calculate_button", "Calculate"),
-              width = 2
+              actionButton("calculate_button", "Calculate")
             )
         )
       } else {
           output$sidebar_content <- renderUI(
             
-            sidebarPanel(
+            tagList(
               selectInput("species", "Velg art:",
                           c("Laks" = "salmon", #should match what is in the data set to use as a selection (for example, "salmon" matches salmon in losses)
                             "Regnbueørret" = "rainbowtrout"),
@@ -305,8 +289,7 @@ server <- function(input, output) {
               helpText("Tallene er basert på månedlige innrapporteringer til Fiskeridirektoratet.
       Les mer om hvordan statistikken lages i fanen ‘Om statistikken’.
       Det er mulig å velge å se enten det totale tapet (fanen ‘Tap’),
-      eller bare tap forårsaket av dødelighet (fanen ‘Dødelighet’)."),
-      width = 2)
+      eller bare tap forårsaket av dødelighet (fanen ‘Dødelighet’)."))
           )
       }
     })
@@ -509,18 +492,21 @@ server <- function(input, output) {
                              language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))
     ))
   
-  output$plot_mortality_month <- renderPlot(
-     df_mort_month() %>% 
-              dplyr::filter (year %in% input$select_year_mort) %>%
-              dplyr::filter (area %in% c("input$select_zone", "Norge")) %>%
+  output$plot_mortality_month <- renderPlotly({
+     p <- mortality_rates_monthly_data %>% 
+              dplyr::filter(year %in% input$select_year_mort) %>%
+              dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
               dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>% 
               dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
       ggplot() +
-      aes(x = month_name, y = median, color = area, group=area) + 
+      aes(x = month_name, y = median, color = area, group = area) + 
       geom_line() +
       geom_ribbon(aes(ymin= .data$q1, ymax=.data$q3), linetype= 0, alpha=0.1) +
       theme_minimal() 
       
+     #browser()
+     
+     plotly::ggplotly(p)}
   )
   
   
@@ -549,24 +535,22 @@ server <- function(input, output) {
                              language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))
     ))
   
-  output$plot_cohort <- renderPlot(
+  output$plot_cohort <- renderPlot({
     
     df_cohorts() %>%
-      dplyr::filter(species == input$species &
-                      viz == input$geo_group & year == input$select_year_coh) %>%
+      dplyr::filter(year == input$select_year_coh) %>%
       ggplot() +
       aes(x = year, y = mort, group = area, fill = area) +
       geom_boxplot(aes(ymin = q1, lower = q1, middle = mort, upper = q3, ymax = q3), stat = "identity", width = 0.5, position = position_dodge(width = 0.8)) +
       geom_text(aes(label = area), position = position_dodge(width = 0.8), vjust = -0.5) +  # Add labels
       labs(title = "Mortality of fish cohorts harvested in a year per zone and Norway (>= 12 months)",
-           x = "2022",
+           x = input$select_year_coh,
            y = "Mortality %") +
       theme_minimal() +
       theme(axis.text.x = element_blank()) +
       guides(fill = "none") 
     
-    
-    
+  } 
   )
    
 }
