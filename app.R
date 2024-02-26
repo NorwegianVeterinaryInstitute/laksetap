@@ -26,23 +26,24 @@ ui <- fluidPage(
   ),
   sidebarLayout(
     sidebarPanel(
-      selectInput("species", "Velg art:",
-                  c("Laks" = "salmon", #should match what is in the data set to use as a selection (for example, "salmon" matches salmon in losses)
-                    "Regnbueørret" = "rainbowtrout"),
-                  selected = c("salmon")),
-      selectInput("geo_group", "Velg geografisk område:",
-                  c("Fylke" = "fylke",
-                    "Produksjonssone" = "zone",
-                    "Norge" = "all"),
-                  selected = c("all")),
-      hr(),
-      helpText("Tallene er basert på månedlige innrapporteringer til Fiskeridirektoratet.
-      Les mer om hvordan statistikken lages i fanen ‘Om statistikken’.
-      Det er mulig å velge å se enten det totale tapet (fanen ‘Tap’),
-      eller bare tap forårsaket av dødelighet (fanen ‘Dødelighet’)."),
-      width = 2),
+      renderUI("sidebar_content")),
+      # selectInput("species", "Velg art:",
+      #             c("Laks" = "salmon", #should match what is in the data set to use as a selection (for example, "salmon" matches salmon in losses)
+      #               "Regnbueørret" = "rainbowtrout"),
+      #             selected = c("salmon")),
+      # selectInput("geo_group", "Velg geografisk område:",
+      #             c("Fylke" = "fylke",
+      #               "Produksjonssone" = "zone",
+      #               "Norge" = "all"),
+      #             selected = c("all")),
+      # hr(),
+      # helpText("Tallene er basert på månedlige innrapporteringer til Fiskeridirektoratet.
+      # Les mer om hvordan statistikken lages i fanen ‘Om statistikken’.
+      # Det er mulig å velge å se enten det totale tapet (fanen ‘Tap’),
+      # eller bare tap forårsaket av dødelighet (fanen ‘Dødelighet’)."),
+      # width = 2),
     mainPanel(
-      navbarPage(title = "",
+      navbarPage(title = "", id = "navbar",
         tabPanel(h5("Tap"),
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
@@ -204,7 +205,7 @@ ui <- fluidPage(
                  br()
                  #,p("test")
         ),
-        tabPanel(h5("Mortality Rate Calculator"),
+        tabPanel(h5("Mortality Rate Calculator"), value = "calc",
                  tabsetPanel(type = "tabs",
                              tabPanel("Calculate Mortality Rate"),
                              tabPanel("Calculate Cumulative Mortality Risk"),
@@ -274,6 +275,42 @@ ui <- fluidPage(
 
 
 server <- function(input, output) {
+  
+  observeEvent(input$navbar, {
+    if (input$navbar == "calc") {
+      output$sidebar_content <-
+        renderUI(
+            sidebarPanel(
+              numericInput("beginning_count", "Number of Animals at the Beginning of the Month:", value = 100),
+              numericInput("end_count", "Number of Animals at the End of the Month:", value = 90),
+              numericInput("dead_count", "Number of Dead Animals During the Month:", value = 5),
+              actionButton("calculate_button", "Calculate"),
+              width = 2
+            )
+        )
+      } else {
+          output$sidebar_content <- renderUI(
+            
+            sidebarPanel(
+              selectInput("species", "Velg art:",
+                          c("Laks" = "salmon", #should match what is in the data set to use as a selection (for example, "salmon" matches salmon in losses)
+                            "Regnbueørret" = "rainbowtrout"),
+                          selected = c("salmon")),
+              selectInput("geo_group", "Velg geografisk område:",
+                          c("Fylke" = "fylke",
+                            "Produksjonssone" = "zone",
+                            "Norge" = "all"),
+                          selected = c("all")),
+              hr(),
+              helpText("Tallene er basert på månedlige innrapporteringer til Fiskeridirektoratet.
+      Les mer om hvordan statistikken lages i fanen ‘Om statistikken’.
+      Det er mulig å velge å se enten det totale tapet (fanen ‘Tap’),
+      eller bare tap forårsaket av dødelighet (fanen ‘Dødelighet’)."),
+      width = 2)
+          )
+      }
+    })
+  
   
   #### colors ####
   myPallete <- c('#cd692c', '#98a762','#dac266','#886b9a')
