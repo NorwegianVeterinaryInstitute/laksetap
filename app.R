@@ -204,35 +204,15 @@ ui <- fluidPage(
                  br()
                  #,p("test")
         ),
-        # tabPanel(h5("Mortality Rate Calculator"),
-        #          tabsetPanel(type = "tabs",
-        #                      tabPanel("Tabell",
-        #                               br(),
-        #                               selectizeInput("select_years_table6","Velg år:",
-        #                                              c("2023" = 2023,
-        #                                                "2022" = 2022,
-        #                                                "2021" = 2021,
-        #                                                "2020" = 2020,
-        #                                                "2019" = 2019),
-        #                                              selected = c(2023, 2022, 2021, 2020, 2019),
-        #                                              multiple = T),
-        #                               DTOutput("table_losses"),
-        #                               hr(),
-        #                               p("Forklaring av tall: ‘Total’ viser det totale tapet. ‘Døde’ viser antall døde.
-        #                      ‘Døde%’ viser hvor stor andel av det totale tapet som skyldes døde.
-        #                      Tilsvarende gjelder for ‘Utkast%’, ‘Rømt%’ og ‘Annet%’. For forklaring av kategoriene,
-        #                      se fanen ‘Om statistikken’.")),
-        #                      tabPanel("Diagram", 
-        #                               br(),
-        #                               selectInput("select_year", "Velg år:", list(
-        #                                 "År" = c(2023, 2022, 2021, 2020, 2019))),
-        #                               plotlyOutput("plot_losses"))),
-        #          br(),
-        #          #hr(),
-        #          br()
-        #          #,p("test")
-        # ),
-        #fluid = T,
+        tabPanel(h5("Mortality Rate Calculator"),
+                 tabsetPanel(type = "tabs",
+                             tabPanel("Calculate Mortality Rate"),
+                             tabPanel("Calculate Cumulative Mortality Risk"),
+                 br(),
+                 #hr(),
+                 br()
+                 #,p("test")
+        )),
         tabPanel(h5("Om statistikken"),
                  
                  column(width = 9,
