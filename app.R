@@ -159,9 +159,16 @@ ui <- fluidPage(
                                         for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")),
                              tabPanel("Diagram",
                                       br(),
-                                      selectInput("select_year_mort", "Velg år:", list(
-                                        "År" = c(2023, 2022, 2021, 2020, 2019))),
-                                      plotlyOutput("plot_mortality_month"),
+                                     fluidRow(
+                                        column(width = 6,
+                                      selectInput("select_year", "Velg år:", list(
+                                        "År" = c(2023, 2022, 2021, 2020, 2019)))),
+                                      column(width = 6,
+                                             selectInput("select_zone", "Velg zone:", list(
+                                               "Zone" = c("1 & 2", "2", "3", "4", "5", "6",
+                                                          "7", "8", "9", "10", "11", "12 & 13"))))
+                                      ),
+                                      plotOutput("plot_mortality_month"),
                                       #br(),
                                       hr(),
                                       #br(),
@@ -188,9 +195,10 @@ ui <- fluidPage(
                              se fanen ‘Om statistikken’.")),
                              tabPanel("Diagram",
                                       br(),
-                                      selectInput("select_year", "Velg år:", list(
-                                        "År" = c(2023, 2022, 2021, 2020, 2019))),
-                                      plotlyOutput("plot_cohort"))),
+                                        column(width = 6,
+                                               selectInput("select_year_coh", "Velg år:", list(
+                                                 "År" = c(2023, 2022, 2021, 2020, 2019)))),
+                                      plotOutput("plot_cohort"))),
                  br(),
                  #hr(),
                  br()
@@ -484,68 +492,19 @@ server <- function(input, output) {
                              language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))
     ))
   
-  output$plot_mortality_month <- renderPlotly(
-    plot_ly(df_mort_month() %>% 
+  output$plot_mortality_month <- renderPlot(
+     df_mort_month() %>% 
               dplyr::filter (year %in% input$select_year_mort) %>%
-              spread(month_name, median) %>% 
-            #  dplyr::filter (!is.na(`2023`) | !is.na(`2022`) | !is.na(`2021`) | !is.na(`2020`) | !is.na(`2019`)) %>%
-              dplyr::filter (!(area == "All"| area == "Norway")) %>%
-              droplevels(),
-            x = ~area, y = ~ Jan, name = "Jan", type = 'scatter',
-            mode = "markers", marker = list(color = "#253494"),
-            hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                              "Prosentene: ", "Jan","<br>")) %>%
-      add_trace(x = ~area, y = ~ Feb, name = "Feb",type = 'scatter',
-                mode = "markers", marker = list(color = "#2c7fb8"),
-                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                  "Prosentene: ", "Feb","<br>")) %>%
-      add_trace(x = ~area, y = ~ Mar, name = "Mar",type = 'scatter',
-                mode = "markers", marker = list(color = "#41b6c4"),
-                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                  "Prosentene: ", "Mar","<br>")) %>%
-      add_trace(x = ~area, y = ~ Apr, name = "Apr",type = 'scatter',
-                mode = "markers", marker = list(color = "#a1dab4"),
-                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                  "Prosentene: ", "Apr","<br>")) %>%
-      add_trace(x = ~area, y = ~ May, name = "May",type = 'scatter',
-                mode = "markers", marker = list(color = '#feb24c'),
-                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                  "Prosentene: ", "May","<br>")) %>%
-      add_trace(x = ~area, y = ~ Jun, name = "Jun",type = 'scatter',
-                mode = "markers", marker = list(color = '#feb24c'),
-                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                  "Prosentene: ", "Jun","<br>")) %>%
-      add_trace(x = ~area, y = ~ Jul, name = "Jul",type = 'scatter',
-                mode = "markers", marker = list(color = '#feb24c'),
-                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                  "Prosentene: ", Jul,"<br>")) %>%
-      add_trace(x = ~area, y = ~ Aug, name = "Aug",type = 'scatter',
-                mode = "markers", marker = list(color = '#feb24c'),
-                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                  "Prosentene: ", "Aug","<br>")) %>%
-      add_trace(x = ~area, y = ~ Sep, name = "Sep",type = 'scatter',
-                mode = "markers", marker = list(color = '#feb24c'),
-                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                  "Prosentene: ", "Sep","<br>")) %>%
-      add_trace(x = ~area, y = ~ Oct, name = "Oct",type = 'scatter',
-                mode = "markers", marker = list(color = '#feb24c'),
-                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                  "Prosentene: ", "Oct","<br>")) %>%
-      add_trace(x = ~area, y = ~ Nov, name = "Nov",type = 'scatter',
-                mode = "markers", marker = list(color = '#feb24c'),
-                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                  "Prosentene: ", Nov,"<br>")) %>%
-      add_trace(x = ~area, y = ~ Dec, name = "Dec",type = 'scatter',
-                mode = "markers", marker = list(color = '#feb24c'),
-                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                  "Prosentene: ", "Dec","<br>")) %>%
+              dplyr::filter (area %in% c("input$select_zone", "Norge")) %>%
+              dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>% 
+              dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
+      ggplot() +
+      aes(x = month_name, y = median, color = area, group=area) + 
+      geom_line() +
+      geom_ribbon(aes(ymin= .data$q1, ymax=.data$q3), linetype= 0, alpha=0.1) +
+      theme_minimal() 
       
-      layout(title = "", 
-             annotations=list(yref='paper',xref="paper",y=1.09,x=.2, text="Velg år:",showarrow=F, font=list(size=14,face="bold")),
-             legend = list(orientation = "h", x= .25, y = 1.1),
-             xaxis = list(title = "Område"),
-             yaxis = list (title = "Dødelighet (%)", categoryarray = ~ area), 
-             margin = list(l = 100)))
+  )
   
   
   #### COHORTS ####
@@ -573,7 +532,25 @@ server <- function(input, output) {
                              language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))
     ))
   
-  #output$plot_cohort <- renderPlotly()
+  output$plot_cohort <- renderPlot(
+    
+    df_cohorts() %>%
+      dplyr::filter(species == input$species &
+                      viz == input$geo_group & year == input$select_year_coh) %>%
+      ggplot() +
+      aes(x = year, y = mort, group = area, fill = area) +
+      geom_boxplot(aes(ymin = q1, lower = q1, middle = mort, upper = q3, ymax = q3), stat = "identity", width = 0.5, position = position_dodge(width = 0.8)) +
+      geom_text(aes(label = area), position = position_dodge(width = 0.8), vjust = -0.5) +  # Add labels
+      labs(title = "Mortality of fish cohorts harvested in a year per zone and Norway (>= 12 months)",
+           x = "2022",
+           y = "Mortality %") +
+      theme_minimal() +
+      theme(axis.text.x = element_blank()) +
+      guides(fill = "none") 
+    
+    
+    
+  )
    
 }
 
