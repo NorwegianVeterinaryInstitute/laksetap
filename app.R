@@ -26,7 +26,8 @@ ui <- fluidPage(
   ),
   sidebarLayout(
     sidebarPanel(
-      uiOutput("sidebar_content")),
+      uiOutput("sidebar_content"),
+      width = 2),
     mainPanel(
       navbarPage(title = "", id = "navbar",
         tabPanel(h5("Tap"),
@@ -184,21 +185,21 @@ ui <- fluidPage(
                                         column(width = 6,
                                                selectInput("select_year_coh", "Velg år:", list(
                                                  "År" = c(2023, 2022, 2021, 2020, 2019)))),
-                                      plotOutput("plot_cohort"))),
+                                      plotlyOutput("plot_cohort"))),
                  br(),
                  #hr(),
                  br()
                  #,p("test")
         ),
-        tabPanel(h5("Mortality Rate Calculator"), value = "calc",
-                 tabsetPanel(type = "tabs",
-                             tabPanel("Calculate Mortality Rate"),
-                             tabPanel("Calculate Cumulative Mortality Risk"),
-                 br(),
-                 #hr(),
-                 br()
-                 #,p("test")
-        )),
+        tabPanel(h5("Calculate Mortality Rate"), value = "calc",
+                              verbatimTextOutput("result_text"),
+                                      plotOutput("mortality_plot")
+                                      ),
+      tabPanel(h5("Calculate Cumulative Mortality Risk"), value = "calc_cum",
+                 verbatimTextOutput("result_text_cum"),
+                 plotOutput("cumulative_risk_plot")
+                
+        ),
         tabPanel(h5("Om statistikken"),
                  
                  column(width = 9,
@@ -272,7 +273,14 @@ server <- function(input, output) {
               actionButton("calculate_button", "Calculate")
             )
         )
-      } else {
+    } else if (input$navbar == "calc_cum") {
+      output$sidebar_content <-
+        renderUI(
+      tagList(
+      textInput("mortality_input_cum", "Enter Monthly Mortality Rates (comma-separated):", ""),
+      actionButton("calculate_button_cum", "Calculate"))
+        )
+      }    else {
           output$sidebar_content <- renderUI(
             
             tagList(
@@ -535,14 +543,16 @@ server <- function(input, output) {
                              language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))
     ))
   
-  output$plot_cohort <- renderPlot({
+  output$plot_cohort <- renderPlotly({
     
-    df_cohorts() %>%
+    p <- df_cohorts() %>%
       dplyr::filter(year == input$select_year_coh) %>%
       ggplot() +
-      aes(x = year, y = mort, group = area, fill = area) +
-      geom_boxplot(aes(ymin = q1, lower = q1, middle = mort, upper = q3, ymax = q3), stat = "identity", width = 0.5, position = position_dodge(width = 0.8)) +
-      geom_text(aes(label = area), position = position_dodge(width = 0.8), vjust = -0.5) +  # Add labels
+      geom_segment(
+        aes(color = area, x = area, xend = area, y = q1, yend=q3), size = 10) +
+      geom_point(
+        aes(x = area, y = mort, group = year),
+        pch = 10, size = 9, fill = "black", stroke = 0.2) +
       labs(title = "Mortality of fish cohorts harvested in a year per zone and Norway (>= 12 months)",
            x = input$select_year_coh,
            y = "Mortality %") +
@@ -550,9 +560,56 @@ server <- function(input, output) {
       theme(axis.text.x = element_blank()) +
       guides(fill = "none") 
     
+    
+    ggplotly(p)
+    
   } 
   )
    
+  
+  #### CALCULATOR ####
+  
+  observeEvent(input$calculate_button, {
+    # Calculate mortality rate
+    ar_count <- input$end_count
+    d_count <- input$dead_count
+    mort_rate <- d_count / ar_count
+    
+    # Display the results
+    output$result_text <- renderText({
+      paste("Mortality Rate:", sprintf("%.2f%%", mort_rate * 100))
+    })
+    
+    # Plot the mortality rate over time (placeholder plot)
+    output$mortality_plot <- renderPlot({
+      plot(1, type = "n", xlab = "", ylab = "", main = "Mortality Rate Over Time")
+      text(1, 1, paste("Mortality Rate:", sprintf("%.2f%%", mort_rate * 100)), cex = 1.5)
+    })
+  })
+  
+  
+  observeEvent(input$calculate_button_cum, {
+    
+    # Extract and convert monthly mortality rates
+    mort_rates_cum <- as.numeric(unlist(strsplit(input$mortality_input_cum, ",")))
+    
+    # Calculate cumulative mortality risk
+    sum_mort_rate_cum <- sum(mort_rates_cum)
+    cum_risk_cum <- 1 - exp(-sum_mort_rate_cum)
+    
+    # Display the results
+    output$result_text_cum <- renderText({
+      paste("Cumulative Mortality Risk:", sprintf("%.2f%%", cum_risk_cum * 100))
+    })
+    
+    # Plot the monthly mortality rates over time (placeholder plot)
+    output$cumulative_risk_plot <- renderPlot({
+      barplot(mort_rates_cum, names.arg = seq_along(mort_rates_cum), col = "steelblue", 
+              main = "Monthly Mortality Rates",
+              xlab = "Month", ylab = "Mortality Rate")
+    })
+  })
+  
 }
 
 shinyApp(ui, server)
