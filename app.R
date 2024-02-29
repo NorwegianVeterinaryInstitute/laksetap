@@ -167,6 +167,10 @@ ui <- fluidPage(
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
+                                      
+                                      
+                                      fluidRow(
+                                      column(width = 4,
                                       selectizeInput("select_years_table5","Velg år:",
                                                      c("2023" = 2023,
                                                        "2022" = 2022,
@@ -174,7 +178,14 @@ ui <- fluidPage(
                                                        "2020" = 2020,
                                                        "2019" = 2019),
                                                      selected = c(2023, 2022, 2021, 2020, 2019),
-                                                     multiple = T),
+                                                     multiple = T)),
+                                      
+                                      column(width = 8,
+                                             selectizeInput("select_locs","Velg område:",
+                                                            c(1:13),
+                                                            selected = c(1:13),
+                                                            multiple = T)),
+                                      ),
                                       DTOutput("table_cohort"),
                                       hr(),
                                       p("Forklaring av tall: ‘Total’ viser det totale tapet. ‘Døde’ viser antall døde.
@@ -484,11 +495,16 @@ server <- function(input, output) {
   output$table_cohort <- DT::renderDT (
     datatable(df_cohorts() %>%
                 #dplyr:: filter (!is.na(median)) %>%
-                #dplyr:: select (year, area, median) %>% 
-                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table5),
+                dplyr::filter(
+                  !area == "Norway" &
+                    !area == "All"  &
+                    year %in% input$select_years_table5 &
+                    area %in% input$select_locs
+                )  %>% 
+                dplyr:: select (year, area, q1, mort, q3),
               #filter = "top",
               rownames = F,
-              #colnames= c( "År", "Område", "Dødelighet %"), # Type norwegian names here?
+              colnames= c("År","Område", "1 Kvartil", "Median", "3 Kvartil"),
               selection = (list(mode = 'multiple', selected = "all", target ='column')),
               options = list(sDom  = '<"top">lrt<"bottom">ip',
                              autoWidth = FALSE,
