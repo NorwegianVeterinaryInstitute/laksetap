@@ -153,8 +153,9 @@ ui <- fluidPage(
                                         "År" = c(2023, 2022, 2021, 2020, 2019)))),
                                       column(width = 6,
                                              selectInput("select_zone", "Velg zone:", list(
-                                               "Zone" = c("1 & 2", "2", "3", "4", "5", "6",
-                                                          "7", "8", "9", "10", "11", "12 & 13"))))
+                                               "Zone" = c("1 & 2", "3", "4", "5", "6",
+                                                          "7", "8", "9", "10", "11", "12 & 13")),
+                                               multiple = TRUE))
                                       ),
                                       plotlyOutput("plot_mortality_month"),
                                       #br(),
@@ -474,8 +475,20 @@ server <- function(input, output) {
       ggplot() +
       aes(x = month_name, y = median, color = area, group = area) + 
       geom_line() +
-      geom_ribbon(aes(ymin= .data$q1, ymax=.data$q3), linetype= 0, alpha=0.1) +
-      theme_minimal() 
+       geom_ribbon(
+         aes(
+           ymin = .data$q1,
+           ymax = .data$q3,
+           fill = area
+         ),
+         linetype = 0,
+         alpha = 0.1,
+         show.legend = FALSE
+       ) +
+      theme_minimal() +
+       guides(col = 
+      guide_legend(title = "Område"))
+     
       
      #browser()
      
