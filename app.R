@@ -313,7 +313,7 @@ server <- function(input, output) {
       selection = (list(mode = 'multiple',selected = "all",target ='column')),
       options = list(sDom  = '<"top">lrt<"bottom">ip',
                      scrollX = TRUE,
-                     language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))))
+                     language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))))
         #autoWidth =T, #columnDefs = list(list(searchable = FALSE, targets = c(1:10)),
                     # list(width='200px', targets = c(1))))))
   
@@ -355,7 +355,7 @@ server <- function(input, output) {
                              autoWidth = FALSE,
                              #columnDefs = list(list(width = '100px', targets = c(1, 2))),
                              scrollX = TRUE,
-                             language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))
+                             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
   #, autoWidth = T, columnDefs = list(list(searchable = FALSE, targets = c(1:4)), list(width='150px', className = 'dt-left', targets = list("_all"))))))
   
@@ -414,7 +414,7 @@ server <- function(input, output) {
       selection = (list(mode = 'multiple',selected = "all",target ='column')),
       options = list(sDom  = '<"top">lrt<"bottom">ip',
                      scrollX = TRUE,
-                     language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))))
+                     language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))))
   
   
   output$plot_losses_monthly <- renderPlotly(
@@ -464,7 +464,7 @@ server <- function(input, output) {
                              autoWidth = FALSE,
                              #columnDefs = list(list(width = '100px', targets = c(1, 2))),
                              scrollX = TRUE,
-                             language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))
+                             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
   
   output$plot_mortality_month <- renderPlotly({
@@ -524,7 +524,7 @@ server <- function(input, output) {
                              autoWidth = FALSE,
                              #columnDefs = list(list(width = '100px', targets = c(1, 2))),
                              scrollX = TRUE,
-                             language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))
+                             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
   
   output$plot_cohort <- renderPlotly({
