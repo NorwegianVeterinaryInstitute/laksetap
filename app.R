@@ -31,7 +31,7 @@ ui <- fluidPage(
       width = 2),
     mainPanel(
       navbarPage(title = "", id = "navbar",
-        tabPanel(h5("Tap"),
+        tabPanel(h5("Årlige tap"),
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
@@ -59,7 +59,7 @@ ui <- fluidPage(
                  br()
                  #,p("test")
         ),
-        tabPanel(h5("Dødelighet"),
+        tabPanel(h5("Årlig dødelighet"),
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
@@ -89,7 +89,7 @@ ui <- fluidPage(
                                       p("Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
                                         for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")))
         ),
-        tabPanel(h5("Tap Måned"),
+        tabPanel(h5("Månedlige tap"),
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
@@ -124,7 +124,7 @@ ui <- fluidPage(
                  br()
                  #,p("test")
         ),
-        tabPanel(h5("Dødelighet Måned"),
+        tabPanel(h5("Månedlig dødelighet"),
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
@@ -164,7 +164,7 @@ ui <- fluidPage(
                                       p("Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
                                         for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")))
         ),
-        tabPanel(h5("Kohort"),
+        tabPanel(h5("Produksjonssykluser dødelighet"),
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
@@ -204,11 +204,11 @@ ui <- fluidPage(
                  br()
                  #,p("test")
         ),
-        tabPanel(h5("Calculate Mortality Rate"), value = "calc",
+        tabPanel(h5("Kalkuler dødelighet"), value = "calc",
                               verbatimTextOutput("result_text"),
                                       plotOutput("mortality_plot")
                                       ),
-      tabPanel(h5("Calculate Cumulative Mortality Risk"), value = "calc_cum",
+      tabPanel(h5("Dødelighet utvidet periode"), value = "calc_cum",
                  verbatimTextOutput("result_text_cum"),
                  plotOutput("cumulative_risk_plot")
                 
