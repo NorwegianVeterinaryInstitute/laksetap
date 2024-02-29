@@ -7,6 +7,7 @@ library(plotly)
 library(tidyr)
 library(pins)
 library(lubridate)
+library(markdown)
 
 
 ui <- fluidPage(
