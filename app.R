@@ -453,11 +453,12 @@ server <- function(input, output) {
   output$table_mortality_month <- DT::renderDT (
     datatable(df_mort_month() %>%
                 dplyr:: filter (!is.na(median)) %>%
-                dplyr:: select (year, area, median) %>% # 
-                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table4),
+                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table4) %>%
+                dplyr:: select (date, area, q1, median, q3) %>%
+                dplyr::mutate(q1 = round(q1, 2), median = round(median, 2), q3 = round(q3, 2)),
               #filter = "top",
               rownames = F,
-              colnames= c( "År", "Område", "Dødelighet %"), # also here
+              colnames= c( "Dato", "Område", "1 Krvartil", "Median", "3 Kvartil"), # also here
               selection = (list(mode = 'multiple', selected = "all", target ='column')),
               options = list(sDom  = '<"top">lrt<"bottom">ip',
                              autoWidth = FALSE,
