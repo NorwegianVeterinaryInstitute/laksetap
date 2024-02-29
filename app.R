@@ -292,7 +292,7 @@ server <- function(input, output) {
                           c("Fylke" = "fylke",
                             "Produksjonssone" = "zone",
                             "Norge" = "all"),
-                          selected = c("all")),
+                          selected = c("zone")),
               hr(),
               helpText("Tallene er basert på månedlige innrapporteringer til Fiskeridirektoratet.
       Les mer om hvordan statistikken lages i fanen ‘Om statistikken’.
