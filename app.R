@@ -31,7 +31,7 @@ ui <- fluidPage(
       width = 2),
     mainPanel(
       navbarPage(title = "", id = "navbar",
-        tabPanel(h5("Tap"),
+        tabPanel(h5("Årlige tap"),
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
@@ -59,7 +59,7 @@ ui <- fluidPage(
                  br()
                  #,p("test")
         ),
-        tabPanel(h5("Dødelighet"),
+        tabPanel(h5("Årlig dødelighet"),
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
@@ -89,7 +89,7 @@ ui <- fluidPage(
                                       p("Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
                                         for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")))
         ),
-        tabPanel(h5("Tap Måned"),
+        tabPanel(h5("Månedlige tap"),
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
@@ -124,7 +124,7 @@ ui <- fluidPage(
                  br()
                  #,p("test")
         ),
-        tabPanel(h5("Dødelighet Måned"),
+        tabPanel(h5("Månedlig dødelighet"),
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
@@ -153,8 +153,9 @@ ui <- fluidPage(
                                         "År" = c(2023, 2022, 2021, 2020, 2019)))),
                                       column(width = 6,
                                              selectInput("select_zone", "Velg zone:", list(
-                                               "Zone" = c("1 & 2", "2", "3", "4", "5", "6",
-                                                          "7", "8", "9", "10", "11", "12 & 13"))))
+                                               "Zone" = c("1 & 2", "3", "4", "5", "6",
+                                                          "7", "8", "9", "10", "11", "12 & 13")),
+                                               multiple = TRUE))
                                       ),
                                       plotlyOutput("plot_mortality_month"),
                                       #br(),
@@ -163,10 +164,14 @@ ui <- fluidPage(
                                       p("Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
                                         for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")))
         ),
-        tabPanel(h5("Kohort"),
+        tabPanel(h5("Produksjonssykluser dødelighet"),
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
+                                      
+                                      
+                                      fluidRow(
+                                      column(width = 4,
                                       selectizeInput("select_years_table5","Velg år:",
                                                      c("2023" = 2023,
                                                        "2022" = 2022,
@@ -174,7 +179,14 @@ ui <- fluidPage(
                                                        "2020" = 2020,
                                                        "2019" = 2019),
                                                      selected = c(2023, 2022, 2021, 2020, 2019),
-                                                     multiple = T),
+                                                     multiple = T)),
+                                      
+                                      column(width = 8,
+                                             selectizeInput("select_locs","Velg område:",
+                                                            c(1:13),
+                                                            selected = c(1:13),
+                                                            multiple = T)),
+                                      ),
                                       DTOutput("table_cohort"),
                                       hr(),
                                       p("Forklaring av tall: ‘Total’ viser det totale tapet. ‘Døde’ viser antall døde.
@@ -192,11 +204,11 @@ ui <- fluidPage(
                  br()
                  #,p("test")
         ),
-        tabPanel(h5("Calculate Mortality Rate"), value = "calc",
+        tabPanel(h5("Kalkuler dødelighet"), value = "calc",
                               verbatimTextOutput("result_text"),
                                       plotOutput("mortality_plot")
                                       ),
-      tabPanel(h5("Calculate Cumulative Mortality Risk"), value = "calc_cum",
+      tabPanel(h5("Dødelighet utvidet periode"), value = "calc_cum",
                  verbatimTextOutput("result_text_cum"),
                  plotOutput("cumulative_risk_plot")
                 
@@ -301,7 +313,7 @@ server <- function(input, output) {
       selection = (list(mode = 'multiple',selected = "all",target ='column')),
       options = list(sDom  = '<"top">lrt<"bottom">ip',
                      scrollX = TRUE,
-                     language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))))
+                     language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))))
         #autoWidth =T, #columnDefs = list(list(searchable = FALSE, targets = c(1:10)),
                     # list(width='200px', targets = c(1))))))
   
@@ -343,7 +355,7 @@ server <- function(input, output) {
                              autoWidth = FALSE,
                              #columnDefs = list(list(width = '100px', targets = c(1, 2))),
                              scrollX = TRUE,
-                             language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))
+                             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
   #, autoWidth = T, columnDefs = list(list(searchable = FALSE, targets = c(1:4)), list(width='150px', className = 'dt-left', targets = list("_all"))))))
   
@@ -402,7 +414,7 @@ server <- function(input, output) {
       selection = (list(mode = 'multiple',selected = "all",target ='column')),
       options = list(sDom  = '<"top">lrt<"bottom">ip',
                      scrollX = TRUE,
-                     language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))))
+                     language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))))
   
   
   output$plot_losses_monthly <- renderPlotly(
@@ -441,17 +453,18 @@ server <- function(input, output) {
   output$table_mortality_month <- DT::renderDT (
     datatable(df_mort_month() %>%
                 dplyr:: filter (!is.na(median)) %>%
-                dplyr:: select (year, area, median) %>% # 
-                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table4),
+                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table4) %>%
+                dplyr:: select (date, area, q1, median, q3) %>%
+                dplyr::mutate(q1 = round(q1, 2), median = round(median, 2), q3 = round(q3, 2)),
               #filter = "top",
               rownames = F,
-              colnames= c( "År", "Område", "Dødelighet %"), # also here
+              colnames= c( "Dato", "Område", "1 Krvartil", "Median", "3 Kvartil"), # also here
               selection = (list(mode = 'multiple', selected = "all", target ='column')),
               options = list(sDom  = '<"top">lrt<"bottom">ip',
                              autoWidth = FALSE,
                              #columnDefs = list(list(width = '100px', targets = c(1, 2))),
                              scrollX = TRUE,
-                             language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))
+                             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
   
   output$plot_mortality_month <- renderPlotly({
@@ -463,8 +476,20 @@ server <- function(input, output) {
       ggplot() +
       aes(x = month_name, y = median, color = area, group = area) + 
       geom_line() +
-      geom_ribbon(aes(ymin= .data$q1, ymax=.data$q3), linetype= 0, alpha=0.1) +
-      theme_minimal() 
+       geom_ribbon(
+         aes(
+           ymin = .data$q1,
+           ymax = .data$q3,
+           fill = area
+         ),
+         linetype = 0,
+         alpha = 0.1,
+         show.legend = FALSE
+       ) +
+      theme_minimal() +
+       guides(col = 
+      guide_legend(title = "Område"))
+     
       
      #browser()
      
@@ -484,17 +509,22 @@ server <- function(input, output) {
   output$table_cohort <- DT::renderDT (
     datatable(df_cohorts() %>%
                 #dplyr:: filter (!is.na(median)) %>%
-                #dplyr:: select (year, area, median) %>% 
-                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table5),
+                dplyr::filter(
+                  !area == "Norway" &
+                    !area == "All"  &
+                    year %in% input$select_years_table5 &
+                    area %in% input$select_locs
+                )  %>% 
+                dplyr:: select (year, area, q1, mort, q3),
               #filter = "top",
               rownames = F,
-              #colnames= c( "År", "Område", "Dødelighet %"), # Type norwegian names here?
+              colnames= c("År","Område", "1 Kvartil", "Median", "3 Kvartil"),
               selection = (list(mode = 'multiple', selected = "all", target ='column')),
               options = list(sDom  = '<"top">lrt<"bottom">ip',
                              autoWidth = FALSE,
                              #columnDefs = list(list(width = '100px', targets = c(1, 2))),
                              scrollX = TRUE,
-                             language = list(url = "//cdn.datatables.net/plug-ins/1.10.20/i18n/Norwegian-Bokmal.json"))
+                             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
   
   output$plot_cohort <- renderPlotly({
