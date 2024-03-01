@@ -469,7 +469,7 @@ server <- function(input, output) {
         dplyr::select("year", "month_name", "area", "losses", "doed", "p.doed", "ut", "p.ut", "romt", "p.romt", "ufor", "p.ufor"),
       #filter = "top",
       rownames = F,
-      colnames= c("År","Område", "Total", "Døde", "Døde%", "Utkast", "Utkast%", "Rømt", "Rømt%", "Annet", "Annet%"),
+      colnames= c("År", "Måned","Område", "Total", "Døde", "Døde%", "Utkast", "Utkast%", "Rømt", "Rømt%", "Annet", "Annet%"),
       selection = (list(mode = 'multiple',selected = "all",target ='column')),
       options = list(sDom  = '<"top">lrt<"bottom">ip',
                      scrollX = TRUE,
@@ -517,7 +517,7 @@ server <- function(input, output) {
                 dplyr::mutate(q1 = round(q1, 2), median = round(median, 2), q3 = round(q3, 2)),
               #filter = "top",
               rownames = F,
-              colnames= c( "Dato", "Område", "1 Krvartil", "Median", "3 Kvartil"), # also here
+              colnames= c("År", "Måned", "Område", "1 Krvartil", "Median", "3 Kvartil"), # also here
               selection = (list(mode = 'multiple', selected = "all", target ='column')),
               options = list(sDom  = '<"top">lrt<"bottom">ip',
                              autoWidth = FALSE,
