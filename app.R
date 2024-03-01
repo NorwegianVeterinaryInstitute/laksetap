@@ -160,6 +160,8 @@ ui <- fluidPage(
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
+                                      fluidRow(
+                                        column(width = 4,
                                       selectizeInput("select_years_table4","Velg år:",
                                                      c("2023" = 2023,
                                                        "2022" = 2022,
@@ -167,7 +169,26 @@ ui <- fluidPage(
                                                        "2020" = 2020,
                                                        "2019" = 2019),
                                                      selected = c(2023, 2022, 2021, 2020, 2019),
-                                                     multiple = T),
+                                                     multiple = T)),
+                                      column(width = 4,
+                                             selectizeInput("select_month_table4", "Velg måned:",
+                                                            c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+                                                              "Sep", "Oct", "Nov", "Dec"),
+                                                            selected = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+                                                                         "Sep", "Oct", "Nov", "Dec"),
+                                                            multiple = T)),
+                                      column(width = 4, 
+                                             selectizeInput("select_area4", "Velg Område:",
+                                                            c("1 & 2", "3", "4", "5", "6",
+                                                              "7", "8", "9", "10", "11", "12 & 13"),
+                                                            selected = c("1 & 2", "3", "4", "5", "6",
+                                                                         "7", "8", "9", "10", "11", "12 & 13"),
+                                                            multiple = T
+                                             ))
+                                      
+                                      
+                                      
+                                      ),
                                       DTOutput("table_mortality_month"),
                                       #br(),
                                       hr(),
@@ -491,8 +512,8 @@ server <- function(input, output) {
   output$table_mortality_month <- DT::renderDT (
     datatable(df_mort_month() %>%
                 dplyr:: filter (!is.na(median)) %>%
-                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table4 & area %in% input$select_area4 & month %in% input$select_month_table4) %>%
-                dplyr:: select (date, area, q1, median, q3) %>%
+                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table4 & area %in% input$select_area4 & month_name %in% input$select_month_table4) %>%
+                dplyr:: select (year, month_name, area, q1, median, q3) %>%
                 dplyr::mutate(q1 = round(q1, 2), median = round(median, 2), q3 = round(q3, 2)),
               #filter = "top",
               rownames = F,
