@@ -35,6 +35,8 @@ ui <- fluidPage(
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
+                                      fluidRow(
+                                        column(width = 6,
                                       selectizeInput("select_years_table1","Velg år:",
                                                      c("2023" = 2023,
                                                        "2022" = 2022,
@@ -42,7 +44,13 @@ ui <- fluidPage(
                                                        "2020" = 2020,
                                                        "2019" = 2019),
                                                      selected = c(2023, 2022, 2021, 2020, 2019),
-                                                     multiple = T),
+                                                     multiple = T)),
+                                      column(width = 6,
+                                      selectizeInput("select_area1", "Velg Omrade",
+                                      c(1:13),
+                                      selected = c(1:13),
+                                      multiple = TRUE))
+                                      ),
                                       DTOutput("table_losses"),
                              hr(),
                              p("Forklaring av tall: ‘Total’ viser det totale tapet. ‘Døde’ viser antall døde.
@@ -306,7 +314,7 @@ server <- function(input, output) {
     datatable(
       df_losses() %>%
         dplyr::select("year", "area", "losses", "doed", "p.doed", "ut", "p.ut", "romt", "p.romt", "ufor", "p.ufor") %>%
-        dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table1),
+        dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table1 & area %in% input$select_area1),
       #filter = "top",
       rownames = F,
       colnames= c("År","Område", "Total", "Døde", "Døde%", "Utkast", "Utkast%", "Rømt", "Rømt%", "Annet", "Annet%"),
