@@ -35,6 +35,8 @@ ui <- fluidPage(
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
+                                      fluidRow(
+                                        column(width = 6,
                                       selectizeInput("select_years_table1","Velg år:",
                                                      c("2023" = 2023,
                                                        "2022" = 2022,
@@ -42,7 +44,13 @@ ui <- fluidPage(
                                                        "2020" = 2020,
                                                        "2019" = 2019),
                                                      selected = c(2023, 2022, 2021, 2020, 2019),
-                                                     multiple = T),
+                                                     multiple = T)),
+                                      column(width = 6,
+                                      selectizeInput("select_area1", "Velg Omrade",
+                                      c(1:13),
+                                      selected = c(1:13),
+                                      multiple = TRUE))
+                                      ),
                                       DTOutput("table_losses"),
                              hr(),
                              p("Forklaring av tall: ‘Total’ viser det totale tapet. ‘Døde’ viser antall døde.
@@ -63,6 +71,8 @@ ui <- fluidPage(
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
+                                      fluidRow(
+                                        column(width = 6,
                                       selectizeInput("select_years_table2","Velg år:",
                                                      c("2023" = 2023,
                                                        "2022" = 2022,
@@ -70,8 +80,14 @@ ui <- fluidPage(
                                                        "2020" = 2020,
                                                        "2019" = 2019),
                                                      selected = c(2023, 2022, 2021, 2020, 2019),
-                                                     multiple = T),
-                                      DTOutput("table_mortality"),
+                                                     multiple = T)),
+                                      column(width = 6,
+                                      selectizeInput("select_area2", "Velg Omrade",
+                                      c(1:13),
+                                      selected = c(1:13),
+                                      multiple = TRUE))
+                                      ),
+                                     DTOutput("table_mortality"),
                                       #br(),
                                       hr(),
                                       #br(),
@@ -93,6 +109,8 @@ ui <- fluidPage(
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
+                                      fluidRow(
+                                      column(width = 4,
                                       selectizeInput("select_years_table3","Velg år:",
                                                      c("2023" = 2023,
                                                        "2022" = 2022,
@@ -100,7 +118,21 @@ ui <- fluidPage(
                                                        "2020" = 2020,
                                                        "2019" = 2019),
                                                      selected = c(2023, 2022, 2021, 2020, 2019),
-                                                     multiple = T),
+                                                     multiple = T)),
+                                      column(width = 4,
+                                      selectizeInput("select_month_table3", "Velg måned:",
+                                      c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+                                      "Sep", "Oct", "Nov", "Dec"),
+                                      selected = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+                                      "Sep", "Oct", "Nov", "Dec"),
+                                      multiple = T)),
+                                      column(width = 4, 
+                                      selectizeInput("select_area3", "Velg Område:",
+                                      c(1:13),
+                                      selected = c(1:13),
+                                      multiple = T
+                                      ))
+                                      ),
                                       DTOutput("table_losses_month"),
                                       hr(),
                                       p("Forklaring av tall: ‘Total’ viser det totale tapet. 
@@ -128,6 +160,8 @@ ui <- fluidPage(
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
                                       br(),
+                                      fluidRow(
+                                        column(width = 4,
                                       selectizeInput("select_years_table4","Velg år:",
                                                      c("2023" = 2023,
                                                        "2022" = 2022,
@@ -135,7 +169,26 @@ ui <- fluidPage(
                                                        "2020" = 2020,
                                                        "2019" = 2019),
                                                      selected = c(2023, 2022, 2021, 2020, 2019),
-                                                     multiple = T),
+                                                     multiple = T)),
+                                      column(width = 4,
+                                             selectizeInput("select_month_table4", "Velg måned:",
+                                                            c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+                                                              "Sep", "Oct", "Nov", "Dec"),
+                                                            selected = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+                                                                         "Sep", "Oct", "Nov", "Dec"),
+                                                            multiple = T)),
+                                      column(width = 4, 
+                                             selectizeInput("select_area4", "Velg Område:",
+                                                            c("1 & 2", "3", "4", "5", "6",
+                                                              "7", "8", "9", "10", "11", "12 & 13"),
+                                                            selected = c("1 & 2", "3", "4", "5", "6",
+                                                                         "7", "8", "9", "10", "11", "12 & 13"),
+                                                            multiple = T
+                                             ))
+                                      
+                                      
+                                      
+                                      ),
                                       DTOutput("table_mortality_month"),
                                       #br(),
                                       hr(),
@@ -281,7 +334,8 @@ server <- function(input, output) {
   # new datasets
   losses_monthly_data <- pin_read(laksetap_board, "vi2451/losses_monthly_data") %>%
     dplyr::mutate(area = dplyr::if_else(area == "Norway", "Norge", area)) %>% 
-    dplyr::mutate(year =  as.factor(year(ym(year_month)))) 
+    dplyr::mutate(year =  as.factor(year(ym(year_month)))) %>%
+    dplyr::mutate(month_name = month(ym(year_month), label = TRUE))
   mortality_rates_monthly_data <- pin_read(laksetap_board, "vi2451/mortality_rates_monthly_data") %>% 
     dplyr::mutate(year =  as.factor(year(date))) %>%
     dplyr::mutate(month_name = month(date, label = TRUE))
@@ -306,7 +360,7 @@ server <- function(input, output) {
     datatable(
       df_losses() %>%
         dplyr::select("year", "area", "losses", "doed", "p.doed", "ut", "p.ut", "romt", "p.romt", "ufor", "p.ufor") %>%
-        dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table1),
+        dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table1 & area %in% input$select_area1),
       #filter = "top",
       rownames = F,
       colnames= c("År","Område", "Total", "Døde", "Døde%", "Utkast", "Utkast%", "Rømt", "Rømt%", "Annet", "Annet%"),
@@ -346,7 +400,7 @@ server <- function(input, output) {
     datatable(df_losses () %>%
                 dplyr:: filter (!is.na(mort)) %>%
                 dplyr:: select (year, area, mort) %>% # this has changed from previous year
-                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table2),
+                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table2 & area %in% input$select_area2),
               #filter = "top",
               rownames = F,
               colnames= c( "År", "Område", "Dødelighet %"), # also here
@@ -402,12 +456,17 @@ server <- function(input, output) {
                         viz == input$geo_group) 
     })
   
-  
   output$table_losses_month<- DT::renderDT(
     datatable(
       df_losses_month() %>%
-        dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table3) %>%
-        dplyr::select("year_month", "area", "losses", "doed", "p.doed", "ut", "p.ut", "romt", "p.romt", "ufor", "p.ufor"),
+        dplyr::filter(
+          !area == "Norway" &
+            !area == "All" &
+            year %in% input$select_years_table3 &
+            area %in% input$select_area3 &
+            month_name %in% input$select_month_table3
+        ) %>% 
+        dplyr::select("year", "month_name", "area", "losses", "doed", "p.doed", "ut", "p.ut", "romt", "p.romt", "ufor", "p.ufor"),
       #filter = "top",
       rownames = F,
       colnames= c("År","Område", "Total", "Døde", "Døde%", "Utkast", "Utkast%", "Rømt", "Rømt%", "Annet", "Annet%"),
@@ -453,8 +512,8 @@ server <- function(input, output) {
   output$table_mortality_month <- DT::renderDT (
     datatable(df_mort_month() %>%
                 dplyr:: filter (!is.na(median)) %>%
-                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table4) %>%
-                dplyr:: select (date, area, q1, median, q3) %>%
+                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table4 & area %in% input$select_area4 & month_name %in% input$select_month_table4) %>%
+                dplyr:: select (year, month_name, area, q1, median, q3) %>%
                 dplyr::mutate(q1 = round(q1, 2), median = round(median, 2), q3 = round(q3, 2)),
               #filter = "top",
               rownames = F,
@@ -466,13 +525,37 @@ server <- function(input, output) {
                              scrollX = TRUE,
                              language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
-  
-  output$plot_mortality_month <- renderPlotly({
+
+
+      observeEvent(input$species, {
+     if (input$species == "rainbowtrout") {
+       output$plot_mortality_month <- renderPlotly({
      p <- mortality_rates_monthly_data %>% 
               dplyr::filter(year %in% input$select_year_mort) %>%
               dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
-              dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>% 
-              dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
+              # ribbon for norway - enabled:
+              #dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>% 
+              #dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
+      ggplot() +
+      aes(x = month_name, y = median, color = area, group = area) +
+      labs(title = "No data to display") +
+      theme_minimal()+ 
+      geom_blank() 
+
+      plotly::ggplotly(p)
+
+     })
+      
+    } else {
+ 
+  output$plot_mortality_month <- renderPlotly({
+
+     p <- mortality_rates_monthly_data %>% 
+              dplyr::filter(year %in% input$select_year_mort) %>%
+              dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
+              # ribbon for norway - enabled:
+              #dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>% 
+              #dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
       ggplot() +
       aes(x = month_name, y = median, color = area, group = area) + 
       geom_line() +
@@ -490,12 +573,14 @@ server <- function(input, output) {
        guides(col = 
       guide_legend(title = "Område"))
      
-      
-     #browser()
      
      plotly::ggplotly(p)}
-  )
-  
+  )}
+ 
+
+      })
+     
+ 
   
   #### COHORTS ####
   df_cohorts <-
