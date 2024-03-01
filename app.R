@@ -466,13 +466,37 @@ server <- function(input, output) {
                              scrollX = TRUE,
                              language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
-  
-  output$plot_mortality_month <- renderPlotly({
+
+
+      observeEvent(input$species, {
+     if (input$species == "rainbowtrout") {
+       output$plot_mortality_month <- renderPlotly({
      p <- mortality_rates_monthly_data %>% 
               dplyr::filter(year %in% input$select_year_mort) %>%
               dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
-              dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>% 
-              dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
+              # ribbon for norway - enabled:
+              #dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>% 
+              #dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
+      ggplot() +
+      aes(x = month_name, y = median, color = area, group = area) +
+      labs(title = "No data to display") +
+      theme_minimal()+ 
+      geom_blank() 
+
+      plotly::ggplotly(p)
+
+     })
+      
+    } else {
+ 
+  output$plot_mortality_month <- renderPlotly({
+
+     p <- mortality_rates_monthly_data %>% 
+              dplyr::filter(year %in% input$select_year_mort) %>%
+              dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
+              # ribbon for norway - enabled:
+              #dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>% 
+              #dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
       ggplot() +
       aes(x = month_name, y = median, color = area, group = area) + 
       geom_line() +
@@ -490,12 +514,14 @@ server <- function(input, output) {
        guides(col = 
       guide_legend(title = "Område"))
      
-      
-     #browser()
      
      plotly::ggplotly(p)}
-  )
-  
+  )}
+ 
+
+      })
+     
+ 
   
   #### COHORTS ####
   df_cohorts <-
