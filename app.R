@@ -564,7 +564,7 @@ server <- function(input, output) {
        ) +
       theme_minimal() +
        guides(col = 
-      guide_legend(title = "Område"))
+      guide_legend(title = "Område"), fill = FALSE)
      
      
      plotly::ggplotly(p)}
