@@ -453,7 +453,7 @@ server <- function(input, output) {
     datatable(
       df_losses_month() %>%
         dplyr::filter(
-          !area == "Norway" &
+          !area == "Norge" &
             !area == "All" &
             year %in% input$select_years_table3 &
             area %in% input$select_area3 &
@@ -505,7 +505,7 @@ server <- function(input, output) {
   output$table_mortality_month <- DT::renderDT (
     datatable(df_mort_month() %>%
                 dplyr:: filter (!is.na(median)) %>%
-                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table4 & area %in% input$select_area4 & month_name %in% input$select_month_table4) %>%
+                dplyr::filter(!area == "Norge" & !area == "All" & year %in% input$select_years_table4 & area %in% input$select_area4 & month_name %in% input$select_month_table4) %>%
                 dplyr:: select (year, month_name, area, q1, median, q3) %>%
                 dplyr::mutate(q1 = round(q1, 2), median = round(median, 2), q3 = round(q3, 2)),
               #filter = "top",
