@@ -333,17 +333,9 @@ server <- function(input, output) {
   losses <- pin_read(laksetap_board, "vi2451/losses_and_mortality_yearly_data")
   
   # new datasets
-  losses_monthly_data <- pin_read(laksetap_board, "vi2451/losses_monthly_data") %>%
-    dplyr::mutate(area = dplyr::if_else(area == "Norway", "Norge", area)) %>% 
-    dplyr::mutate(year =  as.factor(year(ym(year_month)))) %>%
-    dplyr::mutate(month_name = month(ym(year_month), label = TRUE))
-  mortality_rates_monthly_data <- pin_read(laksetap_board, "vi2451/mortality_rates_monthly_data") %>% 
-    dplyr::mutate(year =  as.factor(year(date))) %>%
-    dplyr::mutate(month_name = month(date, label = TRUE))
-  mortality_cohorts_data <- pin_read(laksetap_board, "vi2451/mortality_cohorts_data") %>%
-    dplyr::mutate(area = dplyr::if_else(area == "Norway", "Norge", area)) %>%
-    dplyr::mutate(viz = dplyr::if_else(area == "Norge", "all", viz))
-  
+  losses_monthly_data <- pin_read(laksetap_board, "vi2451/losses_monthly_data") 
+  mortality_rates_monthly_data <- pin_read(laksetap_board, "vi2451/mortality_rates_monthly_data") 
+  mortality_cohorts_data <- pin_read(laksetap_board, "vi2451/mortality_cohorts_data")
   
   #### LOSSES yearly ####
   
