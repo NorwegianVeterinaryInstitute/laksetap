@@ -31,6 +31,118 @@ ui <- fluidPage(
       width = 2),
     mainPanel(
       navbarPage(title = "", id = "navbar",
+                 tabPanel(h5("Månedlige tap"),
+                          tabsetPanel(type = "tabs",
+                                      tabPanel("Tabell",
+                                               br(),
+                                               fluidRow(
+                                                 column(width = 4,
+                                                        selectizeInput("select_years_table3","Velg år:",
+                                                                       c("2023" = 2023,
+                                                                         "2022" = 2022,
+                                                                         "2021" = 2021,
+                                                                         "2020" = 2020,
+                                                                         "2019" = 2019),
+                                                                       selected = c(2023, 2022, 2021, 2020, 2019),
+                                                                       multiple = T)),
+                                                 column(width = 4,
+                                                        selectizeInput("select_month_table3", "Velg måned:",
+                                                                       c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+                                                                         "Aug", "Sep", "Oct", "Nov", "Dec"),
+                                                                       selected = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+                                                                                    "Aug", "Sep", "Oct", "Nov", "Dec"),
+                                                                       multiple = T)),
+                                                 column(width = 4, 
+                                                        selectizeInput("select_area3", "Velg Område:",
+                                                                       c(1:13),
+                                                                       selected = c(1:13),
+                                                                       multiple = T
+                                                        ))
+                                               ),
+                                               DTOutput("table_losses_month"),
+                                               hr(),
+                                               p("Forklaring av tall: ‘Total’ viser det totale tapet. 
+                                        ‘Døde’ viser antall døde.
+                             ‘Døde%’ viser hvor stor andel av det totale tapet som skyldes døde.
+                             Tilsvarende gjelder for ‘Utkast%’, ‘Rømt%’ og ‘Annet%’. For forklaring av kategoriene,
+                             se fanen ‘Om statistikken’.")),
+                             tabPanel("Diagram",
+                                      br(),
+                                      fluidRow(
+                                        column(width = 6,
+                                               selectInput("select_year", "Velg år:", list(
+                                                 "År" = c(2023, 2022, 2021, 2020, 2019)))),
+                                        column(width = 6,
+                                               selectInput("select_month", "Velg måned:", list(
+                                                 "Måned" = c("01", "02", "03", "04", "05", "06",
+                                                             "07", "08", "09", "10", "11", "12"))))),
+                                      plotlyOutput("plot_losses_monthly"))),
+                          br(),
+                          #hr(),
+                          br()
+                          #,p("test")
+                 ),
+                 tabPanel(h5("Månedlig dødelighet"),
+                          tabsetPanel(type = "tabs",
+                                      tabPanel("Tabell",
+                                               br(),
+                                               fluidRow(
+                                                 column(width = 4,
+                                                        selectizeInput("select_years_table4","Velg år:",
+                                                                       c("2023" = 2023,
+                                                                         "2022" = 2022,
+                                                                         "2021" = 2021,
+                                                                         "2020" = 2020,
+                                                                         "2019" = 2019),
+                                                                       selected = c(2023, 2022, 2021, 2020, 2019),
+                                                                       multiple = T)),
+                                                 column(width = 4,
+                                                        selectizeInput("select_month_table4", "Velg måned:",
+                                                                       c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+                                                                         "Sep", "Oct", "Nov", "Dec"),
+                                                                       selected = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+                                                                                    "Sep", "Oct", "Nov", "Dec"),
+                                                                       multiple = T)),
+                                                 column(width = 4, 
+                                                        selectizeInput("select_area4", "Velg Område:",
+                                                                       c("1 & 2", "3", "4", "5", "6",
+                                                                         "7", "8", "9", "10", "11", "12 & 13"),
+                                                                       selected = c("1 & 2", "3", "4", "5", "6",
+                                                                                    "7", "8", "9", "10", "11", "12 & 13"),
+                                                                       multiple = T
+                                                        ))
+                                                 
+                                                 
+                                                 
+                                               ),
+                                               DTOutput("table_mortality_month"),
+                                               #br(),
+                                               hr(),
+                                               #br(),
+                                               p("I tabellen er prosent døde angitt for henholdsvis laks og regnbueørret.
+                                        I disse tallene inngår ikke tap som følge av utkast, rømming eller «annet».
+                                        Se for øvrig beskrivelse av beregningsmetode i fanen ‘Om statistikken’.
+                                        Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
+                                        for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")),
+                                      tabPanel("Diagram",
+                                               br(),
+                                               fluidRow(
+                                                 column(width = 6,
+                                                        selectInput("select_year_mort", "Velg år:", list(
+                                                          "År" = c(2023, 2022, 2021, 2020, 2019)))),
+                                                 column(width = 6,
+                                                        selectInput("select_zone", "Velg zone:", list(
+                                                          "Zone" = c("1 & 2", "3", "4", "5", "6",
+                                                                     "7", "8", "9", "10", "11", "12 & 13")),
+                                                          multiple = TRUE))
+                                               ),
+                                               plotlyOutput("plot_mortality_month"),
+                                               #br(),
+                                               hr(),
+                                               #br(),
+                                               p("Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
+                                        for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")))
+                 ),                 
         tabPanel(h5("Årlige tap"),
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
@@ -105,118 +217,7 @@ ui <- fluidPage(
                                       p("Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
                                         for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")))
         ),
-        tabPanel(h5("Månedlige tap"),
-                 tabsetPanel(type = "tabs",
-                             tabPanel("Tabell",
-                                      br(),
-                                      fluidRow(
-                                      column(width = 4,
-                                      selectizeInput("select_years_table3","Velg år:",
-                                                     c("2023" = 2023,
-                                                       "2022" = 2022,
-                                                       "2021" = 2021,
-                                                       "2020" = 2020,
-                                                       "2019" = 2019),
-                                                     selected = c(2023, 2022, 2021, 2020, 2019),
-                                                     multiple = T)),
-                                      column(width = 4,
-                                      selectizeInput("select_month_table3", "Velg måned:",
-                                      c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
-                                      "Sep", "Oct", "Nov", "Dec"),
-                                      selected = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
-                                      "Sep", "Oct", "Nov", "Dec"),
-                                      multiple = T)),
-                                      column(width = 4, 
-                                      selectizeInput("select_area3", "Velg Område:",
-                                      c(1:13),
-                                      selected = c(1:13),
-                                      multiple = T
-                                      ))
-                                      ),
-                                      DTOutput("table_losses_month"),
-                                      hr(),
-                                      p("Forklaring av tall: ‘Total’ viser det totale tapet. 
-                                        ‘Døde’ viser antall døde.
-                             ‘Døde%’ viser hvor stor andel av det totale tapet som skyldes døde.
-                             Tilsvarende gjelder for ‘Utkast%’, ‘Rømt%’ og ‘Annet%’. For forklaring av kategoriene,
-                             se fanen ‘Om statistikken’.")),
-                             tabPanel("Diagram",
-                                      br(),
-                                      fluidRow(
-                                        column(width = 6,
-                                      selectInput("select_year", "Velg år:", list(
-                                        "År" = c(2023, 2022, 2021, 2020, 2019)))),
-                                      column(width = 6,
-                                      selectInput("select_month", "Velg måned:", list(
-                                        "Måned" = c("01", "02", "03", "04", "05", "06",
-                                                    "07", "08", "09", "10", "11", "12"))))),
-                                      plotlyOutput("plot_losses_monthly"))),
-                 br(),
-                 #hr(),
-                 br()
-                 #,p("test")
-        ),
-        tabPanel(h5("Månedlig dødelighet"),
-                 tabsetPanel(type = "tabs",
-                             tabPanel("Tabell",
-                                      br(),
-                                      fluidRow(
-                                        column(width = 4,
-                                      selectizeInput("select_years_table4","Velg år:",
-                                                     c("2023" = 2023,
-                                                       "2022" = 2022,
-                                                       "2021" = 2021,
-                                                       "2020" = 2020,
-                                                       "2019" = 2019),
-                                                     selected = c(2023, 2022, 2021, 2020, 2019),
-                                                     multiple = T)),
-                                      column(width = 4,
-                                             selectizeInput("select_month_table4", "Velg måned:",
-                                                            c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
-                                                              "Sep", "Oct", "Nov", "Dec"),
-                                                            selected = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
-                                                                         "Sep", "Oct", "Nov", "Dec"),
-                                                            multiple = T)),
-                                      column(width = 4, 
-                                             selectizeInput("select_area4", "Velg Område:",
-                                                            c("1 & 2", "3", "4", "5", "6",
-                                                              "7", "8", "9", "10", "11", "12 & 13"),
-                                                            selected = c("1 & 2", "3", "4", "5", "6",
-                                                                         "7", "8", "9", "10", "11", "12 & 13"),
-                                                            multiple = T
-                                             ))
-                                      
-                                      
-                                      
-                                      ),
-                                      DTOutput("table_mortality_month"),
-                                      #br(),
-                                      hr(),
-                                      #br(),
-                                      p("I tabellen er prosent døde angitt for henholdsvis laks og regnbueørret.
-                                        I disse tallene inngår ikke tap som følge av utkast, rømming eller «annet».
-                                        Se for øvrig beskrivelse av beregningsmetode i fanen ‘Om statistikken’.
-                                        Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
-                                        for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")),
-                             tabPanel("Diagram",
-                                      br(),
-                                     fluidRow(
-                                        column(width = 6,
-                                      selectInput("select_year_mort", "Velg år:", list(
-                                        "År" = c(2023, 2022, 2021, 2020, 2019)))),
-                                      column(width = 6,
-                                             selectInput("select_zone", "Velg zone:", list(
-                                               "Zone" = c("1 & 2", "3", "4", "5", "6",
-                                                          "7", "8", "9", "10", "11", "12 & 13")),
-                                               multiple = TRUE))
-                                      ),
-                                      plotlyOutput("plot_mortality_month"),
-                                      #br(),
-                                      hr(),
-                                      #br(),
-                                      p("Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
-                                        for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")))
-        ),
+
         tabPanel(h5("Produksjonssykluser dødelighet"),
                  tabsetPanel(type = "tabs",
                              tabPanel("Tabell",
@@ -332,17 +333,9 @@ server <- function(input, output) {
   losses <- pin_read(laksetap_board, "vi2451/losses_and_mortality_yearly_data")
   
   # new datasets
-  losses_monthly_data <- pin_read(laksetap_board, "vi2451/losses_monthly_data") %>%
-    dplyr::mutate(area = dplyr::if_else(area == "Norway", "Norge", area)) %>% 
-    dplyr::mutate(year =  as.factor(year(ym(year_month)))) %>%
-    dplyr::mutate(month_name = month(ym(year_month), label = TRUE))
-  mortality_rates_monthly_data <- pin_read(laksetap_board, "vi2451/mortality_rates_monthly_data") %>% 
-    dplyr::mutate(year =  as.factor(year(date))) %>%
-    dplyr::mutate(month_name = month(date, label = TRUE))
-  mortality_cohorts_data <- pin_read(laksetap_board, "vi2451/mortality_cohorts_data") %>%
-    dplyr::mutate(area = dplyr::if_else(area == "Norway", "Norge", area)) %>%
-    dplyr::mutate(viz = dplyr::if_else(area == "Norge", "all", viz))
-  
+  losses_monthly_data <- pin_read(laksetap_board, "vi2451/losses_monthly_data") 
+  mortality_rates_monthly_data <- pin_read(laksetap_board, "vi2451/mortality_rates_monthly_data") 
+  mortality_cohorts_data <- pin_read(laksetap_board, "vi2451/mortality_cohorts_data")
   
   #### LOSSES yearly ####
   
@@ -621,12 +614,13 @@ server <- function(input, output) {
         aes(color = area, x = area, xend = area, y = q1, yend=q3), size = 10) +
       geom_point(
         aes(x = area, y = mort, group = year),
-        pch = 10, size = 9, fill = "black", stroke = 0.2) +
+        size = 1, fill = "black", stroke = 0.2) +
+      geom_text(aes(x = area, y = mort, group = year, label=area), nudge_y = 1) +
       labs(title = "Mortality of fish cohorts harvested in a year per zone and Norway (>= 12 months)",
            x = input$select_year_coh,
            y = "Mortality %") +
       theme_minimal() +
-      theme(axis.text.x = element_blank()) +
+      theme(axis.text.x = element_blank(), legend.position="none") +
       guides(fill = "none") 
     
     
