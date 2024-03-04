@@ -622,12 +622,13 @@ server <- function(input, output) {
         aes(color = area, x = area, xend = area, y = q1, yend=q3), size = 10) +
       geom_point(
         aes(x = area, y = mort, group = year),
-        pch = 10, size = 9, fill = "black", stroke = 0.2) +
+        size = 1, fill = "black", stroke = 0.2) +
+      geom_text(aes(x = area, y = mort, group = year, label=area), nudge_y = 1) +
       labs(title = "Mortality of fish cohorts harvested in a year per zone and Norway (>= 12 months)",
            x = input$select_year_coh,
            y = "Mortality %") +
       theme_minimal() +
-      theme(axis.text.x = element_blank()) +
+      theme(axis.text.x = element_blank(), legend.position="none") +
       guides(fill = "none") 
     
     
