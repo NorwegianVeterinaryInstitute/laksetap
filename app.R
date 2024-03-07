@@ -653,16 +653,14 @@ server <- function(input, output) {
                              language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
 
-
+#### dead plots ####
+  
       observeEvent(input$species, {
      if (input$species == "rainbowtrout") {
        output$plot_mortality_month <- renderPlotly({
      p <- mortality_rates_monthly_data %>% 
               dplyr::filter(year %in% input$select_year_mort) %>%
               dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
-              # ribbon for norway - enabled:
-              #dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>% 
-              #dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
       ggplot() +
       aes(x = month_name, y = median, color = area, group = area) +
       labs(title = "No data to display") +
@@ -673,7 +671,7 @@ server <- function(input, output) {
 
      })
       
-    } else {
+     }  else {
  
   output$plot_mortality_month <- renderPlotly({
 
@@ -706,6 +704,60 @@ server <- function(input, output) {
  
 
       })
+  
+  observeEvent(input$geo_group, {
+    if (input$geo_group == "all" | input$geo_group == "fylke") { 
+      
+      output$plot_mortality_month <- renderPlotly({
+        p <- mortality_rates_monthly_data %>% 
+          dplyr::filter(year %in% input$select_year_mort) %>%
+          dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
+          ggplot() +
+          aes(x = month_name, y = median, color = area, group = area) +
+          labs(title = "No data to display") +
+          theme_minimal()+ 
+          geom_blank() 
+        
+        plotly::ggplotly(p)
+        
+      }) 
+    } else {
+      
+      output$plot_mortality_month <- renderPlotly({
+        
+        p <- mortality_rates_monthly_data %>% 
+          dplyr::filter(year %in% input$select_year_mort) %>%
+          dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
+          # ribbon for norway - enabled:
+          #dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>% 
+          #dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
+          ggplot() +
+          aes(x = month_name, y = median, color = area, group = area) + 
+          geom_line() +
+          geom_ribbon(
+            aes(
+              ymin = .data$q1,
+              ymax = .data$q3,
+              fill = area
+            ),
+            linetype = 0,
+            alpha = 0.1,
+            show.legend = FALSE
+          ) +
+          theme_minimal() +
+          guides(col = 
+                   guide_legend(title = "Område"), fill = FALSE)
+        
+        
+        plotly::ggplotly(p)}
+      )}
+    
+      
+    
+    
+    
+    
+  })
      
  
   
