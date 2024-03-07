@@ -61,11 +61,7 @@ ui <- fluidPage(
                                                ),
                                                DTOutput("table_losses_month"),
                                                hr(),
-                                               p("Forklaring av tall: ‘Total’ viser det totale tapet. 
-                                        ‘Døde’ viser antall døde.
-                             ‘Døde%’ viser hvor stor andel av det totale tapet som skyldes døde.
-                             Tilsvarende gjelder for ‘Utkast%’, ‘Rømt%’ og ‘Annet%’. For forklaring av kategoriene,
-                             se fanen ‘Om statistikken’.")),
+                                               shiny::includeMarkdown("www/tab1_table_and_plot_footer.md")),
                              tabPanel("Diagram",
                                       br(),
                                       fluidRow(
@@ -78,6 +74,7 @@ ui <- fluidPage(
                                                              "07", "08", "09", "10", "11", "12"))))),
                                       plotlyOutput("plot_losses_monthly"))),
                           br(),
+                          shiny::includeMarkdown("www/tab1_table_and_plot_footer.md")),
                           #hr(),
                           br()
                           #,p("test")
@@ -119,11 +116,7 @@ ui <- fluidPage(
                                                #br(),
                                                hr(),
                                                #br(),
-                                               p("I tabellen er prosent døde angitt for henholdsvis laks og regnbueørret.
-                                        I disse tallene inngår ikke tap som følge av utkast, rømming eller «annet».
-                                        Se for øvrig beskrivelse av beregningsmetode i fanen ‘Om statistikken’.
-                                        Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
-                                        for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")),
+                                               shiny::includeMarkdown("www/tab2_table_footer.md")),
                                       tabPanel("Diagram",
                                                br(),
                                                fluidRow(
@@ -140,8 +133,7 @@ ui <- fluidPage(
                                                #br(),
                                                hr(),
                                                #br(),
-                                               p("Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
-                                        for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")))
+                                               shiny::includeMarkdown("www/tab2_plot_footer.md")))
                  ),                 
         tabPanel(h5("Årlige tap"),
                  tabsetPanel(type = "tabs",
@@ -165,16 +157,14 @@ ui <- fluidPage(
                                       ),
                                       DTOutput("table_losses"),
                              hr(),
-                             p("Forklaring av tall: ‘Total’ viser det totale tapet. ‘Døde’ viser antall døde.
-                             ‘Døde%’ viser hvor stor andel av det totale tapet som skyldes døde.
-                             Tilsvarende gjelder for ‘Utkast%’, ‘Rømt%’ og ‘Annet%’. For forklaring av kategoriene,
-                             se fanen ‘Om statistikken’.")),
+                             shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")),
                              tabPanel("Diagram", 
                                       br(),
                                       selectInput("select_year", "Velg år:", list(
                                         "År" = c(2023, 2022, 2021, 2020, 2019))),
                                       plotlyOutput("plot_losses"))),
                  br(),
+                 shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")),
                  #hr(),
                  br()
                  #,p("test")
@@ -203,19 +193,14 @@ ui <- fluidPage(
                                       #br(),
                                       hr(),
                                       #br(),
-                                      p("I tabellen er prosent døde angitt for henholdsvis laks og regnbueørret.
-                                        I disse tallene inngår ikke tap som følge av utkast, rømming eller «annet».
-                                        Se for øvrig beskrivelse av beregningsmetode i fanen ‘Om statistikken’. 
-                                        Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
-                                        for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")),
+                                     shiny::includeMarkdown("www/tab4_table_and_plot_footer.md")),
                              tabPanel("Diagram", 
                                       br(),
                                       plotlyOutput("plot_mortality"),
                                       #br(),
                                       hr(),
                                       #br(),
-                                      p("Produksjonsområder eller fylker med meget få lokaliteter er tatt ut av fremstillingen,
-                                        for at det ikke skal være mulig å kjenne igjen enkelte lokaliteter.")))
+                                      shiny::includeMarkdown("www/tab4_table_and_plot_footer.md")))
         ),
 
         tabPanel(h5("Produksjonssykluser dødelighet"),
@@ -243,10 +228,7 @@ ui <- fluidPage(
                                       ),
                                       DTOutput("table_cohort"),
                                       hr(),
-                                      p("Forklaring av tall: ‘Total’ viser det totale tapet. ‘Døde’ viser antall døde.
-                             ‘Døde%’ viser hvor stor andel av det totale tapet som skyldes døde.
-                             Tilsvarende gjelder for ‘Utkast%’, ‘Rømt%’ og ‘Annet%’. For forklaring av kategoriene,
-                             se fanen ‘Om statistikken’.")),
+                                      shiny::includeMarkdown("www/tab5_table_footer.md")),
                              tabPanel("Diagram",
                                       br(),
                                         column(width = 6,
@@ -254,15 +236,16 @@ ui <- fluidPage(
                                                  "År" = c(2023, 2022, 2021, 2020, 2019)))),
                                       plotlyOutput("plot_cohort"))),
                  br(),
+                 shiny::includeMarkdown("www/tab5_plot_footer.md")),
                  #hr(),
                  br()
                  #,p("test")
         ),
-        tabPanel(h5("Kalkuler dødelighet"), value = "calc",
+        tabPanel(h5("Dødelighetskalkulator"), value = "calc",
                               verbatimTextOutput("result_text"),
                                       plotOutput("mortality_plot")
                                       ),
-      tabPanel(h5("Dødelighet utvidet periode"), value = "calc_cum",
+      tabPanel(h5("Dødelighetskalkulator for utvidet periode"), value = "calc_cum",
                  verbatimTextOutput("result_text_cum"),
                  plotOutput("cumulative_risk_plot")
                 
@@ -314,10 +297,7 @@ server <- function(input, output) {
                             "Norge" = "all"),
                           selected = c("zone")),
               hr(),
-              helpText("Tallene er basert på månedlige innrapporteringer til Fiskeridirektoratet.
-      Les mer om hvordan statistikken lages i fanen ‘Om statistikken’.
-      Det er mulig å velge å se enten det totale tapet (fanen ‘Tap’),
-      eller bare tap forårsaket av dødelighet (fanen ‘Dødelighet’)."))
+              shiny::includeMarkdown("www/sidebar_text.md"))
           )
       }
     })

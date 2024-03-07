@@ -1,0 +1,1 @@
+Forklaring av månedlige tall: «Total» viser det totale tapet. ‘Døde’ viser antall døde. «Døde%» viser hvor stor andel av det totale tapet som skyldes døde. Tilsvarende gjelder for «Utkast%», «Rømt%» og «Annet%».
