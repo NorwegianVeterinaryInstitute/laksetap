@@ -247,34 +247,7 @@ ui <- fluidPage(
                             tabPanel(
                               "Tabell",
                               br(),
-                              fluidRow(
-                                column(
-                                  width = 6,
-                                  selectizeInput(
-                                    "select_years_table1",
-                                    "Velg år:",
-                                    c(
-                                      "2023" = 2023,
-                                      "2022" = 2022,
-                                      "2021" = 2021,
-                                      "2020" = 2020,
-                                      "2019" = 2019
-                                    ),
-                                    selected = c(2023, 2022, 2021, 2020, 2019),
-                                    multiple = T
-                                  )
-                                ),
-                                column(
-                                  width = 6,
-                                  selectizeInput(
-                                    "select_area1",
-                                    "Velg Omrade",
-                                    c(1:13),
-                                    selected = c(1:13),
-                                    multiple = TRUE
-                                  )
-                                )
-                              ),
+                              uiOutput("tab_filter"),
                               DTOutput("table_losses"),
                               hr(),
                               shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")
@@ -297,34 +270,7 @@ ui <- fluidPage(
                             tabPanel(
                               "Tabell",
                               br(),
-                              fluidRow(
-                                column(
-                                  width = 6,
-                                  selectizeInput(
-                                    "select_years_table2",
-                                    "Velg år:",
-                                    c(
-                                      "2023" = 2023,
-                                      "2022" = 2022,
-                                      "2021" = 2021,
-                                      "2020" = 2020,
-                                      "2019" = 2019
-                                    ),
-                                    selected = c(2023, 2022, 2021, 2020, 2019),
-                                    multiple = T
-                                  )
-                                ),
-                                column(
-                                  width = 6,
-                                  selectizeInput(
-                                    "select_area2",
-                                    "Velg Omrade",
-                                    c(1:13),
-                                    selected = c(1:13),
-                                    multiple = TRUE
-                                  )
-                                )
-                              ),
+                              uiOutput("tab_filter_2"),
                               DTOutput("table_mortality"),
                               hr(),
                               shiny::includeMarkdown("www/tab4_table_and_plot_footer.md")
@@ -419,6 +365,216 @@ ui <- fluidPage(
 #####
 server <- function(input, output) {
   
+  #### UI for tab losses yearly ####
+  observeEvent(input$geo_group, { 
+    if (input$geo_group == "zone") {
+
+      output$tab_filter <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_years_table1",
+                  "Velg år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_area1",
+                  "Velg Omrade",
+                  c(1:13),
+                  selected = c(1:13),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+      
+    } else if (input$geo_group == "fylke") {
+      output$tab_filter <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_years_table1",
+                  "Velg år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_area1",
+                  "Velg Omrade",
+                  c("Agder", "Møre og Romsdal",  
+                    "Nordland", "Rogaland",
+                    "Troms og Finnmark",
+                    "Trøndelag", "Vestland"),
+                  selected = c("Agder", "Møre og Romsdal",  
+                               "Nordland", "Rogaland",
+                               "Troms og Finnmark",
+                               "Trøndelag", "Vestland"),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+      
+    } else {
+      output$tab_filter <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_years_table1",
+                  "Velg år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  multiple = T
+                )
+              ))))
+      
+      }
+    
+    })
+  #### UI for tab mortality yearly ####
+  observeEvent(input$geo_group, { 
+    if (input$geo_group == "zone") {
+      
+      output$tab_filter_2 <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_years_table2",
+                  "Velg år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_area2",
+                  "Velg Omrade",
+                  c(1:13),
+                  selected = c(1:13),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+      
+    } else if (input$geo_group == "fylke") {
+      output$tab_filter_2 <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_years_table2",
+                  "Velg år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_area2",
+                  "Velg Omrade",
+                  c("Agder", "Møre og Romsdal",  
+                    "Nordland", "Rogaland",
+                    "Troms og Finnmark",
+                    "Trøndelag", "Vestland"),
+                  selected = c("Agder", "Møre og Romsdal",  
+                               "Nordland", "Rogaland",
+                               "Troms og Finnmark",
+                               "Trøndelag", "Vestland"),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+      
+    } else {
+      output$tab_filter_2 <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_years_table2",
+                  "Velg år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  multiple = T
+                )
+              ))))
+    }
+    
+  })
+  
+  
+  
   observeEvent(input$navbar, {
     if (input$navbar == "calc") {
       output$sidebar_content <-
@@ -498,18 +654,163 @@ server <- function(input, output) {
   # any changes you make to df_losses will affect both the table and the plot, 
   # if you want to use df_losses write df_losses()
   
-  output$table_losses <- DT::renderDT(
-    datatable(
-      df_losses() %>%
-        dplyr::select("year", "area", "losses", "doed", "p.doed", "ut", "p.ut", "romt", "p.romt", "ufor", "p.ufor") %>%
-        dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table1 & area %in% input$select_area1),
-      #filter = "top",
-      rownames = F,
-      colnames= c("År","Område", "Total", "Døde", "Døde%", "Utkast", "Utkast%", "Rømt", "Rømt%", "Annet", "Annet%"),
-      selection = (list(mode = 'multiple',selected = "all",target ='column')),
-      options = list(sDom  = '<"top">lrt<"bottom">ip',
-                     scrollX = TRUE,
-                     language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))))
+  ##### Yearly tables need to observe for Norge #####
+  observeEvent(input$geo_group, { 
+    if (input$geo_group == "all") {
+      
+      output$table_losses <- DT::renderDT(
+        datatable(
+          df_losses() %>%
+            dplyr::select(
+              "year",
+              "area",
+              "losses",
+              "doed",
+              "p.doed",
+              "ut",
+              "p.ut",
+              "romt",
+              "p.romt",
+              "ufor",
+              "p.ufor"
+            ) %>%
+            dplyr::filter(
+              year %in% input$select_years_table1
+            ),
+          #filter = "top",
+          rownames = F,
+          colnames = c(
+            "År",
+            "Område",
+            "Total",
+            "Døde",
+            "Døde%",
+            "Utkast",
+            "Utkast%",
+            "Rømt",
+            "Rømt%",
+            "Annet",
+            "Annet%"
+          ),
+          selection = (list(
+            mode = 'multiple',
+            selected = "all",
+            target = 'column'
+          )),
+          options = list(
+            sDom  = '<"top">lrt<"bottom">ip',
+            scrollX = TRUE,
+            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+          )
+        )
+      )
+      
+      output$table_mortality <- DT::renderDT (
+        datatable(
+          df_losses () %>%
+            dplyr::filter (!is.na(mort)) %>%
+            dplyr::select (year, area, mort) %>% # this has changed from previous year
+            dplyr::filter(year %in% input$select_years_table2),
+          #filter = "top",
+          rownames = F,
+          colnames = c("År", "Område", "Dødelighet %"),
+          # also here
+          selection = (list(
+            mode = 'multiple',
+            selected = "all",
+            target = 'column'
+          )),
+          options = list(
+            sDom  = '<"top">lrt<"bottom">ip',
+            autoWidth = FALSE,
+            #columnDefs = list(list(width = '100px', targets = c(1, 2))),
+            scrollX = TRUE,
+            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+          )
+        )
+      )
+
+    } else {
+      
+      output$table_losses <- DT::renderDT(
+        datatable(
+          df_losses() %>%
+            dplyr::select(
+              "year",
+              "area",
+              "losses",
+              "doed",
+              "p.doed",
+              "ut",
+              "p.ut",
+              "romt",
+              "p.romt",
+              "ufor",
+              "p.ufor"
+            ) %>%
+            dplyr::filter(
+              year %in% input$select_years_table1 &
+                area %in% input$select_area1
+            ),
+          #filter = "top",
+          rownames = F,
+          colnames = c(
+            "År",
+            "Område",
+            "Total",
+            "Døde",
+            "Døde%",
+            "Utkast",
+            "Utkast%",
+            "Rømt",
+            "Rømt%",
+            "Annet",
+            "Annet%"
+          ),
+          selection = (list(
+            mode = 'multiple',
+            selected = "all",
+            target = 'column'
+          )),
+          options = list(
+            sDom  = '<"top">lrt<"bottom">ip',
+            scrollX = TRUE,
+            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+          )
+        )
+      )
+      
+      output$table_mortality <- DT::renderDT (
+        datatable(
+          df_losses () %>%
+            dplyr::filter (!is.na(mort)) %>%
+            dplyr::select (year, area, mort) %>% # this has changed from previous year
+            dplyr::filter(
+              year %in% input$select_years_table2 & area %in% input$select_area2
+            ),
+          #filter = "top",
+          rownames = F,
+          colnames = c("År", "Område", "Dødelighet %"),
+          # also here
+          selection = (list(
+            mode = 'multiple',
+            selected = "all",
+            target = 'column'
+          )),
+          options = list(
+            sDom  = '<"top">lrt<"bottom">ip',
+            autoWidth = FALSE,
+            #columnDefs = list(list(width = '100px', targets = c(1, 2))),
+            scrollX = TRUE,
+            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+          )
+        )
+      )  
+    }
+    
+    })
+        
+ 
   
   output$plot_losses <- renderPlotly(
     plot_ly(df_losses() %>% 
@@ -535,22 +836,6 @@ server <- function(input, output) {
   
   
   #### MORTALITY yearly ####
-  
-  output$table_mortality <- DT::renderDT (
-    datatable(df_losses () %>%
-                dplyr:: filter (!is.na(mort)) %>%
-                dplyr:: select (year, area, mort) %>% # this has changed from previous year
-                dplyr::filter(!area == "Norway" & !area == "All" & year %in% input$select_years_table2 & area %in% input$select_area2),
-              #filter = "top",
-              rownames = F,
-              colnames= c( "År", "Område", "Dødelighet %"), # also here
-              selection = (list(mode = 'multiple', selected = "all", target ='column')),
-              options = list(sDom  = '<"top">lrt<"bottom">ip',
-                             autoWidth = FALSE,
-                             #columnDefs = list(list(width = '100px', targets = c(1, 2))),
-                             scrollX = TRUE,
-                             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
-    ))
   
   output$plot_mortality <- renderPlotly(
     plot_ly(df_losses() %>% 
