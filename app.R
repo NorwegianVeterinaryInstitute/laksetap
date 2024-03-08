@@ -393,52 +393,19 @@ ui <- fluidPage(
                    )
                  ),
                  #### top level tab calculator####
-                 tabsetPanel(tabPanel(
-                   "Dødelighetskalkulator",
-                   sidebarLayout(
-                     sidebarPanel(
-                       numericInput(
-                         "beginning_count",
-                         "Antall fisk ved periodens start (f.eks. dag, uke, måned)",
-                         value = 100
-                       ),
-                       numericInput("end_count", "Antall fisk ved periodens slutt", value = 90),
-                       numericInput("dead_count", "Antall døde fisk i løpet av perioden", value = 5),
-                       actionButton("calculate_button", "Kalkuler"),
-                       br()
-                     ),
-                     mainPanel(
-                       verbatimTextOutput("result_text"),
-                       plotOutput("mortality_plot")
-                     )
-                   )),
+                 tabPanel(
+                   h5("Dødelighetskalkulator"),
+                   value = "calc",
+                   verbatimTextOutput("result_text"),
+                   plotOutput("mortality_plot")
+                 ),
                  #### top level tab calculator_2 ####
                  tabPanel(
-                   "Dødelighetskalkulator for utvidet periode",
-                   sidebarLayout(
-                     sidebarPanel(
-                       selectInput(
-                         "period_type",
-                         "Velg periode:",
-                         choices = c(
-                           "Dag" = "day",
-                           "Uke" = "week",
-                           "Måned" = "month"
-                         ),
-                         selected = "month"
-                       ),
-                       textInput(
-                         "mortality_input_cum",
-                         "Skriv inn dødsrater (kommaseparert, f.eks. 0,5, 1, 1,5, 2):",
-                         ""
-                       ),
-                       actionButton("calculate_button_cum", "Kalkuler")
-                     ),
-                     mainPanel(
-                       plotOutput("cumulative_risk_plot"),
-                       verbatimTextOutput("result_text_cum")
-                     )
-                   )
+                   h5("Dødelighetskalkulator for utvidet periode"),
+                   value = "calc_cum",
+                   plotOutput("cumulative_risk_plot"),
+                   verbatimTextOutput("result_text_cum")
+                   
                  ),
                  #### top level tab about####
                  tabPanel(h5("Om statistikken"),
@@ -457,18 +424,33 @@ server <- function(input, output) {
       output$sidebar_content <-
         renderUI(
           tagList(
-              numericInput("beginning_count", "Number of Animals at the Beginning of the Month:", value = 100),
-              numericInput("end_count", "Number of Animals at the End of the Month:", value = 90),
-              numericInput("dead_count", "Number of Dead Animals During the Month:", value = 5),
-              actionButton("calculate_button", "Calculate")
+            numericInput("beginning_count",
+                         "Antall fisk ved periodens start (f.eks. dag, uke, måned)",
+                         value = 100),
+            numericInput("end_count", "Antall fisk ved periodens slutt", value = 90),
+            numericInput("dead_count", "Antall døde fisk i løpet av perioden", value = 5),
+            actionButton("calculate_button", "Kalkuler")
             )
         )
     } else if (input$navbar == "calc_cum") {
       output$sidebar_content <-
         renderUI(
       tagList(
-      textInput("mortality_input_cum", "Enter Monthly Mortality Rates (comma-separated):", ""),
-      actionButton("calculate_button_cum", "Calculate"))
+        selectInput(
+          "period_type",
+          "Velg periode:",
+          choices = c(
+            "Dag" = "day",
+            "Uke" = "week",
+            "Måned" = "month"
+          ),
+          selected = "month"
+        ),
+        textInput("mortality_input_cum",
+                  "Skriv inn dødsrater (kommaseparert, f.eks. 0,5, 1, 1,5, 2):",
+                  ""),
+        actionButton("calculate_button_cum", "Kalkuler")
+        )
         )
       }    else {
           output$sidebar_content <- renderUI(
@@ -841,45 +823,48 @@ server <- function(input, output) {
    
   
   #### CALCULATOR ####
-  
+  #### Tab 1 ####
   observeEvent(input$calculate_button, {
-    # Calculate mortality rate
-    ar_count <- input$end_count
-    d_count <- input$dead_count
-    mort_rate <- d_count / ar_count
+    ar_count <- (input$beginning_count + input$end_count) / 2
+    mort_rate <- input$dead_count / ar_count
     
-    # Display the results
     output$result_text <- renderText({
       paste("Mortality Rate:", sprintf("%.2f%%", mort_rate * 100))
     })
     
-    # Plot the mortality rate over time (placeholder plot)
     output$mortality_plot <- renderPlot({
       plot(1, type = "n", xlab = "", ylab = "", main = "Mortality Rate Over Time")
       text(1, 1, paste("Mortality Rate:", sprintf("%.2f%%", mort_rate * 100)), cex = 1.5)
     })
   })
-  
-  
+  #### Tab 2 ####
   observeEvent(input$calculate_button_cum, {
+    mort_rates_cum <- as.numeric(unlist(strsplit(input$mortality_input_cum, ","))) / 100
+    cum_rate <- cumsum(mort_rates_cum)
+    cum_risks <- 1 - exp(-cum_rate)
     
-    # Extract and convert monthly mortality rates
-    mort_rates_cum <- as.numeric(unlist(strsplit(input$mortality_input_cum, ",")))
+    period_label <- switch(input$period_type,
+                           "day" = "Dag",
+                           "week" = "Uke",
+                           "month" = "Måned")
     
-    # Calculate cumulative mortality risk
-    sum_mort_rate_cum <- sum(mort_rates_cum)
-    cum_risk_cum <- 1 - exp(-sum_mort_rate_cum)
-    
-    # Display the results
-    output$result_text_cum <- renderText({
-      paste("Cumulative Mortality Risk:", sprintf("%.2f%%", cum_risk_cum * 100))
+    output$cumulative_risk_plot <- renderPlot({
+      par(mfrow=c(2, 1))
+      
+      barplot(mort_rates_cum * 100, names.arg = seq_along(mort_rates_cum), col = "#5c92bf",
+              main = "Månedlige dødsrater",
+              xlab = period_label, ylab = "Dødsrate (%)")
+      
+      plot(cum_risks * 100, type = "o", col = "#de2212", pch = 20, lty = 1,
+           main = "Dødelighetsrisiko over tid",
+           xlab = period_label, ylab = "Dødelighetsrisiko (%)",
+           ylim = c(0, max(cum_risks * 100) * 1.1),
+           xaxt = "n")
+      axis(1, at = 1:length(cum_risks), labels = seq_along(cum_risks))
     })
     
-    # Plot the monthly mortality rates over time (placeholder plot)
-    output$cumulative_risk_plot <- renderPlot({
-      barplot(mort_rates_cum, names.arg = seq_along(mort_rates_cum), col = "steelblue", 
-              main = "Monthly Mortality Rates",
-              xlab = "Month", ylab = "Mortality Rate")
+    output$result_text_cum <- renderText({
+      paste("Dødelighetsrisiko for den siste registrerte perioden", sprintf("%.2f%%", tail(cum_risks * 100, 1)))
     })
   })
   
