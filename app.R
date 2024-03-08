@@ -393,19 +393,52 @@ ui <- fluidPage(
                    )
                  ),
                  #### top level tab calculator####
-                 tabPanel(
-                   h5("Dødelighetskalkulator"),
-                   value = "calc",
-                   verbatimTextOutput("result_text"),
-                   plotOutput("mortality_plot")
-                 ),
+                 tabsetPanel(tabPanel(
+                   "Dødelighetskalkulator",
+                   sidebarLayout(
+                     sidebarPanel(
+                       numericInput(
+                         "beginning_count",
+                         "Antall fisk ved periodens start (f.eks. dag, uke, måned)",
+                         value = 100
+                       ),
+                       numericInput("end_count", "Antall fisk ved periodens slutt", value = 90),
+                       numericInput("dead_count", "Antall døde fisk i løpet av perioden", value = 5),
+                       actionButton("calculate_button", "Kalkuler"),
+                       br()
+                     ),
+                     mainPanel(
+                       verbatimTextOutput("result_text"),
+                       plotOutput("mortality_plot")
+                     )
+                   )),
                  #### top level tab calculator_2 ####
                  tabPanel(
-                   h5("Dødelighetskalkulator for utvidet periode"),
-                   value = "calc_cum",
-                   verbatimTextOutput("result_text_cum"),
-                   plotOutput("cumulative_risk_plot")
-                   
+                   "Dødelighetskalkulator for utvidet periode",
+                   sidebarLayout(
+                     sidebarPanel(
+                       selectInput(
+                         "period_type",
+                         "Velg periode:",
+                         choices = c(
+                           "Dag" = "day",
+                           "Uke" = "week",
+                           "Måned" = "month"
+                         ),
+                         selected = "month"
+                       ),
+                       textInput(
+                         "mortality_input_cum",
+                         "Skriv inn dødsrater (kommaseparert, f.eks. 0,5, 1, 1,5, 2):",
+                         ""
+                       ),
+                       actionButton("calculate_button_cum", "Kalkuler")
+                     ),
+                     mainPanel(
+                       plotOutput("cumulative_risk_plot"),
+                       verbatimTextOutput("result_text_cum")
+                     )
+                   )
                  ),
                  #### top level tab about####
                  tabPanel(h5("Om statistikken"),
@@ -495,8 +528,6 @@ server <- function(input, output) {
       options = list(sDom  = '<"top">lrt<"bottom">ip',
                      scrollX = TRUE,
                      language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))))
-        #autoWidth =T, #columnDefs = list(list(searchable = FALSE, targets = c(1:10)),
-                    # list(width='200px', targets = c(1))))))
   
   output$plot_losses <- renderPlotly(
     plot_ly(df_losses() %>% 
@@ -538,7 +569,6 @@ server <- function(input, output) {
                              scrollX = TRUE,
                              language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
-  #, autoWidth = T, columnDefs = list(list(searchable = FALSE, targets = c(1:4)), list(width='150px', className = 'dt-left', targets = list("_all"))))))
   
   output$plot_mortality <- renderPlotly(
     plot_ly(df_losses() %>% 
@@ -653,7 +683,7 @@ server <- function(input, output) {
                              language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
 
-#### dead plots ####
+    #### dead plots for montly mortality ####
   
       observeEvent(input$species, {
      if (input$species == "rainbowtrout") {
@@ -751,12 +781,6 @@ server <- function(input, output) {
         
         plotly::ggplotly(p)}
       )}
-    
-      
-    
-    
-    
-    
   })
      
  
