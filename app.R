@@ -1114,13 +1114,13 @@ server <- function(input, output) {
     mort_rate <- input$dead_count / ar_count
     
     output$result_text <- renderText({
-      paste("Mortality Rate:", sprintf("%.2f%%", mort_rate * 100))
+      paste("Dødsrater:", sprintf("%.2f%%", mort_rate * 100))
     })
     
-    output$mortality_plot <- renderPlot({
-      plot(1, type = "n", xlab = "", ylab = "", main = "Mortality Rate Over Time")
-      text(1, 1, paste("Mortality Rate:", sprintf("%.2f%%", mort_rate * 100)), cex = 1.5)
-    })
+    # output$mortality_plot <- renderPlot({
+    #   plot(1, type = "n", xlab = "", ylab = "", main = "Mortality Rate Over Time")
+    #   text(1, 1, paste("Mortality Rate:", sprintf("%.2f%%", mort_rate * 100)), cex = 1.5)
+    # })
   })
   #### Tab 2 ####
   observeEvent(input$calculate_button_cum, {
