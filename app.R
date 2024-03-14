@@ -38,6 +38,38 @@ ui <- fluidPage(
                           tabsetPanel(
                             type = "tabs",
                             tabPanel(
+                              "Diagram",
+                              br(),
+                              fluidRow(column(
+                                width = 6,
+                                selectInput("select_year", "Velg år:", list("År" = c(
+                                  2023, 2022, 2021, 2020, 2019
+                                )))
+                              ),
+                              column(
+                                width = 6,
+                                selectInput("select_month", "Velg måned:", list(
+                                  "Måned" = c(
+                                    "01",
+                                    "02",
+                                    "03",
+                                    "04",
+                                    "05",
+                                    "06",
+                                    "07",
+                                    "08",
+                                    "09",
+                                    "10",
+                                    "11",
+                                    "12"
+                                  )
+                                ))
+                              )),
+                              plotlyOutput("plot_losses_monthly"),
+                              hr(),
+                              shiny::includeMarkdown("www/tab1_table_and_plot_footer.md")
+                            ),
+                            tabPanel(
                               "Tabell",
                               br(),
                               fluidRow(
@@ -96,44 +128,33 @@ ui <- fluidPage(
                               DTOutput("table_losses_month"),
                               hr(),
                               shiny::includeMarkdown("www/tab1_table_and_plot_footer.md")
-                            ),
-                            tabPanel(
-                              "Diagram",
-                              br(),
-                              fluidRow(column(
-                                width = 6,
-                                selectInput("select_year", "Velg år:", list("År" = c(
-                                  2023, 2022, 2021, 2020, 2019
-                                )))
-                              ),
-                              column(
-                                width = 6,
-                                selectInput("select_month", "Velg måned:", list(
-                                  "Måned" = c(
-                                    "01",
-                                    "02",
-                                    "03",
-                                    "04",
-                                    "05",
-                                    "06",
-                                    "07",
-                                    "08",
-                                    "09",
-                                    "10",
-                                    "11",
-                                    "12"
-                                  )
-                                ))
-                              )),
-                              plotlyOutput("plot_losses_monthly"),
-                              hr(),
-                              shiny::includeMarkdown("www/tab1_table_and_plot_footer.md")
                             )
                           )),
                  #### top level tab monthly mortality ####
                  tabPanel(h5("Månedlige dødsrater"),
                           tabsetPanel(
                             type = "tabs",
+                            tabPanel(
+                              "Diagram",
+                              br(),
+                              fluidRow(column(
+                                width = 6,
+                                selectInput("select_year_mort", "Velg år:", list("År" = c(
+                                  2023, 2022, 2021, 2020, 2019
+                                )))
+                              ),
+                              column(
+                                width = 6,
+                                selectInput("select_zone", "Velg zone:", list(
+                                  "Zone" = c("1 & 2", "3", "4", "5", "6",
+                                             "7", "8", "9", "10", "11", "12 & 13")
+                                ),
+                                multiple = TRUE)
+                              )),
+                              plotlyOutput("plot_mortality_month"),
+                              hr(),
+                              shiny::includeMarkdown("www/tab2_plot_footer.md")
+                            ),
                             tabPanel(
                               "Tabell",
                               br(),
@@ -195,41 +216,12 @@ ui <- fluidPage(
                               DTOutput("table_mortality_month"),
                               hr(),
                               shiny::includeMarkdown("www/tab2_table_footer.md")
-                            ),
-                            tabPanel(
-                              "Diagram",
-                              br(),
-                              fluidRow(column(
-                                width = 6,
-                                selectInput("select_year_mort", "Velg år:", list("År" = c(
-                                  2023, 2022, 2021, 2020, 2019
-                                )))
-                              ),
-                              column(
-                                width = 6,
-                                selectInput("select_zone", "Velg zone:", list(
-                                  "Zone" = c("1 & 2", "3", "4", "5", "6",
-                                             "7", "8", "9", "10", "11", "12 & 13")
-                                ),
-                                multiple = TRUE)
-                              )),
-                              plotlyOutput("plot_mortality_month"),
-                              hr(),
-                              shiny::includeMarkdown("www/tab2_plot_footer.md")
                             )
                           )),
                  #### top level tab yearly losses ####
                  tabPanel(h5("Årlige tap"),
                           tabsetPanel(
                             type = "tabs",
-                            tabPanel(
-                              "Tabell",
-                              br(),
-                              uiOutput("tab_filter"),
-                              DTOutput("table_losses"),
-                              hr(),
-                              shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")
-                            ),
                             tabPanel(
                               "Diagram",
                               br(),
@@ -239,6 +231,14 @@ ui <- fluidPage(
                               plotlyOutput("plot_losses"),
                               hr(),
                               shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")
+                            ),
+                            tabPanel(
+                              "Tabell",
+                              br(),
+                              uiOutput("tab_filter"),
+                              DTOutput("table_losses"),
+                              hr(),
+                              shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")
                             )
                           )),
                  #### top level tab yearly mortality####
@@ -246,19 +246,19 @@ ui <- fluidPage(
                           tabsetPanel(
                             type = "tabs",
                             tabPanel(
-                              "Tabell",
-                              br(),
-                              uiOutput("tab_filter_2"),
-                              DTOutput("table_mortality"),
-                              hr(),
-                              shiny::includeMarkdown("www/tab4_table_and_plot_footer.md")
-                            ),
-                            tabPanel(
                               "Diagram",
                               br(),
                               plotlyOutput("plot_mortality"),
                               hr(),
                               
+                              shiny::includeMarkdown("www/tab4_table_and_plot_footer.md")
+                            ),
+                            tabPanel(
+                              "Tabell",
+                              br(),
+                              uiOutput("tab_filter_2"),
+                              DTOutput("table_mortality"),
+                              hr(),
                               shiny::includeMarkdown("www/tab4_table_and_plot_footer.md")
                             )
                           )),
@@ -267,6 +267,22 @@ ui <- fluidPage(
                    h5("Produksjonssykluser dødelighet"),
                    tabsetPanel(
                      type = "tabs",
+                     tabPanel(
+                       "Diagram",
+                       br(),
+                       column(width = 6,
+                              selectInput(
+                                "select_year_coh", "Velg år:",
+                                list("År" = c(2023, 2022, 2021, 2020, 2019))
+                              )),
+                       br(),
+                       br(),
+                       br(),
+                       br(),
+                       plotlyOutput("plot_cohort"),
+                       hr(),
+                       shiny::includeMarkdown("www/tab5_plot_footer.md")
+                     ),
                      tabPanel(
                        "Tabell",
                        br(),
@@ -301,22 +317,6 @@ ui <- fluidPage(
                        DTOutput("table_cohort"),
                        hr(),
                        shiny::includeMarkdown("www/tab5_table_footer.md")
-                     ),
-                     tabPanel(
-                       "Diagram",
-                       br(),
-                       column(width = 6,
-                              selectInput(
-                                "select_year_coh", "Velg år:",
-                                list("År" = c(2023, 2022, 2021, 2020, 2019))
-                              )),
-                       br(),
-                       br(),
-                       br(),
-                       br(),
-                       plotlyOutput("plot_cohort"),
-                       hr(),
-                       shiny::includeMarkdown("www/tab5_plot_footer.md")
                      )
                    )
                  ),
