@@ -14,7 +14,7 @@ ui <- fluidPage(
   tags$head(tags$style(HTML('* {font-family: "Futura PT Medium"};'))),
   titlePanel( 
     # creating NVI logo in the top of the app and the title following it
-    windowTitle = "Laksefiskdødlighet",
+    windowTitle = "Laksefiskdødelighet",
     fluidRow(
       column(4, shiny::HTML(
             '<a href="https://www.vetinst.no/">
@@ -45,7 +45,7 @@ ui <- fluidPage(
                                   width = 4,
                                   selectizeInput(
                                     "select_years_table3",
-                                    "Velg år:",
+                                    "Velg flere år:",
                                     c(
                                       "2023" = 2023,
                                       "2022" = 2022,
@@ -53,7 +53,7 @@ ui <- fluidPage(
                                       "2020" = 2020,
                                       "2019" = 2019
                                     ),
-                                    selected = c(2023, 2022, 2021, 2020, 2019),
+                                    selected = c(2023),
                                     multiple = T
                                   )
                                 ),
@@ -61,34 +61,23 @@ ui <- fluidPage(
                                   width = 4,
                                   selectizeInput(
                                     "select_month_table3",
-                                    "Velg måned:",
+                                    "Velg flere måneder:",
                                     c(
-                                      "Jan",
-                                      "Feb",
-                                      "Mar",
-                                      "Apr",
-                                      "May",
-                                      "Jun",
-                                      "Jul",
-                                      "Aug",
-                                      "Sep",
-                                      "Oct",
-                                      "Nov",
-                                      "Dec"
+                                      "jan",
+                                      "feb",
+                                      "mar",
+                                      "apr",
+                                      "mai",
+                                      "jun",
+                                      "jul",
+                                      "aug",
+                                      "sep",
+                                      "okt",
+                                      "nov",
+                                      "des"
                                     ),
                                     selected = c(
-                                      "Jan",
-                                      "Feb",
-                                      "Mar",
-                                      "Apr",
-                                      "May",
-                                      "Jun",
-                                      "Jul",
-                                      "Aug",
-                                      "Sep",
-                                      "Oct",
-                                      "Nov",
-                                      "Dec"
+                                      "jan"
                                     ),
                                     multiple = T
                                   )
@@ -142,7 +131,7 @@ ui <- fluidPage(
                             )
                           )),
                  #### top level tab monthly mortality ####
-                 tabPanel(h5("Månedlig dødelighet"),
+                 tabPanel(h5("Månedlige dødsrater"),
                           tabsetPanel(
                             type = "tabs",
                             tabPanel(
@@ -153,7 +142,7 @@ ui <- fluidPage(
                                   width = 4,
                                   selectizeInput(
                                     "select_years_table4",
-                                    "Velg år:",
+                                    "Velg flere år:",
                                     c(
                                       "2023" = 2023,
                                       "2022" = 2022,
@@ -161,7 +150,7 @@ ui <- fluidPage(
                                       "2020" = 2020,
                                       "2019" = 2019
                                     ),
-                                    selected = c(2023, 2022, 2021, 2020, 2019),
+                                    selected = c(2023),
                                     multiple = T
                                   )
                                 ),
@@ -169,34 +158,23 @@ ui <- fluidPage(
                                   width = 4,
                                   selectizeInput(
                                     "select_month_table4",
-                                    "Velg måned:",
+                                    "Velg flere måneder:",
                                     c(
-                                      "Jan",
-                                      "Feb",
-                                      "Mar",
-                                      "Apr",
-                                      "May",
-                                      "Jun",
-                                      "Jul",
-                                      "Aug",
-                                      "Sep",
-                                      "Oct",
-                                      "Nov",
-                                      "Dec"
+                                      "jan",
+                                      "feb",
+                                      "mar",
+                                      "apr",
+                                      "mai",
+                                      "jun",
+                                      "jul",
+                                      "aug",
+                                      "sep",
+                                      "okt",
+                                      "nov",
+                                      "des"
                                     ),
                                     selected = c(
-                                      "Jan",
-                                      "Feb",
-                                      "Mar",
-                                      "Apr",
-                                      "May",
-                                      "Jun",
-                                      "Jul",
-                                      "Aug",
-                                      "Sep",
-                                      "Oct",
-                                      "Nov",
-                                      "Dec"
+                                      "jan"
                                     ),
                                     multiple = T
                                   )
@@ -297,7 +275,7 @@ ui <- fluidPage(
                            width = 4,
                            selectizeInput(
                              "select_years_table5",
-                             "Velg år:",
+                             "Velg flere år:",
                              c(
                                "2023" = 2023,
                                "2022" = 2022,
@@ -305,7 +283,7 @@ ui <- fluidPage(
                                "2020" = 2020,
                                "2019" = 2019
                              ),
-                             selected = c(2023, 2022, 2021, 2020, 2019),
+                             selected = c(2023),
                              multiple = T
                            )
                          ),
@@ -332,6 +310,10 @@ ui <- fluidPage(
                                 "select_year_coh", "Velg år:",
                                 list("År" = c(2023, 2022, 2021, 2020, 2019))
                               )),
+                       br(),
+                       br(),
+                       br(),
+                       br(),
                        plotlyOutput("plot_cohort"),
                        hr(),
                        shiny::includeMarkdown("www/tab5_plot_footer.md")
@@ -377,7 +359,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table1",
-                  "Velg år:",
+                  "Velg flere år:",
                   c(
                     "2023" = 2023,
                     "2022" = 2022,
@@ -385,7 +367,7 @@ server <- function(input, output) {
                     "2020" = 2020,
                     "2019" = 2019
                   ),
-                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  selected = c(2023),
                   multiple = T
                 )
               ),
@@ -412,7 +394,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table1",
-                  "Velg år:",
+                  "Velg flere år:",
                   c(
                     "2023" = 2023,
                     "2022" = 2022,
@@ -420,7 +402,7 @@ server <- function(input, output) {
                     "2020" = 2020,
                     "2019" = 2019
                   ),
-                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  selected = c(2023),
                   multiple = T
                 )
               ),
@@ -453,7 +435,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table1",
-                  "Velg år:",
+                  "Velg flere år:",
                   c(
                     "2023" = 2023,
                     "2022" = 2022,
@@ -461,7 +443,7 @@ server <- function(input, output) {
                     "2020" = 2020,
                     "2019" = 2019
                   ),
-                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  selected = c(2023),
                   multiple = T
                 )
               ))))
@@ -481,7 +463,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table2",
-                  "Velg år:",
+                  "Velg flere år:",
                   c(
                     "2023" = 2023,
                     "2022" = 2022,
@@ -489,7 +471,7 @@ server <- function(input, output) {
                     "2020" = 2020,
                     "2019" = 2019
                   ),
-                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  selected = c(2023),
                   multiple = T
                 )
               ),
@@ -516,7 +498,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table2",
-                  "Velg år:",
+                  "Velg flere år:",
                   c(
                     "2023" = 2023,
                     "2022" = 2022,
@@ -524,7 +506,7 @@ server <- function(input, output) {
                     "2020" = 2020,
                     "2019" = 2019
                   ),
-                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  selected = c(2023),
                   multiple = T
                 )
               ),
@@ -557,7 +539,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table2",
-                  "Velg år:",
+                  "Velg flere år:",
                   c(
                     "2023" = 2023,
                     "2022" = 2022,
@@ -565,7 +547,7 @@ server <- function(input, output) {
                     "2020" = 2020,
                     "2019" = 2019
                   ),
-                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  selected = c(2023),
                   multiple = T
                 )
               ))))
@@ -603,7 +585,7 @@ server <- function(input, output) {
           selected = "month"
         ),
         textInput("mortality_input_cum",
-                  "Skriv inn dødsrater (kommaseparert, f.eks. 0,5, 1, 1,5, 2):",
+                  "Fyll inn dødsrate for flere perioder (separer perioder ved å bruke komma, og bruk et punktum i stedet for et komma for desimaltall, f.eks. 0.5, 1, 1.5, 2):",
                   ""),
         actionButton("calculate_button_cum", "Kalkuler")
         )
@@ -950,20 +932,17 @@ server <- function(input, output) {
                              language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
 
-    #### dead plots for montly mortality ####
+    #### dead plots for monthly mortality ####
   
       observeEvent(input$species, {
      if (input$species == "rainbowtrout") {
        output$plot_mortality_month <- renderPlotly({
-     p <- mortality_rates_monthly_data %>% 
-              dplyr::filter(year %in% input$select_year_mort) %>%
-              dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
-      ggplot() +
-      aes(x = month_name, y = median, color = area, group = area) +
-      labs(title = "No data to display") +
-      theme_minimal()+ 
-      geom_blank() 
 
+     p <-  ggplot() +
+       geom_blank() +
+       labs(title = "Ingen data å vise") +
+       theme_minimal()
+     
       plotly::ggplotly(p)
 
      })
@@ -980,7 +959,8 @@ server <- function(input, output) {
               #dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
       ggplot() +
       aes(x = month_name, y = median, color = area, group = area) + 
-      geom_line() +
+       labs(x = "Måned", y = "Dødelighet (%)") +
+       geom_line() +
        geom_ribbon(
          aes(
            ymin = .data$q1,
@@ -1006,14 +986,21 @@ server <- function(input, output) {
     if (input$geo_group == "all" | input$geo_group == "fylke") { 
       
       output$plot_mortality_month <- renderPlotly({
+<<<<<<< HEAD
+        p <- ggplot() +
+          geom_blank() +
+          labs(title = "Ingen data å vise") +
+          theme_minimal()
+=======
         p <- mortality_rates_monthly_data %>% 
           dplyr::filter(year %in% input$select_year_mort) %>%
           dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
           ggplot() +
           aes(x = month_name, y = median, color = area, group = area) +
-          labs(title = "No data to display") +
+          labs(title = "Ingen data å vise") +
           theme_minimal()+ 
           geom_blank() 
+>>>>>>> 03992661bb7ef74d24aaba7be5d3b35588144910
         
         plotly::ggplotly(p)
         
@@ -1030,6 +1017,7 @@ server <- function(input, output) {
           #dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
           ggplot() +
           aes(x = month_name, y = median, color = area, group = area) + 
+          labs(x = "Måned", y = "Dødelighet (%)") +
           geom_line() +
           geom_ribbon(
             aes(
@@ -1082,29 +1070,51 @@ server <- function(input, output) {
                              language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
   
-  output$plot_cohort <- renderPlotly({
+  
+  #### dead plots for cohorts mortality ####
+  
+  observeEvent(input$species, {
+    if (input$species == "rainbowtrout") {
+      output$plot_cohort <- renderPlotly({
+        
+        p <- 
+          ggplot() +
+          geom_blank() +
+          labs(title = "Ingen data å vise") +
+          theme_minimal()
+        
+        ggplotly(p)
+        
+      })
+      
+    }  else {
+      
+      output$plot_cohort <- renderPlotly({
+        
+        p <- df_cohorts() %>%
+          dplyr::filter(year == input$select_year_coh) %>%
+          ggplot() +
+          geom_segment(
+            aes(color = area, x = area, xend = area, y = q1, yend=q3), size = 10) +
+          geom_point(
+            aes(x = area, y = mort, group = year),
+            size = 1, fill = "black", stroke = 0.2) +
+          geom_text(aes(x = area, y = mort, group = year, label=area), nudge_y = 1) +
+          labs(title = "Fullførte produksjonssykluser (>= 12 måneder)",
+               x = input$select_year_coh,
+               y = "Dødelighet %") +
+          theme_minimal() +
+          theme(axis.text.x = element_blank(), legend.position="none") +
+          guides(fill = "none") 
+        
+        
+        ggplotly(p)
+        
+      })
+    }
     
-    p <- df_cohorts() %>%
-      dplyr::filter(year == input$select_year_coh) %>%
-      ggplot() +
-      geom_segment(
-        aes(color = area, x = area, xend = area, y = q1, yend=q3), size = 10) +
-      geom_point(
-        aes(x = area, y = mort, group = year),
-        size = 1, fill = "black", stroke = 0.2) +
-      geom_text(aes(x = area, y = mort, group = year, label=area), nudge_y = 1) +
-      labs(title = "Mortality of fish cohorts harvested in a year per zone and Norway (>= 12 months)",
-           x = input$select_year_coh,
-           y = "Mortality %") +
-      theme_minimal() +
-      theme(axis.text.x = element_blank(), legend.position="none") +
-      guides(fill = "none") 
+    })
     
-    
-    ggplotly(p)
-    
-  } 
-  )
    
   
   #### CALCULATOR ####
@@ -1114,7 +1124,7 @@ server <- function(input, output) {
     mort_rate <- input$dead_count / ar_count
     
     output$result_text <- renderText({
-      paste("Dødsrater:", sprintf("%.2f%%", mort_rate * 100))
+      paste("Dødsrate:", sprintf("%.2f%%", mort_rate * 100))
     })
     
     # output$mortality_plot <- renderPlot({
@@ -1141,15 +1151,15 @@ server <- function(input, output) {
               xlab = period_label, ylab = "Dødsrate (%)")
       
       plot(cum_risks * 100, type = "o", col = "#de2212", pch = 20, lty = 1,
-           main = "Dødelighetsrisiko over tid",
-           xlab = period_label, ylab = "Dødelighetsrisiko (%)",
+           main = "Dødelighet over tid",
+           xlab = period_label, ylab = "Dødelighet (%)",
            ylim = c(0, max(cum_risks * 100) * 1.1),
            xaxt = "n")
       axis(1, at = 1:length(cum_risks), labels = seq_along(cum_risks))
     })
     
     output$result_text_cum <- renderText({
-      paste("Dødelighetsrisiko for den siste registrerte perioden", sprintf("%.2f%%", tail(cum_risks * 100, 1)))
+      paste("Dødelighet for den siste registrerte perioden", sprintf("%.2f%%", tail(cum_risks * 100, 1)))
     })
   })
   
