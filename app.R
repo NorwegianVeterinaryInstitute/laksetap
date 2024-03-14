@@ -986,21 +986,12 @@ server <- function(input, output) {
     if (input$geo_group == "all" | input$geo_group == "fylke") { 
       
       output$plot_mortality_month <- renderPlotly({
-<<<<<<< HEAD
+
         p <- ggplot() +
           geom_blank() +
           labs(title = "Ingen data å vise") +
           theme_minimal()
-=======
-        p <- mortality_rates_monthly_data %>% 
-          dplyr::filter(year %in% input$select_year_mort) %>%
-          dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
-          ggplot() +
-          aes(x = month_name, y = median, color = area, group = area) +
-          labs(title = "Ingen data å vise") +
-          theme_minimal()+ 
-          geom_blank() 
->>>>>>> 03992661bb7ef74d24aaba7be5d3b35588144910
+
         
         plotly::ggplotly(p)
         
