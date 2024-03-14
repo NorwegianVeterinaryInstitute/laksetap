@@ -14,7 +14,7 @@ ui <- fluidPage(
   tags$head(tags$style(HTML('* {font-family: "Futura PT Medium"};'))),
   titlePanel( 
     # creating NVI logo in the top of the app and the title following it
-    windowTitle = "Laksefiskdødlighet",
+    windowTitle = "Laksefiskdødelighet",
     fluidRow(
       column(4, shiny::HTML(
             '<a href="https://www.vetinst.no/">
@@ -142,7 +142,7 @@ ui <- fluidPage(
                             )
                           )),
                  #### top level tab monthly mortality ####
-                 tabPanel(h5("Månedlig dødelighet"),
+                 tabPanel(h5("Månedlige dødsrater"),
                           tabsetPanel(
                             type = "tabs",
                             tabPanel(
@@ -603,7 +603,7 @@ server <- function(input, output) {
           selected = "month"
         ),
         textInput("mortality_input_cum",
-                  "Skriv inn dødsrater (kommaseparert, f.eks. 0,5, 1, 1,5, 2):",
+                  "Fyll inn dødsrate for flere perioder (separer perioder ved å bruke komma, og bruk et punktum i stedet for et komma for desimaltall, f.eks. 0.5, 1, 1.5, 2):",
                   ""),
         actionButton("calculate_button_cum", "Kalkuler")
         )
@@ -950,7 +950,7 @@ server <- function(input, output) {
                              language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
 
-    #### dead plots for montly mortality ####
+    #### dead plots for monthly mortality ####
   
       observeEvent(input$species, {
      if (input$species == "rainbowtrout") {
@@ -960,7 +960,7 @@ server <- function(input, output) {
               dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
       ggplot() +
       aes(x = month_name, y = median, color = area, group = area) +
-      labs(title = "No data to display") +
+      labs(x = "Måned", y = "Dødelighet (%)", title = "No data to display") +
       theme_minimal()+ 
       geom_blank() 
 
@@ -980,7 +980,8 @@ server <- function(input, output) {
               #dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
       ggplot() +
       aes(x = month_name, y = median, color = area, group = area) + 
-      geom_line() +
+       labs(x = "Måned", y = "Dødelighet (%)") +
+       geom_line() +
        geom_ribbon(
          aes(
            ymin = .data$q1,
@@ -1011,7 +1012,7 @@ server <- function(input, output) {
           dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
           ggplot() +
           aes(x = month_name, y = median, color = area, group = area) +
-          labs(title = "No data to display") +
+          labs(x = "Måned", y = "Dødelighet (%)", title = "No data to display") +
           theme_minimal()+ 
           geom_blank() 
         
@@ -1030,6 +1031,7 @@ server <- function(input, output) {
           #dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
           ggplot() +
           aes(x = month_name, y = median, color = area, group = area) + 
+          labs(x = "Måned", y = "Dødelighet (%)") +
           geom_line() +
           geom_ribbon(
             aes(
@@ -1093,9 +1095,9 @@ server <- function(input, output) {
         aes(x = area, y = mort, group = year),
         size = 1, fill = "black", stroke = 0.2) +
       geom_text(aes(x = area, y = mort, group = year, label=area), nudge_y = 1) +
-      labs(title = "Mortality of fish cohorts harvested in a year per zone and Norway (>= 12 months)",
+      labs(title = "Fullførte produksjonssykluser (>= 12 måneder)",
            x = input$select_year_coh,
-           y = "Mortality %") +
+           y = "Dødelighet (%)") +
       theme_minimal() +
       theme(axis.text.x = element_blank(), legend.position="none") +
       guides(fill = "none") 
@@ -1114,7 +1116,7 @@ server <- function(input, output) {
     mort_rate <- input$dead_count / ar_count
     
     output$result_text <- renderText({
-      paste("Dødsrater:", sprintf("%.2f%%", mort_rate * 100))
+      paste("Dødsrate:", sprintf("%.2f%%", mort_rate * 100))
     })
     
     # output$mortality_plot <- renderPlot({
@@ -1141,15 +1143,15 @@ server <- function(input, output) {
               xlab = period_label, ylab = "Dødsrate (%)")
       
       plot(cum_risks * 100, type = "o", col = "#de2212", pch = 20, lty = 1,
-           main = "Dødelighetsrisiko over tid",
-           xlab = period_label, ylab = "Dødelighetsrisiko (%)",
+           main = "Dødelighet over tid",
+           xlab = period_label, ylab = "Dødelighet (%)",
            ylim = c(0, max(cum_risks * 100) * 1.1),
            xaxt = "n")
       axis(1, at = 1:length(cum_risks), labels = seq_along(cum_risks))
     })
     
     output$result_text_cum <- renderText({
-      paste("Dødelighetsrisiko for den siste registrerte perioden", sprintf("%.2f%%", tail(cum_risks * 100, 1)))
+      paste("Dødelighet for den siste registrerte perioden", sprintf("%.2f%%", tail(cum_risks * 100, 1)))
     })
   })
   
