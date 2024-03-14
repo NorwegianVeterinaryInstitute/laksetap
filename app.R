@@ -233,7 +233,7 @@ ui <- fluidPage(
                             tabPanel(
                               "Diagram",
                               br(),
-                              selectInput("select_year", "Velg år:", list("År" = c(
+                              selectInput("select_year_losses", "Velg år:", list("År" = c(
                                 2023, 2022, 2021, 2020, 2019
                               ))),
                               plotlyOutput("plot_losses"),
@@ -796,7 +796,7 @@ server <- function(input, output) {
   
   output$plot_losses <- renderPlotly(
     plot_ly(df_losses() %>% 
-              dplyr::filter (!area == "Norway" & !area == "All" & year == input$select_year) %>%
+              dplyr::filter (!area == "Norway" & !area == "All" & year == input$select_year_losses) %>%
               tidyr:: gather(type, n, c(doed, ut, romt, ufor)) %>% droplevels () %>% 
               dplyr:: mutate(perc = case_when (type == "doed" ~ p.doed,
                                                type == "ut" ~ p.ut,
