@@ -938,11 +938,8 @@ server <- function(input, output) {
               dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
       ggplot() +
       aes(x = month_name, y = median, color = area, group = area) +
-<<<<<<< HEAD
-      labs(x = "Måned", y = "Dødelighet (%)", title = "No data to display") +
-=======
       labs(title = "Ingen data å vise") +
->>>>>>> 7cf08062ea3d2aba5cf8c75114ee7f6a6ce9825f
+
       theme_minimal()+ 
       geom_blank() 
 
@@ -994,11 +991,7 @@ server <- function(input, output) {
           dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
           ggplot() +
           aes(x = month_name, y = median, color = area, group = area) +
-<<<<<<< HEAD
-          labs(x = "Måned", y = "Dødelighet (%)", title = "No data to display") +
-=======
           labs(title = "Ingen data å vise") +
->>>>>>> 7cf08062ea3d2aba5cf8c75114ee7f6a6ce9825f
           theme_minimal()+ 
           geom_blank() 
         
