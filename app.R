@@ -447,9 +447,9 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_area4",
-                  "Velg Omrade",
-                  c(1:13),
-                  selected = c(1:13),
+                  "Velg område",
+                  c("1&2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
+                  selected = c("1 & 2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
                   multiple = TRUE
                 )
               )
@@ -507,7 +507,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_area4",
-                  "Velg Omrade",
+                  "Velg Område:",
                   c("Agder", "Møre og Romsdal",  
                     "Nordland", "Rogaland",
                     "Troms og Finnmark",
@@ -846,7 +846,7 @@ server <- function(input, output) {
               column(
                 width = 6,
                 selectizeInput(
-                  "select_area5",
+                  "select_locs",
                   "Velg Omrade",
                   c("Agder", "Møre og Romsdal",  
                     "Nordland", "Rogaland",
@@ -1194,23 +1194,110 @@ server <- function(input, output) {
     })
   
   output$table_losses_month<- DT::renderDT(
-    datatable(
+    {
+      if (input$geo_group == "all") {
+    
       df_losses_month() %>%
         dplyr::filter(
-          !area == "Norge" &
             !area == "All" &
             year %in% input$select_years_table3 &
-            area %in% input$select_area3 &
+            area == "Norge" &
             month_name %in% input$select_month_table3
-        ) %>% 
-        dplyr::select("year", "month_name", "area", "losses", "doed", "p.doed", "ut", "p.ut", "romt", "p.romt", "ufor", "p.ufor"),
+        ) %>%
+        dplyr::select(
+          "year",
+          "month_name",
+          "area",
+          "losses",
+          "doed",
+          "p.doed",
+          "ut",
+          "p.ut",
+          "romt",
+          "p.romt",
+          "ufor",
+          "p.ufor"
+        ) %>%
+        datatable(
       #filter = "top",
       rownames = F,
-      colnames= c("År", "Måned","Område", "Total", "Døde", "Døde%", "Utkast", "Utkast%", "Rømt", "Rømt%", "Annet", "Annet%"),
-      selection = (list(mode = 'multiple',selected = "all",target ='column')),
-      options = list(sDom  = '<"top">lrt<"bottom">ip',
-                     scrollX = TRUE,
-                     language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))))
+      colnames = c(
+        "År",
+        "Måned",
+        "Område",
+        "Total",
+        "Døde",
+        "Døde%",
+        "Utkast",
+        "Utkast%",
+        "Rømt",
+        "Rømt%",
+        "Annet",
+        "Annet%"
+      ),
+      selection = (list(
+        mode = 'multiple',
+        selected = "all",
+        target = 'column'
+      )),
+      options = list(
+        sDom  = '<"top">lrt<"bottom">ip',
+        scrollX = TRUE,
+        language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+      )) } else {
+        df_losses_month() %>%
+          dplyr::filter(
+            !area == "All" &
+              year %in% input$select_years_table3 &
+              area %in% input$select_area3 &
+              month_name %in% input$select_month_table3
+          ) %>%
+          dplyr::select(
+            "year",
+            "month_name",
+            "area",
+            "losses",
+            "doed",
+            "p.doed",
+            "ut",
+            "p.ut",
+            "romt",
+            "p.romt",
+            "ufor",
+            "p.ufor"
+          ) %>%
+          datatable(
+            #filter = "top",
+            rownames = F,
+            colnames = c(
+              "År",
+              "Måned",
+              "Område",
+              "Total",
+              "Døde",
+              "Døde%",
+              "Utkast",
+              "Utkast%",
+              "Rømt",
+              "Rømt%",
+              "Annet",
+              "Annet%"
+            ),
+            selection = (list(
+              mode = 'multiple',
+              selected = "all",
+              target = 'column'
+            )),
+            options = list(
+              sDom  = '<"top">lrt<"bottom">ip',
+              scrollX = TRUE,
+              language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+            ))
+        
+      }
+    }
+    
+    )
   
   
   output$plot_losses_monthly <- renderPlotly(
@@ -1247,21 +1334,77 @@ server <- function(input, output) {
   
   
   output$table_mortality_month <- DT::renderDT (
-    datatable(df_mort_month() %>%
-                dplyr:: filter (!is.na(median)) %>%
-                dplyr::filter(!area == "Norge" & !area == "All" & year %in% input$select_years_table4 & area %in% input$select_area4 & month_name %in% input$select_month_table4) %>%
-                dplyr:: select (year, month_name, area, q1, median, q3) %>%
-                dplyr::mutate(q1 = round(q1, 2), median = round(median, 2), q3 = round(q3, 2)),
-              #filter = "top",
-              rownames = F,
-              colnames= c("År", "Måned", "Område", "1 Krvartil", "Median", "3 Kvartil"), # also here
-              selection = (list(mode = 'multiple', selected = "all", target ='column')),
-              options = list(sDom  = '<"top">lrt<"bottom">ip',
-                             autoWidth = FALSE,
-                             #columnDefs = list(list(width = '100px', targets = c(1, 2))),
-                             scrollX = TRUE,
-                             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
-    ))
+    
+    { if (input$geo_group == "all")
+      {df_mort_month() %>%
+      dplyr::filter (!is.na(median)) %>%
+      dplyr::filter(
+          !area == "All" &
+          year %in% input$select_years_table4 &
+          area == "Norge" &
+          month_name %in% input$select_month_table4
+      ) %>%
+      dplyr::select (year, month_name, area, q1, median, q3) %>%
+      dplyr::mutate(q1 = round(q1, 2),
+                    median = round(median, 2),
+                    q3 = round(q3, 2)) %>%
+      datatable(
+        rownames = F,
+        colnames = c("År", "Måned", "Område", "1 Krvartil", "Median", "3 Kvartil"),
+        # also here
+        selection = (list(
+          mode = 'multiple',
+          selected = "all",
+          target = 'column'
+        )),
+        options = list(
+          sDom  = '<"top">lrt<"bottom">ip',
+          autoWidth = FALSE,
+          #columnDefs = list(list(width = '100px', targets = c(1, 2))),
+          scrollX = TRUE,
+          language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+        )
+      )} else {
+        df_mort_month() %>%
+          dplyr::filter (!is.na(median)) %>%
+          dplyr::filter(
+            !area == "Norge" &
+              !area == "All" &
+              year %in% input$select_years_table4 &
+              area %in% input$select_area4 &
+              month_name %in% input$select_month_table4
+          ) %>%
+          dplyr::select (year, month_name, area, q1, median, q3) %>%
+          dplyr::mutate(q1 = round(q1, 2),
+                        median = round(median, 2),
+                        q3 = round(q3, 2)) %>%
+          datatable(
+            rownames = F,
+            colnames = c("År", "Måned", "Område", "1 Krvartil", "Median", "3 Kvartil"),
+            # also here
+            selection = (list(
+              mode = 'multiple',
+              selected = "all",
+              target = 'column'
+            )),
+            options = list(
+              sDom  = '<"top">lrt<"bottom">ip',
+              autoWidth = FALSE,
+              #columnDefs = list(list(width = '100px', targets = c(1, 2))),
+              scrollX = TRUE,
+              language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+            )
+          )
+        
+        
+      }
+      
+      
+      
+      }
+    
+    
+    )
 
     #### dead plots for monthly mortality ####
   
@@ -1372,25 +1515,60 @@ server <- function(input, output) {
   
   
   output$table_cohort <- DT::renderDT (
-    datatable(df_cohorts() %>%
-                #dplyr:: filter (!is.na(median)) %>%
-                dplyr::filter(
-                  !area == "Norway" &
-                    !area == "All"  &
-                    year %in% input$select_years_table5 &
-                    area %in% input$select_locs
-                )  %>% 
-                dplyr:: select (year, area, q1, mort, q3),
-              #filter = "top",
-              rownames = F,
-              colnames= c("År","Område", "1 Kvartil", "Median", "3 Kvartil"),
-              selection = (list(mode = 'multiple', selected = "all", target ='column')),
-              options = list(sDom  = '<"top">lrt<"bottom">ip',
-                             autoWidth = FALSE,
-                             #columnDefs = list(list(width = '100px', targets = c(1, 2))),
-                             scrollX = TRUE,
-                             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
-    ))
+    {
+      if (input$geo_group == "all") {
+      df_cohorts() %>%
+        dplyr::filter(
+          year %in% input$select_years_table5 &
+            area == "Norge")  %>%
+        dplyr::select (year, area, q1, mort, q3) %>%
+        datatable(
+          #filter = "top",
+          rownames = F,
+          colnames = c("År", "Område", "1 Kvartil", "Median", "3 Kvartil"),
+          selection = (list(
+            mode = 'multiple',
+            selected = "all",
+            target = 'column'
+          )),
+          options = list(
+            sDom  = '<"top">lrt<"bottom">ip',
+            autoWidth = FALSE,
+            #columnDefs = list(list(width = '100px', targets = c(1, 2))),
+            scrollX = TRUE,
+            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+          )
+        )
+    } else {
+      df_cohorts() %>%
+        dplyr::filter(
+          year %in% input$select_years_table5 &
+            area %in% input$select_locs)  %>%
+        dplyr::select (year, area, q1, mort, q3) %>%
+        datatable(
+          #filter = "top",
+          rownames = F,
+          colnames = c("År", "Område", "1 Kvartil", "Median", "3 Kvartil"),
+          selection = (list(
+            mode = 'multiple',
+            selected = "all",
+            target = 'column'
+          )),
+          options = list(
+            sDom  = '<"top">lrt<"bottom">ip',
+            autoWidth = FALSE,
+            #columnDefs = list(list(width = '100px', targets = c(1, 2))),
+            scrollX = TRUE,
+            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+          )
+        )
+    }
+      
+      
+      
+    }
+      
+  )
   
   
   #### dead plots for cohorts mortality ####
