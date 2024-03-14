@@ -448,7 +448,7 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_area4",
                   "Velg område",
-                  c("1&2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
+                  c("1 & 2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
                   selected = c("1 & 2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
                   multiple = TRUE
                 )
@@ -1339,7 +1339,7 @@ server <- function(input, output) {
       {df_mort_month() %>%
       dplyr::filter (!is.na(median)) %>%
       dplyr::filter(
-          !area == "All" &
+          #!area == "All" &
           year %in% input$select_years_table4 &
           area == "Norge" &
           month_name %in% input$select_month_table4
@@ -1368,8 +1368,8 @@ server <- function(input, output) {
         df_mort_month() %>%
           dplyr::filter (!is.na(median)) %>%
           dplyr::filter(
-            !area == "Norge" &
-              !area == "All" &
+            #!area == "Norge" &
+              #!area == "All" &
               year %in% input$select_years_table4 &
               area %in% input$select_area4 &
               month_name %in% input$select_month_table4
