@@ -45,7 +45,7 @@ ui <- fluidPage(
                                   width = 4,
                                   selectizeInput(
                                     "select_years_table3",
-                                    "Velg år:",
+                                    "Velg flere år:",
                                     c(
                                       "2023" = 2023,
                                       "2022" = 2022,
@@ -53,7 +53,7 @@ ui <- fluidPage(
                                       "2020" = 2020,
                                       "2019" = 2019
                                     ),
-                                    selected = c(2023, 2022, 2021, 2020, 2019),
+                                    selected = c(2023),
                                     multiple = T
                                   )
                                 ),
@@ -61,34 +61,23 @@ ui <- fluidPage(
                                   width = 4,
                                   selectizeInput(
                                     "select_month_table3",
-                                    "Velg måned:",
+                                    "Velg flere måneder:",
                                     c(
-                                      "Jan",
-                                      "Feb",
-                                      "Mar",
-                                      "Apr",
-                                      "May",
-                                      "Jun",
-                                      "Jul",
-                                      "Aug",
-                                      "Sep",
-                                      "Oct",
-                                      "Nov",
-                                      "Dec"
+                                      "jan",
+                                      "feb",
+                                      "mar",
+                                      "apr",
+                                      "mai",
+                                      "jun",
+                                      "jul",
+                                      "aug",
+                                      "sep",
+                                      "okt",
+                                      "nov",
+                                      "des"
                                     ),
                                     selected = c(
-                                      "Jan",
-                                      "Feb",
-                                      "Mar",
-                                      "Apr",
-                                      "May",
-                                      "Jun",
-                                      "Jul",
-                                      "Aug",
-                                      "Sep",
-                                      "Oct",
-                                      "Nov",
-                                      "Dec"
+                                      "jan"
                                     ),
                                     multiple = T
                                   )
@@ -153,7 +142,7 @@ ui <- fluidPage(
                                   width = 4,
                                   selectizeInput(
                                     "select_years_table4",
-                                    "Velg år:",
+                                    "Velg flere år:",
                                     c(
                                       "2023" = 2023,
                                       "2022" = 2022,
@@ -161,7 +150,7 @@ ui <- fluidPage(
                                       "2020" = 2020,
                                       "2019" = 2019
                                     ),
-                                    selected = c(2023, 2022, 2021, 2020, 2019),
+                                    selected = c(2023),
                                     multiple = T
                                   )
                                 ),
@@ -169,34 +158,23 @@ ui <- fluidPage(
                                   width = 4,
                                   selectizeInput(
                                     "select_month_table4",
-                                    "Velg måned:",
+                                    "Velg flere måneder:",
                                     c(
-                                      "Jan",
-                                      "Feb",
-                                      "Mar",
-                                      "Apr",
-                                      "May",
-                                      "Jun",
-                                      "Jul",
-                                      "Aug",
-                                      "Sep",
-                                      "Oct",
-                                      "Nov",
-                                      "Dec"
+                                      "jan",
+                                      "feb",
+                                      "mar",
+                                      "apr",
+                                      "mai",
+                                      "jun",
+                                      "jul",
+                                      "aug",
+                                      "sep",
+                                      "okt",
+                                      "nov",
+                                      "des"
                                     ),
                                     selected = c(
-                                      "Jan",
-                                      "Feb",
-                                      "Mar",
-                                      "Apr",
-                                      "May",
-                                      "Jun",
-                                      "Jul",
-                                      "Aug",
-                                      "Sep",
-                                      "Oct",
-                                      "Nov",
-                                      "Dec"
+                                      "jan"
                                     ),
                                     multiple = T
                                   )
@@ -297,7 +275,7 @@ ui <- fluidPage(
                            width = 4,
                            selectizeInput(
                              "select_years_table5",
-                             "Velg år:",
+                             "Velg flere år:",
                              c(
                                "2023" = 2023,
                                "2022" = 2022,
@@ -305,7 +283,7 @@ ui <- fluidPage(
                                "2020" = 2020,
                                "2019" = 2019
                              ),
-                             selected = c(2023, 2022, 2021, 2020, 2019),
+                             selected = c(2023),
                              multiple = T
                            )
                          ),
@@ -377,7 +355,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table1",
-                  "Velg år:",
+                  "Velg flere år:",
                   c(
                     "2023" = 2023,
                     "2022" = 2022,
@@ -385,7 +363,7 @@ server <- function(input, output) {
                     "2020" = 2020,
                     "2019" = 2019
                   ),
-                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  selected = c(2023),
                   multiple = T
                 )
               ),
@@ -412,7 +390,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table1",
-                  "Velg år:",
+                  "Velg flere år:",
                   c(
                     "2023" = 2023,
                     "2022" = 2022,
@@ -420,7 +398,7 @@ server <- function(input, output) {
                     "2020" = 2020,
                     "2019" = 2019
                   ),
-                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  selected = c(2023),
                   multiple = T
                 )
               ),
@@ -453,7 +431,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table1",
-                  "Velg år:",
+                  "Velg flere år:",
                   c(
                     "2023" = 2023,
                     "2022" = 2022,
@@ -461,7 +439,7 @@ server <- function(input, output) {
                     "2020" = 2020,
                     "2019" = 2019
                   ),
-                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  selected = c(2023),
                   multiple = T
                 )
               ))))
@@ -481,7 +459,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table2",
-                  "Velg år:",
+                  "Velg flere år:",
                   c(
                     "2023" = 2023,
                     "2022" = 2022,
@@ -489,7 +467,7 @@ server <- function(input, output) {
                     "2020" = 2020,
                     "2019" = 2019
                   ),
-                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  selected = c(2023),
                   multiple = T
                 )
               ),
@@ -516,7 +494,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table2",
-                  "Velg år:",
+                  "Velg flere år:",
                   c(
                     "2023" = 2023,
                     "2022" = 2022,
@@ -524,7 +502,7 @@ server <- function(input, output) {
                     "2020" = 2020,
                     "2019" = 2019
                   ),
-                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  selected = c(2023),
                   multiple = T
                 )
               ),
@@ -557,7 +535,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table2",
-                  "Velg år:",
+                  "Velg flere år:",
                   c(
                     "2023" = 2023,
                     "2022" = 2022,
@@ -565,7 +543,7 @@ server <- function(input, output) {
                     "2020" = 2020,
                     "2019" = 2019
                   ),
-                  selected = c(2023, 2022, 2021, 2020, 2019),
+                  selected = c(2023),
                   multiple = T
                 )
               ))))
@@ -960,7 +938,7 @@ server <- function(input, output) {
               dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
       ggplot() +
       aes(x = month_name, y = median, color = area, group = area) +
-      labs(title = "No data to display") +
+      labs(title = "Ingen data å vise") +
       theme_minimal()+ 
       geom_blank() 
 
@@ -1011,7 +989,7 @@ server <- function(input, output) {
           dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
           ggplot() +
           aes(x = month_name, y = median, color = area, group = area) +
-          labs(title = "No data to display") +
+          labs(title = "Ingen data å vise") +
           theme_minimal()+ 
           geom_blank() 
         
