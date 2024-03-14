@@ -180,34 +180,7 @@ ui <- fluidPage(
                      tabPanel(
                        "Tabell",
                        br(),
-                       fluidRow(
-                         column(
-                           width = 4,
-                           selectizeInput(
-                             "select_years_table5",
-                             "Velg flere år:",
-                             c(
-                               "2023" = 2023,
-                               "2022" = 2022,
-                               "2021" = 2021,
-                               "2020" = 2020,
-                               "2019" = 2019
-                             ),
-                             selected = c(2023),
-                             multiple = T
-                           )
-                         ),
-                         column(
-                           width = 8,
-                           selectizeInput(
-                             "select_locs",
-                             "Velg område:",
-                             c(1:13),
-                             selected = c(1:13),
-                             multiple = T
-                           )
-                         ),
-                       ),
+                       uiOutput("tab_filter_c"),
                        DTOutput("table_cohort"),
                        hr(),
                        shiny::includeMarkdown("www/tab5_table_footer.md")
@@ -706,6 +679,7 @@ server <- function(input, output) {
       }
     
     })
+  
   #### UI for tab mortality yearly ####
   observeEvent(input$geo_group, { 
     if (input$geo_group == "zone") {
@@ -810,7 +784,109 @@ server <- function(input, output) {
     
   })
   
-  
+  #### UI for tab cohorts  ####
+  observeEvent(input$geo_group, { 
+    if (input$geo_group == "zone") {
+      
+      output$tab_filter_c <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_years_table5",
+                  "Velg flere år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_locs",
+                  "Velg Omrade",
+                  c(1:13),
+                  selected = c(1:13),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+      
+    } else if (input$geo_group == "fylke") {
+      output$tab_filter_c <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_years_table5",
+                  "Velg flere år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_area5",
+                  "Velg Omrade",
+                  c("Agder", "Møre og Romsdal",  
+                    "Nordland", "Rogaland",
+                    "Troms og Finnmark",
+                    "Trøndelag", "Vestland"),
+                  selected = c("Agder", "Møre og Romsdal",  
+                               "Nordland", "Rogaland",
+                               "Troms og Finnmark",
+                               "Trøndelag", "Vestland"),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+      
+    } else {
+      output$tab_filter_c <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_years_table5",
+                  "Velg flere år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023),
+                  multiple = T
+                )
+              ))))
+    }
+    
+  })
   
   observeEvent(input$navbar, {
     if (input$navbar == "calc") {
