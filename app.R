@@ -310,6 +310,10 @@ ui <- fluidPage(
                                 "select_year_coh", "Velg år:",
                                 list("År" = c(2023, 2022, 2021, 2020, 2019))
                               )),
+                       br(),
+                       br(),
+                       br(),
+                       br(),
                        plotlyOutput("plot_cohort"),
                        hr(),
                        shiny::includeMarkdown("www/tab5_plot_footer.md")
@@ -928,19 +932,15 @@ server <- function(input, output) {
                              language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
 
-    #### dead plots for montly mortality ####
+    #### dead plots for monthly mortality ####
   
       observeEvent(input$species, {
      if (input$species == "rainbowtrout") {
        output$plot_mortality_month <- renderPlotly({
-     p <- mortality_rates_monthly_data %>% 
-              dplyr::filter(year %in% input$select_year_mort) %>%
-              dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
-      ggplot() +
-      aes(x = month_name, y = median, color = area, group = area) +
-      labs(title = "Ingen data å vise") +
-      theme_minimal()+ 
-      geom_blank() 
+     p <-  ggplot() +
+       geom_blank() +
+       labs(title = "Ingen data å vise") +
+       theme_minimal()
 
       plotly::ggplotly(p)
 
@@ -1060,29 +1060,52 @@ server <- function(input, output) {
                              language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"))
     ))
   
-  output$plot_cohort <- renderPlotly({
+  
+  #### dead plots for cohorts mortality ####
+  
+  observeEvent(input$species, {
+    if (input$species == "rainbowtrout") {
+      output$plot_mortality_month <- renderPlotly({
+        
+        p <- 
+          ggplot() +
+          geom_blank() +
+          labs(title = "Ingen data å vise") +
+          theme_minimal()
+        
+        ggplotly(p)
+        
+      })
+      
+    }  else {
+      
+      output$plot_cohort <- renderPlotly({
+        
+        p <- df_cohorts() %>%
+          dplyr::filter(year == input$select_year_coh) %>%
+          ggplot() +
+          geom_segment(
+            aes(color = area, x = area, xend = area, y = q1, yend=q3), size = 10) +
+          geom_point(
+            aes(x = area, y = mort, group = year),
+            size = 1, fill = "black", stroke = 0.2) +
+          geom_text(aes(x = area, y = mort, group = year, label=area), nudge_y = 1) +
+          labs(title = "Mortality of fish cohorts harvested in a year per zone and Norway (>= 12 months)",
+               x = input$select_year_coh,
+               y = "Mortality %") +
+          theme_minimal() +
+          theme(axis.text.x = element_blank(), legend.position="none") +
+          guides(fill = "none") 
+        
+        
+        ggplotly(p)
+        
+      })
     
-    p <- df_cohorts() %>%
-      dplyr::filter(year == input$select_year_coh) %>%
-      ggplot() +
-      geom_segment(
-        aes(color = area, x = area, xend = area, y = q1, yend=q3), size = 10) +
-      geom_point(
-        aes(x = area, y = mort, group = year),
-        size = 1, fill = "black", stroke = 0.2) +
-      geom_text(aes(x = area, y = mort, group = year, label=area), nudge_y = 1) +
-      labs(title = "Mortality of fish cohorts harvested in a year per zone and Norway (>= 12 months)",
-           x = input$select_year_coh,
-           y = "Mortality %") +
-      theme_minimal() +
-      theme(axis.text.x = element_blank(), legend.position="none") +
-      guides(fill = "none") 
-    
-    
-    ggplotly(p)
-    
-  } 
-  )
+  }
+  })
+  
+  
    
   
   #### CALCULATOR ####
