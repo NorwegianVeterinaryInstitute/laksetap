@@ -38,66 +38,6 @@ ui <- fluidPage(
                           tabsetPanel(
                             type = "tabs",
                             tabPanel(
-                              "Tabell",
-                              br(),
-                              fluidRow(
-                                column(
-                                  width = 4,
-                                  selectizeInput(
-                                    "select_years_table3",
-                                    "Velg flere år:",
-                                    c(
-                                      "2023" = 2023,
-                                      "2022" = 2022,
-                                      "2021" = 2021,
-                                      "2020" = 2020,
-                                      "2019" = 2019
-                                    ),
-                                    selected = c(2023),
-                                    multiple = T
-                                  )
-                                ),
-                                column(
-                                  width = 4,
-                                  selectizeInput(
-                                    "select_month_table3",
-                                    "Velg flere måneder:",
-                                    c(
-                                      "jan",
-                                      "feb",
-                                      "mar",
-                                      "apr",
-                                      "mai",
-                                      "jun",
-                                      "jul",
-                                      "aug",
-                                      "sep",
-                                      "okt",
-                                      "nov",
-                                      "des"
-                                    ),
-                                    selected = c(
-                                      "jan"
-                                    ),
-                                    multiple = T
-                                  )
-                                ),
-                                column(
-                                  width = 4,
-                                  selectizeInput(
-                                    "select_area3",
-                                    "Velg Område:",
-                                    c(1:13),
-                                    selected = c(1:13),
-                                    multiple = T
-                                  )
-                                )
-                              ),
-                              DTOutput("table_losses_month"),
-                              hr(),
-                              shiny::includeMarkdown("www/tab1_table_and_plot_footer.md")
-                            ),
-                            tabPanel(
                               "Diagram",
                               br(),
                               fluidRow(column(
@@ -128,74 +68,20 @@ ui <- fluidPage(
                               plotlyOutput("plot_losses_monthly"),
                               hr(),
                               shiny::includeMarkdown("www/tab1_table_and_plot_footer.md")
+                            ),
+                            tabPanel(
+                              "Tabell",
+                              br(),
+                              uiOutput("tab_filter_m1"),
+                              DTOutput("table_losses_month"),
+                              hr(),
+                              shiny::includeMarkdown("www/tab1_table_and_plot_footer.md")
                             )
                           )),
                  #### top level tab monthly mortality ####
                  tabPanel(h5("Månedlige dødsrater"),
                           tabsetPanel(
                             type = "tabs",
-                            tabPanel(
-                              "Tabell",
-                              br(),
-                              fluidRow(
-                                column(
-                                  width = 4,
-                                  selectizeInput(
-                                    "select_years_table4",
-                                    "Velg flere år:",
-                                    c(
-                                      "2023" = 2023,
-                                      "2022" = 2022,
-                                      "2021" = 2021,
-                                      "2020" = 2020,
-                                      "2019" = 2019
-                                    ),
-                                    selected = c(2023),
-                                    multiple = T
-                                  )
-                                ),
-                                column(
-                                  width = 4,
-                                  selectizeInput(
-                                    "select_month_table4",
-                                    "Velg flere måneder:",
-                                    c(
-                                      "jan",
-                                      "feb",
-                                      "mar",
-                                      "apr",
-                                      "mai",
-                                      "jun",
-                                      "jul",
-                                      "aug",
-                                      "sep",
-                                      "okt",
-                                      "nov",
-                                      "des"
-                                    ),
-                                    selected = c(
-                                      "jan"
-                                    ),
-                                    multiple = T
-                                  )
-                                ),
-                                column(
-                                  width = 4,
-                                  selectizeInput(
-                                    "select_area4",
-                                    "Velg Område:",
-                                    c("1 & 2", "3", "4", "5", "6",
-                                      "7", "8", "9", "10", "11", "12 & 13"),
-                                    selected = c("1 & 2", "3", "4", "5", "6",
-                                                 "7", "8", "9", "10", "11", "12 & 13"),
-                                    multiple = T
-                                  )
-                                )
-                              ),
-                              DTOutput("table_mortality_month"),
-                              hr(),
-                              shiny::includeMarkdown("www/tab2_table_footer.md")
-                            ),
                             tabPanel(
                               "Diagram",
                               br(),
@@ -216,6 +102,14 @@ ui <- fluidPage(
                               plotlyOutput("plot_mortality_month"),
                               hr(),
                               shiny::includeMarkdown("www/tab2_plot_footer.md")
+                            ),
+                            tabPanel(
+                              "Tabell",
+                              br(),
+                              uiOutput("tab_filter_m2"),
+                              DTOutput("table_mortality_month"),
+                              hr(),
+                              shiny::includeMarkdown("www/tab2_table_footer.md")
                             )
                           )),
                  #### top level tab yearly losses ####
@@ -223,20 +117,20 @@ ui <- fluidPage(
                           tabsetPanel(
                             type = "tabs",
                             tabPanel(
-                              "Tabell",
+                              "Diagram",
                               br(),
-                              uiOutput("tab_filter"),
-                              DTOutput("table_losses"),
+                              selectInput("select_year_losses", "Velg år:", list("År" = c(
+                                2023, 2022, 2021, 2020, 2019
+                              ))),
+                              plotlyOutput("plot_losses"),
                               hr(),
                               shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")
                             ),
                             tabPanel(
-                              "Diagram",
+                              "Tabell",
                               br(),
-                              selectInput("select_year", "Velg år:", list("År" = c(
-                                2023, 2022, 2021, 2020, 2019
-                              ))),
-                              plotlyOutput("plot_losses"),
+                              uiOutput("tab_filter"),
+                              DTOutput("table_losses"),
                               hr(),
                               shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")
                             )
@@ -246,19 +140,19 @@ ui <- fluidPage(
                           tabsetPanel(
                             type = "tabs",
                             tabPanel(
-                              "Tabell",
-                              br(),
-                              uiOutput("tab_filter_2"),
-                              DTOutput("table_mortality"),
-                              hr(),
-                              shiny::includeMarkdown("www/tab4_table_and_plot_footer.md")
-                            ),
-                            tabPanel(
                               "Diagram",
                               br(),
                               plotlyOutput("plot_mortality"),
                               hr(),
                               
+                              shiny::includeMarkdown("www/tab4_table_and_plot_footer.md")
+                            ),
+                            tabPanel(
+                              "Tabell",
+                              br(),
+                              uiOutput("tab_filter_2"),
+                              DTOutput("table_mortality"),
+                              hr(),
                               shiny::includeMarkdown("www/tab4_table_and_plot_footer.md")
                             )
                           )),
@@ -267,41 +161,6 @@ ui <- fluidPage(
                    h5("Produksjonssykluser dødelighet"),
                    tabsetPanel(
                      type = "tabs",
-                     tabPanel(
-                       "Tabell",
-                       br(),
-                       fluidRow(
-                         column(
-                           width = 4,
-                           selectizeInput(
-                             "select_years_table5",
-                             "Velg flere år:",
-                             c(
-                               "2023" = 2023,
-                               "2022" = 2022,
-                               "2021" = 2021,
-                               "2020" = 2020,
-                               "2019" = 2019
-                             ),
-                             selected = c(2023),
-                             multiple = T
-                           )
-                         ),
-                         column(
-                           width = 8,
-                           selectizeInput(
-                             "select_locs",
-                             "Velg område:",
-                             c(1:13),
-                             selected = c(1:13),
-                             multiple = T
-                           )
-                         ),
-                       ),
-                       DTOutput("table_cohort"),
-                       hr(),
-                       shiny::includeMarkdown("www/tab5_table_footer.md")
-                     ),
                      tabPanel(
                        "Diagram",
                        br(),
@@ -317,6 +176,14 @@ ui <- fluidPage(
                        plotlyOutput("plot_cohort"),
                        hr(),
                        shiny::includeMarkdown("www/tab5_plot_footer.md")
+                     ),
+                     tabPanel(
+                       "Tabell",
+                       br(),
+                       uiOutput("tab_filter_c"),
+                       DTOutput("table_cohort"),
+                       hr(),
+                       shiny::includeMarkdown("www/tab5_table_footer.md")
                      )
                    )
                  ),
@@ -346,6 +213,367 @@ ui <- fluidPage(
 
 #####
 server <- function(input, output) {
+  
+  #### UI for tab losses monthly ####
+  observeEvent(input$geo_group, { 
+    if (input$geo_group == "zone") {
+      
+      output$tab_filter_m1 <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 4,
+                selectizeInput(
+                  "select_years_table3",
+                  "Velg flere år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 4,
+                selectizeInput(
+                  "select_month_table3",
+                  "Velg flere måneder:",
+                  c(
+                    "jan",
+                    "feb",
+                    "mar",
+                    "apr",
+                    "mai",
+                    "jun",
+                    "jul",
+                    "aug",
+                    "sep",
+                    "okt",
+                    "nov",
+                    "des"
+                  ),
+                  selected = c(
+                    "jan"
+                  ),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 4,
+                selectizeInput(
+                  "select_area3",
+                  "Velg Omrade",
+                  c(1:13),
+                  selected = c(1:13),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+      
+    } else if (input$geo_group == "fylke") {
+      output$tab_filter_m1 <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 4,
+                selectizeInput(
+                  "select_years_table3",
+                  "Velg flere år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 4,
+                selectizeInput(
+                  "select_month_table3",
+                  "Velg flere måneder:",
+                  c(
+                    "jan",
+                    "feb",
+                    "mar",
+                    "apr",
+                    "mai",
+                    "jun",
+                    "jul",
+                    "aug",
+                    "sep",
+                    "okt",
+                    "nov",
+                    "des"
+                  ),
+                  selected = c(
+                    "jan"
+                  ),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 4,
+                selectizeInput(
+                  "select_area3",
+                  "Velg Omrade",
+                  c("Agder", "Møre og Romsdal",  
+                    "Nordland", "Rogaland",
+                    "Troms og Finnmark",
+                    "Trøndelag", "Vestland"),
+                  selected = c("Agder", "Møre og Romsdal",  
+                               "Nordland", "Rogaland",
+                               "Troms og Finnmark",
+                               "Trøndelag", "Vestland"),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+      
+    } else {
+      output$tab_filter_m1 <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_years_table3",
+                  "Velg flere år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 4,
+                selectizeInput(
+                  "select_month_table3",
+                  "Velg flere måneder:",
+                  c(
+                    "jan",
+                    "feb",
+                    "mar",
+                    "apr",
+                    "mai",
+                    "jun",
+                    "jul",
+                    "aug",
+                    "sep",
+                    "okt",
+                    "nov",
+                    "des"
+                  ),
+                  selected = c(
+                    "jan"
+                  ),
+                  multiple = T
+                )
+              ))))
+      
+    }
+    
+  })
+  
+  #### UI for tab mortality monthly ####
+  observeEvent(input$geo_group, { 
+    if (input$geo_group == "zone") {
+      
+      output$tab_filter_m2 <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 4,
+                selectizeInput(
+                  "select_years_table4",
+                  "Velg flere år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 4,
+                selectizeInput(
+                  "select_month_table4",
+                  "Velg flere måneder:",
+                  c(
+                    "jan",
+                    "feb",
+                    "mar",
+                    "apr",
+                    "mai",
+                    "jun",
+                    "jul",
+                    "aug",
+                    "sep",
+                    "okt",
+                    "nov",
+                    "des"
+                  ),
+                  selected = c(
+                    "jan"
+                  ),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 4,
+                selectizeInput(
+                  "select_area4",
+                  "Velg Omrade",
+                  c(1:13),
+                  selected = c(1:13),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+      
+    } else if (input$geo_group == "fylke") {
+      output$tab_filter_m2 <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 4,
+                selectizeInput(
+                  "select_years_table4",
+                  "Velg flere år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 4,
+                selectizeInput(
+                  "select_month_table4",
+                  "Velg flere måneder:",
+                  c(
+                    "jan",
+                    "feb",
+                    "mar",
+                    "apr",
+                    "mai",
+                    "jun",
+                    "jul",
+                    "aug",
+                    "sep",
+                    "okt",
+                    "nov",
+                    "des"
+                  ),
+                  selected = c(
+                    "jan"
+                  ),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 4,
+                selectizeInput(
+                  "select_area4",
+                  "Velg Omrade",
+                  c("Agder", "Møre og Romsdal",  
+                    "Nordland", "Rogaland",
+                    "Troms og Finnmark",
+                    "Trøndelag", "Vestland"),
+                  selected = c("Agder", "Møre og Romsdal",  
+                               "Nordland", "Rogaland",
+                               "Troms og Finnmark",
+                               "Trøndelag", "Vestland"),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+      
+    } else {
+      output$tab_filter_m2 <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_years_table4",
+                  "Velg flere år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 4,
+                selectizeInput(
+                  "select_month_table4",
+                  "Velg flere måneder:",
+                  c(
+                    "jan",
+                    "feb",
+                    "mar",
+                    "apr",
+                    "mai",
+                    "jun",
+                    "jul",
+                    "aug",
+                    "sep",
+                    "okt",
+                    "nov",
+                    "des"
+                  ),
+                  selected = c(
+                    "jan"
+                  ),
+                  multiple = T
+                )
+              ))))
+      
+    }
+    
+  })
+  
   
   #### UI for tab losses yearly ####
   observeEvent(input$geo_group, { 
@@ -451,6 +679,7 @@ server <- function(input, output) {
       }
     
     })
+  
   #### UI for tab mortality yearly ####
   observeEvent(input$geo_group, { 
     if (input$geo_group == "zone") {
@@ -555,7 +784,109 @@ server <- function(input, output) {
     
   })
   
-  
+  #### UI for tab cohorts  ####
+  observeEvent(input$geo_group, { 
+    if (input$geo_group == "zone") {
+      
+      output$tab_filter_c <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_years_table5",
+                  "Velg flere år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_locs",
+                  "Velg Omrade",
+                  c(1:13),
+                  selected = c(1:13),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+      
+    } else if (input$geo_group == "fylke") {
+      output$tab_filter_c <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_years_table5",
+                  "Velg flere år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023),
+                  multiple = T
+                )
+              ),
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_area5",
+                  "Velg Omrade",
+                  c("Agder", "Møre og Romsdal",  
+                    "Nordland", "Rogaland",
+                    "Troms og Finnmark",
+                    "Trøndelag", "Vestland"),
+                  selected = c("Agder", "Møre og Romsdal",  
+                               "Nordland", "Rogaland",
+                               "Troms og Finnmark",
+                               "Trøndelag", "Vestland"),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+      
+    } else {
+      output$tab_filter_c <- 
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectizeInput(
+                  "select_years_table5",
+                  "Velg flere år:",
+                  c(
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020,
+                    "2019" = 2019
+                  ),
+                  selected = c(2023),
+                  multiple = T
+                )
+              ))))
+    }
+    
+  })
   
   observeEvent(input$navbar, {
     if (input$navbar == "calc") {
@@ -796,7 +1127,7 @@ server <- function(input, output) {
   
   output$plot_losses <- renderPlotly(
     plot_ly(df_losses() %>% 
-              dplyr::filter (!area == "Norway" & !area == "All" & year == input$select_year) %>%
+              dplyr::filter (!area == "Norway" & !area == "All" & year == input$select_year_losses) %>%
               tidyr:: gather(type, n, c(doed, ut, romt, ufor)) %>% droplevels () %>% 
               dplyr:: mutate(perc = case_when (type == "doed" ~ p.doed,
                                                type == "ut" ~ p.ut,
