@@ -37,7 +37,9 @@ ui <- fluidPage(
         color: white !important;
       }
 
-      
+      body, .container-fluid {
+      color: #091a3e !important; want */
+    }
   "))
   ),
   titlePanel( 
