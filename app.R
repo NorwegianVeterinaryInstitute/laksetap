@@ -18,7 +18,7 @@ ui <- fluidPage(
     fluidRow(
       column(4, shiny::HTML(
             '<a href="https://www.vetinst.no/">
-            <img src="vet-rgb-2.svg", alt="NVI logo" style="width:auto;height:40px;"></a>'          
+            <img src="logos/vetinst-logo.png", alt="NVI logo" style="width:auto;height:40px;"></a>'          
       )),
     column(
       8,
