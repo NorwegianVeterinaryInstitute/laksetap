@@ -1,6 +1,6 @@
 #### Datakilder
                  
-Tap av laksefisk gjennom produksjonen i sjø fra utsett til slakting, rapportert til Fiskeridirektoratet per januar 2024. Tapene er fordelt på dødfisk, utkast, rømming og «annet». Dødfisk omfatter dødelighet som skyldes sykdom, skader osv. Smittsomme sykdommer er en av de viktigste biologiske og økonomiske tapsfaktorene i fiskeoppdrett. Utkast er skrapfisk som sorteres ut ved slakting. «Annet» kan omfatte dødelighetsepisoder som oppstår ved lusebehandling og annen håndtering, men også fisk som avlives i forbindelse med sykdomsbekjempelse.
+Tap av laksefisk gjennom produksjonen i sjø fra utsett til slakting, rapportert til Fiskeridirektoratet per februar 2025. Tapene er fordelt på dødfisk, utkast, rømming og «annet». Dødfisk omfatter dødelighet som skyldes sykdom, skader osv. Smittsomme sykdommer er en av de viktigste biologiske og økonomiske tapsfaktorene i fiskeoppdrett. Utkast er skrapfisk som sorteres ut ved slakting. «Annet» kan omfatte dødelighetsepisoder som oppstår ved lusebehandling og annen håndtering, men også fisk som avlives i forbindelse med sykdomsbekjempelse.
 
 Det er disse tallene som ligger til grunn for tabellene som er presentert her.
 

@@ -990,8 +990,8 @@ server <- function(input, output) {
       output$table_mortality <- DT::renderDT (
         datatable(
           df_losses () %>%
-            dplyr::filter (!is.na(median)) %>%
-            dplyr::select (year, area, median) %>% # this has changed from previous year
+            dplyr::filter (!is.na(mort)) %>%
+            dplyr::select (year, area, mort) %>% # this has changed from previous year
             dplyr::filter(year %in% input$select_years_table2),
           #filter = "top",
           rownames = F,
@@ -1065,8 +1065,8 @@ server <- function(input, output) {
       output$table_mortality <- DT::renderDT (
         datatable(
           df_losses () %>%
-            dplyr::filter (!is.na(median)) %>%
-            dplyr::select (year, area, median) %>% # this has changed from previous year
+            dplyr::filter (!is.na(mort)) %>%
+            dplyr::select (year, area, mort) %>% # this has changed from previous year
             dplyr::filter(
               year %in% input$select_years_table2 & area %in% input$select_area2
             ),
@@ -1121,7 +1121,7 @@ server <- function(input, output) {
   
   output$plot_mortality <- renderPlotly(
     plot_ly(df_losses() %>% 
-              spread(year, median) %>% 
+              spread(year, mort) %>% 
               dplyr::filter (!is.na(`2024`) |!is.na(`2023`) | !is.na(`2022`) | !is.na(`2021`) | !is.na(`2020`)) %>% 
               dplyr::filter (!(area == "All"| area == "Norway")) %>%
               droplevels(),
