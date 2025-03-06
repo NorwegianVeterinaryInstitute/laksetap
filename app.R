@@ -1561,7 +1561,11 @@ server <- function(input, output) {
       output$plot_cohort <- renderPlotly({
         
         p <- df_cohorts() %>%
-          dplyr::filter(year == input$select_year_coh) %>%
+          dplyr::filter(year == input$select_year_coh, area != "13") %>%
+          dplyr::mutate(q1 = round(q1, 1),
+                        q3 = round(q3, 1),
+                        median = round(median,1)
+                        ) %>%
           ggplot() +
           geom_segment(
             aes(color = area, x = area, xend = area, y = q1, yend=q3), size = 10) +
@@ -1569,7 +1573,7 @@ server <- function(input, output) {
             aes(x = area, y = median, group = year),
             size = 1, fill = "black", stroke = 0.2) +
           geom_text(aes(x = area, y = median, group = year, label=area), nudge_y = 1) +
-          labs(title = "Fullførte produksjonssykluser (>= 12 måneder)",
+          labs(title = "Fullførte produksjonssykluser (>= 8 måneder)",
                x = input$select_year_coh,
                y = "Dødelighet %") +
           theme_minimal() +
