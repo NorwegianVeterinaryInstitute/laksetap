@@ -990,8 +990,8 @@ server <- function(input, output) {
       output$table_mortality <- DT::renderDT (
         datatable(
           df_losses () %>%
-            dplyr::filter (!is.na(mort)) %>%
-            dplyr::select (year, area, mort) %>% # this has changed from previous year
+            dplyr::filter (!is.na(median)) %>%
+            dplyr::select (year, area, median) %>% # this has changed from previous year
             dplyr::filter(year %in% input$select_years_table2),
           #filter = "top",
           rownames = F,
@@ -1065,8 +1065,8 @@ server <- function(input, output) {
       output$table_mortality <- DT::renderDT (
         datatable(
           df_losses () %>%
-            dplyr::filter (!is.na(mort)) %>%
-            dplyr::select (year, area, mort) %>% # this has changed from previous year
+            dplyr::filter (!is.na(median)) %>%
+            dplyr::select (year, area, median) %>% # this has changed from previous year
             dplyr::filter(
               year %in% input$select_years_table2 & area %in% input$select_area2
             ),
@@ -1121,7 +1121,7 @@ server <- function(input, output) {
   
   output$plot_mortality <- renderPlotly(
     plot_ly(df_losses() %>% 
-              spread(year, mort) %>% 
+              spread(year, median) %>% 
               dplyr::filter (!is.na(`2024`) |!is.na(`2023`) | !is.na(`2022`) | !is.na(`2021`) | !is.na(`2020`)) %>% 
               dplyr::filter (!(area == "All"| area == "Norway")) %>%
               droplevels(),
@@ -1490,7 +1490,7 @@ server <- function(input, output) {
         dplyr::filter(
           year %in% input$select_years_table5 &
             area == "Norge")  %>%
-        dplyr::select (year, area, q1, mort, q3) %>%
+        dplyr::select (year, area, q1, median, q3) %>%
         datatable(
           #filter = "top",
           rownames = F,
@@ -1513,7 +1513,7 @@ server <- function(input, output) {
         dplyr::filter(
           year %in% input$select_years_table5 &
             area %in% input$select_locs)  %>%
-        dplyr::select (year, area, q1, mort, q3) %>%
+        dplyr::select (year, area, q1, median, q3) %>%
         datatable(
           #filter = "top",
           rownames = F,
@@ -1566,9 +1566,9 @@ server <- function(input, output) {
           geom_segment(
             aes(color = area, x = area, xend = area, y = q1, yend=q3), size = 10) +
           geom_point(
-            aes(x = area, y = mort, group = year),
+            aes(x = area, y = median, group = year),
             size = 1, fill = "black", stroke = 0.2) +
-          geom_text(aes(x = area, y = mort, group = year, label=area), nudge_y = 1) +
+          geom_text(aes(x = area, y = median, group = year, label=area), nudge_y = 1) +
           labs(title = "Fullførte produksjonssykluser (>= 12 måneder)",
                x = input$select_year_coh,
                y = "Dødelighet %") +
