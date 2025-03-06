@@ -1569,7 +1569,7 @@ server <- function(input, output) {
             aes(x = area, y = median, group = year),
             size = 1, fill = "black", stroke = 0.2) +
           geom_text(aes(x = area, y = median, group = year, label=area), nudge_y = 1) +
-          labs(title = "Fullførte produksjonssykluser (>= 12 måneder)",
+          labs(title = "Fullførte produksjonssykluser (>= 8 måneder)",
                x = input$select_year_coh,
                y = "Dødelighet %") +
           theme_minimal() +
