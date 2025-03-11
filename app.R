@@ -11,14 +11,44 @@ library(markdown)
 
 
 ui <- fluidPage(
-  tags$head(tags$style(HTML('* {font-family: "Futura PT Medium"};'))),
+  tags$head(
+    tags$link(
+      rel = "stylesheet",
+      href = "https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;700&display=swap"
+    ),
+    tags$style(HTML("
+    body {
+      font-family: 'Hanken Grotesk', sans-serif;
+    }
+    .well {
+      background-color: #d7f4ff; /* Change this to your preferred color */
+    }
+  /* Navbar background */
+      .navbar {
+        background-color: #d7f4ff !important;
+        border-bottom: 2px solid #95d9f3;
+      }
+
+      /* Active tab in navbar */
+      .navbar-default .navbar-nav > .active > a, 
+      .navbar-default .navbar-nav > .active > a:hover, 
+      .navbar-default .navbar-nav > .active > a:focus {
+        background-color: #95d9f3 !important;
+        color: white !important;
+      }
+
+      body, .container-fluid {
+      color: #091a3e !important; want */
+    }
+  "))
+  ),
   titlePanel( 
     # creating NVI logo in the top of the app and the title following it
     windowTitle = "Laksefiskdødelighet",
     fluidRow(
       column(4, shiny::HTML(
             '<a href="https://www.vetinst.no/">
-            <img src="vet-rgb-2.svg", alt="NVI logo" style="width:auto;height:40px;"></a>'          
+            <img src="logos/vetinst-logo.png", alt="NVI logo" style="width:auto;height:40px;"></a>'          
       )),
     column(
       8,
@@ -43,7 +73,7 @@ ui <- fluidPage(
                               fluidRow(column(
                                 width = 6,
                                 selectInput("select_year", "Velg år:", list("År" = c(
-                                  2023, 2022, 2021, 2020, 2019
+                                  2024, 2023, 2022, 2021, 2020
                                 )))
                               ),
                               column(
@@ -88,13 +118,13 @@ ui <- fluidPage(
                               fluidRow(column(
                                 width = 6,
                                 selectInput("select_year_mort", "Velg år:", list("År" = c(
-                                  2023, 2022, 2021, 2020, 2019
+                                  2024, 2023, 2022, 2021, 2020
                                 )))
                               ),
                               column(
                                 width = 6,
                                 selectInput("select_zone", "Velg zone:", list(
-                                  "Zone" = c("1 & 2", "3", "4", "5", "6",
+                                  "Zone" = c("1", "2", "3", "4", "5", "6",
                                              "7", "8", "9", "10", "11", "12 & 13")
                                 ),
                                 multiple = TRUE)
@@ -120,7 +150,7 @@ ui <- fluidPage(
                               "Diagram",
                               br(),
                               selectInput("select_year_losses", "Velg år:", list("År" = c(
-                                2023, 2022, 2021, 2020, 2019
+                                2024, 2023, 2022, 2021, 2020
                               ))),
                               plotlyOutput("plot_losses"),
                               hr(),
@@ -167,7 +197,7 @@ ui <- fluidPage(
                        column(width = 6,
                               selectInput(
                                 "select_year_coh", "Velg år:",
-                                list("År" = c(2023, 2022, 2021, 2020, 2019))
+                                list("År" = c(2024, 2023, 2022, 2021, 2020))
                               )),
                        br(),
                        br(),
@@ -227,14 +257,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table3",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ),
@@ -287,14 +316,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table3",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ),
@@ -328,14 +356,10 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_area3",
                   "Velg Omrade",
-                  c("Agder", "Møre og Romsdal",  
-                    "Nordland", "Rogaland",
-                    "Troms og Finnmark",
-                    "Trøndelag", "Vestland"),
-                  selected = c("Agder", "Møre og Romsdal",  
-                               "Nordland", "Rogaland",
-                               "Troms og Finnmark",
-                               "Trøndelag", "Vestland"),
+                  c("Agder", "Rogaland", "Vestland", "Møre og Romsdal", "Trøndelag",
+                     "Nordland", "Troms", "Finnmark"),
+                  selected = c("Agder", "Rogaland", "Vestland", "Møre og Romsdal", "Trøndelag",
+                               "Nordland", "Troms", "Finnmark"),
                   multiple = TRUE
                 )
               )
@@ -353,14 +377,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table3",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ),
@@ -407,14 +430,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table4",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ),
@@ -448,8 +470,8 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_area4",
                   "Velg område",
-                  c("1 & 2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
-                  selected = c("1 & 2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
+                  c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
+                  selected = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
                   multiple = TRUE
                 )
               )
@@ -467,14 +489,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table4",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ),
@@ -508,14 +529,10 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_area4",
                   "Velg Område:",
-                  c("Agder", "Møre og Romsdal",  
-                    "Nordland", "Rogaland",
-                    "Troms og Finnmark",
-                    "Trøndelag", "Vestland"),
-                  selected = c("Agder", "Møre og Romsdal",  
-                               "Nordland", "Rogaland",
-                               "Troms og Finnmark",
-                               "Trøndelag", "Vestland"),
+                  c("Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    "Trøndelag", "Nordland", "Troms", "Finnmark"),
+                  selected = c("Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                               "Trøndelag", "Nordland", "Troms", "Finnmark"),
                   multiple = TRUE
                 )
               )
@@ -533,14 +550,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table4",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ),
@@ -588,14 +604,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table1",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ),
@@ -623,14 +638,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table1",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ),
@@ -639,14 +653,10 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_area1",
                   "Velg Omrade",
-                  c("Agder", "Møre og Romsdal",  
-                    "Nordland", "Rogaland",
-                    "Troms og Finnmark",
-                    "Trøndelag", "Vestland"),
-                  selected = c("Agder", "Møre og Romsdal",  
-                               "Nordland", "Rogaland",
-                               "Troms og Finnmark",
-                               "Trøndelag", "Vestland"),
+                  c("Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    "Trøndelag", "Nordland", "Troms", "Finnmark"),
+                  selected = c("Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                               "Trøndelag", "Nordland", "Troms", "Finnmark"),
                   multiple = TRUE
                 )
               )
@@ -664,14 +674,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table1",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ))))
@@ -693,14 +702,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table2",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ),
@@ -728,14 +736,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table2",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ),
@@ -744,14 +751,12 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_area2",
                   "Velg Omrade",
-                  c("Agder", "Møre og Romsdal",  
-                    "Nordland", "Rogaland",
-                    "Troms og Finnmark",
-                    "Trøndelag", "Vestland"),
-                  selected = c("Agder", "Møre og Romsdal",  
-                               "Nordland", "Rogaland",
-                               "Troms og Finnmark",
-                               "Trøndelag", "Vestland"),
+                  c("Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    "Trøndelag", "Nordland", "Troms", "Finnmark"
+                    ),
+                  selected = c("Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                               "Trøndelag", "Nordland", "Troms", "Finnmark"
+                  ),
                   multiple = TRUE
                 )
               )
@@ -769,14 +774,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table2",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ))))
@@ -797,14 +801,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table5",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ),
@@ -832,14 +835,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table5",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ),
@@ -848,14 +850,12 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_locs",
                   "Velg Omrade",
-                  c("Agder", "Møre og Romsdal",  
-                    "Nordland", "Rogaland",
-                    "Troms og Finnmark",
-                    "Trøndelag", "Vestland"),
-                  selected = c("Agder", "Møre og Romsdal",  
-                               "Nordland", "Rogaland",
-                               "Troms og Finnmark",
-                               "Trøndelag", "Vestland"),
+                  c("Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    "Trøndelag", "Nordland", "Troms", "Finnmark"
+                  ),
+                  selected = c("Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                               "Trøndelag", "Nordland", "Troms", "Finnmark"
+                  ),
                   multiple = TRUE
                 )
               )
@@ -873,14 +873,13 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_years_table5",
                   "Velg flere år:",
-                  c(
+                  c("2024" = 2024,
                     "2023" = 2023,
                     "2022" = 2022,
                     "2021" = 2021,
-                    "2020" = 2020,
-                    "2019" = 2019
+                    "2020" = 2020
                   ),
-                  selected = c(2023),
+                  selected = c(2024),
                   multiple = T
                 )
               ))))
@@ -1153,29 +1152,29 @@ server <- function(input, output) {
   output$plot_mortality <- renderPlotly(
     plot_ly(df_losses() %>% 
               spread(year, mort) %>% 
-              dplyr::filter (!is.na(`2023`) | !is.na(`2022`) | !is.na(`2021`) | !is.na(`2020`) | !is.na(`2019`)) %>% 
+              dplyr::filter (!is.na(`2024`) |!is.na(`2023`) | !is.na(`2022`) | !is.na(`2021`) | !is.na(`2020`)) %>% 
               dplyr::filter (!(area == "All"| area == "Norway")) %>%
               droplevels(),
-            x = ~area, y = ~`2023`, name = "2023", type = 'scatter',
+            x = ~area, y = ~`2024`, name = "2024", type = 'scatter',
             mode = "markers", marker = list(color = "#253494"),
             hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
                                               "Prosentene: ", `2023`,"<br>")) %>%
-      add_trace(x = ~area, y = ~`2022`, name = "2022",type = 'scatter',
+      add_trace(x = ~area, y = ~`2023`, name = "2023",type = 'scatter',
                 mode = "markers", marker = list(color = "#2c7fb8"),
+                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
+                                                  "Prosentene: ", `2023`,"<br>")) %>%
+      add_trace(x = ~area, y = ~`2022`, name = "2022",type = 'scatter',
+                mode = "markers", marker = list(color = "#41b6c4"),
                 hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
                                                   "Prosentene: ", `2022`,"<br>")) %>%
       add_trace(x = ~area, y = ~`2021`, name = "2021",type = 'scatter',
-                mode = "markers", marker = list(color = "#41b6c4"),
+                mode = "markers", marker = list(color = "#a1dab4"),
                 hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
                                                   "Prosentene: ", `2021`,"<br>")) %>%
       add_trace(x = ~area, y = ~`2020`, name = "2020",type = 'scatter',
-                mode = "markers", marker = list(color = "#a1dab4"),
-                hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                  "Prosentene: ", `2020`,"<br>")) %>%
-      add_trace(x = ~area, y = ~`2019`, name = "2019",type = 'scatter',
                 mode = "markers", marker = list(color = '#feb24c'),
                 hoverinfo = "text", text = ~paste("Område: ", area, "<br>",
-                                                  "Prosentene: ", `2019`,"<br>")) %>%
+                                                  "Prosentene: ", `2020`,"<br>")) %>%
       layout(title = "", 
              annotations=list(yref='paper',xref="paper",y=1.09,x=.2, text="Velg år:",showarrow=F, font=list(size=14,face="bold")),
              legend = list(orientation = "h", x= .25, y = 1.1),
@@ -1521,7 +1520,7 @@ server <- function(input, output) {
         dplyr::filter(
           year %in% input$select_years_table5 &
             area == "Norge")  %>%
-        dplyr::select (year, area, q1, mort, q3) %>%
+        dplyr::select (year, area, q1, median, q3) %>%
         datatable(
           #filter = "top",
           rownames = F,
@@ -1544,7 +1543,7 @@ server <- function(input, output) {
         dplyr::filter(
           year %in% input$select_years_table5 &
             area %in% input$select_locs)  %>%
-        dplyr::select (year, area, q1, mort, q3) %>%
+        dplyr::select (year, area, q1, median, q3) %>%
         datatable(
           #filter = "top",
           rownames = F,
@@ -1592,15 +1591,19 @@ server <- function(input, output) {
       output$plot_cohort <- renderPlotly({
         
         p <- df_cohorts() %>%
-          dplyr::filter(year == input$select_year_coh) %>%
+          dplyr::filter(year == input$select_year_coh, area != "13") %>%
+          dplyr::mutate(q1 = round(q1, 1),
+                        q3 = round(q3, 1),
+                        median = round(median,1)
+                        ) %>%
           ggplot() +
           geom_segment(
             aes(color = area, x = area, xend = area, y = q1, yend=q3), size = 10) +
           geom_point(
-            aes(x = area, y = mort, group = year),
+            aes(x = area, y = median, group = year),
             size = 1, fill = "black", stroke = 0.2) +
-          geom_text(aes(x = area, y = mort, group = year, label=area), nudge_y = 1) +
-          labs(title = "Fullførte produksjonssykluser (>= 12 måneder)",
+          geom_text(aes(x = area, y = median, group = year, label=area), nudge_y = 1) +
+          labs(title = "Fullførte produksjonssykluser (>= 8 måneder)",
                x = input$select_year_coh,
                y = "Dødelighet %") +
           theme_minimal() +
