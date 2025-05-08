@@ -12,6 +12,7 @@ library(markdown)
 
 ui <- fluidPage(
   tags$head(
+    tags$link(rel="shortcut icon", href="favicon.png"),
     tags$link(
       rel = "stylesheet",
       href = "https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;700&display=swap"
@@ -34,11 +35,16 @@ ui <- fluidPage(
       .navbar-default .navbar-nav > .active > a:hover, 
       .navbar-default .navbar-nav > .active > a:focus {
         background-color: #95d9f3 !important;
-        color: white !important;
+        color: #091A3E !important;
       }
+      
+     /* Inactive tab hover */
+    .navbar-default .navbar-nav > li > a {
+      color: #091A3E !important;
+    }
 
       body, .container-fluid {
-      color: #091a3e !important; want */
+      color: #091A3E !important;
     }
   "))
   ),
