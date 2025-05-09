@@ -1,0 +1,55 @@
+/* Use local Hanken Grotesk font */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: url('HankenGrotesk-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900; /* full weight range */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: url('HankenGrotesk-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+body {
+  font-family: 'Hanken Grotesk', sans-serif;
+  color: #091A3E !important;
+}
+
+.container-fluid {
+  color: #091A3E !important;
+}
+
+.well {
+  background-color: #d7f4ff;
+}
+
+/* Navbar background */
+.navbar {
+  background-color: #d7f4ff !important;
+  border-bottom: 2px solid #95d9f3;
+}
+
+/* Active tab in navbar */
+  .navbar-default .navbar-nav > .active > a, 
+  .navbar-default .navbar-nav > .active > a:hover, 
+  .navbar-default .navbar-nav > .active > a:focus {
+  background-color: #95d9f3 !important;
+  color: #091A3E !important;
+}
+      
+/* Inactive tab hover */
+.navbar-default .navbar-nav > li > a {
+  color: #091A3E !important;
+}
+    
+/* Tab content */
+.tab-content {
+  background-color: #ffffff;
+  padding: 15px;
+  color: #091A3E;
+}

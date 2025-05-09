@@ -13,40 +13,7 @@ library(markdown)
 ui <- fluidPage(
   tags$head(
     tags$link(rel="shortcut icon", href="favicon.png"),
-    tags$link(
-      rel = "stylesheet",
-      href = "https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;700&display=swap"
-    ),
-    tags$style(HTML("
-    body {
-      font-family: 'Hanken Grotesk', sans-serif;
-    }
-    .well {
-      background-color: #d7f4ff; /* Change this to your preferred color */
-    }
-  /* Navbar background */
-      .navbar {
-        background-color: #d7f4ff !important;
-        border-bottom: 2px solid #95d9f3;
-      }
-
-      /* Active tab in navbar */
-      .navbar-default .navbar-nav > .active > a, 
-      .navbar-default .navbar-nav > .active > a:hover, 
-      .navbar-default .navbar-nav > .active > a:focus {
-        background-color: #95d9f3 !important;
-        color: #091A3E !important;
-      }
-      
-     /* Inactive tab hover */
-    .navbar-default .navbar-nav > li > a {
-      color: #091A3E !important;
-    }
-
-      body, .container-fluid {
-      color: #091A3E !important;
-    }
-  "))
+    tags$link(rel="stylesheet", type="text/css", href="style.css")
   ),
   titlePanel( 
     # creating NVI logo in the top of the app and the title following it
@@ -54,7 +21,7 @@ ui <- fluidPage(
     fluidRow(
       column(4, shiny::HTML(
             '<a href="https://www.vetinst.no/">
-            <img src="logos/vetinst-logo.png", alt="NVI logo" style="width:auto;height:40px;"></a>'          
+            <img src="vetinst-logo.png", alt="NVI logo" style="width:auto;height:40px;"></a>'          
       )),
     column(
       8,
