@@ -8,6 +8,8 @@ library(tidyr)
 library(pins)
 library(lubridate)
 library(markdown)
+library(metathis)
+
 
 
 ui <- fluidPage(
@@ -15,6 +17,15 @@ ui <- fluidPage(
     tags$link(rel="shortcut icon", href="favicon.png"),
     tags$link(rel="stylesheet", type="text/css", href="style.css")
   ),
+  
+  meta() %>%
+    meta_social(
+      title = "Laksefiskdødelighet",
+      description = "Laksefiskdødelighet Shiny App",
+      url = "https://connect.posit.vetinst.no/laksetap",
+      image = "logo-vetinst-open-graph-no-svg-1200x630.jpg",
+      image_alt = "An image for social meda cards"),
+  
   titlePanel( 
     # creating NVI logo in the top of the app and the title following it
     windowTitle = "Laksefiskdødelighet",
