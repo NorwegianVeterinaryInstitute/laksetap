@@ -46,6 +46,11 @@ body {
 .navbar-default .navbar-nav > li > a {
   color: #091A3E !important;
 }
+
+/* Nav tabs */
+.nav-tabs > li > a{
+   color: #091A3E !important;
+}
     
 /* Tab content */
 .tab-content {
