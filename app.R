@@ -23,7 +23,7 @@ ui <- fluidPage(
       title = "Laksefiskdødelighet",
       description = "Laksefiskdødelighet Shiny App",
       url = "https://connect.posit.vetinst.no/laksetap",
-      image = "logo-vetinst-open-graph-no-svg-1200x630.jpg",
+      image = "https://www.vetinst.no/_/image/5c4e853a-130b-4e7f-92a3-8ca38bec0b56:2dcf9428a329fc0044b412c55b8c9e471f742d65/block-1200-630/Logo-vetinst-open-graph-no-svg-1200x630.png.jpg",
       image_alt = "An image for social meda cards"),
   
   titlePanel( 
