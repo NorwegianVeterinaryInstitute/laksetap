@@ -36,7 +36,7 @@ ui <- fluidPage(
       )),
     column(
       8,
-      h3("Statistikk over tap og dødelighet av laks og regnbueørret", style = "color:#1b314f; font-style:bold")
+      h4("Statistikk over tap og dødelighet av laks og regnbueørret")
     ))
   ),
   sidebarLayout(
