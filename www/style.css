@@ -20,6 +20,10 @@ body {
   color: #091A3E !important;
 }
 
+p {
+  line-height: 1.5;
+}
+
 .container-fluid {
   color: #091A3E !important;
 }
@@ -50,6 +54,7 @@ body {
 /* Nav tabs */
 .nav-tabs > li > a{
    color: #091A3E !important;
+   height: 44px !important;
 }
     
 /* Tab content */
