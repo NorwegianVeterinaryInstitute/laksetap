@@ -14,6 +14,7 @@ library(metathis)
 
 ui <- fluidPage(
   tags$head(
+    tags$html(lang="no"),
     tags$link(rel="shortcut icon", href="favicon.png"),
     tags$link(rel="stylesheet", type="text/css", href="style.css")
   ),
