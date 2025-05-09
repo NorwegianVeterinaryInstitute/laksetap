@@ -10,8 +10,6 @@ library(lubridate)
 library(markdown)
 library(metathis)
 
-
-
 ui <- fluidPage(
   tags$head(
     tags$html(lang = "no"),
@@ -991,7 +989,13 @@ server <- function(input, output) {
 
 
   #### colors ####
-  myPallete <- c("#cd692c", "#98a762", "#dac266", "#886b9a")
+  my_palette <- c("#FF5447", "#59CD8B", "#FFDAD4", "#1C4FB9")
+  my_palette_long <- c(
+    "#FF5447", "#59CD8B", "#95D9F3", "#1C4FB9", "#FFDAD4",
+    "#BCEED1", "#D7F4FF", "#C7D9FF", "#F7FDFF", "#091A3E",
+    "#FF897F", "#46A36B", "#AFD8FF", "#6B87D6", "#3C7383",
+    "#FFD1BF", "#E8F0FF", "#E6F9F2", "#ACE2F7", "#0C2F5B"
+  )
 
   #### data ####
 
@@ -1184,7 +1188,7 @@ server <- function(input, output) {
         dplyr::mutate(type = factor(type, levels = c("doed", "ut", "romt", "ufor"), labels = c("Døde", "Utkast", "Rømt", "Annet"))),
       x = ~area,
       y = ~n,
-      color = ~type, colors = myPallete, type = "bar", legendgroup = ~type,
+      color = ~type, colors = my_palette, type = "bar", legendgroup = ~type,
       hoverinfo = "text", text = ~ paste(
         "Område: ", area, "<br>",
         "Antall: ", n, "<br>",
@@ -1212,7 +1216,7 @@ server <- function(input, output) {
         dplyr::filter(!(area == "All" | area == "Norway")) %>%
         droplevels(),
       x = ~area, y = ~`2024`, name = "2024", type = "scatter",
-      mode = "markers", marker = list(color = "#253494"),
+      mode = "markers", marker = list(color = "#1C4FB9"),
       hoverinfo = "text", text = ~ paste(
         "Område: ", area, "<br>",
         "Prosent: ", `2024`, "<br>",
@@ -1221,7 +1225,7 @@ server <- function(input, output) {
     ) %>%
       add_trace(
         x = ~area, y = ~`2023`, name = "2023", type = "scatter",
-        mode = "markers", marker = list(color = "#2c7fb8"),
+        mode = "markers", marker = list(color = "#95D9F3"),
         hoverinfo = "text", text = ~ paste(
           "Område: ", area, "<br>",
           "Prosent: ", `2023`, "<br>",
@@ -1230,7 +1234,7 @@ server <- function(input, output) {
       ) %>%
       add_trace(
         x = ~area, y = ~`2022`, name = "2022", type = "scatter",
-        mode = "markers", marker = list(color = "#41b6c4"),
+        mode = "markers", marker = list(color = "#59CD8B"),
         hoverinfo = "text", text = ~ paste(
           "Område: ", area, "<br>",
           "Prosent: ", `2022`, "<br>",
@@ -1239,7 +1243,7 @@ server <- function(input, output) {
       ) %>%
       add_trace(
         x = ~area, y = ~`2021`, name = "2021", type = "scatter",
-        mode = "markers", marker = list(color = "#a1dab4"),
+        mode = "markers", marker = list(color = "#BCEED1"),
         hoverinfo = "text", text = ~ paste(
           "Område: ", area, "<br>",
           "Prosent: ", `2021`, "<br>",
@@ -1248,7 +1252,7 @@ server <- function(input, output) {
       ) %>%
       add_trace(
         x = ~area, y = ~`2020`, name = "2020", type = "scatter",
-        mode = "markers", marker = list(color = "#feb24c"),
+        mode = "markers", marker = list(color = "#FF5447"),
         hoverinfo = "text", text = ~ paste(
           "Område: ", area, "<br>",
           "Prosent: ", `2020`, "<br>",
@@ -1394,7 +1398,7 @@ server <- function(input, output) {
         dplyr::mutate(type = factor(type, levels = c("doed", "ut", "romt", "ufor"), labels = c("Døde", "Utkast", "Rømt", "Annet"))),
       x = ~area,
       y = ~n,
-      color = ~type, colors = myPallete, type = "bar", legendgroup = ~type,
+      color = ~type, colors = my_palette, type = "bar", legendgroup = ~type,
       hoverinfo = "text", text = ~ paste(
         "Område: ", area, "<br>",
         "Antall: ", n, "<br>",
@@ -1507,25 +1511,29 @@ server <- function(input, output) {
       output$plot_mortality_month <- renderPlotly({
         p <- mortality_rates_monthly_data %>%
           dplyr::filter(year %in% input$select_year_mort) %>%
-          dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
+          dplyr::filter(area %in% c(input$select_area, "Norge")) %>%
           # ribbon for norway - enabled:
           # dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>%
           # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
           ggplot() +
-          aes(x = month_name, y = median, color = area, group = area) +
+          aes(x = month_name, y = median, group = area) +
           labs(x = "Måned", y = "Dødelighet (%)") +
-          geom_line() +
+          geom_line(aes(
+            color = factor(area)
+          )) +
           geom_ribbon(
             aes(
               ymin = .data$q1,
               ymax = .data$q3,
-              fill = area
+              fill = factor(area)
             ),
             linetype = 0,
             alpha = 0.1,
             show.legend = FALSE
           ) +
           theme_minimal() +
+          scale_color_manual(values = my_palette_long) +
+          scale_fill_manual(values = my_palette_long) +
           guides(
             col =
               guide_legend(title = "Område"), fill = FALSE
@@ -1557,20 +1565,26 @@ server <- function(input, output) {
           # dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>%
           # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
           ggplot() +
-          aes(x = month_name, y = median, color = area, group = area) +
+          aes(x = month_name, y = median, group = area) +
           labs(x = "Måned", y = "Dødelighet (%)") +
-          geom_line() +
+          geom_line(
+            aes(
+              color = factor(area)
+            )
+          ) +
           geom_ribbon(
             aes(
               ymin = .data$q1,
               ymax = .data$q3,
-              fill = area
+              fill = factor(area)
             ),
             linetype = 0,
             alpha = 0.1,
             show.legend = FALSE
           ) +
           theme_minimal() +
+          scale_color_manual(values = my_palette_long) +
+          scale_fill_manual(values = my_palette_long) +
           guides(
             col =
               guide_legend(title = "Område"), fill = FALSE
@@ -1670,9 +1684,10 @@ server <- function(input, output) {
           ) %>%
           ggplot() +
           geom_segment(
-            aes(color = area, x = area, xend = area, y = q1, yend = q3),
+            aes(color = as.numeric(factor(area)), x = area, xend = area, y = q1, yend = q3),
             size = 10
           ) +
+          scale_color_gradient(low = "#C7D9FF", high = "#1C4FB9") +
           geom_point(
             aes(x = area, y = median, group = year),
             size = 1, fill = "black", stroke = 0.2
@@ -1726,13 +1741,13 @@ server <- function(input, output) {
       par(mfrow = c(2, 1))
 
       barplot(mort_rates_cum * 100,
-        names.arg = seq_along(mort_rates_cum), col = "#5c92bf",
+        names.arg = seq_along(mort_rates_cum), col = "#1C4FB9",
         main = "Månedlige dødsrater",
         xlab = period_label, ylab = "Dødsrate (%)"
       )
 
       plot(cum_risks * 100,
-        type = "o", col = "#de2212", pch = 20, lty = 1,
+        type = "o", col = "#FF5447", pch = 20, lty = 1,
         main = "Dødelighet over tid",
         xlab = period_label, ylab = "Dødelighet (%)",
         ylim = c(0, max(cum_risks * 100) * 1.1),
