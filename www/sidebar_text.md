@@ -1,7 +1,5 @@
-Tallene er hentet fra månedlige rapporter sendt til Fiskeridirektoratet.
-For mer informasjon om hvordan disse statistikkene er sammensatt, vennligst se
-«Om statistikken»-fanen. Brukere kan velge om de ønsker å se totale tap (under «Tap»-fanene)
-eller kun tap som skyldes dødelighet (under «Dødelighet»-fanene).
-I tillegg kan dataene vises for forskjellige perioder: månedlig,
-årlig og fullførte produksjonssykluser. Det er også mulig å beregne dødelighet
-med egne data (under 'Kalkulator'-fanene).
+The figures are sourced from monthly reports submitted to the Directorate of Fisheries.
+For more information on how these statistics are compiled, please refer to the “About the Statistics” tab.
+Users can choose whether to view total losses (under the “Losses” tabs) or only losses due to mortality (under the “Mortality” tabs).
+In addition, the data can be displayed for different time periods: monthly, annually, and for completed production cycles.
+It is also possible to calculate mortality using your own data (under the “Calculator” tabs).

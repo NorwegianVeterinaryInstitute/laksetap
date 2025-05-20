@@ -1,3 +1,2 @@
-Årlig dødelighet i prosent oppgis. Disse tallene inkluderer ikke tap som følge av utkast,
-rømminger eller «annet». Produksjonsområder eller fylker med svært få lokaliteter er utelatt
-fra presentasjonen for å sikre konfidensialitet.
+Annual mortality is reported as a percentage. These figures do not include losses due to discards, escapes, or "other" causes.
+Production areas or counties with very few sites are excluded from the presentation to ensure confidentiality.

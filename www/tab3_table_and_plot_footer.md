@@ -1,3 +1,2 @@
-Forklaring av årlige tall: «Total» viser det totale tapet. ‘Døde’ viser antall døde.
-«Døde%» viser hvor stor andel av det totale tapet som skyldes døde.
-Tilsvarende gjelder for «Utkast%», «Rømt%» og «Annet%».
+Explanation of annual figures: “Total” shows the total loss. “Dead” shows the number of deaths.
+“Dead%” indicates the proportion of the total loss that is due to deaths. The same applies to “Discard%,” “Escaped%,” and “Other%.”

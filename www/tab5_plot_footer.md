@@ -1,6 +1,5 @@
-Median (1.-3.kvartil) dødelighetsrisiko for fullførte produksjonssykluser for laks
-fordelt på produksjonsområder, fylker, og for hele Norge. Produksjonsområder med færre enn fem 
-lokaliteter med fullførte produksjonssykluser er ikke inkludert. De punktum
-inne i boksene representerer middelverdien, noe som betyr at halvparten av
-produksjonssyklusene hadde lavere dødelighet og halvparten hadde høyere dødelighet.
-Fargede boksene indikerer interkvartilbreddene, som er intervallene for dødelighet i halvparten av lokaliteter.
+Median (1st–3rd quartile) mortality risk for completed production cycles of salmon,
+distributed by production areas, counties, and for all of Norway.
+Production areas with fewer than five sites with completed production cycles are not included.
+The dots inside the boxes represent the mean, meaning that half of the production cycles had lower mortality and half had higher mortality.
+The colored boxes indicate the interquartile ranges, which are the intervals of mortality for half of the sites.

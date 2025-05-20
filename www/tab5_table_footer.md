@@ -1,7 +1,5 @@
-Median (1.-3.kvartil) dødelighetsrisiko for fullførte produksjonssykluser for laks
-fordelt på produksjonsområder, fylker, og for hele Norge. Produksjonsområder med færre
-enn fem lokaliteter med fullførte produksjonssykluser er ikke inkludert.
-Medianen representerer middelverdien, noe som betyr at halvparten av produksjonssyklusene 
-hadde lavere dødelighet og halvparten hadde høyere dødelighet.
-interkvartilbreddene viser de midterste 50% av lokalitetene,
-og gir en indikasjon på hvor de fleste av de som fullførte produksjonssyklusene faller.
+Median (1st–3rd quartile) mortality risk for completed production cycles of salmon,
+distributed by production areas, counties, and for all of Norway.
+Production areas with fewer than five sites with completed production cycles are not included.
+The median represents the middle value, meaning that half of the production cycles had lower mortality and half had higher mortality.
+The interquartile ranges show the middle 50% of the sites, providing an indication of where most of those who completed production cycles fall.

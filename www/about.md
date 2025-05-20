@@ -1,25 +1,47 @@
-#### Datakilder
-                 
-Tap av laksefisk gjennom produksjonen i sjø fra utsett til slakting, rapportert til Fiskeridirektoratet per februar 2025. Tapene er fordelt på dødfisk, utkast, rømming og «annet». Dødfisk omfatter dødelighet som skyldes sykdom, skader osv. Smittsomme sykdommer er en av de viktigste biologiske og økonomiske tapsfaktorene i fiskeoppdrett. Utkast er skrapfisk som sorteres ut ved slakting. «Annet» kan omfatte dødelighetsepisoder som oppstår ved lusebehandling og annen håndtering, men også fisk som avlives i forbindelse med sykdomsbekjempelse.
+#### Data Sources
 
-Det er disse tallene som ligger til grunn for tabellene som er presentert her.
+Loss of Atlantic salmon during the seawater production phase—from sea transfer to slaughter—reported to the Directorate of Fisheries as of February 2025.
+Losses are categorized as dead fish, discarded, escaped, and “other”.
+Dead fish includes mortality due to disease, injury, etc. Infectious diseases are among the most significant biological and economic loss factors in aquaculture.
+Discards refer to downgraded fish sorted out at slaughter.
+“Other” may include mortality episodes related to lice treatment and handling, as well as fish culled during disease control efforts.
 
-#### Databearbeiding
-                 
-Det foreligger to typer tabeller: en for ‘Tap’ og en for ‘Dødelighet’.
+These figures form the basis for the tables presented here.
 
-I beregningene av ‘Tap’ inngår data fra all sjøsatt laks og regnbueørret, inklusive matfisk, stamfisk, fisk fra forsknings-, utviklings-, og undervisningskonsesjoner med flere. Disse tallene viser hvor mange fisk som har dødd, blitt kassert, rømt osv. per år. Prosentene viser til hvor stor andel den gjeldende kategorien utgjør av det totale tapet (for eksempel hvor stor andel av tapet som utgjøres av dødelighet, utkast eller rømming).
-‘Dødelighet’ oppgitt i månedlig oppsummeringer, årlig statistikk og data på produksjonssyklusnivå beregnes ved å benytte innrapporterte antall døde og antall levende fisk ved utgangen av hver kalendermåned (på lokalitetsnivå). Dette gjøres ved bruk av anerkjente epidemiologiske metoder, som tar høyde for at beholdningen av levende fisk (fisk som kan dø) endrer seg over tid. Dødsraten per måned per lokalitet, er totalt antall registrert dødfisk, delt på antall fisk som kan dø den aktuelle måneden, på den aktuelle lokaliteten. Antall fisk som kan dø ved en lokalitet kan variere gjennom en måned. Vi benytter derfor en gjennomsnittsberegning, der antall fisk som kan dø en måned er antall fisk i live ved begynnelsen av måneden, pluss antall fisk som er i live ved slutten av måneden, delt på to (Toft et al., 2004; Bang Jensen et al., 2020). Deretter beregner vi gjennomsnittlig dødsrate for lokalitetene innenfor hvert området eller nasjonalt, for hver måned i kalenderåret. Disse månedlige gjennomsnittsverdiene summeres til slutt, og konverteres til den årlige kumulative dødelighetsrisikoen, beregnet ved hjelp av en spesifikk formel som tar hensyn til akkumulerende risiko over året (Bang Jensen et al., 2020). Den årlige kumulative dødelighetsrisikoen kvantifiserer sannsynligheten for at en fisk dør innen et gitt år eller produksjonssyklus, med den resulterende verdien uttrykt som en prosentandel som varierer fra null til 100%. I oppsummeringene av månedlig og årlige dødelighet inkluderer vi data fra flere konsesjoner som matfisk, stamfisk, fisk fra forsknings-, utviklings-, og undervisningskonsesjoner med flere. For dødeligheten i produksjonssyklusen anvender vi eksklusjonskriterier for å beholde lokaliteter med matfiskkonsesjoner. Dødelighet for produksjonssykluser inkluderer kun lokaliteter med laks som har fullført 12 måneder eller mer i sjø.
+#### Data Processing
 
-Geografisk område: Det er mulig å velge om en vil se tallene samlet for fylke, produksjonssone eller på nasjonalt nivå. Fylkesgrensene slik de var i januar 2024 er brukt. Visualisering på fylkesnivå er ikke alltid tilgjengelig i denne versjonen av appen. Produksjonssonene viser til de 13 produksjonssoner som er definert i forskrift om produksjonsområder (FOR-2017-01-16-61). Produksjonsområder eller fylker med svært få lokaliteter er tatt ut av fremstillingen, for å sikre konfidensialitet.
+There are two types of tables: one for “Losses” and one for “Mortality.”
 
-#### Referanser
-                 
+For “Losses,” data includes all sea-transferred Atlantic salmon and rainbow trout, including market fish, broodstock, and fish from research, development, and educational licenses.
+These figures show how many fish died, were discarded, escaped, etc., per year.
+Percentages indicate the share of total losses represented by each category (e.g., the proportion of losses due to mortality, discards, or escapes).
+
+“Mortality” is reported in monthly summaries, annual statistics, and at the production cycle level.
+It is calculated using reported numbers of dead and live fish at the end of each calendar month (at the site level), using recognized epidemiological methods that account for changes in the population of live fish over time.
+The monthly mortality rate per site is calculated as the number of dead fish divided by the number of fish at risk of dying that month.
+The number of fish at risk is estimated as the average of the number of live fish at the beginning and end of the month
+(Toft et al., 2004; Bang Jensen et al., 2020).
+
+Average monthly mortality rates are then calculated for each area or nationally, and summed to produce the annual cumulative mortality risk, using a specific formula that accounts for accumulating risk over the year.
+This cumulative risk quantifies the probability that a fish will die within a given year or production cycle, expressed as a percentage from 0 to 100%.
+
+Monthly and annual mortality summaries include data from various licenses (market fish, broodstock, research, development, and education).
+For production cycle mortality, exclusion criteria are applied to retain only sites with market fish licenses.
+Production cycle mortality includes only sites with salmon that have spent 12 months or more in the sea.
+
+#### Geographic Area
+
+Users can choose to view data aggregated by county, production zone, or national level.
+County boundaries as of January 2024 are used.
+Visualization at the county level may not be available in this version of the app.
+Production zones refer to the 13 zones defined in the Regulation on Production Areas (FOR-2017-01-16-61).
+Production areas or counties with very few sites are excluded to ensure confidentiality.
+
+#### References
+
 Toft, N., Agger, J. F., Houe, H., & Bruun, J. (2004). Measures of disease frequency. In H. Houe, A. K. Ersbøll, & N. Toft (Eds.), Introduction to Veterinary Epidemiology (pp. 77–93). Frederiksberg, Denmark: Biofolia.
-                 
 Bang Jensen, B., Qviller, L. & Toft, N. (2020). Spatio-temporal variations in mortality during the seawater production phase of Atlantic salmon (Salmo salar) in Norway. J. Fish Dis. 43, 445–457.
-                 
-#### Kontakt
-                 
-Dersom du har spørsmål eller kommentarer til tabellene, diagrammene eller kalkulatorene, vennligst ta kontakt med oss, 
+
+####Contact
+If you have questions or comments about the tables, charts, or calculators, please contact us at
 *[VI laksetap app](mailto:laksetap@vetinst.no)*.
