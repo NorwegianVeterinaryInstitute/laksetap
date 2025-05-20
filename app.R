@@ -188,7 +188,7 @@ ui <- fluidPage(
             tabPanel(
               "Table",
               br(),
-              uiOutput("tab_filter_2",
+              uiOutput("tab_filter_2"),
               DTOutput("table_mortality"),
               hr(),
               shiny::includeMarkdown("www/tab4_table_and_plot_footer.md")
