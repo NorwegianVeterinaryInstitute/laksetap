@@ -12,21 +12,21 @@ library(metathis)
 
 ui <- fluidPage(
   tags$head(
-    tags$html(lang = "no"),
+    tags$html(lang = "en"),
     tags$link(rel = "shortcut icon", href = "favicon.png"),
     tags$link(rel = "stylesheet", type = "text/css", href = "style.css")
   ),
   meta() %>%
     meta_social(
-      title = "Laksefiskdødelighet",
-      description = "Laksefiskdødelighet Shiny App",
+      title = "Salmonid Mortality",
+      description = "Salmonid Mortality Shiny App",
       url = "https://connect.posit.vetinst.no/laksetap",
       image = "https://www.vetinst.no/_/image/5c4e853a-130b-4e7f-92a3-8ca38bec0b56:2dcf9428a329fc0044b412c55b8c9e471f742d65/block-1200-630/Logo-vetinst-open-graph-no-svg-1200x630.png.jpg",
-      image_alt = "An image for social meda cards"
+      image_alt = "An image for social media cards"
     ),
   headerPanel(
     # creating NVI logo in the top of the app and the title following it
-    windowTitle = "Laksefiskdødelighet",
+    windowTitle = "Salmonid Mortality",
     fluidRow(
       class = "align-items-center",
       style = "height: 100px;",
@@ -44,8 +44,7 @@ ui <- fluidPage(
         8,
         div(
           class = "d-flex align-items-center",
-          # style = "height: 100px;",
-          shiny::h2("Statistikk over tap og dødelighet av laks og regnbueørret", role = "region", `aria-label` = "App Title", style = "margin: 0")
+          shiny::h2("Statistics on losses and mortality of salmon and rainbow trout", role = "region", `aria-label` = "App Title", style = "margin: 0")
         )
       )
     )
@@ -61,23 +60,23 @@ ui <- fluidPage(
 
         #### top level tab monthly losses ####
         tabPanel(
-          "Månedlige tap",
+          "Monthly Losses",
           tabsetPanel(
             type = "tabs",
             tabPanel(
-              "Diagram",
+              "Chart",
               br(),
               fluidRow(
                 column(
                   width = 6,
-                  selectInput("select_year", "Velg år:", list("År" = c(
+                  selectInput("select_year", "Select year:", list("Year" = c(
                     2024, 2023, 2022, 2021, 2020
                   )))
                 ),
                 column(
                   width = 6,
-                  selectInput("select_month", "Velg måned:", list(
-                    "Måned" = c(
+                  selectInput("select_month", "Select month:", list(
+                    "Month" = c(
                       "01",
                       "02",
                       "03",
@@ -99,7 +98,7 @@ ui <- fluidPage(
               shiny::includeMarkdown("www/tab1_table_and_plot_footer.md")
             ),
             tabPanel(
-              "Tabell",
+              "Table",
               br(),
               uiOutput("tab_filter_m1"),
               DTOutput("table_losses_month"),
@@ -110,22 +109,22 @@ ui <- fluidPage(
         ),
         #### top level tab monthly mortality ####
         tabPanel(
-          "Månedlige dødsrater",
+          "Monthly Mortality Rates",
           tabsetPanel(
             type = "tabs",
             tabPanel(
-              "Diagram",
+              "Chart",
               br(),
               fluidRow(
                 column(
                   width = 6,
-                  selectInput("select_year_mort", "Velg år:", list("År" = c(
+                  selectInput("select_year_mort", "Select year:", list("Year" = c(
                     2024, 2023, 2022, 2021, 2020
                   )))
                 ),
                 column(
                   width = 6,
-                  selectInput("select_zone", "Velg zone:", list(
+                  selectInput("select_zone", "Select zone:", list(
                     "Zone" = c(
                       "1", "2", "3", "4", "5", "6",
                       "7", "8", "9", "10", "11", "12 & 13"
@@ -140,7 +139,7 @@ ui <- fluidPage(
               shiny::includeMarkdown("www/tab2_plot_footer.md")
             ),
             tabPanel(
-              "Tabell",
+              "Table",
               br(),
               uiOutput("tab_filter_m2"),
               DTOutput("table_mortality_month"),
@@ -151,13 +150,13 @@ ui <- fluidPage(
         ),
         #### top level tab yearly losses ####
         tabPanel(
-          "Årlige tap",
+          "Yearly Losses",
           tabsetPanel(
             type = "tabs",
             tabPanel(
-              "Diagram",
+              "Chart",
               br(),
-              selectInput("select_year_losses", "Velg år:", list("År" = c(
+              selectInput("select_year_losses", "Select year:", list("Year" = c(
                 2024, 2023, 2022, 2021, 2020
               ))),
               plotlyOutput("plot_losses"),
@@ -165,7 +164,7 @@ ui <- fluidPage(
               shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")
             ),
             tabPanel(
-              "Tabell",
+              "Table",
               br(),
               uiOutput("tab_filter"),
               DTOutput("table_losses"),
@@ -176,20 +175,20 @@ ui <- fluidPage(
         ),
         #### top level tab yearly mortality####
         tabPanel(
-          "Årlig dødelighet",
+          "Yearly Mortality",
           tabsetPanel(
             type = "tabs",
             tabPanel(
-              "Diagram",
+              "Chart",
               br(),
               plotlyOutput("plot_mortality"),
               hr(),
               shiny::includeMarkdown("www/tab4_table_and_plot_footer.md")
             ),
             tabPanel(
-              "Tabell",
+              "Table",
               br(),
-              uiOutput("tab_filter_2"),
+              uiOutput("tab_filter_2",
               DTOutput("table_mortality"),
               hr(),
               shiny::includeMarkdown("www/tab4_table_and_plot_footer.md")
@@ -198,17 +197,17 @@ ui <- fluidPage(
         ),
         #### top level tab cohorts####
         tabPanel(
-          "Produksjonssykluser dødelighet",
+          "Production Cycles Mortality",
           tabsetPanel(
             type = "tabs",
             tabPanel(
-              "Diagram",
+              "Chart",
               br(),
               column(
                 width = 6,
                 selectInput(
-                  "select_year_coh", "Velg år:",
-                  list("År" = c(2024, 2023, 2022, 2021, 2020))
+                  "select_year_coh", "Select year:",
+                  list("Year" = c(2024, 2023, 2022, 2021, 2020))
                 )
               ),
               br(),
@@ -220,7 +219,7 @@ ui <- fluidPage(
               shiny::includeMarkdown("www/tab5_plot_footer.md")
             ),
             tabPanel(
-              "Tabell",
+              "Table",
               br(),
               uiOutput("tab_filter_c"),
               DTOutput("table_cohort"),
@@ -231,21 +230,21 @@ ui <- fluidPage(
         ),
         #### top level tab calculator####
         tabPanel(
-          "Dødelighetskalkulator",
+          "Mortality Rate Calculator",
           value = "calc",
           verbatimTextOutput("result_text"),
           plotOutput("mortality_plot")
         ),
         #### top level tab calculator_2 ####
         tabPanel(
-          "Dødelighetskalkulator for utvidet periode",
+          "Cumulative Mortality Calculator",
           value = "calc_cum",
           plotOutput("cumulative_risk_plot"),
           verbatimTextOutput("result_text_cum")
         ),
         #### top level tab about####
         tabPanel(
-          "Om statistikken",
+          "About the Statistics",
           column(
             width = 9,
             shiny::includeMarkdown("www/about.md")
@@ -929,54 +928,54 @@ server <- function(input, output) {
       output$sidebar_content <-
         renderUI(
           tagList(
-            shiny::h4("Beregn dødelighetsrate"),
+            shiny::h4("Calculate mortality rate"),
             numericInput("beginning_count",
-              "Antall fisk ved periodens start (f.eks. dag, uke, måned)",
+              "Number of fish at the start of the period (e.g. day, week, month)",
               value = 100
             ),
-            numericInput("end_count", "Antall fisk ved periodens slutt", value = 90),
-            numericInput("dead_count", "Antall døde fisk i løpet av perioden", value = 5),
-            actionButton("calculate_button", "Kalkuler")
+            numericInput("end_count", "Number of fish at the end of the period", value = 90),
+            numericInput("dead_count", "Number of dead fish during the period", value = 5),
+            actionButton("calculate_button", "Calculate")
           )
         )
     } else if (input$navbar == "calc_cum") {
       output$sidebar_content <-
         renderUI(
           tagList(
-            shiny::h4("Beregn akkumulert dødlighetsrisiko for en tidsperiode"),
+            shiny::h4("Calculate cumulative mortality risk for a time period"),
             selectInput(
               "period_type",
-              "Velg periode:",
+              "Select period:",
               choices = c(
-                "Dag" = "day",
-                "Uke" = "week",
-                "Måned" = "month"
+                "Day" = "day",
+                "Week" = "week",
+                "Month" = "month"
               ),
               selected = "month"
             ),
             textInput(
               "mortality_input_cum",
-              "Fyll inn dødsrate for flere perioder (separer perioder ved å bruke komma, og bruk et punktum i stedet for et komma for desimaltall, f.eks. 0.5, 1, 1.5, 2):",
+              "Enter mortality rate for several periods (separate periods with a comma, and use a dot instead of a comma for decimals, e.g. 0.5, 1, 1.5, 2):",
               ""
             ),
-            actionButton("calculate_button_cum", "Kalkuler")
+            actionButton("calculate_button_cum", "Calculate")
           )
         )
     } else {
       output$sidebar_content <- renderUI(
         tagList(
-          selectInput("species", "Velg art:",
+          selectInput("species", "Select species:",
             c(
-              "Laks" = "salmon", # should match what is in the data set to use as a selection (for example, "salmon" matches salmon in losses)
-              "Regnbueørret" = "rainbowtrout"
+              "Salmon" = "salmon",
+              "Rainbow trout" = "rainbowtrout"
             ),
             selected = c("salmon")
           ),
-          selectInput("geo_group", "Velg geografisk område:",
+          selectInput("geo_group", "Select geographic area:",
             c(
-              "Fylke" = "fylke",
-              "Produksjonssone" = "zone",
-              "Norge" = "all"
+              "County" = "fylke",
+              "Production zone" = "zone",
+              "Norway" = "all"
             ),
             selected = c("zone")
           ),
@@ -1776,7 +1775,7 @@ server <- function(input, output) {
     mort_rate <- input$dead_count / ar_count
 
     output$result_text <- renderText({
-      paste("Dødsrate:", sprintf("%.2f%%", mort_rate * 100))
+      paste("Mortality rate:", sprintf("%.2f%%", mort_rate * 100))
     })
 
     # output$mortality_plot <- renderPlot({
@@ -1816,7 +1815,7 @@ server <- function(input, output) {
     })
 
     output$result_text_cum <- renderText({
-      paste("Dødelighet for den siste registrerte perioden", sprintf("%.2f%%", tail(cum_risks * 100, 1)))
+      paste("Mortality for the last registered period", sprintf("%.2f%%", tail(cum_risks * 100, 1)))
     })
   })
 }
