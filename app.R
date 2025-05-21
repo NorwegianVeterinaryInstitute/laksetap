@@ -1044,17 +1044,17 @@ server <- function(input, output) {
           # filter = "top",
           rownames = F,
           colnames = c(
-            "År",
-            "Område",
+            "Year",
+            "Area",
             "Total",
-            "Døde",
-            "Døde%",
-            "Utkast",
-            "Utkast%",
-            "Rømt",
-            "Rømt%",
-            "Annet",
-            "Annet%"
+            "Dead",
+            "Dead%",
+            "Draft",
+            "Draft%",
+            "Escaped",
+            "Escaped%",
+            "Other",
+            "Other%"
           ),
           selection = (list(
             mode = "multiple",
@@ -1063,8 +1063,8 @@ server <- function(input, output) {
           )),
           options = list(
             sDom = '<"top">lrt<"bottom">ip',
-            scrollX = TRUE,
-            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+            scrollX = TRUE # ,
+            # language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
       )
@@ -1077,7 +1077,7 @@ server <- function(input, output) {
             dplyr::filter(year %in% input$select_years_table2),
           # filter = "top",
           rownames = F,
-          colnames = c("År", "Område", "Dødelighet %"),
+          colnames = c("Year", "Area", "Mortality rate %"),
           # also here
           selection = (list(
             mode = "multiple",
@@ -1117,17 +1117,17 @@ server <- function(input, output) {
           # filter = "top",
           rownames = F,
           colnames = c(
-            "År",
-            "Område",
+            "Year",
+            "Area",
             "Total",
-            "Døde",
-            "Døde%",
-            "Utkast",
-            "Utkast%",
-            "Rømt",
-            "Rømt%",
-            "Annet",
-            "Annet%"
+            "Dead",
+            "Dead%",
+            "Draft",
+            "Draft%",
+            "Escaped",
+            "Escaped%",
+            "Other",
+            "Other%"
           ),
           selection = (list(
             mode = "multiple",
@@ -1152,7 +1152,7 @@ server <- function(input, output) {
             ),
           # filter = "top",
           rownames = F,
-          colnames = c("År", "Område", "Dødelighet %"),
+          colnames = c("Year", "Area", "Mortality rate %"),
           # also here
           selection = (list(
             mode = "multiple",
@@ -1163,8 +1163,8 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
-            scrollX = TRUE,
-            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+            scrollX = TRUE # ,
+            # language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
       )
@@ -1189,9 +1189,9 @@ server <- function(input, output) {
       y = ~n,
       color = ~type, colors = my_palette, type = "bar", legendgroup = ~type,
       hoverinfo = "text", text = ~ paste(
-        "Område: ", area, "<br>",
-        "Antall: ", n, "<br>",
-        "Prosent: ", perc
+        "Area: ", area, "<br>",
+        "Count: ", n, "<br>",
+        "Percent: ", perc
       )
     ) %>%
       layout(
@@ -1199,8 +1199,8 @@ server <- function(input, output) {
         title = "",
         annotations = list(yref = "paper", xref = "paper", y = 1.05, x = 1.1, text = "Velg tap:", showarrow = F, font = list(size = 14, face = "bold")),
         # title = input$select_year, # Should change when included change year
-        yaxis = list(title = "Antall (millioner)"),
-        xaxis = list(title = "Område")
+        yaxis = list(title = "Count (million)"),
+        xaxis = list(title = "Area")
       )
   )
 
@@ -1217,17 +1217,17 @@ server <- function(input, output) {
       x = ~area, y = ~`2024`, name = "2024", type = "scatter",
       mode = "markers", marker = list(color = "#1C4FB9"),
       hoverinfo = "text", text = ~ paste(
-        "Område: ", area, "<br>",
-        "Prosent: ", `2024`, "<br>",
-        "Aar: 2024"
+        "Area: ", area, "<br>",
+        "Percent: ", `2024`, "<br>",
+        "Year: 2024"
       )
     ) %>%
       add_trace(
         x = ~area, y = ~`2023`, name = "2023", type = "scatter",
         mode = "markers", marker = list(color = "#95D9F3"),
         hoverinfo = "text", text = ~ paste(
-          "Område: ", area, "<br>",
-          "Prosent: ", `2023`, "<br>",
+          "Area: ", area, "<br>",
+          "Percent: ", `2023`, "<br>",
           "Aar: 2023"
         )
       ) %>%
@@ -1237,7 +1237,7 @@ server <- function(input, output) {
         hoverinfo = "text", text = ~ paste(
           "Område: ", area, "<br>",
           "Prosent: ", `2022`, "<br>",
-          "Aar: 2022"
+          "Year: 2022"
         )
       ) %>%
       add_trace(
@@ -1260,10 +1260,10 @@ server <- function(input, output) {
       ) %>%
       layout(
         title = "",
-        annotations = list(yref = "paper", xref = "paper", y = 1.09, x = .2, text = "Velg år:", showarrow = F, font = list(size = 14, face = "bold")),
+        annotations = list(yref = "paper", xref = "paper", y = 1.09, x = .2, text = "Select year:", showarrow = F, font = list(size = 14, face = "bold")),
         legend = list(orientation = "h", x = .25, y = 1.1),
-        xaxis = list(title = "Område"),
-        yaxis = list(title = "Dødelighet (%)", categoryarray = ~area),
+        xaxis = list(title = "Area"),
+        yaxis = list(title = "Mortality rate (%)", categoryarray = ~area),
         margin = list(l = 100)
       )
   )
@@ -1305,18 +1305,18 @@ server <- function(input, output) {
           # filter = "top",
           rownames = F,
           colnames = c(
-            "År",
-            "Måned",
-            "Område",
+            "Year",
+            "Month",
+            "Area",
             "Total",
-            "Døde",
-            "Døde%",
-            "Utkast",
-            "Utkast%",
-            "Rømt",
-            "Rømt%",
-            "Annet",
-            "Annet%"
+            "Dead",
+            "Dead%",
+            "Draft",
+            "Draft%",
+            "Escaped",
+            "Escaped%",
+            "Other",
+            "Other%"
           ),
           selection = (list(
             mode = "multiple",
@@ -1325,8 +1325,8 @@ server <- function(input, output) {
           )),
           options = list(
             sDom = '<"top">lrt<"bottom">ip',
-            scrollX = TRUE,
-            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+            scrollX = TRUE # ,
+            # language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
     } else {
@@ -1355,18 +1355,18 @@ server <- function(input, output) {
           # filter = "top",
           rownames = F,
           colnames = c(
-            "År",
-            "Måned",
-            "Område",
+            "Year",
+            "Month",
+            "Area",
             "Total",
-            "Døde",
-            "Døde%",
-            "Utkast",
-            "Utkast%",
-            "Rømt",
-            "Rømt%",
-            "Annet",
-            "Annet%"
+            "Dead",
+            "Dead%",
+            "Draft",
+            "Draft%",
+            "Escaped",
+            "Escaped%",
+            "Other",
+            "Other%"
           ),
           selection = (list(
             mode = "multiple",
@@ -1375,8 +1375,8 @@ server <- function(input, output) {
           )),
           options = list(
             sDom = '<"top">lrt<"bottom">ip',
-            scrollX = TRUE,
-            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+            scrollX = TRUE # ,
+            # language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
     }
@@ -1394,7 +1394,7 @@ server <- function(input, output) {
           type == "romt" ~ p.romt,
           type == "ufor" ~ p.ufor
         )) %>%
-        dplyr::mutate(type = factor(type, levels = c("doed", "ut", "romt", "ufor"), labels = c("Døde", "Utkast", "Rømt", "Annet"))),
+        dplyr::mutate(type = factor(type, levels = c("doed", "ut", "romt", "ufor"), labels = c("Dead", "Drafted", "Escaped", "Other"))),
       x = ~area,
       y = ~n,
       color = ~type, colors = my_palette, type = "bar", legendgroup = ~type,
@@ -1409,8 +1409,8 @@ server <- function(input, output) {
         title = "",
         annotations = list(yref = "paper", xref = "paper", y = 1.05, x = 1.1, text = "Velg tap:", showarrow = F, font = list(size = 14, face = "bold")),
         # title = input$select_year, # Should change when included change year
-        yaxis = list(title = "Antall (millioner)"),
-        xaxis = list(title = "Område")
+        yaxis = list(title = "Count (millioner)"),
+        xaxis = list(title = "Area")
       )
   )
 
@@ -1443,7 +1443,7 @@ server <- function(input, output) {
         ) %>%
         datatable(
           rownames = F,
-          colnames = c("År", "Måned", "Område", "1 Krvartil", "Median", "3 Kvartil"),
+          colnames = c("Year", "Month", "Area", "1 Quartil", "Median", "3 Quartil"),
           # also here
           selection = (list(
             mode = "multiple",
@@ -1454,8 +1454,8 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
-            scrollX = TRUE,
-            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+            scrollX = TRUE # ,
+            # language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
     } else {
@@ -1476,7 +1476,7 @@ server <- function(input, output) {
         ) %>%
         datatable(
           rownames = F,
-          colnames = c("År", "Måned", "Område", "1 Krvartil", "Median", "3 Kvartil"),
+          colnames = c("Year", "Month", "Area", "1 Quartil", "Median", "3 Quartil"),
           # also here
           selection = (list(
             mode = "multiple",
@@ -1487,8 +1487,8 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
-            scrollX = TRUE,
-            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+            scrollX = TRUE # ,
+            # language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
     }
@@ -1501,7 +1501,7 @@ server <- function(input, output) {
       output$plot_mortality_month <- renderPlotly({
         p <- ggplot() +
           geom_blank() +
-          labs(title = "Ingen data å vise") +
+          labs(title = "No avaiable data") +
           theme_minimal()
 
         plotly::ggplotly(p)
@@ -1516,7 +1516,7 @@ server <- function(input, output) {
           # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
           ggplot() +
           aes(x = month_name, y = median, group = area) +
-          labs(x = "Måned", y = "Dødelighet (%)") +
+          labs(x = "Month", y = "Mortality rate (%)") +
           geom_line(aes(
             color = factor(area)
           )) +
@@ -1535,7 +1535,7 @@ server <- function(input, output) {
           scale_fill_manual(values = my_palette_long) +
           guides(
             col =
-              guide_legend(title = "Område"), fill = FALSE
+              guide_legend(title = "Area"), fill = FALSE
           )
 
 
@@ -1549,7 +1549,7 @@ server <- function(input, output) {
       output$plot_mortality_month <- renderPlotly({
         p <- ggplot() +
           geom_blank() +
-          labs(title = "Ingen data å vise") +
+          labs(title = "No avaiable data") +
           theme_minimal()
 
 
@@ -1565,7 +1565,7 @@ server <- function(input, output) {
           # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
           ggplot() +
           aes(x = month_name, y = median, group = area) +
-          labs(x = "Måned", y = "Dødelighet (%)") +
+          labs(x = "Month", y = "Mortality rate (%)") +
           geom_line(
             aes(
               color = factor(area)
@@ -1586,7 +1586,7 @@ server <- function(input, output) {
           scale_fill_manual(values = my_palette_long) +
           guides(
             col =
-              guide_legend(title = "Område"), fill = FALSE
+              guide_legend(title = "Area"), fill = FALSE
           )
 
 
@@ -1617,7 +1617,7 @@ server <- function(input, output) {
         datatable(
           # filter = "top",
           rownames = F,
-          colnames = c("År", "Område", "1 Kvartil", "Median", "3 Kvartil"),
+          colnames = c("Year", "Area", "1 Quartil", "Median", "3 Quartil"),
           selection = (list(
             mode = "multiple",
             selected = "all",
@@ -1627,8 +1627,8 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
-            scrollX = TRUE,
-            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+            scrollX = TRUE # ,
+            # language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
     } else {
@@ -1641,7 +1641,7 @@ server <- function(input, output) {
         datatable(
           # filter = "top",
           rownames = F,
-          colnames = c("År", "Område", "1 Kvartil", "Median", "3 Kvartil"),
+          colnames = c("Year", "Area", "1 Quartil", "Median", "3 Quartil"),
           selection = (list(
             mode = "multiple",
             selected = "all",
@@ -1651,8 +1651,8 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
-            scrollX = TRUE,
-            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
+            scrollX = TRUE # ,
+            # language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
     }
@@ -1667,7 +1667,7 @@ server <- function(input, output) {
         p <-
           ggplot() +
           geom_blank() +
-          labs(title = "Ingen data å vise") +
+          labs(title = "No avaiable data") +
           theme_minimal()
 
         ggplotly(p)
@@ -1700,9 +1700,9 @@ server <- function(input, output) {
           ) +
           geom_text(aes(x = area, y = median, group = year, label = area), nudge_y = 1) +
           labs(
-            title = "Fullførte produksjonssykluser (>= 8 måneder)",
+            title = "Completed production cycles (>= 8 months)",
             x = input$select_year_coh,
-            y = "Dødelighet %"
+            y = "Mortality rate %"
           ) +
           theme_minimal() +
           theme(axis.text.x = element_blank(), legend.position = "none") +
@@ -1720,7 +1720,7 @@ server <- function(input, output) {
         p <-
           ggplot() +
           geom_blank() +
-          labs(title = "Ingen data å vise") +
+          labs(title = "No avaiable data") +
           theme_minimal()
 
         ggplotly(p)
@@ -1753,9 +1753,9 @@ server <- function(input, output) {
           ) +
           geom_text(aes(x = area, y = median, group = year, label = area), nudge_y = 1) +
           labs(
-            title = "Fullførte produksjonssykluser (>= 8 måneder)",
+            title = "Completed production cycles (>= 8 months)",
             x = input$select_year_coh,
-            y = "Dødelighet %"
+            y = "Mortality rate %"
           ) +
           theme_minimal() +
           theme(axis.text.x = element_blank(), legend.position = "none") +
@@ -1790,9 +1790,9 @@ server <- function(input, output) {
     cum_risks <- 1 - exp(-cum_rate)
 
     period_label <- switch(input$period_type,
-      "day" = "Dag",
-      "week" = "Uke",
-      "month" = "Måned"
+      "day" = "Day",
+      "week" = "Week",
+      "month" = "Month"
     )
 
     output$cumulative_risk_plot <- renderPlot({
