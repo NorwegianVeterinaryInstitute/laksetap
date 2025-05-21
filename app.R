@@ -268,7 +268,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_years_table3",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,
@@ -284,7 +284,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_month_table3",
-                  "Velg flere måneder:",
+                  "Select multiple months:",
                   c(
                     "jan",
                     "feb",
@@ -309,7 +309,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_area3",
-                  "Velg Omrade",
+                  "Select area:",
                   c(1:13),
                   selected = c(1:13),
                   multiple = TRUE
@@ -327,7 +327,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_years_table3",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,
@@ -343,7 +343,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_month_table3",
-                  "Velg flere måneder:",
+                  "Select multiple months:",
                   c(
                     "jan",
                     "feb",
@@ -368,7 +368,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_area3",
-                  "Velg Omrade",
+                  "Select area:",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal", "Trøndelag",
                     "Nordland", "Troms", "Finnmark"
@@ -392,7 +392,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table3",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,
@@ -408,7 +408,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_month_table3",
-                  "Velg flere måneder:",
+                  "Select multiple months:",
                   c(
                     "jan",
                     "feb",
@@ -446,7 +446,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_years_table4",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,
@@ -462,7 +462,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_month_table4",
-                  "Velg flere måneder:",
+                  "Select multiple months:",
                   c(
                     "jan",
                     "feb",
@@ -487,7 +487,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_area4",
-                  "Velg område",
+                  "Select area:",
                   c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
                   selected = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
                   multiple = TRUE
@@ -505,7 +505,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_years_table4",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,
@@ -521,7 +521,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_month_table4",
-                  "Velg flere måneder:",
+                  "Select multiple months:",
                   c(
                     "jan",
                     "feb",
@@ -546,7 +546,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_area4",
-                  "Velg Område:",
+                  "Select area::",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
@@ -570,7 +570,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table4",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,
@@ -586,7 +586,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_month_table4",
-                  "Velg flere måneder:",
+                  "Select multiple months:",
                   c(
                     "jan",
                     "feb",
@@ -625,7 +625,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table1",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,
@@ -641,7 +641,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_area1",
-                  "Velg Omrade",
+                  "Select area:",
                   c(1:13),
                   selected = c(1:13),
                   multiple = TRUE
@@ -659,7 +659,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table1",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,
@@ -675,7 +675,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_area1",
-                  "Velg Omrade",
+                  "Select area:",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
@@ -699,7 +699,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table1",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,
@@ -728,7 +728,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table2",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,
@@ -744,7 +744,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_area2",
-                  "Velg Omrade",
+                  "Select area:",
                   c(1:13),
                   selected = c(1:13),
                   multiple = TRUE
@@ -762,7 +762,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table2",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,
@@ -778,7 +778,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_area2",
-                  "Velg Omrade",
+                  "Select area:",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
@@ -802,7 +802,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table2",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,
@@ -831,7 +831,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table5",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,
@@ -847,7 +847,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_locs",
-                  "Velg Omrade",
+                  "Select area:",
                   c(1:13),
                   selected = c(1:13),
                   multiple = TRUE
@@ -865,7 +865,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table5",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,
@@ -881,7 +881,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_locs",
-                  "Velg Omrade",
+                  "Select area:",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
@@ -905,7 +905,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_years_table5",
-                  "Velg flere år:",
+                  "Select multiple years:",
                   c(
                     "2024" = 2024,
                     "2023" = 2023,

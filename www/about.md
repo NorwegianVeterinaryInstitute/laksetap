@@ -42,6 +42,7 @@ Production areas or counties with very few sites are excluded to ensure confiden
 Toft, N., Agger, J. F., Houe, H., & Bruun, J. (2004). Measures of disease frequency. In H. Houe, A. K. Ersbøll, & N. Toft (Eds.), Introduction to Veterinary Epidemiology (pp. 77–93). Frederiksberg, Denmark: Biofolia.
 Bang Jensen, B., Qviller, L. & Toft, N. (2020). Spatio-temporal variations in mortality during the seawater production phase of Atlantic salmon (Salmo salar) in Norway. J. Fish Dis. 43, 445–457.
 
-####Contact
+#### Contact
+
 If you have questions or comments about the tables, charts, or calculators, please contact us at
 *[VI laksetap app](mailto:laksetap@vetinst.no)*.
