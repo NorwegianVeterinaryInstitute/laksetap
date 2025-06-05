@@ -14,8 +14,18 @@ ui <- fluidPage(
   tags$head(
     tags$html(lang = "no"),
     tags$link(rel = "shortcut icon", href = "favicon.png"),
-    tags$link(rel = "stylesheet", type = "text/css", href = "style.css")
+    tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
   ),
+  tags$head(HTML("<!-- Seeds Consulting Tag Manager -->
+                   <script>
+                   var _mtm = window._mtm = window._mtm || [];
+                 _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+                 (function() {
+                   var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                   g.async=true; g.src='https://stats.vetinst.no/js/container_R9v9ZduS.js'; s.parentNode.insertBefore(g,s);
+                 })();
+                 </script>
+                   <!-- End Seeds Consulting Tag Manager -->")),
   meta() %>%
     meta_social(
       title = "Laksefiskdødelighet",
