@@ -1182,6 +1182,7 @@ server <- function(input, output) {
       x = ~area,
       y = ~n,
       color = ~type, colors = my_palette, type = "bar", legendgroup = ~type,
+      textposition = "none",
       hoverinfo = "text", text = ~ paste(
         "Område: ", area, "<br>",
         "Antall: ", n, "<br>",
@@ -1376,6 +1377,7 @@ server <- function(input, output) {
       x = ~area,
       y = ~n,
       color = ~type, colors = my_palette, type = "bar", legendgroup = ~type,
+      textposition = "none",
       hoverinfo = "text", text = ~ paste(
         "Område: ", area, "<br>",
         "Antall: ", n, "<br>",
