@@ -1,3 +1,1 @@
-Forklaring av årlige tall: «Total» viser det totale tapet. ‘Døde’ viser antall døde.
-«Døde%» viser hvor stor andel av det totale tapet som skyldes døde.
-Tilsvarende gjelder for «Utkast%», «Rømt%» og «Annet%».
+Tapene er fordelt på dødfisk, utkast, rømming og «annet». 

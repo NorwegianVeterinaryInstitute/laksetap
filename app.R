@@ -931,7 +931,7 @@ server <- function(input, output) {
           tagList(
             shiny::h4("Beregn dødelighetsrate"),
             numericInput("beginning_count",
-              "Antall fisk ved periodens start (f.eks. dag, uke, måned)",
+              "Antall fisk ved periodens start (f.eks. uke, måned)",
               value = 100
             ),
             numericInput("end_count", "Antall fisk ved periodens slutt", value = 90),
@@ -948,9 +948,8 @@ server <- function(input, output) {
               "period_type",
               "Velg periode:",
               choices = c(
-                "Dag" = "day",
-                "Uke" = "week",
-                "Måned" = "month"
+                "Ukentlige" = "week",
+                "Månedlige" = "month"
               ),
               selected = "month"
             ),
@@ -1031,13 +1030,9 @@ server <- function(input, output) {
               "area",
               "losses",
               "doed",
-              "p.doed",
               "ut",
-              "p.ut",
               "romt",
-              "p.romt",
-              "ufor",
-              "p.ufor"
+              "ufor"
             ) %>%
             dplyr::filter(
               year %in% input$select_years_table1
@@ -1049,13 +1044,9 @@ server <- function(input, output) {
             "Område",
             "Total",
             "Døde",
-            "Døde%",
             "Utkast",
-            "Utkast%",
             "Rømt",
-            "Rømt%",
-            "Annet",
-            "Annet%"
+            "Annet"
           ),
           selection = (list(
             mode = "multiple",
@@ -1103,13 +1094,9 @@ server <- function(input, output) {
               "area",
               "losses",
               "doed",
-              "p.doed",
               "ut",
-              "p.ut",
               "romt",
-              "p.romt",
-              "ufor",
-              "p.ufor"
+              "ufor"
             ) %>%
             dplyr::filter(
               year %in% input$select_years_table1 &
@@ -1122,13 +1109,9 @@ server <- function(input, output) {
             "Område",
             "Total",
             "Døde",
-            "Døde%",
             "Utkast",
-            "Utkast%",
             "Rømt",
-            "Rømt%",
-            "Annet",
-            "Annet%"
+            "Annet"
           ),
           selection = (list(
             mode = "multiple",
@@ -1294,13 +1277,9 @@ server <- function(input, output) {
           "area",
           "losses",
           "doed",
-          "p.doed",
           "ut",
-          "p.ut",
           "romt",
-          "p.romt",
-          "ufor",
-          "p.ufor"
+          "ufor"
         ) %>%
         datatable(
           # filter = "top",
@@ -1311,13 +1290,9 @@ server <- function(input, output) {
             "Område",
             "Total",
             "Døde",
-            "Døde%",
             "Utkast",
-            "Utkast%",
             "Rømt",
-            "Rømt%",
-            "Annet",
-            "Annet%"
+            "Annet"
           ),
           selection = (list(
             mode = "multiple",
@@ -1344,13 +1319,9 @@ server <- function(input, output) {
           "area",
           "losses",
           "doed",
-          "p.doed",
           "ut",
-          "p.ut",
           "romt",
-          "p.romt",
-          "ufor",
-          "p.ufor"
+          "ufor"
         ) %>%
         datatable(
           # filter = "top",
@@ -1361,13 +1332,9 @@ server <- function(input, output) {
             "Område",
             "Total",
             "Døde",
-            "Døde%",
             "Utkast",
-            "Utkast%",
             "Rømt",
-            "Rømt%",
-            "Annet",
-            "Annet%"
+            "Annet"
           ),
           selection = (list(
             mode = "multiple",
@@ -1407,11 +1374,12 @@ server <- function(input, output) {
     ) %>%
       layout(
         barmode = "stack",
-        title = "",
+        title = NULL,
         annotations = list(yref = "paper", xref = "paper", y = 1.05, x = 1.1, text = "Velg tap:", showarrow = F, font = list(size = 14, face = "bold")),
         # title = input$select_year, # Should change when included change year
         yaxis = list(title = "Antall (millioner)"),
-        xaxis = list(title = "Område")
+        xaxis = list(title = "Område"),
+        showlegend = TRUE
       )
   )
 
@@ -1444,7 +1412,7 @@ server <- function(input, output) {
         ) %>%
         datatable(
           rownames = F,
-          colnames = c("År", "Måned", "Område", "1 Krvartil", "Median", "3 Kvartil"),
+          colnames = c("År", "Måned", "Område", "1 Kvartil %", "Median %", "3 Kvartil %"),
           # also here
           selection = (list(
             mode = "multiple",
@@ -1477,7 +1445,7 @@ server <- function(input, output) {
         ) %>%
         datatable(
           rownames = F,
-          colnames = c("År", "Måned", "Område", "1 Krvartil", "Median", "3 Kvartil"),
+          colnames = c("År", "Måned", "Område", "1 Kvartil %", "Median %", "3 Kvartil %"),
           # also here
           selection = (list(
             mode = "multiple",
@@ -1618,7 +1586,7 @@ server <- function(input, output) {
         datatable(
           # filter = "top",
           rownames = F,
-          colnames = c("År", "Område", "1 Kvartil", "Median", "3 Kvartil"),
+          colnames = c("År", "Område", "1 Kvartil %", "Median %", "3 Kvartil %"),
           selection = (list(
             mode = "multiple",
             selected = "all",
@@ -1642,7 +1610,7 @@ server <- function(input, output) {
         datatable(
           # filter = "top",
           rownames = F,
-          colnames = c("År", "Område", "1 Kvartil", "Median", "3 Kvartil"),
+          colnames = c("År", "Område", "1 Kvartil %", "Median %", "3 Kvartil %"),
           selection = (list(
             mode = "multiple",
             selected = "all",
@@ -1801,7 +1769,7 @@ server <- function(input, output) {
 
       barplot(mort_rates_cum * 100,
         names.arg = seq_along(mort_rates_cum), col = "#1C4FB9",
-        main = "Månedlige dødsrater",
+        main = "",
         xlab = period_label, ylab = "Dødsrate (%)"
       )
 
