@@ -53,7 +53,7 @@ ui <- tagList(
         )
       )
     ),
-    shiny::tags$div(
+    shiny::tags$h1(
       class = "fs-5 fw-bold text-center",
       "Statistikk over tap og dødelighet av laks og regnbueørret",
       role = "region",
