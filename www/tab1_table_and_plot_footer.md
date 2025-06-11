@@ -1,2 +1,1 @@
-Explanation of monthly figures: “Total” shows the total loss. “Dead” shows the number of deaths.
-“Dead%” indicates the proportion of the total loss that is due to deaths. The same applies to “Discard%,” “Escaped%,” and “Other%.”
+The losses are categorized as dead fish, discards, escapes, and “other.”

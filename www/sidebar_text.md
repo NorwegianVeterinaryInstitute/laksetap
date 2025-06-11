@@ -1,5 +1,5 @@
-The figures are sourced from monthly reports submitted to the Directorate of Fisheries.
-For more information on how these statistics are compiled, please refer to the “About the Statistics” tab.
-Users can choose whether to view total losses (under the “Losses” tabs) or only losses due to mortality (under the “Mortality” tabs).
-In addition, the data can be displayed for different time periods: monthly, annually, and for completed production cycles.
-It is also possible to calculate mortality using your own data (under the “Calculator” tabs).
+The figures are based on monthly reports submitted to the Norwegian Directorate of Fisheries.
+For details on how these statistics are compiled, see the “About the statistics” tab.
+The “Losses” tabs show raw loss counts, while the “Mortality” tabs present adjusted mortality summaries based on registered deaths.
+Data can be viewed by month, year, or completed production cycles.
+You can also calculate mortality using your own data under the “Calculator” tabs.

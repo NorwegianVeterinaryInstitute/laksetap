@@ -1,2 +1,2 @@
-Annual mortality is reported as a percentage. These figures do not include losses due to discards, escapes, or "other" causes.
+Annual mortality risk does not include losses due to discards, escapes, or "other" causes.
 Production areas or counties with very few sites are excluded from the presentation to ensure confidentiality.

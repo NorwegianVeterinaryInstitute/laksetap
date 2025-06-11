@@ -60,7 +60,7 @@ ui <- fluidPage(
 
         #### top level tab monthly losses ####
         tabPanel(
-          "Monthly Losses",
+          "Monthly losses",
           tabsetPanel(
             type = "tabs",
             tabPanel(
@@ -109,7 +109,7 @@ ui <- fluidPage(
         ),
         #### top level tab monthly mortality ####
         tabPanel(
-          "Monthly Mortality Rates",
+          "Monthly mortality",
           tabsetPanel(
             type = "tabs",
             tabPanel(
@@ -150,7 +150,7 @@ ui <- fluidPage(
         ),
         #### top level tab yearly losses ####
         tabPanel(
-          "Yearly Losses",
+          "Yearly losses",
           tabsetPanel(
             type = "tabs",
             tabPanel(
@@ -175,7 +175,7 @@ ui <- fluidPage(
         ),
         #### top level tab yearly mortality####
         tabPanel(
-          "Yearly Mortality",
+          "Yearly mortality",
           tabsetPanel(
             type = "tabs",
             tabPanel(
@@ -197,7 +197,7 @@ ui <- fluidPage(
         ),
         #### top level tab cohorts####
         tabPanel(
-          "Production Cycles Mortality",
+          "Production cycle mortality",
           tabsetPanel(
             type = "tabs",
             tabPanel(
@@ -230,21 +230,21 @@ ui <- fluidPage(
         ),
         #### top level tab calculator####
         tabPanel(
-          "Mortality Rate Calculator",
+          "Mortality rate calculator",
           value = "calc",
           verbatimTextOutput("result_text"),
           plotOutput("mortality_plot")
         ),
         #### top level tab calculator_2 ####
         tabPanel(
-          "Cumulative Mortality Calculator",
+          "Cumulative mortality calculator",
           value = "calc_cum",
           plotOutput("cumulative_risk_plot"),
           verbatimTextOutput("result_text_cum")
         ),
         #### top level tab about####
         tabPanel(
-          "About the Statistics",
+          "About the statistics",
           column(
             width = 9,
             shiny::includeMarkdown("www/about.md")
@@ -930,7 +930,7 @@ server <- function(input, output) {
           tagList(
             shiny::h4("Calculate mortality rate"),
             numericInput("beginning_count",
-              "Number of fish at the start of the period (e.g. day, week, month)",
+              "Number of fish at the start of the period (e.g. week, month)",
               value = 100
             ),
             numericInput("end_count", "Number of fish at the end of the period", value = 90),
@@ -947,7 +947,6 @@ server <- function(input, output) {
               "period_type",
               "Select period:",
               choices = c(
-                "Day" = "day",
                 "Week" = "week",
                 "Month" = "month"
               ),
@@ -974,7 +973,7 @@ server <- function(input, output) {
           selectInput("geo_group", "Select geographic area:",
             c(
               "County" = "fylke",
-              "Production zone" = "zone",
+              "Production area" = "zone",
               "Norway" = "all"
             ),
             selected = c("zone")
@@ -1030,13 +1029,9 @@ server <- function(input, output) {
               "area",
               "losses",
               "doed",
-              "p.doed",
               "ut",
-              "p.ut",
               "romt",
-              "p.romt",
-              "ufor",
-              "p.ufor"
+              "ufor"
             ) %>%
             dplyr::filter(
               year %in% input$select_years_table1
@@ -1048,11 +1043,8 @@ server <- function(input, output) {
             "Area",
             "Total",
             "Dead",
-            "Dead%",
-            "Draft",
-            "Draft%",
-            "Escaped",
-            "Escaped%",
+            "Discards",
+            "Escapes",
             "Other",
             "Other%"
           ),
@@ -1102,13 +1094,9 @@ server <- function(input, output) {
               "area",
               "losses",
               "doed",
-              "p.doed",
               "ut",
-              "p.ut",
               "romt",
-              "p.romt",
-              "ufor",
-              "p.ufor"
+              "ufor"
             ) %>%
             dplyr::filter(
               year %in% input$select_years_table1 &
@@ -1121,13 +1109,9 @@ server <- function(input, output) {
             "Area",
             "Total",
             "Dead",
-            "Dead%",
-            "Draft",
-            "Draft%",
-            "Escaped",
-            "Escaped%",
-            "Other",
-            "Other%"
+            "Discards",
+            "Escapes",
+            "Other"
           ),
           selection = (list(
             mode = "multiple",
@@ -1152,7 +1136,7 @@ server <- function(input, output) {
             ),
           # filter = "top",
           rownames = F,
-          colnames = c("Year", "Area", "Mortality rate %"),
+          colnames = c("Year", "Area", "Mortality %"),
           # also here
           selection = (list(
             mode = "multiple",
@@ -1263,7 +1247,7 @@ server <- function(input, output) {
         annotations = list(yref = "paper", xref = "paper", y = 1.09, x = .2, text = "Select year:", showarrow = F, font = list(size = 14, face = "bold")),
         legend = list(orientation = "h", x = .25, y = 1.1),
         xaxis = list(title = "Area"),
-        yaxis = list(title = "Mortality rate (%)", categoryarray = ~area),
+        yaxis = list(title = "Mortality %", categoryarray = ~area),
         margin = list(l = 100)
       )
   )
@@ -1293,13 +1277,9 @@ server <- function(input, output) {
           "area",
           "losses",
           "doed",
-          "p.doed",
           "ut",
-          "p.ut",
           "romt",
-          "p.romt",
-          "ufor",
-          "p.ufor"
+          "ufor"
         ) %>%
         datatable(
           # filter = "top",
@@ -1310,13 +1290,9 @@ server <- function(input, output) {
             "Area",
             "Total",
             "Dead",
-            "Dead%",
-            "Draft",
-            "Draft%",
-            "Escaped",
-            "Escaped%",
-            "Other",
-            "Other%"
+            "Discards",
+            "Escapes",
+            "Other"
           ),
           selection = (list(
             mode = "multiple",
@@ -1343,13 +1319,9 @@ server <- function(input, output) {
           "area",
           "losses",
           "doed",
-          "p.doed",
           "ut",
-          "p.ut",
           "romt",
-          "p.romt",
-          "ufor",
-          "p.ufor"
+          "ufor"
         ) %>%
         datatable(
           # filter = "top",
@@ -1360,13 +1332,9 @@ server <- function(input, output) {
             "Area",
             "Total",
             "Dead",
-            "Dead%",
-            "Draft",
-            "Draft%",
-            "Escaped",
-            "Escaped%",
-            "Other",
-            "Other%"
+            "Discards",
+            "Escapes",
+            "Other"
           ),
           selection = (list(
             mode = "multiple",
@@ -1476,7 +1444,7 @@ server <- function(input, output) {
         ) %>%
         datatable(
           rownames = F,
-          colnames = c("Year", "Month", "Area", "1 Quartil", "Median", "3 Quartil"),
+          colnames = c("Year", "Month", "Area", "1 Quartil %", "Median %", "3 Quartil %"),
           # also here
           selection = (list(
             mode = "multiple",
@@ -1516,7 +1484,7 @@ server <- function(input, output) {
           # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
           ggplot() +
           aes(x = month_name, y = median, group = area) +
-          labs(x = "Month", y = "Mortality rate (%)") +
+          labs(x = "Month", y = "Mortality %") +
           geom_line(aes(
             color = factor(area)
           )) +
@@ -1565,7 +1533,7 @@ server <- function(input, output) {
           # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
           ggplot() +
           aes(x = month_name, y = median, group = area) +
-          labs(x = "Month", y = "Mortality rate (%)") +
+          labs(x = "Month", y = "Mortality %") +
           geom_line(
             aes(
               color = factor(area)
@@ -1617,7 +1585,7 @@ server <- function(input, output) {
         datatable(
           # filter = "top",
           rownames = F,
-          colnames = c("Year", "Area", "1 Quartil", "Median", "3 Quartil"),
+          colnames = c("Year", "Area", "1 Quartil %", "Median %", "3 Quartil %"),
           selection = (list(
             mode = "multiple",
             selected = "all",
@@ -1641,7 +1609,7 @@ server <- function(input, output) {
         datatable(
           # filter = "top",
           rownames = F,
-          colnames = c("Year", "Area", "1 Quartil", "Median", "3 Quartil"),
+          colnames = c("Year", "Area", "1 Quartil %", "Median %", "3 Quartil %"),
           selection = (list(
             mode = "multiple",
             selected = "all",
@@ -1702,7 +1670,7 @@ server <- function(input, output) {
           labs(
             title = "Completed production cycles (>= 8 months)",
             x = input$select_year_coh,
-            y = "Mortality rate %"
+            y = "Mortality %"
           ) +
           theme_minimal() +
           theme(axis.text.x = element_blank(), legend.position = "none") +
@@ -1755,7 +1723,7 @@ server <- function(input, output) {
           labs(
             title = "Completed production cycles (>= 8 months)",
             x = input$select_year_coh,
-            y = "Mortality rate %"
+            y = "Mortality %"
           ) +
           theme_minimal() +
           theme(axis.text.x = element_blank(), legend.position = "none") +
@@ -1790,7 +1758,6 @@ server <- function(input, output) {
     cum_risks <- 1 - exp(-cum_rate)
 
     period_label <- switch(input$period_type,
-      "day" = "Day",
       "week" = "Week",
       "month" = "Month"
     )
@@ -1800,14 +1767,14 @@ server <- function(input, output) {
 
       barplot(mort_rates_cum * 100,
         names.arg = seq_along(mort_rates_cum), col = "#1C4FB9",
-        main = "Månedlige dødsrater",
-        xlab = period_label, ylab = "Dødsrate (%)"
+        main = "Mortality rate",
+        xlab = period_label, ylab = "Mortality %"
       )
 
       plot(cum_risks * 100,
         type = "o", col = "#FF5447", pch = 20, lty = 1,
-        main = "Dødelighet over tid",
-        xlab = period_label, ylab = "Dødelighet (%)",
+        main = "Cumulative mortality risk",
+        xlab = period_label, ylab = "Mortality %",
         ylim = c(0, max(cum_risks * 100) * 1.1),
         xaxt = "n"
       )
@@ -1815,7 +1782,7 @@ server <- function(input, output) {
     })
 
     output$result_text_cum <- renderText({
-      paste("Mortality for the last registered period", sprintf("%.2f%%", tail(cum_risks * 100, 1)))
+      paste("Cumulative mortality risk at the last registered period", sprintf("%.2f%%", tail(cum_risks * 100, 1)))
     })
   })
 }

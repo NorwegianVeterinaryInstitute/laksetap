@@ -1,46 +1,51 @@
-#### Data Sources
+#### Data sources
 
-Loss of Atlantic salmon during the seawater production phase—from sea transfer to slaughter—reported to the Directorate of Fisheries as of February 2025.
-Losses are categorized as dead fish, discarded, escaped, and “other”.
-Dead fish includes mortality due to disease, injury, etc. Infectious diseases are among the most significant biological and economic loss factors in aquaculture.
-Discards refer to downgraded fish sorted out at slaughter.
-“Other” may include mortality episodes related to lice treatment and handling, as well as fish culled during disease control efforts.
+Losses of Atlantic salmon during the seawater production phase, from the first month of stocking to slaughter, are reported to the Directorate of Fisheries as of February 2025. Losses are categorized as **dead**, **discards**, **escapes**, and **other**.
 
-These figures form the basis for the tables presented here.
+- **Dead** refers to fish that are physically removed from the cage and recorded as dead due to various causes.  
+- **Discards** are downgraded fish sorted out at the slaughterhouse and deemed unfit for human consumption, for example due to sexual maturation, blemishes, or deformities.  
+- **Escapes** refer to fish that have escaped due to accidents.  
+- **Other** includes fish lost for reasons not covered by the other three categories.
 
-#### Data Processing
+Definitions are available at: [https://www.fiskeridir.no/statistikk-tall-og-analyse/data-og-statistikk-om-akvakultur/om-statistikk-for-akvakultur](https://www.fiskeridir.no/statistikk-tall-og-analyse/data-og-statistikk-om-akvakultur/om-statistikk-for-akvakultur) (accessed 26 February 2025).
 
-There are two types of tables: one for “Losses” and one for “Mortality.”
+These figures form the basis for the tables presented in this app.
 
-For “Losses,” data includes all sea-transferred Atlantic salmon and rainbow trout, including market fish, broodstock, and fish from research, development, and educational licenses.
-These figures show how many fish died, were discarded, escaped, etc., per year.
-Percentages indicate the share of total losses represented by each category (e.g., the proportion of losses due to mortality, discards, or escapes).
+#### Data processing
 
-“Mortality” is reported in monthly summaries, annual statistics, and at the production cycle level.
-It is calculated using reported numbers of dead and live fish at the end of each calendar month (at the site level), using recognized epidemiological methods that account for changes in the population of live fish over time.
-The monthly mortality rate per site is calculated as the number of dead fish divided by the number of fish at risk of dying that month.
-The number of fish at risk is estimated as the average of the number of live fish at the beginning and end of the month
-(Toft et al., 2004; Bang Jensen et al., 2020).
+There are two types of tables: one for **“Losses”** and one for **“Mortality”**.
 
-Average monthly mortality rates are then calculated for each area or nationally, and summed to produce the annual cumulative mortality risk, using a specific formula that accounts for accumulating risk over the year.
-This cumulative risk quantifies the probability that a fish will die within a given year or production cycle, expressed as a percentage from 0 to 100%.
+The **“Losses”** table includes data on all sea-transferred Atlantic salmon and rainbow trout, covering market fish, broodstock, and fish under research, development, and educational licenses.
 
-Monthly and annual mortality summaries include data from various licenses (market fish, broodstock, research, development, and education).
-For production cycle mortality, exclusion criteria are applied to retain only sites with market fish licenses.
-Production cycle mortality includes only sites with salmon that have spent 12 months or more in the sea.
+**“Mortality”** is reported **monthly**, **annually**, and by **production cycle**.
+The monthly mortality rate per site is calculated as the total number of registered dead fish divided by the number of fish at risk of dying during that month. Since the number at risk can vary throughout the month, it is estimated as the average number of live fish at the beginning and end of the month.
 
-#### Geographic Area
+Average monthly mortality rates are calculated for each county, production area, and at the national level. These monthly rates are then combined to estimate the annual cumulative mortality rate.
+To estimate the overall risk of a fish dying during the year, this rate is converted into an annual cumulative mortality risk using a method that accounts for how risk builds up over time (Toft et al., 2004; Bang Jensen et al., 2020; Moldal et al., 2025).
+The result represents the probability that a fish will die over the course of a year, expressed as a percentage from 0 to 100%.
 
-Users can choose to view data aggregated by county, production zone, or national level.
-County boundaries as of January 2024 are used.
+Production cycle mortality is calculated in a similar way but covers the entire seawater phase of the production cycle, which can range from 8 months to over a year depending on the site.
+
+Monthly and annual mortality summaries include data from various license types (market fish, broodstock, research, development, and education).
+For production cycle mortality, exclusion criteria are applied to include only sites with market fish licenses.
+
+#### Geographic area
+
+Users can choose to view data aggregated by **county**, **production area**, or at the **national** level.
+County boundaries are based on those in effect as of January 2024.
 Visualization at the county level may not be available in this version of the app.
-Production zones refer to the 13 zones defined in the Regulation on Production Areas (FOR-2017-01-16-61).
-Production areas or counties with very few sites are excluded to ensure confidentiality.
+Production areas refer to the 13 production areas defined in the Regulation (FOR-2017-01-16-61).
+To ensure confidentiality, production areas or counties with very few sites are excluded.
 
 #### References
 
-Toft, N., Agger, J. F., Houe, H., & Bruun, J. (2004). Measures of disease frequency. In H. Houe, A. K. Ersbøll, & N. Toft (Eds.), Introduction to Veterinary Epidemiology (pp. 77–93). Frederiksberg, Denmark: Biofolia.
-Bang Jensen, B., Qviller, L. & Toft, N. (2020). Spatio-temporal variations in mortality during the seawater production phase of Atlantic salmon (Salmo salar) in Norway. J. Fish Dis. 43, 445–457.
+Bang Jensen, B., Qviller, L., & Toft, N. (2020). Spatio-temporal variations in mortality during the seawater production phase of Atlantic salmon (*Salmo salar*) in Norway. *Journal of Fish Diseases*, 43, 445–457.
+
+Ministry of Trade, Industry and Fisheries. (2017). *Forskrift om produksjonsområder for akvakultur av matfisk i sjø av laks, ørret og regnbueørret* (FOR-2017-01-16-61). Retrieved from [https://lovdata.no/dokument/SF/forskrift/2017-01-16-61](https://lovdata.no/dokument/SF/forskrift/2017-01-16-61).
+
+Moldal, T., Wiik-Nielsen, J., Oliveira, V. H. S., Svendsen, J. C., & Sommerset, I. (2025). *Norwegian Fish Health Report 2024*. Norwegian Veterinary Institute Report series #1b/2025. Norwegian Veterinary Institute.
+
+Toft, N., Agger, J. F., Houe, H., & Bruun, J. (2004). Measures of disease frequency. In H. Houe, A. K. Ersbøll, & N. Toft (Eds.), *Introduction to Veterinary Epidemiology* (pp. 77–93). Frederiksberg, Denmark: Biofolia.
 
 #### Contact
 
