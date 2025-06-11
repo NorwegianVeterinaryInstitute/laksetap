@@ -2415,11 +2415,23 @@
     }
   },
   "files": {
-    "app.R": {
-      "checksum": "ffc734dd86316bdda1fb87f4e3ef18e2"
+    "app.r": {
+      "checksum": "2a5e415874b6401c154dd5e877525279"
+    },
+    "global.r": {
+      "checksum": "dd80e51b71b8b284048c8ede6465c63b"
+    },
+    "legacy/app.R": {
+      "checksum": "d7d3ce57f295707a19dd59a7b1db3167"
     },
     "README.md": {
       "checksum": "a5b34b4325b74125c7dab8503a85c56c"
+    },
+    "server.r": {
+      "checksum": "d1f5b0178db5be3b9121830875c193ce"
+    },
+    "ui.r": {
+      "checksum": "32afabba8a080371ac5f25da9870f02c"
     },
     "www/about.md": {
       "checksum": "b2b29ed5232310a1f81fd2182bd2c61d"
@@ -2437,10 +2449,10 @@
       "checksum": "cb42472fb69bace54ad934392e6d0150"
     },
     "www/style.css": {
-      "checksum": "353e8dd0c8638429d06850fe46e6b513"
+      "checksum": "99ca5eabf1a9c89405263b8f0d913894"
     },
     "www/tab1_table_and_plot_footer.md": {
-      "checksum": "c0ea14b2ee58974974421a8456ca6af5"
+      "checksum": "8d3df9fc8168c1e6e9b3e6fe3d99a8a2"
     },
     "www/tab2_plot_footer.md": {
       "checksum": "09cf6637b707df77a64446cc83e2ddd4"
@@ -2449,7 +2461,7 @@
       "checksum": "da3568ae73431bc9d750a9cc86b772b5"
     },
     "www/tab3_table_and_plot_footer.md": {
-      "checksum": "b94119b243bedce6fcf2bbc4e6fb419d"
+      "checksum": "8d3df9fc8168c1e6e9b3e6fe3d99a8a2"
     },
     "www/tab4_table_and_plot_footer.md": {
       "checksum": "8fb4e4754f091b1b51fb647ef9cc33c4"
