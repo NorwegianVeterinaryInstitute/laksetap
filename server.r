@@ -1502,7 +1502,6 @@ server <- function(input, output) {
     cum_risks <- 1 - exp(-cum_rate)
     
     period_label <- switch(input$period_type,
-                           "day" = "Dag",
                            "week" = "Uke",
                            "month" = "Måned"
     )
