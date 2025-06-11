@@ -3,6 +3,7 @@ head_block <- function() {
     tags$html(lang = "no"),
     tags$link(rel = "shortcut icon", href = "favicon.png"),
     tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
+    tags$title("Laksetap - Statistikk over tap og dødelighet av laks og regnbueørret"),
   )
 }
 
@@ -53,19 +54,18 @@ ui <- tagList(
         )
       )
     ),
-    shiny::tags$title(
-      class = "fs-5 fw-bold text-center",
+    shiny::tags$div(role="region", `aria-label`= "App Title",
+    shiny::tags$h1(
       "Statistikk over tap og dødelighet av laks og regnbueørret",
-      role = "region",
-      `aria-label` = "App Title"
-    )
+      role = "heading",
+      `aria-label` = "1"
+    ))
   ),
   bslib::page_navbar(
     title = NULL,
     id = "navbar",
     sidebar = bslib::sidebar(shiny::uiOutput("sidebar_content")),
     #### top level tab monthly losses ####
-    bslib::nav_spacer(),
     bslib::nav_panel(
       "Månedlige tap",
       bslib::navset_tab(
@@ -295,6 +295,7 @@ ui <- tagList(
     #### top level tab about####
     bslib::nav_panel(
       "Om statistikken",
+      value = "about",
       column(
         width = 9,
         shiny::includeMarkdown("www/about.md")
