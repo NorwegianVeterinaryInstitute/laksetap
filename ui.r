@@ -28,7 +28,7 @@ tag_manager <- function() {
 meta_block <- function() {
   metathis::meta() |>
     metathis::meta_social(
-      title = "Laksefiskdødelighet",
+      title = "Laksetap",
       description = "Laksefiskdødelighet Shiny App",
       url = "https://connect.posit.vetinst.no/laksetap",
       image = "https://www.vetinst.no/_/image/5c4e853a-130b-4e7f-92a3-8ca38bec0b56:2dcf9428a329fc0044b412c55b8c9e471f742d65/block-1200-630/Logo-vetinst-open-graph-no-svg-1200x630.png.jpg", # nolint
