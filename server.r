@@ -666,7 +666,20 @@ server <- function(input, output) {
   })
   
   observeEvent(input$navbar, {
-    if (input$navbar == "calc") {
+    if(input$navbar == "about"){
+      output$sidebar_content <-
+      renderUI(
+        tagList(
+          shiny::h4("Innholdsfortegnelse"),
+          shiny::tags$ul(
+            shiny::tags$li(shiny::a("Datakilder", href = "#datakilder")),
+            shiny::tags$li(shiny::a("Databearbeiding", href = "#databearbeiding")),
+            shiny::tags$li(shiny::a("Referanser", href = "#referanser")),
+            shiny::tags$li(shiny::a("Kontakt", href = "#kontakt")),
+          )
+        )
+      )
+    } else if (input$navbar == "calc") {
       output$sidebar_content <-
         renderUI(
           tagList(
