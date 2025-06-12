@@ -810,7 +810,7 @@ server <- function(input, output) {
           )),
           options = list(
             sDom = '<"top">lrt<"bottom">ip',
-            scrollX = TRUE,
+            scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
@@ -835,7 +835,7 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
-            scrollX = TRUE,
+            scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
@@ -875,7 +875,7 @@ server <- function(input, output) {
           )),
           options = list(
             sDom = '<"top">lrt<"bottom">ip',
-            scrollX = TRUE,
+            scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
@@ -902,7 +902,7 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
-            scrollX = TRUE,
+            scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
@@ -1057,7 +1057,7 @@ server <- function(input, output) {
           )),
           options = list(
             sDom = '<"top">lrt<"bottom">ip',
-            scrollX = TRUE,
+            scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
@@ -1099,7 +1099,7 @@ server <- function(input, output) {
           )),
           options = list(
             sDom = '<"top">lrt<"bottom">ip',
-            scrollX = TRUE,
+            scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
@@ -1180,7 +1180,7 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
-            scrollX = TRUE,
+            scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
@@ -1213,7 +1213,7 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
-            scrollX = TRUE,
+            scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
@@ -1353,7 +1353,7 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
-            scrollX = TRUE,
+            scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
@@ -1377,7 +1377,7 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
-            scrollX = TRUE,
+            scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
