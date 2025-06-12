@@ -105,16 +105,15 @@ table.dataTable thead th.sorting_desc {
   margin-right: 4px;
 }
 
-
 /* Style Previous button only when disabled */
-a.paginate_button.previous.disabled,
-a.paginate_button.next.disabled {
+.dataTables_paginate .paginate_button.previous.disabled a, .paginate_button.next.disabled a {
   color: #091A3E !important;
 }
 
 /* Make the active page button have white text */
 .dataTables_paginate .paginate_button.active a {
   color: white !important;
+  background-color: #143985 !important; 
 }
 
 
