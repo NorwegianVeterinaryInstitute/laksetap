@@ -670,8 +670,9 @@ server <- function(input, output) {
       output$sidebar_content <-
       renderUI(
         tagList(
-          shiny::h4("Innholdsfortegnelse"),
+          shiny::h2("Innhold"),
           shiny::tags$ul(
+            class = "custom-sidebar-list",
             shiny::tags$li(shiny::a("Datakilder", href = "#datakilder")),
             shiny::tags$li(shiny::a("Databearbeiding", href = "#databearbeiding")),
             shiny::tags$li(shiny::a("Referanser", href = "#referanser")),

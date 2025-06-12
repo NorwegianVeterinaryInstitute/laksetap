@@ -67,3 +67,23 @@ p {
   padding: 15px;
   color: #091A3E;
 }
+
+/* Links in text */
+a {
+  color: #1C4FB9 !important;
+  text-decoration: none;
+}
+
+a:link,
+a:hover,
+a:focus {
+        text-decoration: underline;
+}
+
+.custom-sidebar-list li a {
+  display: block;
+  padding: 12px 16px;  /* ~44px tall with default line height */
+  text-decoration: none;
+  color: inherit;
+}
+
