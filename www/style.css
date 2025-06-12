@@ -87,3 +87,7 @@ a:focus {
   color: inherit;
 }
 
+.formatted-output {
+    font-family: monospace;
+    white-space: pre-wrap;
+  }

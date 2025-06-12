@@ -47,6 +47,7 @@ ui <- tagList(
     shiny::tags$div(
       tags$a(
         href = "https://www.vetinst.no/",
+        style = "height:44px;",
         tags$img(
           src = "vetinst-logo.png",
           alt = "NVI logo",
@@ -282,7 +283,7 @@ ui <- tagList(
     bslib::nav_panel(
       "Dødelighetskalkulator",
       value = "calc",
-      verbatimTextOutput("result_text"),
+      div(class = "formatted-output", textOutput("result_text")),
       plotOutput("mortality_plot")
     ),
     #### top level tab calculator_2 ####
@@ -290,7 +291,7 @@ ui <- tagList(
       "Dødelighetskalkulator for utvidet periode",
       value = "calc_cum",
       plotOutput("cumulative_risk_plot"),
-      verbatimTextOutput("result_text_cum")
+      div(class = "formatted-output", textOutput("result_text_cum"))
     ),
     #### top level tab about####
     bslib::nav_panel(
