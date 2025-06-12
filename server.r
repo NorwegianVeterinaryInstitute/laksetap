@@ -684,7 +684,7 @@ server <- function(input, output) {
       output$sidebar_content <-
         renderUI(
           tagList(
-            shiny::h4("Beregn dødelighetsrate"),
+            shiny::h2("Beregn dødelighetsrate"),
             numericInput("beginning_count",
                          "Antall fisk ved periodens start (f.eks. uke, måned)",
                          value = 100
@@ -698,7 +698,7 @@ server <- function(input, output) {
       output$sidebar_content <-
         renderUI(
           tagList(
-            shiny::h4("Beregn akkumulert dødlighetsrisiko for en tidsperiode"),
+            shiny::h2("Beregn akkumulert dødlighetsrisiko for en tidsperiode"),
             selectInput(
               "period_type",
               "Velg periode:",
