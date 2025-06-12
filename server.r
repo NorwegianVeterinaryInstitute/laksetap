@@ -812,10 +812,7 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             scrollX = TRUE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
-          ),
-          callback = JS("
-    table.columns().header().to$().attr('scope', 'col');
-  ")
+          )
         )
       )
       
@@ -840,10 +837,7 @@ server <- function(input, output) {
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
             scrollX = TRUE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
-          ),
-          callback = JS("
-    table.columns().header().to$().attr('scope', 'col');
-  ")
+          )
         )
       )
     } else {
@@ -883,10 +877,7 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             scrollX = TRUE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
-          ),
-          callback = JS("
-    table.columns().header().to$().attr('scope', 'col');
-  ")
+          )
         )
       )
       
@@ -913,10 +904,7 @@ server <- function(input, output) {
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
             scrollX = TRUE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
-          ),
-          callback = JS("
-    table.columns().header().to$().attr('scope', 'col');
-  ")
+          )
         )
       )
     }
@@ -1071,10 +1059,7 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             scrollX = TRUE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
-          ),
-          callback = JS("
-    table.columns().header().to$().attr('scope', 'col');
-  ")
+          )
         )
     } else {
       df_losses_month() %>%
@@ -1116,10 +1101,7 @@ server <- function(input, output) {
             sDom = '<"top">lrt<"bottom">ip',
             scrollX = TRUE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
-          ),
-          callback = JS("
-    table.columns().header().to$().attr('scope', 'col');
-  ")
+          )
         )
     }
   })
@@ -1200,10 +1182,7 @@ server <- function(input, output) {
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
             scrollX = TRUE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
-          ),
-          callback = JS("
-    table.columns().header().to$().attr('scope', 'col');
-  ")
+          )
         )
     } else {
       df_mort_month() %>%
@@ -1236,10 +1215,7 @@ server <- function(input, output) {
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
             scrollX = TRUE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
-          ),
-          callback = JS("
-    table.columns().header().to$().attr('scope', 'col');
-  ")
+          )
         )
     }
   })
@@ -1379,10 +1355,7 @@ server <- function(input, output) {
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
             scrollX = TRUE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
-          ),
-          callback = JS("
-    table.columns().header().to$().attr('scope', 'col');
-  ")
+          )
         )
     } else {
       df_cohorts() %>%
@@ -1406,10 +1379,7 @@ server <- function(input, output) {
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
             scrollX = TRUE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
-          ),
-          callback = JS("
-    table.columns().header().to$().attr('scope', 'col');
-  ")
+          )
         )
     }
   })
