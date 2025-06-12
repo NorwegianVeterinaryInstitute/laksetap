@@ -1,10 +1,10 @@
-#### Datakilder
+## Datakilder
                  
 Tap av laksefisk gjennom produksjonen i sjø fra utsett til slakting, rapportert til Fiskeridirektoratet per februar 2025. Tapene er fordelt på dødfisk, utkast, rømming og «annet». Dødfisk omfatter dødelighet som skyldes sykdom, skader osv. Smittsomme sykdommer er en av de viktigste biologiske og økonomiske tapsfaktorene i fiskeoppdrett. Utkast er skrapfisk som sorteres ut ved slakting. «Annet» kan omfatte dødelighetsepisoder som oppstår ved lusebehandling og annen håndtering, men også fisk som avlives i forbindelse med sykdomsbekjempelse.
 
 Det er disse tallene som ligger til grunn for tabellene som er presentert her.
 
-#### Databearbeiding
+## Databearbeiding
                  
 Det foreligger to typer tabeller: en for ‘Tap’ og en for ‘Dødelighet’.
 
@@ -13,13 +13,13 @@ I beregningene av ‘Tap’ inngår data fra all sjøsatt laks og regnbueørret,
 
 Geografisk område: Det er mulig å velge om en vil se tallene samlet for fylke, produksjonssone eller på nasjonalt nivå. Fylkesgrensene slik de var i januar 2024 er brukt. Visualisering på fylkesnivå er ikke alltid tilgjengelig i denne versjonen av appen. Produksjonssonene viser til de 13 produksjonssoner som er definert i forskrift om produksjonsområder (FOR-2017-01-16-61). Produksjonsområder eller fylker med svært få lokaliteter er tatt ut av fremstillingen, for å sikre konfidensialitet.
 
-#### Referanser
+## Referanser
                  
 Toft, N., Agger, J. F., Houe, H., & Bruun, J. (2004). Measures of disease frequency. In H. Houe, A. K. Ersbøll, & N. Toft (Eds.), Introduction to Veterinary Epidemiology (pp. 77–93). Frederiksberg, Denmark: Biofolia.
                  
 Bang Jensen, B., Qviller, L. & Toft, N. (2020). Spatio-temporal variations in mortality during the seawater production phase of Atlantic salmon (Salmo salar) in Norway. J. Fish Dis. 43, 445–457.
                  
-#### Kontakt
+## Kontakt
                  
 Dersom du har spørsmål eller kommentarer til tabellene, diagrammene eller kalkulatorene, vennligst ta kontakt med oss, 
 *[VI laksetap app](mailto:laksetap@vetinst.no)*.
