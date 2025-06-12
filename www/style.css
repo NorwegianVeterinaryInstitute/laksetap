@@ -70,7 +70,7 @@ p {
 
 /* Links in text */
 a {
-  color: #1C4FB9 !important;
+  color: #143985 !important;
   text-decoration: none;
 }
 
@@ -109,7 +109,7 @@ table.dataTable thead th.sorting_desc {
 /* Style Previous button only when disabled */
 a.paginate_button.previous.disabled,
 a.paginate_button.next.disabled {
-  color: black !important;
+  color: #091A3E !important;
 }
 
 /* Make the active page button have white text */
