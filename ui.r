@@ -47,90 +47,42 @@ ui <- tagList(
     shiny::tags$div(
       tags$a(
         href = "https://www.vetinst.no/",
-        style = "height:44px;",
+        style = "height:64px; padding-top:15px; padding-left:15px;",
         tags$img(
           src = "vetinst-logo.png",
           alt = "NVI logo",
-          style = "height:44px;"
+          style = "height:64px; padding-top:15px; padding-left:15px;"
         )
       )
-    ),
+    )),
+  div(style = "background-color:#d7f4ff;padding-left:15px;",
     shiny::tags$div(role="region", `aria-label`= "App Title",
     shiny::tags$h1(
       "Statistikk over tap og dødelighet av laks og regnbueørret",
       role = "heading",
-      `aria-label` = "1"
-    ))
-  ),
+      `aria-label` = "1",
+      style = "padding-left:15px;"
+    ),
+    shiny::tags$p(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      style = "padding-left:15px;"
+    )
+  )),
   bslib::page_navbar(
     title = NULL,
     id = "navbar",
-    sidebar = bslib::sidebar(shiny::uiOutput("sidebar_content")),
+    #sidebar = bslib::sidebar(shiny::uiOutput("sidebar_content")),
     #### top level tab monthly losses ####
-    bslib::nav_panel(
-      "Månedlige tap",
-      bslib::navset_tab(
-        bslib::nav_panel(
-          "Diagram",
-          br(),
-          fluidRow(
-            column(
-              width = 6,
-              selectInput(
-                "select_year",
-                "Velg år:",
-                list(
-                  "År" = c(
-                    2024,
-                    2023,
-                    2022,
-                    2021,
-                    2020
-                  )
-                )
-              )
-            ),
-            column(
-              width = 6,
-              selectInput(
-                "select_month",
-                "Velg måned:",
-                list(
-                  "Måned" = c(
-                    "01",
-                    "02",
-                    "03",
-                    "04",
-                    "05",
-                    "06",
-                    "07",
-                    "08",
-                    "09",
-                    "10",
-                    "11",
-                    "12"
-                  )
-                )
-              )
-            )
-          ),
-          plotlyOutput("plot_losses_monthly"),
-          hr(),
-          shiny::includeMarkdown("www/tab1_table_and_plot_footer.md")
-        ),
-        bslib::nav_panel(
-          "Tabell",
-          br(),
-          uiOutput("tab_filter_m1"),
-          DTOutput("table_losses_month"),
-          hr(),
-          shiny::includeMarkdown("www/tab1_table_and_plot_footer.md")
-        )
-      )
-    ),
+    #bslib::nav_panel(
+    # "Månedlige tap",
+    #  bslib::navset_tab(
+
+   #   )
+   # ),
     #### top level tab monthly mortality ####
     bslib::nav_panel(
       "Månedlige dødsrater",
+      shiny::uiOutput("sidebar_content"),
       bslib::navset_tab(
         bslib::nav_panel(
           "Diagram",
@@ -192,39 +144,12 @@ ui <- tagList(
       )
     ),
     #### top level tab yearly losses ####
-    bslib::nav_panel(
-      "Årlige tap",
-      bslib::navset_tab(
-        bslib::nav_panel(
-          "Diagram",
-          br(),
-          selectInput(
-            "select_year_losses",
-            "Velg år:",
-            list(
-              "År" = c(
-                2024,
-                2023,
-                2022,
-                2021,
-                2020
-              )
-            )
-          ),
-          plotlyOutput("plot_losses"),
-          hr(),
-          shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")
-        ),
-        bslib::nav_panel(
-          "Tabell",
-          br(),
-          uiOutput("tab_filter"),
-          DTOutput("table_losses"),
-          hr(),
-          shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")
-        )
-      )
-    ),
+    #bslib::nav_panel(
+    #  "Årlige tap",
+    #  bslib::navset_tab(
+
+#      )
+ #   ),
     #### top level tab yearly mortality####
     bslib::nav_panel(
       "Årlig dødelighet",
@@ -297,6 +222,94 @@ ui <- tagList(
     bslib::nav_panel(
       "Om statistikken",
       value = "about",
+      bslib::navset_tab(
+        bslib::nav_panel(
+          "Månedlige tap Diagram",
+          br(),
+          fluidRow(
+            column(
+              width = 6,
+              selectInput(
+                "select_year",
+                "Velg år:",
+                list(
+                  "År" = c(
+                    2024,
+                    2023,
+                    2022,
+                    2021,
+                    2020
+                  )
+                )
+              )
+            ),
+            column(
+              width = 6,
+              selectInput(
+                "select_month",
+                "Velg måned:",
+                list(
+                  "Måned" = c(
+                    "01",
+                    "02",
+                    "03",
+                    "04",
+                    "05",
+                    "06",
+                    "07",
+                    "08",
+                    "09",
+                    "10",
+                    "11",
+                    "12"
+                  )
+                )
+              )
+            )
+          ),
+          plotlyOutput("plot_losses_monthly"),
+          hr(),
+          shiny::includeMarkdown("www/tab1_table_and_plot_footer.md")
+        ),
+        bslib::nav_panel(
+          "Månedlige tap Tabell",
+          br(),
+          uiOutput("tab_filter_m1"),
+          DTOutput("table_losses_month"),
+          hr(),
+          shiny::includeMarkdown("www/tab1_table_and_plot_footer.md")
+        ),
+        bslib::nav_panel(
+          "Årlige tap Diagram",
+          br(),
+          selectInput(
+            "select_year_losses",
+            "Velg år:",
+            list(
+              "År" = c(
+                2024,
+                2023,
+                2022,
+                2021,
+                2020
+              )
+            )
+          ),
+          plotlyOutput("plot_losses"),
+          hr(),
+          shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")
+        ),
+        bslib::nav_panel(
+          "Årlige tap Tabell",
+          br(),
+          uiOutput("tab_filter"),
+          DTOutput("table_losses"),
+          hr(),
+          shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")
+        ),
+        bslib::nav_panel(
+      "Datakilder",
+      value = "about",
       column(
         width = 9,
         shiny::includeMarkdown("www/about.md")
@@ -304,4 +317,4 @@ ui <- tagList(
     ),
     bslib::nav_item()
   )
-)
+)))

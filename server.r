@@ -719,13 +719,16 @@ server <- function(input, output) {
     } else {
       output$sidebar_content <- renderUI(
         tagList(
+          fluidRow(
+            column(width = 6,
           selectInput("species", "Velg art:",
                       c(
                         "Laks" = "salmon", # should match what is in the data set to use as a selection (for example, "salmon" matches salmon in losses)
                         "Regnbueørret" = "rainbowtrout"
                       ),
                       selected = c("salmon")
-          ),
+          )),
+          column(width = 6,
           selectInput("geo_group", "Velg geografisk område:",
                       c(
                         "Fylke" = "fylke",
@@ -733,13 +736,13 @@ server <- function(input, output) {
                         "Norge" = "all"
                       ),
                       selected = c("zone")
-          ),
-          hr(),
-          shiny::includeMarkdown("www/sidebar_text.md")
+          )),
+          #hr(),
+          #shiny::includeMarkdown("www/sidebar_text.md")
         )
-      )
-    }
-  })
+      ))
+
+  }})
   
   
   #### colors ####
