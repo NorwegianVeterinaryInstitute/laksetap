@@ -41,35 +41,43 @@ ui <- tagList(
   head_block(),
   tag_manager(),
   meta_block(),
+  div(class = "container",
   div(
-    class = "d-flex flex-wrap justify-content-start align-items-center p-2 gap-3", # nolint
+    class = "d-flex flex-column p-4 gap-3", # nolint
     style = "background-color: #d7f4ff",
     shiny::tags$div(
       tags$a(
         href = "https://www.vetinst.no/",
-        style = "height:64px; padding-top:15px; padding-left:15px;",
+        style = "height:64px;", # padding-top:15px; padding-left:15px;",
         tags$img(
           src = "vetinst-logo.png",
           alt = "NVI logo",
-          style = "height:64px; padding-top:15px; padding-left:15px;"
+          style = "height:64px;", # padding-top:15px; padding-left:15px;"
         )
       )
-    )),
-  div(style = "background-color:#d7f4ff;padding-left:15px;",
+    ),
+  div(style = "background-color:#d7f4ff;", #padding-left:15px;",
     shiny::tags$div(role="region", `aria-label`= "App Title",
     shiny::tags$h1(
       "Statistikk over tap og dødelighet av laks og regnbueørret",
       role = "heading",
       `aria-label` = "1",
-      style = "padding-left:15px;"
+      #style = "padding-left:15px;"
     ),
     shiny::tags$p(
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      style = "padding-left:15px;"
+      #style = "padding-left:15px;"
     )
-  )),
+  ))),
   bslib::page_navbar(
-    title = NULL,
+    #title = NULL,
+    
+    
+    title = div(
+      class = "custom-navbar-title",
+      tags$span(class = "hamburger-label", "Menu")
+    ),
+    
     id = "navbar",
     #sidebar = bslib::sidebar(shiny::uiOutput("sidebar_content")),
     #### top level tab monthly losses ####
@@ -79,10 +87,13 @@ ui <- tagList(
 
    #   )
    # ),
-   
-   shiny::div(style = "padding: 2rem;", 
+   #padding = "2rem",
+   header = shiny::tagList(
+     shiny::div(style = "padding: 1.5rem;",
+     shiny::uiOutput("tab_title"),
+     
      shiny::uiOutput("sidebar_content"),
-   ),
+   )),
    
     #### top level tab monthly mortality ####
     bslib::nav_panel(
@@ -327,4 +338,4 @@ ui <- tagList(
     ),
     bslib::nav_item()
   )
-)))
+))))

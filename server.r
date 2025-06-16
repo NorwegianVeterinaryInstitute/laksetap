@@ -1,4 +1,28 @@
 server <- function(input, output) {
+  
+  #### tab title
+  
+  observeEvent(input$navbar, {
+    if (input$navbar == "about") {
+      output$tab_title <- renderUI(
+        shiny::h1("Om laksetap.no")
+      )
+    } else if (input$navbar == "calc") {
+      output$tab_title <- renderUI(
+        shiny::h1("Beregn dødelighetsrate")
+      )
+    } else if (input$navbar == "calc_cum") {
+      output$tab_title <- renderUI(
+        shiny::h1("Beregn akkumulert dødlighetsrisiko for en tidsperiode")
+      )
+    } else {
+      output$tab_title <- renderUI(
+        shiny::h1("Laksetap.no")
+      )
+    }
+  }
+  )
+  
   #### UI for tab losses monthly ####
   observeEvent(input$geo_group, {
     if (input$geo_group == "zone") {
