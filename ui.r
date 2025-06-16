@@ -79,10 +79,15 @@ ui <- tagList(
 
    #   )
    # ),
+   
+   shiny::div(style = "padding: 2rem;", 
+     shiny::uiOutput("sidebar_content"),
+   ),
+   
     #### top level tab monthly mortality ####
     bslib::nav_panel(
       "Månedlige dødsrater",
-      shiny::uiOutput("sidebar_content"),
+      shiny::tags$h2("Månedlige dødsrater"),
       bslib::navset_tab(
         bslib::nav_panel(
           "Diagram",
@@ -153,6 +158,7 @@ ui <- tagList(
     #### top level tab yearly mortality####
     bslib::nav_panel(
       "Årlig dødelighet",
+      shiny::tags$h2("Årlig dødelighet"),
       bslib::navset_tab(
         bslib::nav_panel(
           "Diagram",
@@ -174,6 +180,7 @@ ui <- tagList(
     #### top level tab cohorts####
     bslib::nav_panel(
       "Produksjonssykluser dødelighet",
+      shiny::tags$h2("Produksjonssykluser dødelighet"),
       bslib::navset_tab(
         bslib::nav_panel(
           "Diagram",
@@ -207,6 +214,7 @@ ui <- tagList(
     #### top level tab calculator####
     bslib::nav_panel(
       "Dødelighetskalkulator",
+      shiny::tags$h2("Dødelighetskalkulator"),
       value = "calc",
       div(class = "formatted-output", textOutput("result_text")),
       plotOutput("mortality_plot")
@@ -214,6 +222,7 @@ ui <- tagList(
     #### top level tab calculator_2 ####
     bslib::nav_panel(
       "Dødelighetskalkulator for utvidet periode",
+      shiny::tags$h2("Dødelighetskalkulator for utvidet periode"),
       value = "calc_cum",
       plotOutput("cumulative_risk_plot"),
       div(class = "formatted-output", textOutput("result_text_cum"))
@@ -221,6 +230,7 @@ ui <- tagList(
     #### top level tab about####
     bslib::nav_panel(
       "Om statistikken",
+      shiny::tags$h2("Om statistikken"),
       value = "about",
       bslib::navset_tab(
         bslib::nav_panel(
