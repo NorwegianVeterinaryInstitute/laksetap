@@ -38,6 +38,10 @@ p {
   border-bottom: 2px solid #95d9f3;
 }
 
+.nav-underline {
+  --bs-nav-underline-border-width: 0;
+}
+
 /* Active tab in navbar */
   .navbar-default .navbar-nav > .active > a, 
   .navbar-default .navbar-nav > .active > a:hover, 
