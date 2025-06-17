@@ -211,7 +211,7 @@ ui <- tagList(
     #### top level tab calculator####
     bslib::nav_panel(
       "Dødelighetskalkulator",
-      shiny::tags$h2("Dødelighetskalkulator"),
+      shiny::tags$h3("Resultat"),
       value = "calc",
       div(class = "formatted-output", textOutput("result_text")),
       plotOutput("mortality_plot")
@@ -219,16 +219,15 @@ ui <- tagList(
     #### top level tab calculator_2 ####
     bslib::nav_panel(
       "Dødelighetskalkulator for utvidet periode",
-      shiny::tags$h2("Dødelighetskalkulator for utvidet periode"),
+      shiny::tags$h3("Resultat"),
       value = "calc_cum",
       plotOutput("cumulative_risk_plot"),
       div(class = "formatted-output", textOutput("result_text_cum"))
     ),
-    #### top level tab about####
+    #### top level tab for all losses ####
     bslib::nav_panel(
-      "Om statistikken",
-      shiny::tags$h2("Om statistikken"),
-      value = "about",
+      "Tap",
+      value = "losses",
       bslib::navset_tab(
         bslib::nav_panel(
           "Månedlige tap Diagram",
@@ -314,14 +313,24 @@ ui <- tagList(
           hr(),
           shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")
         ),
-        bslib::nav_panel(
-      "Datakilder",
-      value = "about",
-      column(
-        width = 9,
-        shiny::includeMarkdown("www/about.md")
       )
     ),
-    bslib::nav_item()
+
+    #### top level tab about####
+    bslib::nav_panel(
+      "Om statistikken",
+      value = "about",
+      bslib::navset_tab(
+        bslib::nav_panel(
+          "Datakilder",
+          value = "about",
+          column(
+            width = 9,
+            shiny::includeMarkdown("www/about.md")
+          )
+        ),
+        
+        
+
   )
 ))))

@@ -697,39 +697,34 @@ server <- function(input, output) {
   })
   
   observeEvent(input$navbar, {
-    if(input$navbar == "about"){
-      output$sidebar_content <-
-      renderUI(
-        tagList(
-          shiny::h2("Innhold"),
-          shiny::tags$ul(
-            class = "custom-sidebar-list",
-            shiny::tags$li(shiny::a("Datakilder", href = "#datakilder")),
-            shiny::tags$li(shiny::a("Databearbeiding", href = "#databearbeiding")),
-            shiny::tags$li(shiny::a("Referanser", href = "#referanser")),
-            shiny::tags$li(shiny::a("Kontakt", href = "#kontakt")),
-          )
-        )
-      )
-    } else if (input$navbar == "calc") {
+      if (input$navbar == "calc") {
       output$sidebar_content <-
         renderUI(
           tagList(
-            shiny::h2("Beregn dødelighetsrate"),
+            shiny::h3("Beregn dødelighetsrate"),
+            tagList(
+              fluidRow(
+                column(width = 3,
             numericInput("beginning_count",
                          "Antall fisk ved periodens start (f.eks. uke, måned)",
                          value = 100
-            ),
-            numericInput("end_count", "Antall fisk ved periodens slutt", value = 90),
-            numericInput("dead_count", "Antall døde fisk i løpet av perioden", value = 5),
-            actionButton("calculate_button", "Kalkuler")
+            )),
+            column(width = 3,
+            numericInput("end_count", "Antall fisk ved periodens slutt", value = 90)),
+            column(width = 3,
+            numericInput("dead_count", "Antall døde fisk i løpet av perioden", value = 5)),
+            column(width = 3,
+            actionButton("calculate_button", "Kalkuler"))
           )
-        )
+        )))
     } else if (input$navbar == "calc_cum") {
       output$sidebar_content <-
         renderUI(
           tagList(
-            shiny::h2("Beregn akkumulert dødlighetsrisiko for en tidsperiode"),
+            shiny::h3("Beregn akkumulert dødlighetsrisiko for en tidsperiode"),
+            tagList(
+              fluidRow(
+                column(width = 4,
             selectInput(
               "period_type",
               "Velg periode:",
@@ -738,16 +733,18 @@ server <- function(input, output) {
                 "Månedlige" = "month"
               ),
               selected = "month"
-            ),
+            )),
+            column(width = 4,
             textInput(
               "mortality_input_cum",
               "Fyll inn dødsrate for flere perioder (separer perioder ved å bruke komma, og bruk et punktum i stedet for et komma for desimaltall, f.eks. 0.5, 1, 1.5, 2):",
               ""
-            ),
-            actionButton("calculate_button_cum", "Kalkuler")
+            )),
+            column(width = 4,
+            actionButton("calculate_button_cum", "Kalkuler"))
           )
-        )
-    } else {
+        )))
+    } else if (input$navbar == "losses")  {
       output$sidebar_content <- renderUI(
         tagList(
           fluidRow(
@@ -768,8 +765,6 @@ server <- function(input, output) {
                       ),
                       selected = c("zone")
           )),
-          #hr(),
-          #shiny::includeMarkdown("www/sidebar_text.md")
         )
       ))
 
@@ -969,6 +964,12 @@ server <- function(input, output) {
       )
     ) %>%
       layout(
+        legend = list(
+          orientation = "h",  # horizontal
+          x = 0.5,
+          y = 1.1,
+          xanchor = "center"
+        ),
         barmode = "stack",
         title = "",
         annotations = list(yref = "paper", xref = "paper", y = 1.05, x = 1.1, text = "Velg tap:", showarrow = F, font = list(size = 14, face = "bold")),
@@ -1164,6 +1165,12 @@ server <- function(input, output) {
       )
     ) %>%
       layout(
+        legend = list(
+          orientation = "h",  # horizontal
+          x = 0.5,
+          y = 1.1,
+          xanchor = "center"
+        ),
         barmode = "stack",
         title = NULL,
         annotations = list(yref = "paper", xref = "paper", y = 1.05, x = 1.1, text = "Velg tap:", showarrow = F, font = list(size = 14, face = "bold")),
@@ -1299,7 +1306,13 @@ server <- function(input, output) {
           )
         
         
-        plotly::ggplotly(p)
+        plotly::ggplotly(p) %>%
+          legend = list(
+            orientation = "h",  # horizontal
+            x = 0.5,
+            y = 1.1,
+            xanchor = "center"
+          )
       })
     }
   })
@@ -1350,7 +1363,13 @@ server <- function(input, output) {
           )
         
         
-        plotly::ggplotly(p)
+        plotly::ggplotly(p) %>%
+          legend = list(
+            orientation = "h",  # horizontal
+            x = 0.5,
+            y = 1.1,
+            xanchor = "center"
+          )
       })
     }
   })
