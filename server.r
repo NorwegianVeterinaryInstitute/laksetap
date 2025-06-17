@@ -1,23 +1,30 @@
 server <- function(input, output) {
   
-  #### tab title
-  
+  #### Make the title change with the tab ####
   observeEvent(input$navbar, {
-    if (input$navbar == "about") {
+    if(input$navbar == "monthly_mortality") {
       output$tab_title <- renderUI(
-        shiny::h1("Om laksetap.no")
+        shiny::h2("Månedlig dødelighet %")
+      )
+    } else if(input$navbar == "yearly_mortality") {
+      output$tab_title <- renderUI(
+        shiny::h2("Årlig dødelighet %")
+      )
+    } else if (input$navbar == "prod_mortality") {
+      output$tab_title <- renderUI(
+        shiny::h2("Produksjonssyklus dødelighet %")
       )
     } else if (input$navbar == "calc") {
       output$tab_title <- renderUI(
-        shiny::h1("Beregn dødelighetsrate")
+        shiny::h2("Dødelighetskalkulator")
       )
     } else if (input$navbar == "calc_cum") {
       output$tab_title <- renderUI(
-        shiny::h1("Beregn akkumulert dødlighetsrisiko for en tidsperiode")
+        shiny::h2("Dødelighetskalkulator utvidet periode")
       )
-    } else {
+    } else if (input$navbar == "about") {
       output$tab_title <- renderUI(
-        shiny::h1("Laksetap.no")
+        shiny::h2("Om statistiken")
       )
     }
   }
