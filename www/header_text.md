@@ -1,0 +1,1 @@
+Tallene er satt sammen på bakgrunn av rapporter sendt til Fiskeridirektoratet fra oppdrettsnæringen. “Dødelighet i %” viser kalkulerte sammendrag basert på registrert dødelighet. Dataene vises som månedlig, årlig og fullførte produksjonssykluser. Det er også mulig å beregne dødelighet med egne data under kalkulator-fanene.
