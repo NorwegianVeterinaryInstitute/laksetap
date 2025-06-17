@@ -1,6 +1,6 @@
 head_block <- function() {
   shiny::tags$head(
-    tags$html(lang = "no"),
+    tags$html(lang = "no_NO"),
     tags$link(rel = "shortcut icon", href = "favicon.png"),
     tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
     tags$title("Laksetap - Statistikk over tap og dødelighet av laks og regnbueørret"),
@@ -26,16 +26,18 @@ tag_manager <- function() {
   ))
 }
 
+
 meta_block <- function() {
   metathis::meta() |>
     metathis::meta_social(
-      title = "Laksetap",
-      description = "Laksefiskdødelighet Shiny App",
-      url = "https://connect.posit.vetinst.no/laksetap",
-      image = "https://www.vetinst.no/_/image/5c4e853a-130b-4e7f-92a3-8ca38bec0b56:2dcf9428a329fc0044b412c55b8c9e471f742d65/block-1200-630/Logo-vetinst-open-graph-no-svg-1200x630.png.jpg", # nolint
-      image_alt = "An image for social meda cards"
+      title = "Laksetap: Statistikk over tap og dødelighet",
+      description = "Utforsk interaktiv statistikk over tap og dødelighet for laks og regnbueørret i Norge",
+      url = "https://apps.vetinst.no/laksetap",
+      image = "https://www.vetinst.no/_/image/5c4e853a-130b-4e7f-92a3-8ca38bec0b56:2dcf9428a329fc0044b412c55b8c9e471f742d65/block-1200-630/Logo-vetinst-open-graph-no-svg-1200x630.png.jpg",
+      image_alt = "Veterinærinstituttets logo"
     )
 }
+
 
 ui <- tagList(
   head_block(),
@@ -43,16 +45,16 @@ ui <- tagList(
   meta_block(),
   div(class = "container",
   div(
-    class = "d-flex flex-column p-4 gap-3", # nolint
+    class = "d-flex flex-column p-4 gap-3", 
     style = "background-color: #d7f4ff",
     shiny::tags$div(
       tags$a(
         href = "https://www.vetinst.no/",
-        style = "height:64px;", # padding-top:15px; padding-left:15px;",
+        style = "height:64px;", 
         tags$img(
           src = "vetinst-logo.png",
-          alt = "NVI logo",
-          style = "height:64px;", # padding-top:15px; padding-left:15px;"
+          alt = "Veterinærinstituttets logo",
+          style = "height:64px;",
         )
       )
     ),
@@ -62,43 +64,27 @@ ui <- tagList(
       "Statistikk over tap og dødelighet av laks og regnbueørret",
       role = "heading",
       `aria-label` = "1",
-      #style = "padding-left:15px;"
     ),
-    shiny::tags$p(
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      #style = "padding-left:15px;"
-    )
+    shiny::includeMarkdown("www/header_text.md")
   ))),
   bslib::page_navbar(
-    #title = NULL,
-    
-    
     title = div(
       class = "custom-navbar-title",
       tags$span(class = "hamburger-label", "Menu")
     ),
     
     id = "navbar",
-    #sidebar = bslib::sidebar(shiny::uiOutput("sidebar_content")),
-    #### top level tab monthly losses ####
-    #bslib::nav_panel(
-    # "Månedlige tap",
-    #  bslib::navset_tab(
-
-   #   )
-   # ),
-   #padding = "2rem",
    header = shiny::tagList(
      shiny::div(style = "padding: 1.5rem;",
      shiny::uiOutput("tab_title"),
-     
+     shiny::tags$br(),
      shiny::uiOutput("sidebar_content"),
    )),
    
-    #### top level tab monthly mortality ####
+    #### Tab 1: top level tab monthly mortality ####
     bslib::nav_panel(
-      "Månedlige dødsrater",
-      shiny::tags$h2("Månedlige dødsrater"),
+      "Månedlig dødelighet %",
+      value = "monthly_mortality",
       bslib::navset_tab(
         bslib::nav_panel(
           "Diagram",
@@ -166,10 +152,10 @@ ui <- tagList(
 
 #      )
  #   ),
-    #### top level tab yearly mortality####
+    #### Tab 2 top level tab yearly mortality####
     bslib::nav_panel(
-      "Årlig dødelighet",
-      shiny::tags$h2("Årlig dødelighet"),
+      "Årlig dødelighet %",
+      value = "yearly_mortality",
       bslib::navset_tab(
         bslib::nav_panel(
           "Diagram",
@@ -190,8 +176,8 @@ ui <- tagList(
     ),
     #### top level tab cohorts####
     bslib::nav_panel(
-      "Produksjonssykluser dødelighet",
-      shiny::tags$h2("Produksjonssykluser dødelighet"),
+      "Produksjonssyklus dødelighet %",
+      value = "prod_mortality",
       bslib::navset_tab(
         bslib::nav_panel(
           "Diagram",
