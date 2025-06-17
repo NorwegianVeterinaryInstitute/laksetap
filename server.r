@@ -702,29 +702,29 @@ server <- function(input, output) {
         renderUI(
           tagList(
             shiny::h3("Beregn dødelighetsrate"),
-            tagList(
-              fluidRow(
-                column(width = 3,
+            
+            bslib::layout_column_wrap(class = "d-flex align-items-end",
+              width = 1/4,
+                
             numericInput("beginning_count",
                          "Antall fisk ved periodens start (f.eks. uke, måned)",
                          value = 100
-            )),
-            column(width = 3,
-            numericInput("end_count", "Antall fisk ved periodens slutt", value = 90)),
-            column(width = 3,
-            numericInput("dead_count", "Antall døde fisk i løpet av perioden", value = 5)),
-            column(width = 3,
-            actionButton("calculate_button", "Kalkuler"))
+            ),
+            
+            numericInput("end_count", "Antall fisk ved periodens slutt", value = 90),
+            
+            numericInput("dead_count", "Antall døde fisk i løpet av perioden", value = 5),
+            
+            actionButton("calculate_button", "Kalkuler", class = "btn btn-primary")
           )
-        )))
+        ))
     } else if (input$navbar == "calc_cum") {
       output$sidebar_content <-
         renderUI(
           tagList(
             shiny::h3("Beregn akkumulert dødlighetsrisiko for en tidsperiode"),
-            tagList(
-              fluidRow(
-                column(width = 4,
+            bslib::layout_column_wrap(class = "d-flex align-items-end",
+                                      width = 1/3,
             selectInput(
               "period_type",
               "Velg periode:",
@@ -733,18 +733,18 @@ server <- function(input, output) {
                 "Månedlige" = "month"
               ),
               selected = "month"
-            )),
-            column(width = 4,
+            ),
+            
             textInput(
               "mortality_input_cum",
               "Fyll inn dødsrate for flere perioder (separer perioder ved å bruke komma, og bruk et punktum i stedet for et komma for desimaltall, f.eks. 0.5, 1, 1.5, 2):",
               ""
-            )),
-            column(width = 4,
-            actionButton("calculate_button_cum", "Kalkuler"))
+            ),
+            
+            actionButton("calculate_button_cum", "Kalkuler",  class = "btn btn-primary")
           )
-        )))
-    } else if (input$navbar == "losses")  {
+        ))
+    } else {
       output$sidebar_content <- renderUI(
         tagList(
           fluidRow(
@@ -1303,16 +1303,17 @@ server <- function(input, output) {
           guides(
             col =
               guide_legend(title = "Område"), fill = FALSE
-          )
+          )  
         
         
-        plotly::ggplotly(p) %>%
+        plotly::ggplotly(p) %>% layout(
           legend = list(
             orientation = "h",  # horizontal
             x = 0.5,
             y = 1.1,
             xanchor = "center"
-          )
+          ))
+
       })
     }
   })
@@ -1360,16 +1361,16 @@ server <- function(input, output) {
           guides(
             col =
               guide_legend(title = "Område"), fill = FALSE
-          )
+          ) 
         
         
-        plotly::ggplotly(p) %>%
+        plotly::ggplotly(p) %>% layout(
           legend = list(
             orientation = "h",  # horizontal
             x = 0.5,
             y = 1.1,
             xanchor = "center"
-          )
+          ))
       })
     }
   })

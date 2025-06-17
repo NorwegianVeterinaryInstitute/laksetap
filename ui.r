@@ -68,12 +68,14 @@ ui <- tagList(
     shiny::includeMarkdown("www/header_text.md")
   ))),
   bslib::page_navbar(
-    title = div(
-      class = "custom-navbar-title",
-      tags$span(class = "hamburger-label", "Menu")
-    ),
+    title = "",
+    # title = span(
+    #   class = "custom-navbar-title",
+    #   tags$span(class = "hamburger-label", "Menu")
+    # ),
     
     id = "navbar",
+    theme = bslib::bs_theme(primary = "#d7f4ff"),
    header = shiny::tagList(
      shiny::div(style = "padding: 1.5rem;",
      shiny::uiOutput("tab_title"),
@@ -333,4 +335,6 @@ ui <- tagList(
         
 
   )
-))))
+)
+
+)))

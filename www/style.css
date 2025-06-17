@@ -138,7 +138,7 @@ table.dataTable thead th.sorting_desc {
   }
 
 /* Custom navbar styles for the menu text*/
-.custom-navbar-title {
+/*.custom-navbar-title {
   display: flex;
   align-items: center;
   width: 100%;
@@ -157,4 +157,4 @@ table.dataTable thead th.sorting_desc {
     font-weight: bold;
     padding-right: 1rem;
   }
-}
+}*/
