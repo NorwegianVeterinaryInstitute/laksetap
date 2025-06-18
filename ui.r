@@ -324,10 +324,6 @@ ui <- tagList(
     bslib::nav_panel(
       "Om statistikken",
       value = "about",
-      bslib::navset_tab(
-        bslib::nav_panel(
-          "Datakilder",
-          value = "about",
           column(
             width = 9,
             shiny::includeMarkdown("www/about.md")
@@ -336,7 +332,5 @@ ui <- tagList(
         
         
 
-  )
-)
 
 )))
