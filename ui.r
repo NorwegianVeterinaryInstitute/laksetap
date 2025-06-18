@@ -1,6 +1,6 @@
 head_block <- function() {
   shiny::tags$head(
-    tags$html(lang = "no"),
+    tags$html(lang = "nb-NO"),
     tags$link(rel = "shortcut icon", href = "favicon.png"),
     tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
     tags$title("Laksetap - Statistikk over tap og dødelighet av laks og regnbueørret"),
@@ -73,7 +73,9 @@ ui <- tagList(
     #   class = "custom-navbar-title",
     #   tags$span(class = "hamburger-label", "Menu")
     # ),
-    
+    footer = tags$footer(
+      shiny::includeHTML("www/footer.html"),
+    ),
     id = "navbar",
     theme = bslib::bs_theme(primary = "#d7f4ff"),
    header = shiny::tagList(
