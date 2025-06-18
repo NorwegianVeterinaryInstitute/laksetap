@@ -1,6 +1,6 @@
 head_block <- function() {
   shiny::tags$head(
-    tags$html(lang = "no_NO"),
+    tags$html(lang = "no"),
     tags$link(rel = "shortcut icon", href = "favicon.png"),
     tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
     tags$title("Laksetap - Statistikk over tap og dødelighet av laks og regnbueørret"),
