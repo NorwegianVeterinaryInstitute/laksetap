@@ -125,7 +125,12 @@ server <- function(input, output) {
           )
         ))
       
-    }})
+    } else {
+      output$sidebar_content <- renderUI(NULL)
+    } 
+    
+    
+    })
   
   #### UI for tab losses monthly ####
   observeEvent(input$geo_group, {
