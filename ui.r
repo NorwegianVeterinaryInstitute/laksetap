@@ -3,7 +3,7 @@ head_block <- function() {
     tags$html(lang = "nb-NO"),
     tags$link(rel = "shortcut icon", href = "favicon.png"),
     tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
-    tags$title("Laksetap - Statistikk over tap og dødelighet av laks og regnbueørret"),
+    tags$title("Laksetap - Statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen"),
   )
 }
 
@@ -30,8 +30,8 @@ tag_manager <- function() {
 meta_block <- function() {
   metathis::meta() |>
     metathis::meta_social(
-      title = "Laksetap: Statistikk over tap og dødelighet",
-      description = "Utforsk interaktiv statistikk over tap og dødelighet for laks og regnbueørret i Norge",
+      title = "Laksetap: Statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen",
+      description = "Utforsk interaktiv statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen i Norge",
       url = "https://apps.vetinst.no/laksetap",
       image = "https://www.vetinst.no/_/image/5c4e853a-130b-4e7f-92a3-8ca38bec0b56:2dcf9428a329fc0044b412c55b8c9e471f742d65/block-1200-630/Logo-vetinst-open-graph-no-svg-1200x630.png.jpg",
       image_alt = "Veterinærinstituttets logo"
@@ -61,7 +61,7 @@ ui <- tagList(
   div(style = "background-color:#d7f4ff;", #padding-left:15px;",
     shiny::tags$div(role="region", `aria-label`= "App Title",
     shiny::tags$h1(
-      "Statistikk over tap og dødelighet av laks og regnbueørret",
+      "Statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen",
       role = "heading",
       `aria-label` = "1",
     ),
