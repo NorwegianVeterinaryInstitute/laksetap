@@ -230,7 +230,7 @@ ui <- tagList(
     ),
     #### top level tab for all losses ####
     bslib::nav_panel(
-      "Tap",
+      "Tapstall",
       value = "losses",
       bslib::navset_tab(
         bslib::nav_panel(

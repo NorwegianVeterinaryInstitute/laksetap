@@ -24,7 +24,7 @@ server <- function(input, output) {
       )
     } else if (input$navbar == "losses") {
       output$tab_title <- renderUI(
-        shiny::h2("Tap")
+        shiny::h2("Tapstall")
       )
     } else if (input$navbar == "about") {
       output$tab_title <- renderUI(
