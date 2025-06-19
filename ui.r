@@ -52,7 +52,7 @@ ui <- tagList(
         href = "https://www.vetinst.no/",
         style = "height:64px;", 
         tags$img(
-          src = "vetinst-logo.png",
+          src = "vetinst-logo-no.svg",
           alt = "Veterinærinstituttets logo",
           style = "height:64px;",
         )
