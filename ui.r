@@ -212,7 +212,13 @@ ui <- tagList(
         )
       )
     ),
-    #### top level tab calculator####
+#### top level tab calculator####
+bslib::nav_panel(
+  "Dødelighetskalkulator",
+  value = "calc_main",
+  bslib::navset_tab(
+    id = "calc_nav",
+    header = shiny::uiOutput("calc_banner"),
     bslib::nav_panel(
       "Dødelighetskalkulator",
       shiny::tags$h3("Resultat"),
@@ -227,7 +233,7 @@ ui <- tagList(
       value = "calc_cum",
       plotOutput("cumulative_risk_plot"),
       div(class = "formatted-output", textOutput("result_text_cum"))
-    ),
+    ))),
     #### top level tab for all losses ####
     bslib::nav_panel(
       "Tapstall",

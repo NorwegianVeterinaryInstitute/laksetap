@@ -1,33 +1,29 @@
 server <- function(input, output) {
 
   #### Make the title change with the tab ####
-  observeEvent(input$navbar, {
+  output$tab_title  <- renderUI({
     if(input$navbar == "monthly_mortality") {
-      output$tab_title <- renderUI(
+       renderUI(
         shiny::h2("Månedlig dødelighet %")
       )
     } else if(input$navbar == "yearly_mortality") {
-      output$tab_title <- renderUI(
+       renderUI(
         shiny::h2("Årlig dødelighet %")
       )
     } else if (input$navbar == "prod_mortality") {
-      output$tab_title <- renderUI(
+       renderUI(
         shiny::h2("Produksjonssyklus dødelighet %")
       )
-    } else if (input$navbar == "calc") {
-      output$tab_title <- renderUI(
+    } else if (input$navbar == "calc_main") {
+       renderUI(
         shiny::h2("Dødelighetskalkulator")
       )
-    } else if (input$navbar == "calc_cum") {
-      output$tab_title <- renderUI(
-        shiny::h2("Dødelighetskalkulator utvidet periode")
-      )
     } else if (input$navbar == "losses") {
-      output$tab_title <- renderUI(
+      renderUI(
         shiny::h2("Tapstall")
       )
     } else if (input$navbar == "about") {
-      output$tab_title <- renderUI(
+      renderUI(
         shiny::h2("Om statistiken")
       )
     }
@@ -36,50 +32,7 @@ server <- function(input, output) {
   
   #### Make the UI for sidebar / top bar content change on each tab ####
   observeEvent(input$navbar, {
-    if (input$navbar == "calc") {
-      output$sidebar_content <-
-        renderUI(
-          tagList(
-            shiny::h3("Beregn dødelighetsrate"),
-            bslib::layout_column_wrap(class = "d-flex align-items-end",
-                                      width = 1/4,
-                                      numericInput("beginning_count",
-                                                   "Antall fisk ved periodens start (f.eks. uke, måned)",
-                                                   value = 100
-                                      ),
-                                      numericInput("end_count", "Antall fisk ved periodens slutt", value = 90),
-                                      numericInput("dead_count", "Antall døde fisk i løpet av perioden", value = 5),
-                                      actionButton("calculate_button", "Kalkuler", class = "btn btn-primary")
-          )
-        )
-      )
-    } else if (input$navbar == "calc_cum") {
-      output$sidebar_content <-
-        renderUI(
-          tagList(
-            shiny::h3("Beregn akkumulert dødlighetsrisiko for en tidsperiode"),
-            bslib::layout_column_wrap(class = "d-flex align-items-end",
-                                      width = 1/3,
-                                      selectInput(
-                                        "period_type",
-                                        "Velg periode:",
-                                        choices = c(
-                                          "Ukentlige" = "week",
-                                          "Månedlige" = "month"
-                                        ),
-                                        selected = "month"
-                                      ),
-                                      
-                                      textInput(
-                                        "mortality_input_cum",
-                                        "Fyll inn dødsrate for flere perioder (separer perioder ved å bruke komma, og bruk et punktum i stedet for et komma for desimaltall, f.eks. 0.5, 1, 1.5, 2):",
-                                        ""
-                                      ),
-                                      
-                                      actionButton("calculate_button_cum", "Kalkuler",  class = "btn btn-primary")
-            )
-          ))
-    } else if (input$navbar == "monthly_mortality" |
+    if (input$navbar == "monthly_mortality" |
                input$navbar == "yearly_mortality" |
                input$navbar == "losses") {
       output$sidebar_content <- renderUI(
@@ -111,6 +64,56 @@ server <- function(input, output) {
     
     
     })
+  
+  
+  #### Calculator UI - separate because we are rendering on tabset ####
+  output$calc_banner <- renderUI({
+    if (input$calc_nav == "calc") {
+      renderUI(
+        tagList(
+          shiny::div(style="padding-left: 1rem; padding-top: 3rem;",
+          shiny::h3("Beregn dødelighetsrate"),
+          bslib::layout_column_wrap(class = "d-flex align-items-end",
+                                    width = 1/4,
+                                    numericInput("beginning_count",
+                                                 "Antall fisk ved periodens start (f.eks. uke, måned)",
+                                                 value = 100
+                                    ),
+                                    numericInput("end_count", "Antall fisk ved periodens slutt", value = 90),
+                                    numericInput("dead_count", "Antall døde fisk i løpet av perioden", value = 5),
+                                    actionButton("calculate_button", "Kalkuler", class = "btn btn-primary")
+          )
+        ))
+      )
+    } else if (input$calc_nav == "calc_cum") {
+      renderUI(
+        tagList(
+          shiny::div(style="padding-left: 1rem; padding-top: 3rem;",
+          shiny::h3("Beregn akkumulert dødlighetsrisiko for en tidsperiode"),
+          bslib::layout_column_wrap(class = "d-flex align-items-end",
+                                    width = 1/3,
+                                    selectInput(
+                                      "period_type",
+                                      "Velg periode:",
+                                      choices = c(
+                                        "Ukentlige" = "week",
+                                        "Månedlige" = "month"
+                                      ),
+                                      selected = "month"
+                                    ),
+                                    
+                                    textInput(
+                                      "mortality_input_cum",
+                                      "Fyll inn dødsrate for flere perioder (separer perioder ved å bruke komma, og bruk et punktum i stedet for et komma for desimaltall, f.eks. 0.5, 1, 1.5, 2):",
+                                      "1"
+                                    ),
+                                    
+                                    actionButton("calculate_button_cum", "Kalkuler",  class = "btn btn-primary")
+          )
+        )))
+    } else (renderUI <- NULL)
+  })
+  
   
   #### UI for tab losses monthly ####
   observeEvent(input$geo_group, {
@@ -675,6 +678,7 @@ server <- function(input, output) {
     }
   })
   
+ 
   #### UI for tab cohorts  ####
   observeEvent(input$geo_group, {
     if (input$geo_group == "zone") {
