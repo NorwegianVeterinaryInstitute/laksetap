@@ -26,6 +26,7 @@ ui <- tagList(
                             ),
                             shiny::includeMarkdown("www/header_text.md")
             ))),
+      shiny::tags$div(role="region", `aria-label`= "main",
       bslib::page_navbar(
         title = "",
         # title = span(
@@ -33,7 +34,8 @@ ui <- tagList(
         #   tags$span(class = "hamburger-label", "Menu")
         # ),
         footer = tags$footer(
-          shiny::includeHTML("www/footer.html"),
+          shiny::tags$div(role="region", `aria-label`= "footer",
+          shiny::includeHTML("www/footer.html")),
         ),
         id = "navbar",
         theme = bslib::bs_theme(primary = "#d7f4ff"),
@@ -287,4 +289,4 @@ ui <- tagList(
             shiny::includeMarkdown("www/about.md")
           )
         ),
-      )))
+      ))))
