@@ -137,6 +137,33 @@ table.dataTable thead th.sorting_desc {
     white-space: pre-wrap;
   }
 
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skip-link:focus {
+  position: static;
+  left: auto;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+  background-color: #000;
+  color: #fff;
+  z-index: 1000;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 0.25rem;
+}
+
+
+
+
 /* Custom navbar styles for the menu text*/
 /*.custom-navbar-title {
   display: flex;

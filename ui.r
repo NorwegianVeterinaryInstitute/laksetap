@@ -6,8 +6,8 @@ ui <- tagList(
       div(
         class = "d-flex flex-column p-4 gap-3", 
         style = "background-color: #d7f4ff",
-        shiny::tags$div(
-          tags$a(
+        shiny::tags$div(class = "logo-wrapper",
+        shiny::tags$a(
             href = "https://www.vetinst.no/",
             style = "height:64px;", 
             tags$img(
@@ -15,7 +15,8 @@ ui <- tagList(
               alt = "Veterinærinstituttets logo",
               style = "height:64px;",
             )
-          )
+          ),
+        shiny::tags$a(href = "#main-content", class = "skip-link", "Hopp til hovetinnhold")
         ),
         div(style = "background-color:#d7f4ff;", #padding-left:15px;",
             shiny::tags$div(role="region", `aria-label`= "App Title",
@@ -26,7 +27,7 @@ ui <- tagList(
                             ),
                             shiny::includeMarkdown("www/header_text.md")
             ))),
-      shiny::tags$div(role="region", `aria-label`= "main",
+      shiny::tags$div(id = "main-content", role="region", `aria-label`= "main",
       bslib::page_navbar(
         title = "",
         # title = span(
