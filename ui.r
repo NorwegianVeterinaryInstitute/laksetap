@@ -75,7 +75,7 @@ ui <- tagList(
                 column(
                   width = 6,
                   selectInput(
-                    "select_zone",
+                    "select_sone",
                     "Velg zone:",
                     list(
                       "Zone" = c(
