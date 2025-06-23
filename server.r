@@ -13,7 +13,7 @@ server <- function(input, output) {
     } else if (input$navbar == "losses") {
       shiny::h2("Tapstall")
     } else if (input$navbar == "about") {
-      shiny::h2("Om statistiken")
+      shiny::h2("Om statistikken")
     }
   }
   )
@@ -951,7 +951,7 @@ server <- function(input, output) {
         # title = input$select_year, # Should change when included change year
         yaxis = list(title = "Antall (millioner)"),
         xaxis = list(title = "Område")
-      )
+      ) %>% config(displayModeBar = FALSE)
   )
   
   
@@ -1015,7 +1015,7 @@ server <- function(input, output) {
         xaxis = list(title = "Område"),
         yaxis = list(title = "Dødelighet (%)", categoryarray = ~area),
         margin = list(l = 100)
-      )
+      ) %>% config(displayModeBar = FALSE)
   )
   
   
@@ -1153,7 +1153,7 @@ server <- function(input, output) {
         yaxis = list(title = "Antall (millioner)"),
         xaxis = list(title = "Område"),
         showlegend = TRUE
-      )
+      ) %>% config(displayModeBar = FALSE)
   )
   
   
@@ -1287,7 +1287,7 @@ server <- function(input, output) {
             x = 0.5,
             y = 1.1,
             xanchor = "center"
-          ))
+          )) %>% config(displayModeBar = FALSE)
         
       })
     }
@@ -1345,7 +1345,7 @@ server <- function(input, output) {
             x = 0.5,
             y = 1.1,
             xanchor = "center"
-          ))
+          )) %>% config(displayModeBar = FALSE)
       })
     }
   })
@@ -1464,7 +1464,7 @@ server <- function(input, output) {
           guides(fill = "none")
         
         
-        ggplotly(p, tooltip = "text")
+        ggplotly(p, tooltip = "text") %>% config(displayModeBar = FALSE)
       })
     }
   })
@@ -1517,7 +1517,7 @@ server <- function(input, output) {
           guides(fill = "none")
         
         
-        ggplotly(p, tooltip = "text")
+        ggplotly(p, tooltip = "text") %>% config(displayModeBar = FALSE)
       })
     }
   })
