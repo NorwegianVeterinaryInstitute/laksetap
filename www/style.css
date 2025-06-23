@@ -153,8 +153,8 @@ table.dataTable thead th.sorting_desc {
   height: auto;
   padding: 0.5rem 1rem;
   margin-left: 1rem;
-  background-color: #000;
-  color: #fff;
+  background-color: #091A3E !important;
+  color: #F7FDFF !important;
   z-index: 1000;
   text-decoration: none;
   font-weight: bold;
