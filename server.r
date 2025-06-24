@@ -1308,7 +1308,7 @@ server <- function(input, output) {
       output$plot_mortality_month <- renderPlotly({
         p <- mortality_rates_monthly_data %>%
           dplyr::filter(year %in% input$select_year_mort) %>%
-          dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
+          dplyr::filter(area %in% c(input$select_sone, "Norge")) %>%
           # ribbon for norway - enabled:
           # dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>%
           # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
