@@ -90,7 +90,7 @@ server <- function(input, output) {
                                              
                                              textInput(
                                                "mortality_input_cum",
-                                               "Fyll inn dødsrate for flere perioder (separer perioder ved å bruke komma, og bruk et punktum i stedet for et komma for desimaltall, f.eks. 0.5, 1, 1.5, 2):",
+                                               "Fyll inn dødsrate for flere perioder. Dødsrate kan ikke være lavere enn 0, eller høyere enn 2. Separer perioder ved å bruke komma, og bruk et punktum i stedet for et komma for desimaltall, f.eks. 0.5, 1, 1.5, 2:",
                                                "1"
                                              ),
                                              
@@ -1547,7 +1547,28 @@ server <- function(input, output) {
   })
   #### Tab 2 ####
   observeEvent(input$calculate_button_cum, {
-    mort_rates_cum <- as.numeric(unlist(strsplit(input$mortality_input_cum, ","))) / 100
+    nums <- suppressWarnings(as.numeric(unlist(strsplit(input$mortality_input_cum, ","))))
+
+    # check that all inputs are numbers
+    if (any(is.na(nums))) {
+      showNotification("Én eller flere inndata er ikke numeriske.", 
+                       type = "error")
+      return()
+    }
+    
+    # check that no number is bigger than 2 and smaller then 0 
+    min_rate = 0
+    max_rate = 2
+    
+    between_result <- between(nums, min_rate, max_rate)
+    
+    if (!all(between_result)) {
+      showNotification("Dødsrate kan ikke være lavere enn 0, eller høyere enn 2.", 
+                       type = "error")
+      return()
+    }
+    
+    mort_rates_cum <- nums / 100 
     cum_rate <- cumsum(mort_rates_cum)
     cum_risks <- 1 - exp(-cum_rate)
     
