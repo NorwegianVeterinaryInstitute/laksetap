@@ -53,14 +53,21 @@ server <- function(input, output) {
       tagList(
         shiny::div(style="padding-left: 1rem; padding-top: 3rem;",
                    shiny::h3("Beregn dødelighetsrate"),
+                   shiny::p("Kalkulatoren godtar verdier mellom 0 og 200.000."),
                    bslib::layout_column_wrap(class = "d-flex align-items-end",
                                              width = 1/4,
                                              numericInput("beginning_count",
                                                           "Antall fisk ved periodens start (f.eks. uke, måned)",
-                                                          value = 100
-                                             ),
-                                             numericInput("end_count", "Antall fisk ved periodens slutt", value = 90),
-                                             numericInput("dead_count", "Antall døde fisk i løpet av perioden", value = 5),
+                                                          value = 100, 
+                                                          min = 1, 
+                                                          max = 200000),
+                                             numericInput("end_count", "Antall fisk ved periodens slutt", 
+                                                          value = 90, 
+                                                          min = 0, 
+                                                          max = 200000),
+                                             numericInput("dead_count", "Antall døde fisk i løpet av perioden", 
+                                                          value = 5, min = 0, 
+                                                          max = 200000),
                                              actionButton("calculate_button", "Kalkuler", class = "btn btn-primary")
                    )
         ))
