@@ -1,4 +1,106 @@
 server <- function(input, output) {
+  
+  #### Make the title change with the tab ####
+  output$tab_title  <- renderUI({
+    if(input$navbar == "monthly_mortality") {
+      shiny::h2("Månedlig dødelighet %")
+    } else if(input$navbar == "yearly_mortality") {
+      shiny::h2("Årlig dødelighet %")
+    } else if (input$navbar == "prod_mortality") {
+      shiny::h2("Produksjonssyklus dødelighet %")
+    } else if (input$navbar == "calc_main") {
+      shiny::h2("Dødelighetskalkulator")
+    } else if (input$navbar == "losses") {
+      shiny::h2("Tapstall")
+    } else if (input$navbar == "about") {
+      shiny::h2("Om statistikken")
+    }
+  }
+  )
+  
+  #### Make the UI for the top bar content change on each tab ####
+  output$top_bar  <- renderUI({
+    if (input$navbar == "monthly_mortality" |
+        input$navbar == "yearly_mortality" |
+        input$navbar == "losses") {
+      tagList(
+        fluidRow(
+          column(width = 6,
+                 selectInput("species", "Velg art:",
+                             c("Laks" = "salmon",
+                               "Regnbueørret" = "rainbowtrout"),
+                             selected = c("salmon")
+                 )),
+          column(width = 6,
+                 selectInput("geo_group", "Velg geografisk område:",
+                             c("Fylke" = "fylke",
+                               "Produksjonssone" = "zone",
+                               "Norge" = "all"),
+                             selected = c("zone")
+                 )),
+        )
+      )
+      
+    } else {
+      NULL
+    } 
+  })
+  
+  
+  #### Calculator UI - separate because we are rendering on tabset ####
+  output$calc_banner <- renderUI({
+    if (input$calc_nav == "calc") {
+      tagList(
+        shiny::div(style="padding-left: 1rem; padding-top: 3rem;",
+                   shiny::h3("Beregn dødelighetsrate"),
+                   shiny::p("Kalkulatoren godtar verdier mellom 0 og 200.000."),
+                   bslib::layout_column_wrap(class = "d-flex align-items-end",
+                                             width = 1/4,
+                                             numericInput("beginning_count",
+                                                          "Antall fisk ved periodens start (f.eks. uke, måned)",
+                                                          value = 100, 
+                                                          min = 1, 
+                                                          max = 200000),
+                                             numericInput("end_count", "Antall fisk ved periodens slutt", 
+                                                          value = 90, 
+                                                          min = 0, 
+                                                          max = 200000),
+                                             numericInput("dead_count", "Antall døde fisk i løpet av perioden", 
+                                                          value = 5, min = 0, 
+                                                          max = 200000),
+                                             actionButton("calculate_button", "Kalkuler", class = "btn btn-primary")
+                   )
+        ))
+      
+    } else if (input$calc_nav == "calc_cum") {
+      tagList(
+        shiny::div(style="padding-left: 1rem; padding-top: 3rem;",
+                   shiny::h3("Beregn akkumulert dødlighetsrisiko for en tidsperiode"),
+                   bslib::layout_column_wrap(class = "d-flex align-items-end",
+                                             width = 1/3,
+                                             selectInput(
+                                               "period_type",
+                                               "Velg periode:",
+                                               choices = c(
+                                                 "Ukentlige" = "week",
+                                                 "Månedlige" = "month"
+                                               ),
+                                               selected = "month"
+                                             ),
+                                             
+                                             textInput(
+                                               "mortality_input_cum",
+                                               "Fyll inn dødsrate for flere perioder. Dødsrate kan ikke være lavere enn 0, eller høyere enn 2. Separer perioder ved å bruke komma, og bruk et punktum i stedet for et komma for desimaltall, f.eks. 0.5, 1, 1.5, 2:",
+                                               "1"
+                                             ),
+                                             
+                                             actionButton("calculate_button_cum", "Kalkuler",  class = "btn btn-primary")
+                   )
+        ))
+    } else (NULL)
+  })
+  
+  
   #### UI for tab losses monthly ####
   observeEvent(input$geo_group, {
     if (input$geo_group == "zone") {
@@ -562,6 +664,7 @@ server <- function(input, output) {
     }
   })
   
+  
   #### UI for tab cohorts  ####
   observeEvent(input$geo_group, {
     if (input$geo_group == "zone") {
@@ -665,102 +768,10 @@ server <- function(input, output) {
     }
   })
   
-  observeEvent(input$navbar, {
-    if(input$navbar == "about"){
-      output$sidebar_content <-
-      renderUI(
-        tagList(
-          shiny::h2("Innhold"),
-          shiny::tags$ul(
-            class = "custom-sidebar-list",
-            shiny::tags$li(shiny::a("Datakilder", href = "#datakilder")),
-            shiny::tags$li(shiny::a("Databearbeiding", href = "#databearbeiding")),
-            shiny::tags$li(shiny::a("Referanser", href = "#referanser")),
-            shiny::tags$li(shiny::a("Kontakt", href = "#kontakt")),
-          )
-        )
-      )
-    } else if (input$navbar == "calc") {
-      output$sidebar_content <-
-        renderUI(
-          tagList(
-            shiny::h2("Beregn dødelighetsrate"),
-            numericInput("beginning_count",
-                         "Antall fisk ved periodens start (f.eks. uke, måned)",
-                         value = 100
-            ),
-            numericInput("end_count", "Antall fisk ved periodens slutt", value = 90),
-            numericInput("dead_count", "Antall døde fisk i løpet av perioden", value = 5),
-            actionButton("calculate_button", "Kalkuler")
-          )
-        )
-    } else if (input$navbar == "calc_cum") {
-      output$sidebar_content <-
-        renderUI(
-          tagList(
-            shiny::h2("Beregn akkumulert dødlighetsrisiko for en tidsperiode"),
-            selectInput(
-              "period_type",
-              "Velg periode:",
-              choices = c(
-                "Ukentlige" = "week",
-                "Månedlige" = "month"
-              ),
-              selected = "month"
-            ),
-            textInput(
-              "mortality_input_cum",
-              "Fyll inn dødsrate for flere perioder (separer perioder ved å bruke komma, og bruk et punktum i stedet for et komma for desimaltall, f.eks. 0.5, 1, 1.5, 2):",
-              ""
-            ),
-            actionButton("calculate_button_cum", "Kalkuler")
-          )
-        )
-    } else {
-      output$sidebar_content <- renderUI(
-        tagList(
-          selectInput("species", "Velg art:",
-                      c(
-                        "Laks" = "salmon", # should match what is in the data set to use as a selection (for example, "salmon" matches salmon in losses)
-                        "Regnbueørret" = "rainbowtrout"
-                      ),
-                      selected = c("salmon")
-          ),
-          selectInput("geo_group", "Velg geografisk område:",
-                      c(
-                        "Fylke" = "fylke",
-                        "Produksjonssone" = "zone",
-                        "Norge" = "all"
-                      ),
-                      selected = c("zone")
-          ),
-          hr(),
-          shiny::includeMarkdown("www/sidebar_text.md")
-        )
-      )
-    }
-  })
   
   
-  #### colors ####
-  my_palette <- c("#FF5447", "#59CD8B", "#FFC6C2", "#1C4FB9")
-  my_palette_long <- c(
-    "#FF5447", "#59CD8B", "#95D9F3", "#1C4FB9", "#FFC6C2",
-    "#BCEED1", "#D7F4FF", "#C7D9FF", "#F7FDFF", "#091A3E",
-    "#CC0E00", "#288550", "#1FC0FF", "#6892E8", "#BD990A",
-    "#969FB1", "#D3DFF8", "#C0ECD3", "#0076A3", "#F5D34A"
-  )
   
-  #### data ####
   
-  laksetap_board <- board_connect()
-  # this is the dataset used for the existing app.
-  losses <- pin_read(laksetap_board, "vi2451/losses_and_mortality_yearly_data")
-  
-  # new datasets
-  losses_monthly_data <- pin_read(laksetap_board, "vi2451/losses_monthly_data")
-  mortality_rates_monthly_data <- pin_read(laksetap_board, "vi2451/mortality_rates_monthly_data")
-  mortality_cohorts_data <- pin_read(laksetap_board, "vi2451/mortality_cohorts_data")
   
   #### LOSSES yearly ####
   
@@ -935,13 +946,19 @@ server <- function(input, output) {
       )
     ) %>%
       layout(
+        legend = list(
+          orientation = "h",  # horizontal
+          x = 0.5,
+          y = 1.1,
+          xanchor = "center"
+        ),
         barmode = "stack",
         title = "",
         annotations = list(yref = "paper", xref = "paper", y = 1.05, x = 1.1, text = "Velg tap:", showarrow = F, font = list(size = 14, face = "bold")),
         # title = input$select_year, # Should change when included change year
         yaxis = list(title = "Antall (millioner)"),
         xaxis = list(title = "Område")
-      )
+      ) %>% config(displayModeBar = FALSE)
   )
   
   
@@ -1005,7 +1022,7 @@ server <- function(input, output) {
         xaxis = list(title = "Område"),
         yaxis = list(title = "Dødelighet (%)", categoryarray = ~area),
         margin = list(l = 100)
-      )
+      ) %>% config(displayModeBar = FALSE)
   )
   
   
@@ -1130,6 +1147,12 @@ server <- function(input, output) {
       )
     ) %>%
       layout(
+        legend = list(
+          orientation = "h",  # horizontal
+          x = 0.5,
+          y = 1.1,
+          xanchor = "center"
+        ),
         barmode = "stack",
         title = NULL,
         annotations = list(yref = "paper", xref = "paper", y = 1.05, x = 1.1, text = "Velg tap:", showarrow = F, font = list(size = 14, face = "bold")),
@@ -1137,7 +1160,7 @@ server <- function(input, output) {
         yaxis = list(title = "Antall (millioner)"),
         xaxis = list(title = "Område"),
         showlegend = TRUE
-      )
+      ) %>% config(displayModeBar = FALSE)
   )
   
   
@@ -1262,10 +1285,17 @@ server <- function(input, output) {
           guides(
             col =
               guide_legend(title = "Område"), fill = FALSE
-          )
+          )  
         
         
-        plotly::ggplotly(p)
+        plotly::ggplotly(p) %>% layout(
+          legend = list(
+            orientation = "h",  # horizontal
+            x = 0.5,
+            y = 1.1,
+            xanchor = "center"
+          )) %>% config(displayModeBar = FALSE)
+        
       })
     }
   })
@@ -1285,7 +1315,7 @@ server <- function(input, output) {
       output$plot_mortality_month <- renderPlotly({
         p <- mortality_rates_monthly_data %>%
           dplyr::filter(year %in% input$select_year_mort) %>%
-          dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
+          dplyr::filter(area %in% c(input$select_sone, "Norge")) %>%
           # ribbon for norway - enabled:
           # dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>%
           # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
@@ -1313,10 +1343,16 @@ server <- function(input, output) {
           guides(
             col =
               guide_legend(title = "Område"), fill = FALSE
-          )
+          ) 
         
         
-        plotly::ggplotly(p)
+        plotly::ggplotly(p) %>% layout(
+          legend = list(
+            orientation = "h",  # horizontal
+            x = 0.5,
+            y = 1.1,
+            xanchor = "center"
+          )) %>% config(displayModeBar = FALSE)
       })
     }
   })
@@ -1435,7 +1471,7 @@ server <- function(input, output) {
           guides(fill = "none")
         
         
-        ggplotly(p, tooltip = "text")
+        ggplotly(p, tooltip = "text") %>% config(displayModeBar = FALSE)
       })
     }
   })
@@ -1488,7 +1524,7 @@ server <- function(input, output) {
           guides(fill = "none")
         
         
-        ggplotly(p, tooltip = "text")
+        ggplotly(p, tooltip = "text") %>% config(displayModeBar = FALSE)
       })
     }
   })
@@ -1511,7 +1547,28 @@ server <- function(input, output) {
   })
   #### Tab 2 ####
   observeEvent(input$calculate_button_cum, {
-    mort_rates_cum <- as.numeric(unlist(strsplit(input$mortality_input_cum, ","))) / 100
+    nums <- suppressWarnings(as.numeric(unlist(strsplit(input$mortality_input_cum, ","))))
+
+    # check that all inputs are numbers
+    if (any(is.na(nums))) {
+      showNotification("Én eller flere inndata er ikke numeriske.", 
+                       type = "error")
+      return()
+    }
+    
+    # check that no number is bigger than 2 and smaller then 0 
+    min_rate = 0
+    max_rate = 2
+    
+    between_result <- between(nums, min_rate, max_rate)
+    
+    if (!all(between_result)) {
+      showNotification("Dødsrate kan ikke være lavere enn 0, eller høyere enn 2.", 
+                       type = "error")
+      return()
+    }
+    
+    mort_rates_cum <- nums / 100 
     cum_rate <- cumsum(mort_rates_cum)
     cum_risks <- 1 - exp(-cum_rate)
     
