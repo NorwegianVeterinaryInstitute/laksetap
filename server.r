@@ -1535,9 +1535,10 @@ server <- function(input, output) {
   observeEvent(input$calculate_button, {
     ar_count <- (input$beginning_count + input$end_count) / 2
     mort_rate <- input$dead_count / ar_count
+    mort_risk <- 1 - exp(-mort_rate)
     
     output$result_text <- renderText({
-      paste("Dødsrate:", sprintf("%.2f%%", mort_rate * 100))
+      paste("Dødelighet:", sprintf("%.2f%%", mort_risk * 100))
     })
     
     # output$mortality_plot <- renderPlot({
