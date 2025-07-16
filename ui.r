@@ -55,48 +55,49 @@ ui <- tagList(
             bslib::nav_panel(
               "Diagram",
               br(),
-              fluidRow(
-                column(
-                  width = 6,
-                  selectInput(
-                    "select_year_mort",
-                    "Velg år:",
-                    list(
-                      "År" = c(
-                        2024,
-                        2023,
-                        2022,
-                        2021,
-                        2020
-                      )
-                    )
-                  )
-                ),
-                column(
-                  width = 6,
-                  selectInput(
-                    "select_sone",
-                    "Velg zone:",
-                    list(
-                      "Zone" = c(
-                        "1",
-                        "2",
-                        "3",
-                        "4",
-                        "5",
-                        "6",
-                        "7",
-                        "8",
-                        "9",
-                        "10",
-                        "11",
-                        "12 & 13"
-                      )
-                    ),
-                    multiple = TRUE
-                  )
-                )
-              ),
+              # fluidRow(
+              #   column(
+              #     width = 6,
+              #     selectInput(
+              #       "select_year_mort",
+              #       "Velg år:",
+              #       list(
+              #         "År" = c(
+              #           2024,
+              #           2023,
+              #           2022,
+              #           2021,
+              #           2020
+              #         )
+              #       )
+              #     )
+              #   ),
+              #   column(
+              #     width = 6,
+              #     selectInput(
+              #       "select_sone",
+              #       "Velg zone:",
+              #       list(
+              #         "Zone" = c(
+              #           "1",
+              #           "2",
+              #           "3",
+              #           "4",
+              #           "5",
+              #           "6",
+              #           "7",
+              #           "8",
+              #           "9",
+              #           "10",
+              #           "11",
+              #           "12 & 13"
+              #         )
+              #       ),
+              #       multiple = TRUE
+              #     )
+              #   )
+              # ),
+              uiOutput("tab_filter_monthly_plot"),
               plotlyOutput("plot_mortality_month"),
               hr(),
               shiny::includeMarkdown("www/tab2_plot_footer.md")

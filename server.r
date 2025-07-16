@@ -280,6 +280,104 @@ server <- function(input, output) {
   })
   
   #### UI for tab mortality monthly ####
+  
+  observeEvent(input$geo_group, {
+    if (input$geo_group == "zone") {
+      output$tab_filter_monthly_plot <-
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 4,
+                selectInput(
+                  "select_years_plot4",
+                  "Velg flere år:",
+                  c(
+                    "2024" = 2024,
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020
+                  ),
+                  selected = c(2024)
+                )
+              ),
+              column(
+                width = 4,
+                selectInput(
+                  "select_area_plot4",
+                  "Velg område",
+                  c("1", "2", "3", "4", "5", "6", "7", "8", "9", 
+                    "10", "11", "12 & 13", "Norge"),
+                  selected = c("Norge"),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+    } else if (input$geo_group == "fylke") {
+      output$tab_filter_monthly_plot <-
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 4,
+                selectInput(
+                  "select_years_plot4",
+                  "Velg flere år:",
+                  c(
+                    "2024" = 2024,
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020
+                  ),
+                  selected = c(2024)
+                )
+              ),
+              column(
+                width = 4,
+                selectInput(
+                  "select_area_plot4",
+                  "Velg Område:",
+                  c(
+                    "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    "Trøndelag", "Nordland", "Troms", "Finnmark", "Norge"
+                  ),
+                  selected = c("Norge"),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+    } else {
+      output$tab_filter_monthly_plot <-
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                selectInput(
+                  "select_years_plot4",
+                  "Velg flere år:",
+                  c(
+                    "2024" = 2024,
+                    "2023" = 2023,
+                    "2022" = 2022,
+                    "2021" = 2021,
+                    "2020" = 2020
+                  ),
+                  selected = c(2024)
+                )
+              )
+            )
+          )
+        )
+    }
+  })
+  
   observeEvent(input$geo_group, {
     if (input$geo_group == "zone") {
       output$tab_filter_m2 <-
@@ -768,11 +866,7 @@ server <- function(input, output) {
     }
   })
   
-  
-  
-  
-  
-  
+
   #### LOSSES yearly ####
   
   df_losses <-
@@ -826,7 +920,7 @@ server <- function(input, output) {
           )
         )
       )
-      
+
       output$table_mortality <- DT::renderDT(
         datatable(
           df_losses() %>%
@@ -1170,7 +1264,7 @@ server <- function(input, output) {
     eventReactive(c(input$species, input$geo_group), {
       mortality_rates_monthly_data %>%
         dplyr::filter(species == input$species &
-                        viz == input$geo_group)
+                        viz %in% c(input$geo_group, "all"))
     })
   
   
@@ -1257,9 +1351,9 @@ server <- function(input, output) {
       })
     } else {
       output$plot_mortality_month <- renderPlotly({
-        p <- mortality_rates_monthly_data %>%
-          dplyr::filter(year %in% input$select_year_mort) %>%
-          dplyr::filter(area %in% c(input$select_area, "Norge")) %>%
+        p <- df_mort_month() %>%
+          dplyr::filter(year %in% input$select_years_plot4) %>%
+          dplyr::filter(area %in% c(input$select_area_plot4)) %>%
           # ribbon for norway - enabled:
           # dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>%
           # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
@@ -1286,8 +1380,7 @@ server <- function(input, output) {
             col =
               guide_legend(title = "Område"), fill = FALSE
           )  
-        
-        
+        browser()
         plotly::ggplotly(p) %>% layout(
           legend = list(
             orientation = "h",  # horizontal
@@ -1300,63 +1393,63 @@ server <- function(input, output) {
     }
   })
   
-  observeEvent(input$geo_group, {
-    if (input$geo_group == "all" | input$geo_group == "fylke") {
-      output$plot_mortality_month <- renderPlotly({
-        p <- ggplot() +
-          geom_blank() +
-          labs(title = "Ingen data å vise") +
-          theme_minimal()
-        
-        
-        plotly::ggplotly(p)
-      })
-    } else {
-      output$plot_mortality_month <- renderPlotly({
-        p <- mortality_rates_monthly_data %>%
-          dplyr::filter(year %in% input$select_year_mort) %>%
-          dplyr::filter(area %in% c(input$select_sone, "Norge")) %>%
-          # ribbon for norway - enabled:
-          # dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>%
-          # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
-          ggplot() +
-          aes(x = month_name, y = median, group = area) +
-          labs(x = "Måned", y = "Dødelighet (%)") +
-          geom_line(
-            aes(
-              color = factor(area)
-            )
-          ) +
-          geom_ribbon(
-            aes(
-              ymin = .data$q1,
-              ymax = .data$q3,
-              fill = factor(area)
-            ),
-            linetype = 0,
-            alpha = 0.1,
-            show.legend = FALSE
-          ) +
-          theme_minimal() +
-          scale_color_manual(values = my_palette_long) +
-          scale_fill_manual(values = my_palette_long) +
-          guides(
-            col =
-              guide_legend(title = "Område"), fill = FALSE
-          ) 
-        
-        
-        plotly::ggplotly(p) %>% layout(
-          legend = list(
-            orientation = "h",  # horizontal
-            x = 0.5,
-            y = 1.1,
-            xanchor = "center"
-          )) %>% config(displayModeBar = FALSE)
-      })
-    }
-  })
-  
+  # observeEvent(input$geo_group, {
+  #   if (input$geo_group == "all" | input$geo_group == "fylke") {
+  #     output$plot_mortality_month <- renderPlotly({
+  #       p <- ggplot() +
+  #         geom_blank() +
+  #         labs(title = "Ingen data å vise") +
+  #         theme_minimal()
+  #       
+  #       
+  #       plotly::ggplotly(p)
+  #     })
+  #   } else {
+  #     output$plot_mortality_month <- renderPlotly({
+  #       p <- mortality_rates_monthly_data %>%
+  #         dplyr::filter(year %in% input$select_year_mort) %>%
+  #         dplyr::filter(area %in% c(input$select_sone, "Norge")) %>%
+  #         # ribbon for norway - enabled:
+  #         # dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>%
+  #         # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
+  #         ggplot() +
+  #         aes(x = month_name, y = median, group = area) +
+  #         labs(x = "Måned", y = "Dødelighet (%)") +
+  #         geom_line(
+  #           aes(
+  #             color = factor(area)
+  #           )
+  #         ) +
+  #         geom_ribbon(
+  #           aes(
+  #             ymin = .data$q1,
+  #             ymax = .data$q3,
+  #             fill = factor(area)
+  #           ),
+  #           linetype = 0,
+  #           alpha = 0.1,
+  #           show.legend = FALSE
+  #         ) +
+  #         theme_minimal() +
+  #         scale_color_manual(values = my_palette_long) +
+  #         scale_fill_manual(values = my_palette_long) +
+  #         guides(
+  #           col =
+  #             guide_legend(title = "Område"), fill = FALSE
+  #         ) 
+  #       
+  #       
+  #       plotly::ggplotly(p) %>% layout(
+  #         legend = list(
+  #           orientation = "h",  # horizontal
+  #           x = 0.5,
+  #           y = 1.1,
+  #           xanchor = "center"
+  #         )) %>% config(displayModeBar = FALSE)
+  #     })
+  #   }
+  # })
+  # 
   
   
   #### COHORTS ####
@@ -1453,12 +1546,12 @@ server <- function(input, output) {
           ggplot() +
           geom_segment(
             aes(color = as.numeric(factor(area)), x = area, xend = area, y = q1, yend = q3),
-            size = 10
+            linewidth = 10
           ) +
           scale_color_gradient(low = "#C7D9FF", high = "#1C4FB9") +
           geom_point(
             aes(x = area, y = median, group = year, text = tooltip),
-            size = 1, fill = "black", stroke = 0.2
+            linewidth = 1, fill = "black", stroke = 0.2
           ) +
           geom_text(aes(x = area, y = median, group = year, label = area), nudge_y = 1) +
           labs(
@@ -1506,12 +1599,12 @@ server <- function(input, output) {
           ggplot() +
           geom_segment(
             aes(color = as.numeric(factor(area)), x = area, xend = area, y = q1, yend = q3),
-            size = 10
+            linewidth = 10
           ) +
           scale_color_gradient(low = "#C7D9FF", high = "#1C4FB9") +
           geom_point(
             aes(x = area, y = median, group = year, text = tooltip),
-            size = 1, fill = "black", stroke = 0.2
+            linewidth = 1, fill = "black", stroke = 0.2
           ) +
           geom_text(aes(x = area, y = median, group = year, label = area), nudge_y = 1) +
           labs(
