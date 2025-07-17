@@ -68,3 +68,20 @@ meta_block <- function() {
       image_alt = "Veterinærinstituttets logo"
     )
 }
+
+select_year <- function(id, multiple = F){
+  selectInput(
+    id,
+    "Velg flere år:",
+    c(
+      "2025" = 2025,
+      "2024" = 2024,
+      "2023" = 2023,
+      "2022" = 2022,
+      "2021" = 2021,
+      "2020" = 2020
+    ),
+    selected = c(2025), 
+    multiple = multiple
+  ) 
+}
