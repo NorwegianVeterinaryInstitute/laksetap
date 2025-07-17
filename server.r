@@ -1351,6 +1351,7 @@ server <- function(input, output) {
       })
     } else {
       output$plot_mortality_month <- renderPlotly({
+        req(input$select_area_plot4)
         p <- df_mort_month() %>%
           dplyr::filter(year %in% input$select_years_plot4) %>%
           dplyr::filter(area %in% c(input$select_area_plot4)) %>%
@@ -1361,8 +1362,8 @@ server <- function(input, output) {
           aes(x = month_name, y = median, group = area) +
           labs(x = "Måned", y = "Dødelighet (%)") +
           geom_line(aes(
-            color = factor(area)
-          )) +
+             color = factor(area)
+           )) +
           geom_ribbon(
             aes(
               ymin = .data$q1,
@@ -1380,7 +1381,7 @@ server <- function(input, output) {
             col =
               guide_legend(title = "Område"), fill = FALSE
           )  
-        browser()
+        
         plotly::ggplotly(p) %>% layout(
           legend = list(
             orientation = "h",  # horizontal
@@ -1392,66 +1393,7 @@ server <- function(input, output) {
       })
     }
   })
-  
-  # observeEvent(input$geo_group, {
-  #   if (input$geo_group == "all" | input$geo_group == "fylke") {
-  #     output$plot_mortality_month <- renderPlotly({
-  #       p <- ggplot() +
-  #         geom_blank() +
-  #         labs(title = "Ingen data å vise") +
-  #         theme_minimal()
-  #       
-  #       
-  #       plotly::ggplotly(p)
-  #     })
-  #   } else {
-  #     output$plot_mortality_month <- renderPlotly({
-  #       p <- mortality_rates_monthly_data %>%
-  #         dplyr::filter(year %in% input$select_year_mort) %>%
-  #         dplyr::filter(area %in% c(input$select_sone, "Norge")) %>%
-  #         # ribbon for norway - enabled:
-  #         # dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>%
-  #         # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
-  #         ggplot() +
-  #         aes(x = month_name, y = median, group = area) +
-  #         labs(x = "Måned", y = "Dødelighet (%)") +
-  #         geom_line(
-  #           aes(
-  #             color = factor(area)
-  #           )
-  #         ) +
-  #         geom_ribbon(
-  #           aes(
-  #             ymin = .data$q1,
-  #             ymax = .data$q3,
-  #             fill = factor(area)
-  #           ),
-  #           linetype = 0,
-  #           alpha = 0.1,
-  #           show.legend = FALSE
-  #         ) +
-  #         theme_minimal() +
-  #         scale_color_manual(values = my_palette_long) +
-  #         scale_fill_manual(values = my_palette_long) +
-  #         guides(
-  #           col =
-  #             guide_legend(title = "Område"), fill = FALSE
-  #         ) 
-  #       
-  #       
-  #       plotly::ggplotly(p) %>% layout(
-  #         legend = list(
-  #           orientation = "h",  # horizontal
-  #           x = 0.5,
-  #           y = 1.1,
-  #           xanchor = "center"
-  #         )) %>% config(displayModeBar = FALSE)
-  #     })
-  #   }
-  # })
-  # 
-  
-  
+
   #### COHORTS ####
   df_cohorts <-
     eventReactive(c(input$species, input$geo_group), {
