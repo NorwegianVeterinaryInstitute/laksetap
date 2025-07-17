@@ -109,7 +109,7 @@ ui <- tagList(
                 selectInput(
                   "select_year_coh",
                   "Velg år:",
-                  list("År" = c(2024, 2023, 2022, 2021, 2020))
+                  list("År" = c(2025, 2024, 2023, 2022, 2021, 2020))
                 )
               ),
               br(),
@@ -170,6 +170,7 @@ ui <- tagList(
                     "Velg år:",
                     list(
                       "År" = c(
+                        2025,
                         2024,
                         2023,
                         2022,
@@ -225,6 +226,7 @@ ui <- tagList(
                 "Velg år:",
                 list(
                   "År" = c(
+                    2025,
                     2024,
                     2023,
                     2022,
