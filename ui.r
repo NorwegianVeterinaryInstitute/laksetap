@@ -58,7 +58,7 @@ ui <- tagList(
               uiOutput("tab_filter_monthly_plot"),
               plotlyOutput("plot_mortality_month"),
               hr(),
-              shiny::includeMarkdown("www/tab2_plot_footer.md")
+              shiny::includeMarkdown("www/mortality_monthly_plot_footer.md")
             ),
             bslib::nav_panel(
               "Tabell",
@@ -68,7 +68,7 @@ ui <- tagList(
               DTOutput("table_mortality_month")),
               hr(),
               shiny::div(
-              shiny::includeMarkdown("www/tab2_table_footer.md"))
+              shiny::includeMarkdown("www/mortality_monthly_table_footer.md"))
             )
           )
         ),
@@ -82,7 +82,7 @@ ui <- tagList(
               br(),
               plotlyOutput("plot_mortality"),
               hr(),
-              shiny::includeMarkdown("www/tab4_table_and_plot_footer.md")
+              shiny::includeMarkdown("www/mortality_yearly_table_and_plot_footer.md")
             ),
             bslib::nav_panel(
               "Tabell",
@@ -92,7 +92,7 @@ ui <- tagList(
               DTOutput("table_mortality")),
               hr(),
               shiny::div(
-              shiny::includeMarkdown("www/tab4_table_and_plot_footer.md"))
+              shiny::includeMarkdown("www/mortality_yearly_table_and_plot_footer.md"))
             )
           )
         ),
@@ -118,7 +118,7 @@ ui <- tagList(
               br(),
               plotlyOutput("plot_cohort"),
               hr(),
-              shiny::includeMarkdown("www/tab5_plot_footer.md")
+              shiny::includeMarkdown("www/cohorts_plot_footer.md")
             ),
             bslib::nav_panel(
               "Tabell",
@@ -128,7 +128,7 @@ ui <- tagList(
               DTOutput("table_cohort")),
               hr(),
               shiny::div(
-              shiny::includeMarkdown("www/tab5_table_footer.md"))
+              shiny::includeMarkdown("www/cohorts_table_footer.md"))
             )
           )
         ),
@@ -205,7 +205,7 @@ ui <- tagList(
               ),
               plotlyOutput("plot_losses_monthly"),
               hr(),
-              shiny::includeMarkdown("www/tab1_table_and_plot_footer.md")
+              shiny::includeMarkdown("www/losses_monthly_table_and_plot_footer.md")
             ),
             bslib::nav_panel(
               "Månedlige tap Tabell",
@@ -215,7 +215,7 @@ ui <- tagList(
               DTOutput("table_losses_month")),
               hr(),
               shiny::div(
-              shiny::includeMarkdown("www/tab1_table_and_plot_footer.md"))
+              shiny::includeMarkdown("www/losses_monthly_table_and_plot_footer.md"))
             ),
             bslib::nav_panel(
               "Årlige tap Diagram",
@@ -235,7 +235,7 @@ ui <- tagList(
               ),
               plotlyOutput("plot_losses"),
               hr(),
-              shiny::includeMarkdown("www/tab3_table_and_plot_footer.md")
+              shiny::includeMarkdown("www/losses_yearly_table_and_plot_footer.md")
             ),
             bslib::nav_panel(
               "Årlige tap Tabell",
@@ -245,7 +245,7 @@ ui <- tagList(
               DTOutput("table_losses")),
               hr(),
               shiny::div(
-              shiny::includeMarkdown("www/tab3_table_and_plot_footer.md"))
+              shiny::includeMarkdown("www/losses_yearly_table_and_plot_footer.md"))
             ),
           )
         ),
