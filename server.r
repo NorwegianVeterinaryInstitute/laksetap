@@ -110,7 +110,7 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 4,
-                selec_year(
+                select_year(
                   id = "select_years_table3",
                   multiple = T
                 )
