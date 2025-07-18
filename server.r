@@ -117,27 +117,8 @@ server <- function(input, output) {
               ),
               column(
                 width = 4,
-                selectizeInput(
-                  "select_month_table3",
-                  "Velg flere måneder:",
-                  c(
-                    "jan",
-                    "feb",
-                    "mar",
-                    "apr",
-                    "mai",
-                    "jun",
-                    "jul",
-                    "aug",
-                    "sep",
-                    "okt",
-                    "nov",
-                    "des"
-                  ),
-                  selected = c(
-                    "jan"
-                  ),
-                  multiple = T
+                select_months(
+                  id = "select_month_table3"
                 )
               ),
               column(
@@ -167,27 +148,8 @@ server <- function(input, output) {
               ),
               column(
                 width = 4,
-                selectizeInput(
-                  "select_month_table3",
-                  "Velg flere måneder:",
-                  c(
-                    "jan",
-                    "feb",
-                    "mar",
-                    "apr",
-                    "mai",
-                    "jun",
-                    "jul",
-                    "aug",
-                    "sep",
-                    "okt",
-                    "nov",
-                    "des"
-                  ),
-                  selected = c(
-                    "jan"
-                  ),
-                  multiple = T
+                select_months(
+                  id = "select_month_table3",
                 )
               ),
               column(
@@ -223,27 +185,8 @@ server <- function(input, output) {
               ),
               column(
                 width = 4,
-                selectizeInput(
-                  "select_month_table3",
-                  "Velg flere måneder:",
-                  c(
-                    "jan",
-                    "feb",
-                    "mar",
-                    "apr",
-                    "mai",
-                    "jun",
-                    "jul",
-                    "aug",
-                    "sep",
-                    "okt",
-                    "nov",
-                    "des"
-                  ),
-                  selected = c(
-                    "jan"
-                  ),
-                  multiple = T
+                select_months(
+                  id = "select_month_table3",
                 )
               )
             )
@@ -338,27 +281,8 @@ server <- function(input, output) {
               ),
               column(
                 width = 4,
-                selectizeInput(
-                  "select_month_table4",
-                  "Velg flere måneder:",
-                  c(
-                    "jan",
-                    "feb",
-                    "mar",
-                    "apr",
-                    "mai",
-                    "jun",
-                    "jul",
-                    "aug",
-                    "sep",
-                    "okt",
-                    "nov",
-                    "des"
-                  ),
-                  selected = c(
-                    "jan"
-                  ),
-                  multiple = T
+                select_months(
+                  id = "select_month_table4"
                 )
               ),
               column(
@@ -388,27 +312,8 @@ server <- function(input, output) {
               ),
               column(
                 width = 4,
-                selectizeInput(
-                  "select_month_table4",
-                  "Velg flere måneder:",
-                  c(
-                    "jan",
-                    "feb",
-                    "mar",
-                    "apr",
-                    "mai",
-                    "jun",
-                    "jul",
-                    "aug",
-                    "sep",
-                    "okt",
-                    "nov",
-                    "des"
-                  ),
-                  selected = c(
-                    "jan"
-                  ),
-                  multiple = T
+                select_months(
+                  id = "select_month_table4",
                 )
               ),
               column(
@@ -444,27 +349,8 @@ server <- function(input, output) {
               ),
               column(
                 width = 4,
-                selectizeInput(
-                  "select_month_table4",
-                  "Velg flere måneder:",
-                  c(
-                    "jan",
-                    "feb",
-                    "mar",
-                    "apr",
-                    "mai",
-                    "jun",
-                    "jul",
-                    "aug",
-                    "sep",
-                    "okt",
-                    "nov",
-                    "des"
-                  ),
-                  selected = c(
-                    "jan"
-                  ),
-                  multiple = T
+                select_months(
+                  id = "select_month_table4"
                 )
               )
             )
