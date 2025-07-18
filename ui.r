@@ -106,10 +106,9 @@ ui <- tagList(
               br(),
               column(
                 width = 6,
-                selectInput(
-                  "select_year_coh",
-                  "Velg år:",
-                  list("År" = c(2025, 2024, 2023, 2022, 2021, 2020))
+                select_year(
+                  id = "select_year_coh",
+                  resolution = "y"
                 )
               ),
               br(),
@@ -165,19 +164,8 @@ ui <- tagList(
               fluidRow(
                 column(
                   width = 6,
-                  selectInput(
-                    "select_year",
-                    "Velg år:",
-                    list(
-                      "År" = c(
-                        2025,
-                        2024,
-                        2023,
-                        2022,
-                        2021,
-                        2020
-                      )
-                    )
+                  select_year(
+                    id = "select_year"
                   )
                 ),
                 column(
@@ -221,19 +209,9 @@ ui <- tagList(
             bslib::nav_panel(
               "Årlige tap Diagram",
               br(),
-              selectInput(
-                "select_year_losses",
-                "Velg år:",
-                list(
-                  "År" = c(
-                    2025,
-                    2024,
-                    2023,
-                    2022,
-                    2021,
-                    2020
-                  )
-                )
+              select_year(
+                id = "select_year_losses",
+                resolution = "y"
               ),
               plotlyOutput("plot_losses"),
               hr(),

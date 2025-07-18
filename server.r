@@ -485,7 +485,8 @@ server <- function(input, output) {
                 width = 6,
                 select_year(
                   "select_years_table1",
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               ),
               column(
@@ -510,7 +511,8 @@ server <- function(input, output) {
                 width = 6,
                 select_year(
                   "select_years_table1",
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               ),
               column(
@@ -541,7 +543,8 @@ server <- function(input, output) {
                 width = 6,
                 select_year(
                   "select_years_table1",
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               )
             )
@@ -561,7 +564,8 @@ server <- function(input, output) {
                 width = 6,
                 select_year(
                   "select_years_table2",
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               ),
               column(
@@ -586,7 +590,8 @@ server <- function(input, output) {
                 width = 6,
                 select_year(
                   "select_years_table2",
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               ),
               column(
@@ -617,7 +622,8 @@ server <- function(input, output) {
                 width = 6,
                 select_year(
                   "select_years_table2",
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               )
             )
@@ -638,7 +644,8 @@ server <- function(input, output) {
                 width = 6,
                 select_year(
                   "select_years_table5",
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               ),
               column(
@@ -663,7 +670,8 @@ server <- function(input, output) {
                 width = 6,
                 select_year(
                   "select_years_table5",
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               ),
               column(
@@ -694,7 +702,8 @@ server <- function(input, output) {
                 width = 6,
                 select_year(
                   "select_years_table5",
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               )
             )

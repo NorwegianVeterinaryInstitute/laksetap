@@ -69,19 +69,44 @@ meta_block <- function() {
     )
 }
 
-select_year <- function(id, multiple = F){
-  selectInput(
-    id,
-    "Velg flere år:",
-    c(
+select_year <- function(id, multiple = F, resolution = "m"){
+  
+  if (multiple) {
+    text = "Velg flere år:"
+  } else {
+    text = "Velg år:"
+  }
+  
+  if (resolution == "m") {
+    selection <- c(
       "2025" = 2025,
       "2024" = 2024,
       "2023" = 2023,
       "2022" = 2022,
       "2021" = 2021,
       "2020" = 2020
-    ),
-    selected = c(2025), 
+    )
+    
+    selected <- c(2025)
+  }
+  
+  if (resolution == "y") {
+    selection <- c(
+      "2024" = 2024,
+      "2023" = 2023,
+      "2022" = 2022,
+      "2021" = 2021,
+      "2020" = 2020
+    )
+    
+    selected <- c(2024)
+  }
+
+  selectInput(
+    id,
+    text,
+    selection,
+    selected = selected, 
     multiple = multiple
   ) 
 }
