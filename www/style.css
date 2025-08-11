@@ -173,8 +173,43 @@ table.dataTable thead th.sorting_desc {
   border-radius: 0.25rem;
 }
 
+ul.nav.navbar-nav.nav-underline.shiny-tab-input.shiny-bound-input {
+  margin-left: auto;
+  margin-right: auto;
+  /*padding-left: 0.75rem;
+  padding-right: 0.75rem;*/
+}
 
 
+@media (min-width: 576px) {
+  ul.nav.navbar-nav.nav-underline.shiny-tab-input.shiny-bound-input {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  ul.nav.navbar-nav.nav-underline.shiny-tab-input.shiny-bound-input {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  ul.nav.navbar-nav.nav-underline.shiny-tab-input.shiny-bound-input {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  ul.nav.navbar-nav.nav-underline.shiny-tab-input.shiny-bound-input {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  ul.nav.navbar-nav.nav-underline.shiny-tab-input.shiny-bound-input {
+    max-width: 1320px;
+  }
+}
 
 /* Custom navbar styles for the menu text*/
 /*.custom-navbar-title {
