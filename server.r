@@ -783,8 +783,8 @@ server <- function(input, output) {
         annotations = list(yref = "paper", xref = "paper", y = 1.05, x = 1.1, text = "Velg tap:", showarrow = F, font = list(size = 14, face = "bold")),
         # title = input$select_year, # Should change when included change year
         yaxis = list(title = "Antall (millioner)"),
-        xaxis = list(title = "Område")
-      ) %>% config(displayModeBar = FALSE)
+        xaxis = list(title = "Område")) %>% 
+      config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
   )
   
   
@@ -848,7 +848,7 @@ server <- function(input, output) {
         xaxis = list(title = "Område"),
         yaxis = list(title = "Dødelighet (%)", categoryarray = ~area),
         margin = list(l = 100)
-      ) %>% config(displayModeBar = FALSE)
+      ) %>%       config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
   )
   
   
@@ -986,7 +986,7 @@ server <- function(input, output) {
         yaxis = list(title = "Antall (millioner)"),
         xaxis = list(title = "Område"),
         showlegend = TRUE
-      ) %>% config(displayModeBar = FALSE)
+      ) %>%       config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
   )
   
   
@@ -1091,7 +1091,7 @@ server <- function(input, output) {
             x = 0.5,
             y = 1.1,
             xanchor = "center"
-          )) %>% config(displayModeBar = FALSE)
+          )) %>%       config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
         
       }) 
 
@@ -1207,7 +1207,7 @@ server <- function(input, output) {
           guides(fill = "none")
         
         
-        ggplotly(p, tooltip = "text") %>% config(displayModeBar = FALSE)
+        ggplotly(p, tooltip = "text") %>%       config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
       })
     }
   })
@@ -1260,7 +1260,7 @@ server <- function(input, output) {
           guides(fill = "none")
         
         
-        ggplotly(p, tooltip = "text") %>% config(displayModeBar = FALSE)
+        ggplotly(p, tooltip = "text") %>%       config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
       })
     }
   })
