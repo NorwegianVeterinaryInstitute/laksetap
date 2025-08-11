@@ -125,7 +125,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_area3",
-                  "Velg Omrade",
+                  "Velg område",
                   c(1:13),
                   selected = c(1:13),
                   multiple = TRUE
@@ -156,7 +156,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_area3",
-                  "Velg Omrade",
+                  "Velg område",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal", "Trøndelag",
                     "Nordland", "Troms", "Finnmark"
@@ -237,7 +237,7 @@ server <- function(input, output) {
                 width = 4,
                 selectInput(
                   "select_area_plot4",
-                  "Velg Område:",
+                  "Velg område:",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark", "Norge"
@@ -320,7 +320,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_area4",
-                  "Velg Område:",
+                  "Velg område:",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
@@ -379,7 +379,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_area1",
-                  "Velg Omrade",
+                  "Velg område",
                   c(1:13),
                   selected = c(1:13),
                   multiple = TRUE
@@ -405,7 +405,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_area1",
-                  "Velg Omrade",
+                  "Velg område",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
@@ -458,7 +458,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_area2",
-                  "Velg Omrade",
+                  "Velg område",
                   c(1:13),
                   selected = c(1:13),
                   multiple = TRUE
@@ -484,7 +484,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_area2",
-                  "Velg Omrade",
+                  "Velg område",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
@@ -538,7 +538,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_locs",
-                  "Velg Omrade",
+                  "Velg område",
                   c(1:13),
                   selected = c(1:13),
                   multiple = TRUE
@@ -564,7 +564,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_locs",
-                  "Velg Omrade",
+                  "Velg område",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
