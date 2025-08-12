@@ -34,7 +34,7 @@ server <- function(input, output) {
           column(width = 6,
                  selectInput("geo_group", "Velg geografisk område:",
                              c("Fylke" = "fylke",
-                               "Produksjonssone" = "zone",
+                               "Produksjonsområde" = "zone",
                                "Norge" = "all"),
                              selected = c("zone")
                  )),
@@ -1053,7 +1053,7 @@ server <- function(input, output) {
       updateSelectInput(inputId = "geo_group", choices = c("Norge" = "all"))
     } else {
       updateSelectInput(inputId = "geo_group", choices = c("Fylke" = "fylke", 
-                                                           "Produksjonssone" = "zone", 
+                                                           "Produksjonsområde" = "zone", 
                                                            "Norge" = "all"))
     }
   })
