@@ -206,7 +206,8 @@ server <- function(input, output) {
               column(
                 width = 4,
                 select_year(
-                  "select_years_plot4")
+                  "select_years_plot4", 
+                  multiple = T)
               ),
               column(
                 width = 4,
@@ -230,7 +231,8 @@ server <- function(input, output) {
               column(
                 width = 4,
                 select_year(
-                  "select_years_plot4"
+                  "select_years_plot4",
+                  multiple = T
                 )
               ),
               column(
@@ -257,7 +259,8 @@ server <- function(input, output) {
               column(
                 width = 6,
                 select_year(
-                  "select_years_plot4"
+                  "select_years_plot4", 
+                  multiple = T
                 )
               )
             )
@@ -1062,7 +1065,7 @@ server <- function(input, output) {
           # dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>%
           # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
           ggplot() +
-          aes(x = month_name, y = median, group = area) +
+          aes(x = date, y = median, group = area) +
           labs(x = "Måned", y = "Dødelighet (%)") +
           geom_line(aes(
              color = factor(area)
