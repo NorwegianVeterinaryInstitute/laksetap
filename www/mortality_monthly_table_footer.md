@@ -1,4 +1,1 @@
-Median (1.-3. kvartil) månedlige dødsrater på produksjonsområder, og for hele Norge.
-Medianen representerer middelverdien, noe som betyr at halvparten av lokaliteter hadde
-lavere dødelighet og halvparten hadde høyere dødelighet. Interkvartilbreddene viser hvor
-de midterste 50% av lokalitetene faller.Produksjonsområder med svært få lokaliteter er tatt slått sammen, for å sikre konfidensialitet.
+Heltrukne linjer representerer medianer, mens de skraverte områdene indikerer intervallet som dekker de midterste 50 % av lokalitetene. Med andre ord har 25 % av lokalitetene høyere dødelighet enn det skraverte området, og 25 % har lavere dødelighet. Data fra produksjonsområder eller fylker med svært få lokaliteter kan ha blitt slått sammen eller ikke vist separat i visualiseringene for å sikre konfidensialitet. Disse dataene er imidlertid fortsatt inkludert i sammendragene på nasjonalt nivå

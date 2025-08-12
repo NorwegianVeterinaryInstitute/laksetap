@@ -1,5 +1,1 @@
-Utvikling av månedlige dødsrater (oppgitt i prosent) per produksjonsområde (PO),
-og for hele Norge. Heltrukkede linjer representerer medianene, mens de skraverte
-områdene viser spredningen i de midterste 50% av lokalitetene. 25% av lokalitetene
-har høyere rater enn det skraverte området, og 25% har lavere rater.
-Produksjonsområder med svært få lokaliteter er er tatt slått sammen, for å sikre konfidensialitet.
+Heltrukne linjer representerer medianer, mens de skraverte områdene indikerer intervallet som dekker de midterste 50 % av lokalitetene. Med andre ord har 25 % av lokalitetene høyere dødelighet enn det skraverte området, og 25 % har lavere dødelighet. Data fra produksjonsområder eller fylker med svært få lokaliteter kan ha blitt slått sammen eller ikke vist separat i visualiseringene for å sikre konfidensialitet. Disse dataene er imidlertid fortsatt inkludert i sammendragene på nasjonalt nivå

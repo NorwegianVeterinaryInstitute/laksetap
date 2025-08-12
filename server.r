@@ -125,7 +125,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_area3",
-                  "Velg område",
+                  "Velg flere områder",
                   c(1:13),
                   selected = c(1:13),
                   multiple = TRUE
@@ -156,7 +156,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_area3",
-                  "Velg område",
+                  "Velg flere områder",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal", "Trøndelag",
                     "Nordland", "Troms", "Finnmark"
@@ -213,7 +213,7 @@ server <- function(input, output) {
                 width = 4,
                 selectInput(
                   "select_area_plot4",
-                  "Velg område",
+                  "Velg flere områder",
                   c("1 & 2", "3", "4", "5", "6", "7", "8", "9", 
                     "10", "11", "12 & 13", "Norge"),
                   selected = c("Norge"),
@@ -239,7 +239,7 @@ server <- function(input, output) {
                 width = 4,
                 selectInput(
                   "select_area_plot4",
-                  "Velg område:",
+                  "Velg flere områder:",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark", "Norge"
@@ -292,7 +292,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_area4",
-                  "Velg område",
+                  "Velg flere områder",
                   c("1 & 2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
                   selected = c("1 & 2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
                   multiple = TRUE
@@ -323,7 +323,7 @@ server <- function(input, output) {
                 width = 4,
                 selectizeInput(
                   "select_area4",
-                  "Velg område:",
+                  "Velg flere områder:",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
@@ -382,7 +382,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_area1",
-                  "Velg område",
+                  "Velg flere områder",
                   c(1:13),
                   selected = c(1:13),
                   multiple = TRUE
@@ -408,7 +408,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_area1",
-                  "Velg område",
+                  "Velg flere områder",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
@@ -461,7 +461,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_area2",
-                  "Velg område",
+                  "Velg flere områder",
                   c(1:13),
                   selected = c(1:13),
                   multiple = TRUE
@@ -487,7 +487,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_area2",
-                  "Velg område",
+                  "Velg flere områder",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
@@ -541,7 +541,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_locs",
-                  "Velg område",
+                  "Velg flere områder",
                   c(1:13),
                   selected = c(1:13),
                   multiple = TRUE
@@ -567,7 +567,7 @@ server <- function(input, output) {
                 width = 6,
                 selectizeInput(
                   "select_locs",
-                  "Velg område",
+                  "Velg flere områder",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
@@ -770,8 +770,7 @@ server <- function(input, output) {
       textposition = "none",
       hoverinfo = "text", text = ~ paste(
         "Område: ", area, "<br>",
-        "Antall: ", n, "<br>",
-        "Prosent: ", perc
+        "Antall: ", n, "<br>"
       )
     ) %>%
       layout(
@@ -971,8 +970,7 @@ server <- function(input, output) {
       textposition = "none",
       hoverinfo = "text", text = ~ paste(
         "Område: ", area, "<br>",
-        "Antall: ", n, "<br>",
-        "Prosent: ", perc
+        "Antall: ", n, "<br>"
       )
     ) %>%
       layout(
