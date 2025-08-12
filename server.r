@@ -1063,7 +1063,8 @@ server <- function(input, output) {
           # dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>%
           # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
           ggplot() +
-          aes(x = date, y = median, group = area) +
+          aes(x = date, y = median, group = area, 
+              text  = paste0("Median: ", round(median, 2), "<br>Q1: ", round(q1, 2, "<br>Q3: ", round(q3, 2))) +
           labs(x = "Måned", y = "Dødelighet (%)") +
           geom_line(aes(
              color = factor(area)
@@ -1086,7 +1087,7 @@ server <- function(input, output) {
               guide_legend(title = "Område"), fill = FALSE
           )  
         #browser()
-        plotly::ggplotly(p) %>% layout(
+        plotly::ggplotly(p, tooltip = "text") %>% layout(
           legend = list(
             orientation = "h",  # horizontal
             x = 0.5,
