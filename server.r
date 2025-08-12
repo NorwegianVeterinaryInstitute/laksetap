@@ -1078,8 +1078,8 @@ server <- function(input, output) {
             show.legend = FALSE
           ) +
           theme_minimal() +
-          scale_color_manual(values = my_palette_long) +
-          scale_fill_manual(values = my_palette_long) +
+          scale_color_manual(values = my_palette_named) +
+          scale_fill_manual(values = my_palette_named) +
           guides(
             col =
               guide_legend(title = "Område"), fill = FALSE
@@ -1091,7 +1091,8 @@ server <- function(input, output) {
             x = 0.5,
             y = 1.1,
             xanchor = "center"
-          )) %>%       config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
+          )) %>%       
+          config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
         
       }) 
 
