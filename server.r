@@ -492,11 +492,13 @@ server <- function(input, output) {
                   "select_area2",
                   "Velg flere områder",
                   c(
-                    "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    #"Agder", 
+                    "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
                   ),
                   selected = c(
-                    "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    #"Agder", 
+                    "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
                   ),
                   multiple = TRUE
@@ -801,6 +803,7 @@ server <- function(input, output) {
         spread(year, mort) %>%
         dplyr::filter(!is.na(`2024`) | !is.na(`2023`) | !is.na(`2022`) | !is.na(`2021`) | !is.na(`2020`)) %>%
         dplyr::filter(!(area == "All" | area == "Norway")) %>%
+        dplyr::filter(area != "Agder") %>%
         droplevels(),
       x = ~area, y = ~`2024`, name = "2024", type = "scatter",
       mode = "markers", marker = list(color = "#1C4FB9"),
