@@ -22,7 +22,8 @@ server <- function(input, output) {
   output$top_bar  <- renderUI({
     if (input$navbar == "monthly_mortality" |
         input$navbar == "yearly_mortality" |
-        input$navbar == "losses") {
+        input$navbar == "losses" |
+        input$navbar == "prod_mortality") {
       tagList(
         fluidRow(
           column(width = 6,
@@ -547,8 +548,8 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_locs",
                   "Velg flere områder",
-                  c(1:13),
-                  selected = c(1:13),
+                  c(1:12),
+                  selected = c(1:12),
                   multiple = TRUE
                 )
               )
@@ -574,11 +575,13 @@ server <- function(input, output) {
                   "select_locs",
                   "Velg flere områder",
                   c(
-                    "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    #"Agder", 
+                    "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
                   ),
                   selected = c(
-                    "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    #"Agder", 
+                    "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
                   ),
                   multiple = TRUE
@@ -1166,22 +1169,10 @@ server <- function(input, output) {
   })
   
   
-  #### dead plots for cohorts mortality ####
-  
-  observeEvent(input$species, {
-    if (input$species == "rainbowtrout") {
-      output$plot_cohort <- renderPlotly({
-        p <-
-          ggplot() +
-          geom_blank() +
-          labs(title = "Ingen data å vise") +
-          theme_minimal()
-        
-        ggplotly(p)
-      })
-    } else {
-      output$plot_cohort <- renderPlotly({
-        p <- df_cohorts() %>%
+    output$plot_cohort <- renderPlotly({
+        validate(need(input$species == "salmon", message = "Ingen data å vise"))
+        if (input$geo_group == "zone") {
+        dat <- df_cohorts() %>%
           dplyr::filter(year == input$select_year_coh, area != "13", area != "All") %>%
           dplyr::mutate(
             q1 = round(q1, 1),
@@ -1194,8 +1185,27 @@ server <- function(input, output) {
             "<br>Q1: ", q1,
             "<br>Median: ", median,
             "<br>Q3: ", q3
-          )) %>%
-          ggplot() +
+          )) %>% 
+          dplyr::mutate(area = factor(area,
+                        levels = c("1", "2", "3", "4", "5", "6", "7", "8", 
+                        "9","10","11","12", "13", "All")))
+        } else {
+          dat <- df_cohorts() %>%
+            dplyr::filter(year == input$select_year_coh, area != "13", area != "All") %>%
+            dplyr::mutate(
+              q1 = round(q1, 1),
+              q3 = round(q3, 1),
+              median = round(median, 1)
+            ) %>%
+            # constuct tooltip
+            dplyr::mutate(tooltip = paste0(
+              "Area: ", area,
+              "<br>Q1: ", q1,
+              "<br>Median: ", median,
+              "<br>Q3: ", q3
+            ))
+        }
+          p<-ggplot(dat) +
           geom_segment(
             aes(color = as.numeric(factor(area)), x = area, xend = area, y = q1, yend = q3),
             linewidth = 10
@@ -1216,63 +1226,10 @@ server <- function(input, output) {
           guides(fill = "none")
         
         
-        ggplotly(p, tooltip = "text") %>%       config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
+        ggplotly(p, tooltip = "text") %>%    
+          config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
       })
-    }
-  })
-  
-  observeEvent(input$geo_group, {
-    if (input$geo_group == "fylke" | input$geo_group == "all") {
-      output$plot_cohort <- renderPlotly({
-        p <-
-          ggplot() +
-          geom_blank() +
-          labs(title = "Ingen data å vise") +
-          theme_minimal()
-        
-        ggplotly(p)
-      })
-    } else {
-      output$plot_cohort <- renderPlotly({
-        p <- df_cohorts() %>%
-          dplyr::filter(year == input$select_year_coh, area != "13", area != "All") %>%
-          dplyr::mutate(
-            q1 = round(q1, 1),
-            q3 = round(q3, 1),
-            median = round(median, 1)
-          ) %>%
-          # constuct tooltip
-          dplyr::mutate(tooltip = paste0(
-            "Area: ", area,
-            "<br>Q1: ", q1,
-            "<br>Median: ", median,
-            "<br>Q3: ", q3
-          )) %>%
-          ggplot() +
-          geom_segment(
-            aes(color = as.numeric(factor(area)), x = area, xend = area, y = q1, yend = q3),
-            linewidth = 10
-          ) +
-          scale_color_gradient(low = "#C7D9FF", high = "#1C4FB9") +
-          geom_point(
-            aes(x = area, y = median, group = year, text = tooltip),
-            linewidth = 1, fill = "black", stroke = 0.2
-          ) +
-          geom_text(aes(x = area, y = median, group = year, label = area), nudge_y = 1) +
-          labs(
-            title = "Fullførte produksjonssykluser (>= 8 måneder)",
-            x = input$select_year_coh,
-            y = "Dødelighet %"
-          ) +
-          theme_minimal() +
-          theme(axis.text.x = element_blank(), legend.position = "none") +
-          guides(fill = "none")
-        
-        
-        ggplotly(p, tooltip = "text") %>%       config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
-      })
-    }
-  })
+      
   
   
   #### CALCULATOR ####
