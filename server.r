@@ -241,7 +241,8 @@ server <- function(input, output) {
                   "select_area_plot4",
                   "Velg flere områder:",
                   c(
-                    "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    #"Agder", 
+                    "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark", "Norge"
                   ),
                   selected = c("Norge"),
@@ -325,11 +326,13 @@ server <- function(input, output) {
                   "select_area4",
                   "Velg flere områder:",
                   c(
-                    "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    #"Agder", 
+                    "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
                   ),
                   selected = c(
-                    "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    #"Agder", 
+                    "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
                   ),
                   multiple = TRUE
