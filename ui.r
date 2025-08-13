@@ -7,7 +7,7 @@ ui <- tagList(
         class = "d-flex flex-column p-4 gap-3", 
         style = "background-color: #d7f4ff",
         shiny::tags$div(class = "logo-wrapper",
-        shiny::tags$a(href = "#main-content", class = "skip-link", "Hopp til hovetinnhold"),
+        shiny::tags$a(href = "#main-content", class = "skip-link", "Hopp til hovedinnhold"),
         shiny::tags$a(
             href = "https://www.vetinst.no/",
             style = "height:64px;", 
