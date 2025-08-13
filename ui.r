@@ -249,6 +249,7 @@ ui <- tagList(
           "Om statistikken",
           value = "about",
           div(class = "container",
+              style = "padding-left: 1.5rem",
           column(
             width = 9,
             shiny::includeMarkdown("www/about.md")
