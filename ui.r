@@ -144,27 +144,27 @@ ui <- tagList(
           )
         )),
         #### Tab 4: Top level tab calculator####
-        bslib::nav_panel(
-          "Dødelighetskalkulator",
-          value = "calc_main",
-          div(class = "container",
-          bslib::navset_tab(
-            id = "calc_nav",
-            header = shiny::uiOutput("calc_banner"),
-            bslib::nav_panel(
-              "Dødelighetskalkulator",
-              shiny::tags$h3("Resultat"),
-              value = "calc",
-              div(class = "formatted-output", textOutput("result_text")),
-              plotOutput("mortality_plot")
-            ),
-            bslib::nav_panel(
-              "Dødelighetskalkulator for utvidet periode",
-              shiny::tags$h3("Resultat"),
-              value = "calc_cum",
-              plotOutput("cumulative_risk_plot"),
-              div(class = "formatted-output", textOutput("result_text_cum"))
-            )))),
+        # bslib::nav_panel(
+        #   "Dødelighetskalkulator",
+        #   value = "calc_main",
+        #   div(class = "container",
+        #   bslib::navset_tab(
+        #     id = "calc_nav",
+        #     header = shiny::uiOutput("calc_banner"),
+        #     bslib::nav_panel(
+        #       "Dødelighetskalkulator",
+        #       shiny::tags$h3("Resultat"),
+        #       value = "calc",
+        #       div(class = "formatted-output", textOutput("result_text")),
+        #       plotOutput("mortality_plot")
+        #     ),
+        #     bslib::nav_panel(
+        #       "Dødelighetskalkulator for utvidet periode",
+        #       shiny::tags$h3("Resultat"),
+        #       value = "calc_cum",
+        #       plotOutput("cumulative_risk_plot"),
+        #       div(class = "formatted-output", textOutput("result_text_cum"))
+        #     )))),
         
         #### Tab 5: Top level tab for all losses ####
         bslib::nav_panel(
@@ -173,7 +173,7 @@ ui <- tagList(
           div(class = "container",
           bslib::navset_tab(
             bslib::nav_panel(
-              "Månedlige tap Diagram",
+              "Månedlige tap diagram",
               br(),
               fluidRow(
                 column(
@@ -211,7 +211,7 @@ ui <- tagList(
               shiny::includeMarkdown("www/losses_monthly_table_and_plot_footer.md")
             ),
             bslib::nav_panel(
-              "Månedlige tap Tabell",
+              "Månedlige tap tabell",
               br(),
               uiOutput("tab_filter_m1"),
               shiny::div(
@@ -221,7 +221,7 @@ ui <- tagList(
               shiny::includeMarkdown("www/losses_monthly_table_and_plot_footer.md"))
             ),
             bslib::nav_panel(
-              "Årlige tap Diagram",
+              "Årlige tap diagram",
               br(),
               select_year(
                 id = "select_year_losses",
@@ -232,7 +232,7 @@ ui <- tagList(
               shiny::includeMarkdown("www/losses_yearly_table_and_plot_footer.md")
             ),
             bslib::nav_panel(
-              "Årlige tap Tabell",
+              "Årlige tap tabell",
               br(),
               uiOutput("tab_filter"),
               shiny::div(
