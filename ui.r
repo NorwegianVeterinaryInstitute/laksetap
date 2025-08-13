@@ -63,12 +63,12 @@ ui <- tagList(
                 "aria-hidden" = "true",  
               plotlyOutput("plot_mortality_month"),
               hr(),
-              shiny::includeMarkdown("www/mortality_monthly_plot_footer.md"),
+              shiny::includeMarkdown("www/mortality_monthly_plot_footer.md")),
               # This span will be read by screen readers but hidden visually
               tags$span(
-                "The data in this plot are available in the table tab.",
+                "Dataene i dette plottet er tilgjengelige i tabellfanen.",
                 class = "visually-hidden"
-              ))
+              )
             ),
             bslib::nav_panel(
               "Tabell",
