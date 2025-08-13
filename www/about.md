@@ -1,16 +1,17 @@
 #### Datakilder
+
 Tap av laksefisk (atlantisk laks og regnbueørret) for produksjonsperioden i sjø, rapporteres månedlig til Fiskeridirektoratet som en del av biomasserapporteringen. Veterinærinstiuttet mottar rapporterte data gjennom en egen datadelingsavtale. Statistikken er oppdatert med tall per juni 2025. Tap fordeles under kategoriene «dødfisk» (omtalt som «døde»), «utkast fra slakteri» (omtalt som «utkast»), «rømming» og «annet».
- 
+
 Dødfisk: Fisk som er fysisk fjernet fra merden og registrert som død av ulike årsaker (f.eks. på grunn av sykdom). 
- 
+
 Utkast: nedgradert fisk sortert ut på slakteriet og ansett som uegnet til humant konsum (f.eks. på grunn av kjønnsmodning, defekter eller lyter). 
- 
+
 Rømming: fisk som har rømt på grunn av ulykker. 
- 
+
 Annet: Antall fisk som er tapt som følge av predatorer, tyveri, tellefeil og andre årsaker. 
- 
+
 Definisjoner er hentet fra, og tilgjengelige på: https://www.fiskeridir.no/statistikk-tall-og-analyse/data-og-statistikk-om-akvakultur/om-statistikk-for-akvakultur (besøkt 8. august 2025). 
- 
+
 Disse tallene danner grunnlaget for tabellene og figurene som presenteres i her. Vær oppmerksom på at dataene og sammendragene kan endres etter hvert som ny informasjon blir tilgjengelig på grunn av rapporteringsforsinkelser, rettelser eller oppdateringer. 
 
 #### Databehandling
@@ -42,4 +43,4 @@ Toft, N., Agger, J. F., Houe, H., & Bruun, J. (2004). Measures of disease freque
 
 #### Kontakt
 
-Hvis du har spørsmål eller kommentarer til tabellene, diagrammene eller kalkulatoren, kan du kontakte oss på *[VI laksetap app](mailto:laksetap@vetinst.no)* (laksetap@vetist.no).
+Hvis du har spørsmål eller kommentarer til tabellene, diagrammene eller kalkulatoren, kan du kontakte oss på *[VI laksetap app](mailto:laksetap@vetinst.no)*.
