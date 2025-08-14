@@ -59,15 +59,7 @@ ui <- tagList(
               "Diagram",
               br(),
               uiOutput("tab_filter_monthly_plot"),
-              tags$div(
-                id = "plot-description",
-                class = "visually-hidden",
-                "Dataene i dette plottet er tilgjengelige i tabellfanen."
-              ),
-              div(
-                `aria-describedby` = "plot-description",
-                tabindex = "0",
-              plotlyOutput("plot_mortality_month")),
+              plotlyOutput("plot_mortality_month"),
               hr(),
               shiny::includeMarkdown("www/mortality_monthly_plot_footer.md"),
             ),
