@@ -466,8 +466,8 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_area2",
                   "Velg flere områder",
-                  c(1:13),
-                  selected = c(1:13),
+                  c(2:12),
+                  selected = c(2:12),
                   multiple = TRUE
                 )
               )
@@ -548,8 +548,8 @@ server <- function(input, output) {
                 selectizeInput(
                   "select_locs",
                   "Velg flere områder",
-                  c(1:12),
-                  selected = c(1:12),
+                  c(2:12),
+                  selected = c(2:12),
                   multiple = TRUE
                 )
               )
@@ -807,6 +807,7 @@ server <- function(input, output) {
         dplyr::filter(!is.na(`2024`) | !is.na(`2023`) | !is.na(`2022`) | !is.na(`2021`) | !is.na(`2020`)) %>%
         dplyr::filter(!(area == "All" | area == "Norway")) %>%
         dplyr::filter(area != "Agder") %>%
+        dplyr::filter(zone != "1", zone != "13") %>%
         droplevels(),
       x = ~area, y = ~`2024`, name = "2024", type = "scatter",
       mode = "markers", marker = list(color = "#1C4FB9"),
@@ -1173,7 +1174,7 @@ server <- function(input, output) {
         validate(need(input$species == "salmon", message = "Ingen data å vise"))
         if (input$geo_group == "zone") {
         dat <- df_cohorts() %>%
-          dplyr::filter(year == input$select_year_coh, area != "13", area != "All") %>%
+          dplyr::filter(year == input$select_year_coh, area != "13", area != "1", area != "All") %>%
           dplyr::mutate(
             q1 = round(q1, 1),
             q3 = round(q3, 1),
