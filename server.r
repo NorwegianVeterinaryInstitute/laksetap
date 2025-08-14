@@ -807,7 +807,7 @@ server <- function(input, output) {
         dplyr::filter(!is.na(`2024`) | !is.na(`2023`) | !is.na(`2022`) | !is.na(`2021`) | !is.na(`2020`)) %>%
         dplyr::filter(!(area == "All" | area == "Norway")) %>%
         dplyr::filter(area != "Agder") %>%
-        dplyr::filter(zone != "1", zone != "13") %>%
+        dplyr::filter(area != "1", area != "13") %>%
         droplevels(),
       x = ~area, y = ~`2024`, name = "2024", type = "scatter",
       mode = "markers", marker = list(color = "#1C4FB9"),
