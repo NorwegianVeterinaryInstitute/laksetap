@@ -1,0 +1,1 @@
+Data fra produksjonsområder eller fylker med svært få lokaliteter i et gitt år vises kanskje ikke separat i visualiseringene for å sikre konfidensialitet. Disse dataene er imidlertid fortsatt inkludert i sammendragene på nasjonalt nivå.

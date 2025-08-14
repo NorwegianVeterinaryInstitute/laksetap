@@ -1,4 +1,107 @@
 server <- function(input, output) {
+  
+  #### Make the title change with the tab ####
+  output$tab_title  <- renderUI({
+    if(input$navbar == "monthly_mortality") {
+      shiny::h2("Månedlig dødelighet %")
+    } else if(input$navbar == "yearly_mortality") {
+      shiny::h2("Årlig dødelighet %")
+    } else if (input$navbar == "prod_mortality") {
+      shiny::h2("Produksjonssyklus dødelighet %")
+    } else if (input$navbar == "calc_main") {
+      shiny::h2("Dødelighetskalkulator")
+    } else if (input$navbar == "losses") {
+      shiny::h2("Tapstall")
+    } else if (input$navbar == "about") {
+      shiny::h2("Om statistikken")
+    }
+  }
+  )
+  
+  #### Make the UI for the top bar content change on each tab ####
+  output$top_bar  <- renderUI({
+    if (input$navbar == "monthly_mortality" |
+        input$navbar == "yearly_mortality" |
+        input$navbar == "losses" |
+        input$navbar == "prod_mortality") {
+      tagList(
+        fluidRow(
+          column(width = 6,
+                 selectInput("species", "Velg art:",
+                             c("Laks" = "salmon",
+                               "Regnbueørret" = "rainbowtrout"),
+                             selected = c("salmon")
+                 )),
+          column(width = 6,
+                 selectInput("geo_group", "Velg geografisk område:",
+                             c("Fylke" = "fylke",
+                               "Produksjonsområde" = "zone",
+                               "Norge" = "all"),
+                             selected = c("zone")
+                 )),
+        )
+      )
+      
+    } else {
+      NULL
+    } 
+  })
+  
+  
+  #### Calculator UI - separate because we are rendering on tabset ####
+  output$calc_banner <- renderUI({
+    if (input$calc_nav == "calc") {
+      tagList(
+        shiny::div(style="padding-left: 1rem; padding-top: 3rem;",
+                   shiny::h3("Beregn dødelighetsrate"),
+                   shiny::p("Kalkulatoren godtar verdier mellom 0 og 200.000."),
+                   bslib::layout_column_wrap(class = "d-flex align-items-end",
+                                             width = 1/4,
+                                             numericInput("beginning_count",
+                                                          "Antall fisk ved periodens start (f.eks. uke, måned)",
+                                                          value = 100, 
+                                                          min = 1, 
+                                                          max = 200000),
+                                             numericInput("end_count", "Antall fisk ved periodens slutt", 
+                                                          value = 90, 
+                                                          min = 0, 
+                                                          max = 200000),
+                                             numericInput("dead_count", "Antall døde fisk i løpet av perioden", 
+                                                          value = 5, min = 0, 
+                                                          max = 200000),
+                                             actionButton("calculate_button", "Kalkuler", class = "btn btn-primary")
+                   )
+        ))
+      
+    } else if (input$calc_nav == "calc_cum") {
+      tagList(
+        shiny::div(style="padding-left: 1rem; padding-top: 3rem;",
+                   shiny::h3("Beregn akkumulert dødlighetsrisiko for en tidsperiode"),
+                   bslib::layout_column_wrap(class = "d-flex align-items-end",
+                                             width = 1/3,
+                                             selectInput(
+                                               "period_type",
+                                               "Velg periode:",
+                                               choices = c(
+                                                 "Ukentlige" = "week",
+                                                 "Månedlige" = "month"
+                                               ),
+                                               selected = "month"
+                                             ),
+                                             
+                                             textInput(
+                                               "mortality_input_cum",
+                                               "Fyll inn dødsrate for flere perioder. Dødsrate kan ikke være lavere enn 0, eller høyere enn 2. Separer perioder ved å bruke komma, og bruk et punktum i stedet for et komma for desimaltall, f.eks. 0.5, 1, 1.5, 2:",
+                                               "1"
+                                             ),
+                                             
+                                             actionButton("calculate_button_cum", "Kalkuler",  class = "btn btn-primary")
+                   )
+        ))
+    } else (NULL)
+  })
+  
+  
   #### UI for tab losses monthly ####
   observeEvent(input$geo_group, {
     if (input$geo_group == "zone") {
@@ -8,50 +111,22 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 4,
-                selectizeInput(
-                  "select_years_table3",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
+                select_year(
+                  id = "select_years_table3",
                   multiple = T
                 )
               ),
               column(
                 width = 4,
-                selectizeInput(
-                  "select_month_table3",
-                  "Velg flere måneder:",
-                  c(
-                    "jan",
-                    "feb",
-                    "mar",
-                    "apr",
-                    "mai",
-                    "jun",
-                    "jul",
-                    "aug",
-                    "sep",
-                    "okt",
-                    "nov",
-                    "des"
-                  ),
-                  selected = c(
-                    "jan"
-                  ),
-                  multiple = T
+                select_months(
+                  id = "select_month_table3"
                 )
               ),
               column(
                 width = 4,
                 selectizeInput(
                   "select_area3",
-                  "Velg Omrade",
+                  "Velg flere områder",
                   c(1:13),
                   selected = c(1:13),
                   multiple = TRUE
@@ -67,50 +142,22 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 4,
-                selectizeInput(
-                  "select_years_table3",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
+                select_year(
+                  id = "select_years_table3",
                   multiple = T
                 )
               ),
               column(
                 width = 4,
-                selectizeInput(
-                  "select_month_table3",
-                  "Velg flere måneder:",
-                  c(
-                    "jan",
-                    "feb",
-                    "mar",
-                    "apr",
-                    "mai",
-                    "jun",
-                    "jul",
-                    "aug",
-                    "sep",
-                    "okt",
-                    "nov",
-                    "des"
-                  ),
-                  selected = c(
-                    "jan"
-                  ),
-                  multiple = T
+                select_months(
+                  id = "select_month_table3",
                 )
               ),
               column(
                 width = 4,
                 selectizeInput(
                   "select_area3",
-                  "Velg Omrade",
+                  "Velg flere områder",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal", "Trøndelag",
                     "Nordland", "Troms", "Finnmark"
@@ -132,43 +179,15 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 6,
-                selectizeInput(
+                select_year(
                   "select_years_table3",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
                   multiple = T
                 )
               ),
               column(
                 width = 4,
-                selectizeInput(
-                  "select_month_table3",
-                  "Velg flere måneder:",
-                  c(
-                    "jan",
-                    "feb",
-                    "mar",
-                    "apr",
-                    "mai",
-                    "jun",
-                    "jul",
-                    "aug",
-                    "sep",
-                    "okt",
-                    "nov",
-                    "des"
-                  ),
-                  selected = c(
-                    "jan"
-                  ),
-                  multiple = T
+                select_months(
+                  id = "select_month_table3",
                 )
               )
             )
@@ -178,6 +197,80 @@ server <- function(input, output) {
   })
   
   #### UI for tab mortality monthly ####
+  
+  observeEvent(input$geo_group, {
+    if (input$geo_group == "zone") {
+      output$tab_filter_monthly_plot <-
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 4,
+                select_year(
+                  "select_years_plot4", 
+                  multiple = T)
+              ),
+              column(
+                width = 4,
+                selectInput(
+                  "select_area_plot4",
+                  "Velg flere områder",
+                  c("1 & 2", "3", "4", "5", "6", "7", "8", "9", 
+                    "10", "11", "12 & 13", "Norge"),
+                  selected = c("Norge"),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+    } else if (input$geo_group == "fylke") {
+      output$tab_filter_monthly_plot <-
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 4,
+                select_year(
+                  "select_years_plot4",
+                  multiple = T
+                )
+              ),
+              column(
+                width = 4,
+                selectInput(
+                  "select_area_plot4",
+                  "Velg flere områder:",
+                  c(
+                    #"Agder", 
+                    "Rogaland", "Vestland", "Møre og Romsdal",
+                    "Trøndelag", "Nordland", "Troms", "Finnmark", "Norge"
+                  ),
+                  selected = c("Norge"),
+                  multiple = TRUE
+                )
+              )
+            )
+          )
+        )
+    } else {
+      output$tab_filter_monthly_plot <-
+        renderUI(
+          tagList(
+            fluidRow(
+              column(
+                width = 6,
+                select_year(
+                  "select_years_plot4", 
+                  multiple = T
+                )
+              )
+            )
+          )
+        )
+    }
+  })
+  
   observeEvent(input$geo_group, {
     if (input$geo_group == "zone") {
       output$tab_filter_m2 <-
@@ -186,52 +279,24 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 4,
-                selectizeInput(
+                select_year(
                   "select_years_table4",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
                   multiple = T
                 )
               ),
               column(
                 width = 4,
-                selectizeInput(
-                  "select_month_table4",
-                  "Velg flere måneder:",
-                  c(
-                    "jan",
-                    "feb",
-                    "mar",
-                    "apr",
-                    "mai",
-                    "jun",
-                    "jul",
-                    "aug",
-                    "sep",
-                    "okt",
-                    "nov",
-                    "des"
-                  ),
-                  selected = c(
-                    "jan"
-                  ),
-                  multiple = T
+                select_months(
+                  id = "select_month_table4"
                 )
               ),
               column(
                 width = 4,
                 selectizeInput(
                   "select_area4",
-                  "Velg område",
-                  c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
-                  selected = c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
+                  "Velg flere områder",
+                  c("1 & 2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
+                  selected = c("1 & 2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12 & 13"),
                   multiple = TRUE
                 )
               )
@@ -245,56 +310,30 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 4,
-                selectizeInput(
+                select_year(
                   "select_years_table4",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
                   multiple = T
                 )
               ),
               column(
                 width = 4,
-                selectizeInput(
-                  "select_month_table4",
-                  "Velg flere måneder:",
-                  c(
-                    "jan",
-                    "feb",
-                    "mar",
-                    "apr",
-                    "mai",
-                    "jun",
-                    "jul",
-                    "aug",
-                    "sep",
-                    "okt",
-                    "nov",
-                    "des"
-                  ),
-                  selected = c(
-                    "jan"
-                  ),
-                  multiple = T
+                select_months(
+                  id = "select_month_table4",
                 )
               ),
               column(
                 width = 4,
                 selectizeInput(
                   "select_area4",
-                  "Velg Område:",
+                  "Velg flere områder:",
                   c(
-                    "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    #"Agder", 
+                    "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
                   ),
                   selected = c(
-                    "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    #"Agder", 
+                    "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
                   ),
                   multiple = TRUE
@@ -310,43 +349,15 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 6,
-                selectizeInput(
+                select_year(
                   "select_years_table4",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
                   multiple = T
                 )
               ),
               column(
                 width = 4,
-                selectizeInput(
-                  "select_month_table4",
-                  "Velg flere måneder:",
-                  c(
-                    "jan",
-                    "feb",
-                    "mar",
-                    "apr",
-                    "mai",
-                    "jun",
-                    "jul",
-                    "aug",
-                    "sep",
-                    "okt",
-                    "nov",
-                    "des"
-                  ),
-                  selected = c(
-                    "jan"
-                  ),
-                  multiple = T
+                select_months(
+                  id = "select_month_table4"
                 )
               )
             )
@@ -365,25 +376,17 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 6,
-                selectizeInput(
+                select_year(
                   "select_years_table1",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               ),
               column(
                 width = 6,
                 selectizeInput(
                   "select_area1",
-                  "Velg Omrade",
+                  "Velg flere områder",
                   c(1:13),
                   selected = c(1:13),
                   multiple = TRUE
@@ -399,25 +402,17 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 6,
-                selectizeInput(
+                select_year(
                   "select_years_table1",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               ),
               column(
                 width = 6,
                 selectizeInput(
                   "select_area1",
-                  "Velg Omrade",
+                  "Velg flere områder",
                   c(
                     "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
@@ -439,18 +434,10 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 6,
-                selectizeInput(
+                select_year(
                   "select_years_table1",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               )
             )
@@ -468,27 +455,19 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 6,
-                selectizeInput(
+                select_year(
                   "select_years_table2",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               ),
               column(
                 width = 6,
                 selectizeInput(
                   "select_area2",
-                  "Velg Omrade",
-                  c(1:13),
-                  selected = c(1:13),
+                  "Velg flere områder",
+                  c(2:12),
+                  selected = c(2:12),
                   multiple = TRUE
                 )
               )
@@ -502,31 +481,25 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 6,
-                selectizeInput(
+                select_year(
                   "select_years_table2",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               ),
               column(
                 width = 6,
                 selectizeInput(
                   "select_area2",
-                  "Velg Omrade",
+                  "Velg flere områder",
                   c(
-                    "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    #"Agder", 
+                    "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
                   ),
                   selected = c(
-                    "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    #"Agder", 
+                    "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
                   ),
                   multiple = TRUE
@@ -542,18 +515,10 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 6,
-                selectizeInput(
+                select_year(
                   "select_years_table2",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               )
             )
@@ -561,6 +526,7 @@ server <- function(input, output) {
         )
     }
   })
+  
   
   #### UI for tab cohorts  ####
   observeEvent(input$geo_group, {
@@ -571,27 +537,19 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 6,
-                selectizeInput(
+                select_year(
                   "select_years_table5",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               ),
               column(
                 width = 6,
                 selectizeInput(
                   "select_locs",
-                  "Velg Omrade",
-                  c(1:13),
-                  selected = c(1:13),
+                  "Velg flere områder",
+                  c(2:12),
+                  selected = c(2:12),
                   multiple = TRUE
                 )
               )
@@ -605,31 +563,25 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 6,
-                selectizeInput(
+                select_year(
                   "select_years_table5",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               ),
               column(
                 width = 6,
                 selectizeInput(
                   "select_locs",
-                  "Velg Omrade",
+                  "Velg flere områder",
                   c(
-                    "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    #"Agder", 
+                    "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
                   ),
                   selected = c(
-                    "Agder", "Rogaland", "Vestland", "Møre og Romsdal",
+                    #"Agder", 
+                    "Rogaland", "Vestland", "Møre og Romsdal",
                     "Trøndelag", "Nordland", "Troms", "Finnmark"
                   ),
                   multiple = TRUE
@@ -645,18 +597,10 @@ server <- function(input, output) {
             fluidRow(
               column(
                 width = 6,
-                selectizeInput(
+                select_year(
                   "select_years_table5",
-                  "Velg flere år:",
-                  c(
-                    "2024" = 2024,
-                    "2023" = 2023,
-                    "2022" = 2022,
-                    "2021" = 2021,
-                    "2020" = 2020
-                  ),
-                  selected = c(2024),
-                  multiple = T
+                  multiple = T,
+                  resolution = "y"
                 )
               )
             )
@@ -665,103 +609,7 @@ server <- function(input, output) {
     }
   })
   
-  observeEvent(input$navbar, {
-    if(input$navbar == "about"){
-      output$sidebar_content <-
-      renderUI(
-        tagList(
-          shiny::h2("Innhold"),
-          shiny::tags$ul(
-            class = "custom-sidebar-list",
-            shiny::tags$li(shiny::a("Datakilder", href = "#datakilder")),
-            shiny::tags$li(shiny::a("Databearbeiding", href = "#databearbeiding")),
-            shiny::tags$li(shiny::a("Referanser", href = "#referanser")),
-            shiny::tags$li(shiny::a("Kontakt", href = "#kontakt")),
-          )
-        )
-      )
-    } else if (input$navbar == "calc") {
-      output$sidebar_content <-
-        renderUI(
-          tagList(
-            shiny::h2("Beregn dødelighetsrate"),
-            numericInput("beginning_count",
-                         "Antall fisk ved periodens start (f.eks. uke, måned)",
-                         value = 100
-            ),
-            numericInput("end_count", "Antall fisk ved periodens slutt", value = 90),
-            numericInput("dead_count", "Antall døde fisk i løpet av perioden", value = 5),
-            actionButton("calculate_button", "Kalkuler")
-          )
-        )
-    } else if (input$navbar == "calc_cum") {
-      output$sidebar_content <-
-        renderUI(
-          tagList(
-            shiny::h2("Beregn akkumulert dødlighetsrisiko for en tidsperiode"),
-            selectInput(
-              "period_type",
-              "Velg periode:",
-              choices = c(
-                "Ukentlige" = "week",
-                "Månedlige" = "month"
-              ),
-              selected = "month"
-            ),
-            textInput(
-              "mortality_input_cum",
-              "Fyll inn dødsrate for flere perioder (separer perioder ved å bruke komma, og bruk et punktum i stedet for et komma for desimaltall, f.eks. 0.5, 1, 1.5, 2):",
-              ""
-            ),
-            actionButton("calculate_button_cum", "Kalkuler")
-          )
-        )
-    } else {
-      output$sidebar_content <- renderUI(
-        tagList(
-          selectInput("species", "Velg art:",
-                      c(
-                        "Laks" = "salmon", # should match what is in the data set to use as a selection (for example, "salmon" matches salmon in losses)
-                        "Regnbueørret" = "rainbowtrout"
-                      ),
-                      selected = c("salmon")
-          ),
-          selectInput("geo_group", "Velg geografisk område:",
-                      c(
-                        "Fylke" = "fylke",
-                        "Produksjonssone" = "zone",
-                        "Norge" = "all"
-                      ),
-                      selected = c("zone")
-          ),
-          hr(),
-          shiny::includeMarkdown("www/sidebar_text.md")
-        )
-      )
-    }
-  })
-  
-  
-  #### colors ####
-  my_palette <- c("#FF5447", "#59CD8B", "#FFC6C2", "#1C4FB9")
-  my_palette_long <- c(
-    "#FF5447", "#59CD8B", "#95D9F3", "#1C4FB9", "#FFC6C2",
-    "#BCEED1", "#D7F4FF", "#C7D9FF", "#F7FDFF", "#091A3E",
-    "#CC0E00", "#288550", "#1FC0FF", "#6892E8", "#BD990A",
-    "#969FB1", "#D3DFF8", "#C0ECD3", "#0076A3", "#F5D34A"
-  )
-  
-  #### data ####
-  
-  laksetap_board <- board_connect()
-  # this is the dataset used for the existing app.
-  losses <- pin_read(laksetap_board, "vi2451/losses_and_mortality_yearly_data")
-  
-  # new datasets
-  losses_monthly_data <- pin_read(laksetap_board, "vi2451/losses_monthly_data")
-  mortality_rates_monthly_data <- pin_read(laksetap_board, "vi2451/mortality_rates_monthly_data")
-  mortality_cohorts_data <- pin_read(laksetap_board, "vi2451/mortality_cohorts_data")
-  
+
   #### LOSSES yearly ####
   
   df_losses <-
@@ -815,7 +663,7 @@ server <- function(input, output) {
           )
         )
       )
-      
+
       output$table_mortality <- DT::renderDT(
         datatable(
           df_losses() %>%
@@ -930,18 +778,23 @@ server <- function(input, output) {
       textposition = "none",
       hoverinfo = "text", text = ~ paste(
         "Område: ", area, "<br>",
-        "Antall: ", n, "<br>",
-        "Prosent: ", perc
+        "Antall: ", n, "<br>"
       )
     ) %>%
       layout(
+        legend = list(
+          orientation = "h",  # horizontal
+          x = 0.5,
+          y = 1.1,
+          xanchor = "center"
+        ),
         barmode = "stack",
         title = "",
         annotations = list(yref = "paper", xref = "paper", y = 1.05, x = 1.1, text = "Velg tap:", showarrow = F, font = list(size = 14, face = "bold")),
         # title = input$select_year, # Should change when included change year
         yaxis = list(title = "Antall (millioner)"),
-        xaxis = list(title = "Område")
-      )
+        xaxis = list(title = "Område")) %>% 
+      config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
   )
   
   
@@ -953,6 +806,8 @@ server <- function(input, output) {
         spread(year, mort) %>%
         dplyr::filter(!is.na(`2024`) | !is.na(`2023`) | !is.na(`2022`) | !is.na(`2021`) | !is.na(`2020`)) %>%
         dplyr::filter(!(area == "All" | area == "Norway")) %>%
+        dplyr::filter(area != "Agder") %>%
+        dplyr::filter(area != "1", area != "13") %>%
         droplevels(),
       x = ~area, y = ~`2024`, name = "2024", type = "scatter",
       mode = "markers", marker = list(color = "#1C4FB9"),
@@ -1005,7 +860,7 @@ server <- function(input, output) {
         xaxis = list(title = "Område"),
         yaxis = list(title = "Dødelighet (%)", categoryarray = ~area),
         margin = list(l = 100)
-      )
+      ) %>%       config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
   )
   
   
@@ -1125,11 +980,16 @@ server <- function(input, output) {
       textposition = "none",
       hoverinfo = "text", text = ~ paste(
         "Område: ", area, "<br>",
-        "Antall: ", n, "<br>",
-        "Prosent: ", perc
+        "Antall: ", n, "<br>"
       )
     ) %>%
       layout(
+        legend = list(
+          orientation = "h",  # horizontal
+          x = 0.5,
+          y = 1.1,
+          xanchor = "center"
+        ),
         barmode = "stack",
         title = NULL,
         annotations = list(yref = "paper", xref = "paper", y = 1.05, x = 1.1, text = "Velg tap:", showarrow = F, font = list(size = 14, face = "bold")),
@@ -1137,7 +997,7 @@ server <- function(input, output) {
         yaxis = list(title = "Antall (millioner)"),
         xaxis = list(title = "Område"),
         showlegend = TRUE
-      )
+      ) %>%       config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
   )
   
   
@@ -1147,18 +1007,18 @@ server <- function(input, output) {
     eventReactive(c(input$species, input$geo_group), {
       mortality_rates_monthly_data %>%
         dplyr::filter(species == input$species &
-                        viz == input$geo_group)
+                        viz %in% c(input$geo_group, "all"))
     })
   
   
   output$table_mortality_month <- DT::renderDT({
-    if (input$geo_group == "all") {
-      df_mort_month() %>%
+    req(input$geo_group)
+    req(input$select_years_table4)
+    req(input$select_month_table4)
+    dat <- df_mort_month() %>%
         dplyr::filter(!is.na(median)) %>%
         dplyr::filter(
-          # !area == "All" &
-          year %in% input$select_years_table4 &
-            area == "Norge" &
+          year %in% input$select_years_table4,
             month_name %in% input$select_month_table4
         ) %>%
         dplyr::select(year, month_name, area, q1, median, q3) %>%
@@ -1166,8 +1026,12 @@ server <- function(input, output) {
           q1 = round(q1, 2),
           median = round(median, 2),
           q3 = round(q3, 2)
-        ) %>%
-        datatable(
+        ) 
+    if(input$geo_group != "all") {
+      req(input$select_area4)
+      dat <- dat |>  dplyr::filter(area %in% input$select_area4) }
+    
+        datatable(dat,
           rownames = F,
           colnames = c("År", "Måned", "Område", "1 Kvartil %", "Median %", "3 Kvartil %"),
           # also here
@@ -1184,68 +1048,37 @@ server <- function(input, output) {
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
           )
         )
-    } else {
-      df_mort_month() %>%
-        dplyr::filter(!is.na(median)) %>%
-        dplyr::filter(
-          # !area == "Norge" &
-          # !area == "All" &
-          year %in% input$select_years_table4 &
-            area %in% input$select_area4 &
-            month_name %in% input$select_month_table4
-        ) %>%
-        dplyr::select(year, month_name, area, q1, median, q3) %>%
-        dplyr::mutate(
-          q1 = round(q1, 2),
-          median = round(median, 2),
-          q3 = round(q3, 2)
-        ) %>%
-        datatable(
-          rownames = F,
-          colnames = c("År", "Måned", "Område", "1 Kvartil %", "Median %", "3 Kvartil %"),
-          # also here
-          selection = (list(
-            mode = "multiple",
-            selected = "all",
-            target = "column"
-          )),
-          options = list(
-            sDom = '<"top">lrt<"bottom">ip',
-            autoWidth = FALSE,
-            # columnDefs = list(list(width = '100px', targets = c(1, 2))),
-            scrollX = FALSE,
-            language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json")
-          )
-        )
-    }
   })
   
-  #### dead plots for monthly mortality ####
   
   observeEvent(input$species, {
+  
     if (input$species == "rainbowtrout") {
-      output$plot_mortality_month <- renderPlotly({
-        p <- ggplot() +
-          geom_blank() +
-          labs(title = "Ingen data å vise") +
-          theme_minimal()
-        
-        plotly::ggplotly(p)
-      })
+      updateSelectInput(inputId = "geo_group", choices = c("Norge" = "all"))
     } else {
-      output$plot_mortality_month <- renderPlotly({
-        p <- mortality_rates_monthly_data %>%
-          dplyr::filter(year %in% input$select_year_mort) %>%
-          dplyr::filter(area %in% c(input$select_area, "Norge")) %>%
+      updateSelectInput(inputId = "geo_group", choices = c("Fylke" = "fylke", 
+                                                           "Produksjonsområde" = "zone", 
+                                                           "Norge" = "all"))
+    }
+  })
+  
+  output$plot_mortality_month <- renderPlotly({
+        req(df_mort_month())
+        req(input$select_years_plot4)
+        req(input$select_area_plot4)
+        p <- df_mort_month() %>%
+          dplyr::filter(year %in% input$select_years_plot4) %>%
+          dplyr::filter(area %in% c(input$select_area_plot4)) %>%
           # ribbon for norway - enabled:
           # dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>%
           # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
           ggplot() +
-          aes(x = month_name, y = median, group = area) +
+          aes(x = date, y = median, group = area, 
+              text  = paste0("Median: ", round(median, 2), "<br>Q1: ", round(q1, 2), "<br>Q3: ", round(q3, 2))) +
           labs(x = "Måned", y = "Dødelighet (%)") +
           geom_line(aes(
-            color = factor(area)
-          )) +
+             color = factor(area)
+           )) +
           geom_ribbon(
             aes(
               ymin = .data$q1,
@@ -1257,72 +1090,24 @@ server <- function(input, output) {
             show.legend = FALSE
           ) +
           theme_minimal() +
-          scale_color_manual(values = my_palette_long) +
-          scale_fill_manual(values = my_palette_long) +
+          scale_color_manual(values = my_palette_named) +
+          scale_fill_manual(values = my_palette_named) +
           guides(
             col =
               guide_legend(title = "Område"), fill = FALSE
-          )
+          )  
+        #browser()
+        plotly::ggplotly(p, tooltip = "text") %>% layout(
+          legend = list(
+            orientation = "h",  # horizontal
+            x = 0.5,
+            y = 1.1,
+            xanchor = "center"
+          )) %>%       
+          config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
         
-        
-        plotly::ggplotly(p)
-      })
-    }
-  })
-  
-  observeEvent(input$geo_group, {
-    if (input$geo_group == "all" | input$geo_group == "fylke") {
-      output$plot_mortality_month <- renderPlotly({
-        p <- ggplot() +
-          geom_blank() +
-          labs(title = "Ingen data å vise") +
-          theme_minimal()
-        
-        
-        plotly::ggplotly(p)
-      })
-    } else {
-      output$plot_mortality_month <- renderPlotly({
-        p <- mortality_rates_monthly_data %>%
-          dplyr::filter(year %in% input$select_year_mort) %>%
-          dplyr::filter(area %in% c(input$select_zone, "Norge")) %>%
-          # ribbon for norway - enabled:
-          # dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) %>%
-          # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) %>%
-          ggplot() +
-          aes(x = month_name, y = median, group = area) +
-          labs(x = "Måned", y = "Dødelighet (%)") +
-          geom_line(
-            aes(
-              color = factor(area)
-            )
-          ) +
-          geom_ribbon(
-            aes(
-              ymin = .data$q1,
-              ymax = .data$q3,
-              fill = factor(area)
-            ),
-            linetype = 0,
-            alpha = 0.1,
-            show.legend = FALSE
-          ) +
-          theme_minimal() +
-          scale_color_manual(values = my_palette_long) +
-          scale_fill_manual(values = my_palette_long) +
-          guides(
-            col =
-              guide_legend(title = "Område"), fill = FALSE
-          )
-        
-        
-        plotly::ggplotly(p)
-      })
-    }
-  })
-  
-  
-  
+      }) 
+
   #### COHORTS ####
   df_cohorts <-
     eventReactive(c(input$species, input$geo_group), {
@@ -1385,23 +1170,11 @@ server <- function(input, output) {
   })
   
   
-  #### dead plots for cohorts mortality ####
-  
-  observeEvent(input$species, {
-    if (input$species == "rainbowtrout") {
-      output$plot_cohort <- renderPlotly({
-        p <-
-          ggplot() +
-          geom_blank() +
-          labs(title = "Ingen data å vise") +
-          theme_minimal()
-        
-        ggplotly(p)
-      })
-    } else {
-      output$plot_cohort <- renderPlotly({
-        p <- df_cohorts() %>%
-          dplyr::filter(year == input$select_year_coh, area != "13", area != "All") %>%
+    output$plot_cohort <- renderPlotly({
+        validate(need(input$species == "salmon", message = "Ingen data å vise"))
+        if (input$geo_group == "zone") {
+        dat <- df_cohorts() %>%
+          dplyr::filter(year == input$select_year_coh, area != "13", area != "1", area != "All") %>%
           dplyr::mutate(
             q1 = round(q1, 1),
             q3 = round(q3, 1),
@@ -1413,16 +1186,35 @@ server <- function(input, output) {
             "<br>Q1: ", q1,
             "<br>Median: ", median,
             "<br>Q3: ", q3
-          )) %>%
-          ggplot() +
+          )) %>% 
+          dplyr::mutate(area = factor(area,
+                        levels = c("1", "2", "3", "4", "5", "6", "7", "8", 
+                        "9","10","11","12", "13", "All")))
+        } else {
+          dat <- df_cohorts() %>%
+            dplyr::filter(year == input$select_year_coh, area != "13", area != "All") %>%
+            dplyr::mutate(
+              q1 = round(q1, 1),
+              q3 = round(q3, 1),
+              median = round(median, 1)
+            ) %>%
+            # constuct tooltip
+            dplyr::mutate(tooltip = paste0(
+              "Area: ", area,
+              "<br>Q1: ", q1,
+              "<br>Median: ", median,
+              "<br>Q3: ", q3
+            ))
+        }
+          p<-ggplot(dat) +
           geom_segment(
             aes(color = as.numeric(factor(area)), x = area, xend = area, y = q1, yend = q3),
-            size = 10
+            linewidth = 10
           ) +
           scale_color_gradient(low = "#C7D9FF", high = "#1C4FB9") +
           geom_point(
             aes(x = area, y = median, group = year, text = tooltip),
-            size = 1, fill = "black", stroke = 0.2
+            linewidth = 1, fill = "black", stroke = 0.2
           ) +
           geom_text(aes(x = area, y = median, group = year, label = area), nudge_y = 1) +
           labs(
@@ -1435,63 +1227,10 @@ server <- function(input, output) {
           guides(fill = "none")
         
         
-        ggplotly(p, tooltip = "text")
+        ggplotly(p, tooltip = "text") %>%    
+          config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
       })
-    }
-  })
-  
-  observeEvent(input$geo_group, {
-    if (input$geo_group == "fylke" | input$geo_group == "all") {
-      output$plot_cohort <- renderPlotly({
-        p <-
-          ggplot() +
-          geom_blank() +
-          labs(title = "Ingen data å vise") +
-          theme_minimal()
-        
-        ggplotly(p)
-      })
-    } else {
-      output$plot_cohort <- renderPlotly({
-        p <- df_cohorts() %>%
-          dplyr::filter(year == input$select_year_coh, area != "13", area != "All") %>%
-          dplyr::mutate(
-            q1 = round(q1, 1),
-            q3 = round(q3, 1),
-            median = round(median, 1)
-          ) %>%
-          # constuct tooltip
-          dplyr::mutate(tooltip = paste0(
-            "Area: ", area,
-            "<br>Q1: ", q1,
-            "<br>Median: ", median,
-            "<br>Q3: ", q3
-          )) %>%
-          ggplot() +
-          geom_segment(
-            aes(color = as.numeric(factor(area)), x = area, xend = area, y = q1, yend = q3),
-            size = 10
-          ) +
-          scale_color_gradient(low = "#C7D9FF", high = "#1C4FB9") +
-          geom_point(
-            aes(x = area, y = median, group = year, text = tooltip),
-            size = 1, fill = "black", stroke = 0.2
-          ) +
-          geom_text(aes(x = area, y = median, group = year, label = area), nudge_y = 1) +
-          labs(
-            title = "Fullførte produksjonssykluser (>= 8 måneder)",
-            x = input$select_year_coh,
-            y = "Dødelighet %"
-          ) +
-          theme_minimal() +
-          theme(axis.text.x = element_blank(), legend.position = "none") +
-          guides(fill = "none")
-        
-        
-        ggplotly(p, tooltip = "text")
-      })
-    }
-  })
+      
   
   
   #### CALCULATOR ####
@@ -1499,9 +1238,10 @@ server <- function(input, output) {
   observeEvent(input$calculate_button, {
     ar_count <- (input$beginning_count + input$end_count) / 2
     mort_rate <- input$dead_count / ar_count
+    mort_risk <- 1 - exp(-mort_rate)
     
     output$result_text <- renderText({
-      paste("Dødsrate:", sprintf("%.2f%%", mort_rate * 100))
+      paste("Dødelighet:", sprintf("%.2f%%", mort_risk * 100))
     })
     
     # output$mortality_plot <- renderPlot({
@@ -1511,7 +1251,28 @@ server <- function(input, output) {
   })
   #### Tab 2 ####
   observeEvent(input$calculate_button_cum, {
-    mort_rates_cum <- as.numeric(unlist(strsplit(input$mortality_input_cum, ","))) / 100
+    nums <- suppressWarnings(as.numeric(unlist(strsplit(input$mortality_input_cum, ","))))
+
+    # check that all inputs are numbers
+    if (any(is.na(nums))) {
+      showNotification("Én eller flere inndata er ikke numeriske.", 
+                       type = "error")
+      return()
+    }
+    
+    # check that no number is bigger than 2 and smaller then 0 
+    min_rate = 0
+    max_rate = 2
+    
+    between_result <- between(nums, min_rate, max_rate)
+    
+    if (!all(between_result)) {
+      showNotification("Dødsrate kan ikke være lavere enn 0, eller høyere enn 2.", 
+                       type = "error")
+      return()
+    }
+    
+    mort_rates_cum <- nums / 100 
     cum_rate <- cumsum(mort_rates_cum)
     cum_risks <- 1 - exp(-cum_rate)
     

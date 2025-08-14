@@ -38,19 +38,35 @@ p {
   border-bottom: 2px solid #95d9f3;
 }
 
+.nav-underline {
+  --bs-nav-underline-border-width: 0;
+}
+
 /* Active tab in navbar */
-  .navbar-default .navbar-nav > .active > a, 
-  .navbar-default .navbar-nav > .active > a:hover, 
-  .navbar-default .navbar-nav > .active > a:focus {
+.navbar-nav .nav-item .nav-link.active{
   background-color: #95d9f3 !important;
   color: #091A3E !important;
+  font-weight: bold !important;
 }
-      
+
+/* Focus style for navbar links (keyboard navigation) */
+.navbar-nav > li > a:focus {
+  outline: 2px solid #95d9f3;
+  border-radius: 4px; 
+}
+
+.navbar-nav .nav-link {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0 !important; /* Prevent gap below the tabs */
+}
+
 /* Inactive tab hover */
-.navbar-default .navbar-nav > li > a {
+.navbar-nav > li > a {
   color: #091A3E !important;
 }
-.navbar-default .navbar-nav > li > a:hover {
+
+.navbar-nav > li > a:hover {
   background-color: #95d9f3 !important;
   color: #091A3E !important; 
 }
@@ -132,3 +148,87 @@ table.dataTable thead th.sorting_desc {
     font-family: monospace;
     white-space: pre-wrap;
   }
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skip-link:focus {
+  position: static;
+  left: auto;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+  background-color: #091A3E !important;
+  color: #F7FDFF !important;
+  z-index: 1000;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 0.25rem;
+}
+
+ul.nav.navbar-nav.nav-underline.shiny-tab-input.shiny-bound-input {
+  margin-left: auto;
+  margin-right: auto;
+  /*padding-left: 0.75rem;
+  padding-right: 0.75rem;*/
+}
+
+
+@media (min-width: 576px) {
+  ul.nav.navbar-nav.nav-underline.shiny-tab-input.shiny-bound-input {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  ul.nav.navbar-nav.nav-underline.shiny-tab-input.shiny-bound-input {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  ul.nav.navbar-nav.nav-underline.shiny-tab-input.shiny-bound-input {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  ul.nav.navbar-nav.nav-underline.shiny-tab-input.shiny-bound-input {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: 1400px) {
+  ul.nav.navbar-nav.nav-underline.shiny-tab-input.shiny-bound-input {
+    max-width: 1320px;
+  }
+}
+
+/* Custom navbar styles for the menu text*/
+/*.custom-navbar-title {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.hamburger-label {
+  display: none;
+}
+
+@media (max-width: 991.98px) {
+  .hamburger-label {
+    display: block;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+    padding-right: 1rem;
+  }
+}*/

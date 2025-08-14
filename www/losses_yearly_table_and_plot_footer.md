@@ -1,0 +1,1 @@
+Tapene er fordelt under kategoriene «dødfisk», «utkast», «rømming» og "annet".
