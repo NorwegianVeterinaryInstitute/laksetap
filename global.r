@@ -67,7 +67,7 @@ tag_manager <- function() {
     '<!-- Seeds Consulting Tag Manager -->
       <script>
         var _mtm = (window._mtm = window._mtm || []);
-        _mtm.push({ "mtm.startTime": new Date().getTime(), event: "mtm.Start" }); # nolint
+        _mtm.push({ "mtm.startTime": new Date().getTime(), event: "mtm.Start" }); 
         (function () {
           var d = document,
             g = d.createElement("script"),
