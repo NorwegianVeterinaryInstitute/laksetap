@@ -1,7 +1,7 @@
 {
   "version": 1,
   "locale": "en_US",
-  "platform": "4.4.1",
+  "platform": "4.5.1",
   "metadata": {
     "appmode": "shiny",
     "primary_rmd": null,
@@ -11,7 +11,7 @@
   },
   "environment": {
     "r": {
-      "requires": ">= 4.4.1"
+      "requires": ">= 4.4.2"
     }
   },
   "packages": {
@@ -1090,13 +1090,13 @@
       "checksum": "7f3003188f3a78fd085feca239edcc60"
     },
     ".Rprofile": {
-      "checksum": "245dfe329c433cd773e3a7a3ca6de943"
+      "checksum": "12f6037c8dde8b7cea762b8847b01955"
     },
     "app.R": {
       "checksum": "1f1167643462d786a53eb79b79225e5a"
     },
     "DESCRIPTION": {
-      "checksum": "0575250da2c2b13648a239e78a083064"
+      "checksum": "033283d2a11953a8bbf283b582c77d27"
     },
     "Dockerfile": {
       "checksum": "105f8dd8ed7846e47acdee365d6f1e19"
@@ -1114,10 +1114,10 @@
       "checksum": "a5b34b4325b74125c7dab8503a85c56c"
     },
     "renv.lock": {
-      "checksum": "29436993d041b42d468a4048473646b4"
+      "checksum": "789e81ec4234e44fa0ff941ae0eb0743"
     },
     "server.r": {
-      "checksum": "e7c65aec9df1c59397d17ac77534d58c"
+      "checksum": "e047d13925bc9cc22749901ce39b5ac0"
     },
     "ui.r": {
       "checksum": "2dcabc64b5bf555531c6a56a1f98ec85"
@@ -1168,7 +1168,7 @@
       "checksum": "411feb388ba1d30cdb7b3a9c98ea5e2e"
     },
     "www/style.css": {
-      "checksum": "ff716607c6dd150cda32e788f9d4a542"
+      "checksum": "7863439a4cd4cbc0c85384c3e89b08d9"
     },
     "www/vetinst-logo-no.svg": {
       "checksum": "e43982d0d09a63a2ce68ecc8abb54459"
