@@ -4,7 +4,7 @@ Version: 0.9
 Authors@R: as.person(c(
     ))
 Description: Fish Mortality Shiny App
-Depends: R (>= 4.5.1)
+Depends: R (>= 4.4.1)
 LazyData: true
 Imports:
   shiny

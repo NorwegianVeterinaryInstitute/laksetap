@@ -1,7 +1,7 @@
 {
   "version": 1,
   "locale": "en_US",
-  "platform": "4.5.1",
+  "platform": "4.4.1",
   "metadata": {
     "appmode": "shiny",
     "primary_rmd": null,
@@ -11,7 +11,7 @@
   },
   "environment": {
     "r": {
-      "requires": ">= 4.5.1"
+      "requires": ">= 4.4.1"
     }
   },
   "packages": {
