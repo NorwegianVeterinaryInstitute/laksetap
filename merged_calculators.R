@@ -1,8 +1,8 @@
-library(shiny)
-library(dplyr)
-library(ggplot2)
-library(ggthemes)
-library(shinyjs)
+# library(shiny)
+# library(dplyr)
+# library(ggplot2)
+# #library(ggthemes)
+# #library(shinyjs)
 
 ui <- fluidPage(
   titlePanel("Mortality Calculator"),
