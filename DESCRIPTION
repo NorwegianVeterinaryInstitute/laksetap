@@ -1,0 +1,18 @@
+Package: Laksetap
+Title: Laksetap
+Version: 0.9
+Authors@R: as.person(c(
+    ))
+Description: Fish Mortality Shiny App
+Depends: R (>= 4.5.1)
+LazyData: true
+Imports:
+  shiny
+  dplyr
+  DT
+  plotly
+  tidyr
+  pins
+  lubridate
+  markdown
+  metathis
