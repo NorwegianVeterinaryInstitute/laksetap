@@ -105,7 +105,8 @@ table.dataTable thead th.sorting_desc {
   line-height: 1.4;
 }
 /* Style pagination buttons */
-.dataTables_paginate .paginate_button a {
+.dataTables_paginate .paginate_button a
+.button.btn.btn-secondary {
   min-width: 44px;
   min-height: 44px;
   display: inline-flex;
@@ -117,7 +118,8 @@ table.dataTable thead th.sorting_desc {
 }
 
 /* Optional: give them a visible outline or spacing */
-.dataTables_paginate .paginate_button {
+.dataTables_paginate .paginate_button
+.button.btn.btn-secondary {
   margin-right: 4px;
 }
 
@@ -127,11 +129,16 @@ table.dataTable thead th.sorting_desc {
 }
 
 /* Make the active page button have white text */
-.dataTables_paginate .paginate_button.active a {
+.dataTables_paginate .paginate_button.active a 
+{
   color: white !important;
   background-color: #143985 !important; 
 }
 
+.btn.btn-secondary {
+  background-color: #143985 !important; 
+  border-color: #dee2e6;
+}
 
 
 
