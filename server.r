@@ -661,7 +661,9 @@ server <- function(input, output) {
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
             dom = 'lfrtipB', 
-            buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+            lengthMenu = list(c(10, 25, 50, -1), c('10', '25', '50', 'All')),
+            pageLength = 10 
           )
         )
       )
@@ -688,7 +690,9 @@ server <- function(input, output) {
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
             dom = 'lfrtipB', 
-            buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+            lengthMenu = list(c(10, 25, 50, -1), c('10', '25', '50', 'All')),
+            pageLength = 10 
           )
         )
       )
@@ -730,7 +734,9 @@ server <- function(input, output) {
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
             dom = 'lfrtipB', 
-            buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'), 
+            lengthMenu = list(c(10, 25, 50, -1), c('10', '25', '50', 'All')),
+            pageLength = 10 
           )
         )
       )
@@ -759,7 +765,9 @@ server <- function(input, output) {
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
             dom = 'lfrtipB', 
-            buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+            lengthMenu = list(c(10, 25, 50, -1), c('10', '25', '50', 'All')),
+            pageLength = 10 
           )
         )
       )
@@ -923,7 +931,9 @@ server <- function(input, output) {
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
             dom = 'lfrtipB', 
-            buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+            lengthMenu = list(c(10, 25, 50, -1), c('10', '25', '50', 'All')),
+            pageLength = 10 
           )
         )
     } else {
@@ -967,7 +977,9 @@ server <- function(input, output) {
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
             dom = 'lfrtipB', 
-            buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+            lengthMenu = list(c(10, 25, 50, -1), c('10', '25', '50', 'All')),
+            pageLength = 10 
           )
         )
     }
@@ -1059,7 +1071,9 @@ server <- function(input, output) {
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
             dom = 'lfrtipB', 
-            buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+            lengthMenu = list(c(10, 25, 50, -1), c('10', '25', '50', 'All')),
+            pageLength = 10 
           )
         )
   })
@@ -1155,7 +1169,9 @@ server <- function(input, output) {
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
             dom = 'lfrtipB', 
-            buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+            lengthMenu = list(c(10, 25, 50, -1), c('10', '25', '50', 'All')),
+            pageLength = 10 
           )
         )
     } else {
@@ -1182,7 +1198,9 @@ server <- function(input, output) {
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
             dom = 'lfrtipB', 
-            buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
+            buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+            lengthMenu = list(c(10, 25, 50, -1), c('10', '25', '50', 'All')),
+            pageLength = 10 
           )
         )
     }
