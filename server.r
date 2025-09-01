@@ -658,10 +658,9 @@ server <- function(input, output) {
           )),
           extensions = 'Buttons',
           options = list(
-            sDom = '<"top">lrt<"bottom">ip',
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
-            dom = 'Bfrtip', 
+            dom = 'lfrtipB', 
             buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
           )
         )
@@ -684,12 +683,11 @@ server <- function(input, output) {
           )),
           extensions = 'Buttons',
           options = list(
-            sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
-            dom = 'Bfrtip', 
+            dom = 'lfrtipB', 
             buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
           )
         )
@@ -729,10 +727,9 @@ server <- function(input, output) {
           )),
           extensions = 'Buttons',
           options = list(
-            sDom = '<"top">lrt<"bottom">ip',
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
-            dom = 'Bfrtip', 
+            dom = 'lfrtipB', 
             buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
           )
         )
@@ -757,12 +754,11 @@ server <- function(input, output) {
           )),
           extensions = 'Buttons',
           options = list(
-            sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
-            dom = 'Bfrtip', 
+            dom = 'lfrtipB', 
             buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
           )
         )
@@ -924,10 +920,9 @@ server <- function(input, output) {
           )),
           extensions = 'Buttons',
           options = list(
-            sDom = '<"top">lrt<"bottom">ip',
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
-            dom = 'Bfrtip', 
+            dom = 'lfrtipB', 
             buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
           )
         )
@@ -969,10 +964,9 @@ server <- function(input, output) {
           )),
           extensions = 'Buttons',
           options = list(
-            sDom = '<"top">lrt<"bottom">ip',
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
-            dom = 'Bfrtip', 
+            dom = 'lfrtipB', 
             buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
           )
         )
@@ -1060,12 +1054,11 @@ server <- function(input, output) {
           )),
           extensions = 'Buttons',
           options = list(
-            sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
-            dom = 'Bfrtip', 
+            dom = 'lfrtipB', 
             buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
           )
         )
@@ -1157,12 +1150,11 @@ server <- function(input, output) {
           )),
           extensions = 'Buttons',
           options = list(
-            sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
-            dom = 'Bfrtip', 
+            dom = 'lfrtipB', 
             buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
           )
         )
@@ -1185,12 +1177,11 @@ server <- function(input, output) {
           extensions = 'Buttons',
           
           options = list(
-            sDom = '<"top">lrt<"bottom">ip',
             autoWidth = FALSE,
             # columnDefs = list(list(width = '100px', targets = c(1, 2))),
             scrollX = FALSE,
             language = list(url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"),
-            dom = 'Bfrtip', 
+            dom = 'lfrtipB', 
             buttons = c('copy', 'csv', 'excel', 'pdf', 'print')
           )
         )
