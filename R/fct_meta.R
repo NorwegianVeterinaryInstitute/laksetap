@@ -1,18 +1,3 @@
-#' head_block 
-#'
-#' @description Head block for the app
-#'
-#'
-#' @noRd
-head_block <- function() {
-  shiny::tags$head(
-    tags$html(lang = "nb-NO"),
-    #tags$link(rel = "shortcut icon", href = "favicon.png"),
-    tags$link(rel = "stylesheet", type = "text/css", href = "style.css"),
-    tags$title("Laksetap - Statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen"),
-  )
-}
-
 #' meta_block 
 #'
 #' @description Meta block for the app
