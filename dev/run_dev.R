@@ -11,5 +11,8 @@ golem::detach_all_attached()
 # Document and reload your package
 golem::document_and_reload()
 
+#### Data ####
+load_data()
+
 # Run the application
 run_app()
