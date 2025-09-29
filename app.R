@@ -1,7 +1,7 @@
-shiny::runApp(appDir = getwd())
-#local
-#options(shiny.port = 5555)
-##options(shiny.fullstacktrace = TRUE)
-#options(browser = "/usr/bin/firefox")
-#options(launch.browser = TRUE)
-#shiny::runApp(appDir = getwd(), launch.browser = TRUE, port = 1234)
+# Launch the ShinyApp (Do not remove this comment)
+# To deploy, run: rsconnect::deployApp()
+# Or use the blue button on top of this file
+
+pkgload::load_all(export_all = FALSE,helpers = FALSE,attach_testthat = FALSE)
+options( "golem.app.prod" = TRUE)
+licecalc::run_app() # add parameters here (if any)
