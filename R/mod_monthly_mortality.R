@@ -10,7 +10,27 @@
 mod_monthly_mortality_ui <- function(id) {
   ns <- NS(id)
   tagList(
- 
+    div(class = "container",
+        bslib::navset_tab(
+          bslib::nav_panel(
+            "Diagram",
+            br(),
+            shiny::uiOutput(ns("tab_filter_monthly_plot")),
+            plotly::plotlyOutput(ns("plot_mortality_month")),
+            hr(),
+            shiny::includeMarkdown(app_sys("app/www/mortality_monthly_plot_footer.md")),
+          ),
+          bslib::nav_panel(
+            "Tabell",
+            br(),
+            shiny::uiOutput("tab_filter_m2"),
+            shiny::div(
+              DT::DTOutput(ns("table_mortality_month"))),
+            hr(),
+            shiny::div(
+              shiny::includeMarkdown(app_sys("app/www/mortality_monthly_table_footer.md")))
+          )
+        ))
   )
 }
     
