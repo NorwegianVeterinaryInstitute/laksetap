@@ -8,9 +8,29 @@
 #'
 #' @importFrom shiny NS tagList 
 mod_yearly_mortality_ui <- function(id) {
-  ns <- NS(id)
-  tagList(
- 
+  ns <- shiny::NS(id)
+  shiny::tagList(
+    shiny::div(class = "container",
+        bslib::navset_tab(
+          bslib::nav_panel(
+            "Diagram",
+            shiny::br(),
+            plotly::plotlyOutput("plot_mortality"),
+            shiny::hr(),
+            shiny::includeMarkdown(app_sys("www/mortality_yearly_table_and_plot_footer.md"))
+          ),
+          bslib::nav_panel(
+            "Tabell",
+            shiny::br(),
+            shiny::uiOutput("tab_filter_2"),
+            shiny::div(
+              DT::DTOutput("table_mortality")),
+            shiny::hr(),
+            shiny::div(
+              shiny::includeMarkdown(app_sys("www/mortality_yearly_table_and_plot_footer.md")))
+          )
+        )
+    )
   )
 }
     

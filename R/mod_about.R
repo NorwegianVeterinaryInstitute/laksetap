@@ -8,12 +8,12 @@
 #'
 #' @importFrom shiny NS tagList
 mod_about_ui <- function(id) {
-  ns <- NS(id)
-  tagList(
-    div(
+  ns <- shiny::NS(id)
+  shiny::tagList(
+    shiny::div(
       class = "container",
       style = "padding-left: 1.5rem",
-      column(
+      shiny::column(
         width = 9,
         shiny::includeMarkdown(app_sys("app/www/about.md"))
       )
