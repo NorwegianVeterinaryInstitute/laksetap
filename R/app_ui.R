@@ -14,44 +14,8 @@ app_ui <- function(request) {
       shiny::tags$html(lang = "nb-NO")
     ),
 
-    div(
-      class = "d-flex flex-column p-4 gap-3",
-      style = "background-color: #d7f4ff",
-      shiny::tags$div(
-        class = "logo-wrapper",
-        shiny::tags$a(
-          href = "#main-content",
-          class = "skip-link",
-          "Hopp til hovedinnhold"
-        ),
-        shiny::tags$a(
-          href = "https://www.vetinst.no/",
-          style = "height:64px;",
-          div(
-            class = "container",
-            tags$img(
-              src = "www/vetinst-logo-no.svg",
-              alt = "Veterinærinstituttets logo",
-              style = "height:64px;",
-            )
-          )
-        ),
-      ),
-      div(
-        class = "container",
-        style = "background-color:#d7f4ff;", #padding-left:15px;",
-        shiny::tags$div(
-          role = "region",
-          `aria-label` = "App Title",
-          shiny::tags$h1(
-            "Statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen",
-            role = "heading",
-            `aria-label` = "1",
-          ),
-          shiny::includeMarkdown(app_sys("app/www/header_text.md"))
-        )
-      )
-    ),
+    page_header(),
+    
     shiny::tags$div(
       id = "main-content",
       role = "region",
@@ -83,13 +47,13 @@ app_ui <- function(request) {
           value = "monthly_mortality",
           mod_monthly_mortality_ui("monthly_mortality_1")
         ),
-        #### Tab 2 top level tab yearly mortality####
+        #### Tab 2 top level tab yearly mortality ####
         bslib::nav_panel(
           "Årlig dødelighet %",
           value = "yearly_mortality",
           mod_yearly_mortality_ui("yearly_mortality_1")
         ),
-        #### Tab 3: Top level tab cohorts####
+        #### Tab 3: Top level tab cohorts ####
         bslib::nav_panel(
           "Produksjonssyklus dødelighet %",
           value = "prod_mortality",
@@ -98,12 +62,16 @@ app_ui <- function(request) {
         #### Tab 4: Top level tab for all losses ####
         bslib::nav_panel(
           "Tapstall",
-          value = "losses", mod_losses_ui("losses_1")
-      ),
-      #### Tab 5: Top level tab for about the app ####
+          value = "losses",
+          mod_losses_ui("losses_1")
+        ),
+        #### Tab 5: Top level tab for about the app ####
         bslib::nav_panel(
           "Om applikasjonen",
-          value = "about", mod_about_ui("about_1")
+          value = "about",
+          mod_about_ui("about_1")
+        )
+      )
     )
   )
 }
