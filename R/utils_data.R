@@ -1,3 +1,4 @@
+#' @export
 load_data <-function(){
 laksetap_board <- pins::board_connect()
 

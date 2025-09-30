@@ -12,7 +12,7 @@ golem::detach_all_attached()
 golem::document_and_reload()
 
 #### Data ####
-load_data()
+laksetap::load_data()
 
 # Run the application
 run_app()
