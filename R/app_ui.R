@@ -5,7 +5,7 @@
 #' @import shiny
 #' @noRd
 app_ui <- function(request) {
-  tagList(
+  shiny::tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
     shiny::tags$head(
@@ -15,7 +15,7 @@ app_ui <- function(request) {
     ),
 
     page_header(),
-    
+
     shiny::tags$div(
       id = "main-content",
       role = "region",
