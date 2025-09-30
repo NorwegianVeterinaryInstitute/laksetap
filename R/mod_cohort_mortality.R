@@ -1,4 +1,4 @@
-#' prod_mortality UI Function
+#' cohort_mortality UI Function
 #'
 #' @description A shiny Module.
 #'
@@ -7,17 +7,17 @@
 #' @noRd 
 #'
 #' @importFrom shiny NS tagList 
-mod_prod_mortality_ui <- function(id) {
+mod_cohort_mortality_ui <- function(id) {
   ns <- NS(id)
   tagList(
  
   )
 }
     
-#' prod_mortality Server Functions
+#' cohort_mortality Server Functions
 #'
 #' @noRd 
-mod_prod_mortality_server <- function(id){
+mod_cohort_mortality_server <- function(id){
   moduleServer(id, function(input, output, session){
     ns <- session$ns
  
@@ -25,7 +25,7 @@ mod_prod_mortality_server <- function(id){
 }
     
 ## To be copied in the UI
-# mod_prod_mortality_ui("prod_mortality_1")
+# mod_cohort_mortality_ui("cohort_mortality_1")
     
 ## To be copied in the server
-# mod_prod_mortality_server("prod_mortality_1")
+# mod_cohort_mortality_server("cohort_mortality_1")
