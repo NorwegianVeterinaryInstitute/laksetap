@@ -37,7 +37,7 @@ app_ui <- function(request) {
             style = "padding: 1.5rem;",
             shiny::uiOutput("tab_title"),
             shiny::tags$br(),
-            shiny::uiOutput("top_bar"),
+            mod_top_bar_ui("top_bar_1"),
           )
         ),
 
