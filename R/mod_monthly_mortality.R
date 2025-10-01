@@ -67,11 +67,11 @@ mod_monthly_mortality_server <- function(id) {
     #### UI for tab mortality monthly ####
     plot_inputs_ui <- shiny::reactive({
       if (session$userData$geo_group() == "zone") {
-        render_input_for_zone_plot()(ns = ns)
+        render_input_for_zone_plot(ns = ns)
       } else if (session$userData$geo_group() == "fylke") {
-        render_input_for_fylke_plot()(ns = ns)
+        render_input_for_fylke_plot(ns = ns)
       } else {
-        render_input_for_all_plot()(ns = ns)
+        render_input_for_all_plot(ns = ns)
       }
     }) |>
       bindEvent(session$userData$geo_group())
@@ -84,13 +84,13 @@ mod_monthly_mortality_server <- function(id) {
     table_inputs_ui <- shiny::reactive({
       if (session$userData$geo_group() == "zone") {
         output$tab_filter_mortality_month_table <-
-          render_input_for_zone_table()(ns = ns)
+          render_input_for_zone_table(ns = ns)
       } else if (session$userData$geo_group() == "fylke") {
         output$tab_filter_mortality_month_table <-
-          render_input_for_fylke_table()(ns = ns)
+          render_input_for_fylke_table(ns = ns)
       } else {
         output$tab_filter_mortality_month_table <-
-          render_input_for_all_table()(ns = ns)
+          render_input_for_all_table(ns = ns)
       }
     })
 
