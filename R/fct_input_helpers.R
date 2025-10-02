@@ -1,8 +1,8 @@
 #' render_input_for_plot
 #'
-#' @param ns 
-#' @param dat 
-#' @param viz 
+#' @param ns
+#' @param dat
+#' @param viz
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the plot
@@ -48,9 +48,9 @@ render_input_for_plot <- function(ns, dat, viz) {
 
 #' render_input_for_table
 #'
-#' @param ns 
-#' @param dat 
-#' @param viz 
+#' @param ns
+#' @param dat
+#' @param viz
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the table
@@ -97,9 +97,9 @@ render_input_for_table <- function(ns, dat, viz) {
                         ns("select_area_mortality_month"),
                         "Velg flere områder",
                         area,
-                        selected = area
-                    ),
-                    multiple = TRUE
+                        selected = area,
+                        multiple = TRUE
+                    )
                 )
             )
         )
