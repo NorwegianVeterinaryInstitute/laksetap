@@ -7,10 +7,6 @@
 render_input_for_plot(ns, dat, viz)
 }
 \arguments{
-\item{ns}{}
-
-\item{dat}{}
-
 \item{viz}{}
 }
 \value{
