@@ -83,14 +83,11 @@ mod_monthly_mortality_server <- function(id) {
 
     table_inputs_ui <- shiny::reactive({
       if (session$userData$geo_group() == "zone") {
-        output$tab_filter_mortality_month_table <-
-          render_input_for_table(ns = ns, dat = df_mort_month(), viz = "zone")
+        render_input_for_table(ns = ns, dat = df_mort_month(), viz = "zone")
       } else if (session$userData$geo_group() == "fylke") {
-        output$tab_filter_mortality_month_table <-
-          render_input_for_table(ns = ns, dat = df_mort_month(), viz = "fylke")
+        render_input_for_table(ns = ns, dat = df_mort_month(), viz = "fylke")
       } else {
-        output$tab_filter_mortality_month_table <-
-          render_input_for_table(ns = ns, dat = df_mort_month(), viz = "all")
+        render_input_for_table(ns = ns, dat = df_mort_month(), viz = "all")
       }
     })
 
@@ -109,58 +106,9 @@ mod_monthly_mortality_server <- function(id) {
       p <- df_mort_month() |>
         dplyr::filter(year %in% input$select_years_mortality_month) |>
         dplyr::filter(area %in% c(input$select_area_mortality_month_plot)) |>
-        # ribbon for norway - enabled:
-        # dplyr::mutate(q1 = if_else(area == "Norge", NA, q1)) |>
-        # dplyr::mutate(q3 = if_else(area == "Norge", NA, q3)) |>
-        ggplot2::ggplot() +
-        aes(
-          x = date,
-          y = median,
-          group = area,
-          text = paste0(
-            "Median: ",
-            round(median, 2),
-            "<br>Q1: ",
-            round(q1, 2),
-            "<br>Q3: ",
-            round(q3, 2)
-          )
-        ) +
-        labs(x = "Måned", y = "Dødelighet (%)") +
-        geom_line(aes(
-          color = factor(area)
-        )) +
-        geom_ribbon(
-          aes(
-            ymin = .data$q1,
-            ymax = .data$q3,
-            fill = factor(area)
-          ),
-          linetype = 0,
-          alpha = 0.1,
-          show.legend = FALSE
-        ) +
-        theme_minimal() +
-        scale_color_manual(values = my_palette_named) +
-        scale_fill_manual(values = my_palette_named) +
-        guides(
-          col = guide_legend(title = "Område"),
-          fill = "none"
-        )
+        montly_mortality_plot()
 
-      plotly::ggplotly(p, tooltip = "text") |>
-        plotly::layout(
-          legend = list(
-            orientation = "h", # horizontal
-            x = 0.5,
-            y = 1.1,
-            xanchor = "center"
-          )
-        ) |>
-        plotly::config(
-          displaylogo = FALSE,
-          modeBarButtons = list(list("toImage"))
-        )
+      style_plotly(p)
     })
 
     #### Table mortality monthly ####
@@ -186,31 +134,7 @@ mod_monthly_mortality_server <- function(id) {
         dat <- dat |> dplyr::filter(area %in% input$select_area_mortality_month)
       }
 
-      DT::datatable(
-        dat,
-        rownames = F,
-        colnames = c(
-          "År",
-          "Måned",
-          "Område",
-          "1 Kvartil %",
-          "Median %",
-          "3 Kvartil %"
-        ),
-        selection = (list(
-          mode = "multiple",
-          selected = "all",
-          target = "column"
-        )),
-        options = list(
-          sDom = '<"top">lrt<"bottom">ip',
-          autoWidth = FALSE,
-          scrollX = FALSE,
-          language = list(
-            url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"
-          )
-        )
-      )
+      montly_mortality_table(dat)
     })
   })
 }
