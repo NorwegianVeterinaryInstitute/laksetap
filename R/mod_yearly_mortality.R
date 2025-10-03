@@ -16,6 +16,7 @@ mod_yearly_mortality_ui <- function(id) {
         bslib::nav_panel(
           "Diagram",
           shiny::br(),
+          shiny::uiOutput("tab_filter_mortality_year_plot"),
           plotly::plotlyOutput("plot_mortality"),
           shiny::hr(),
           shiny::includeMarkdown(app_sys(
@@ -25,7 +26,7 @@ mod_yearly_mortality_ui <- function(id) {
         bslib::nav_panel(
           "Tabell",
           shiny::br(),
-          shiny::uiOutput("tab_filter_mortality"),
+          shiny::uiOutput("tab_filter_mortality_year_table"),
           shiny::div(
             DT::DTOutput("table_mortality")
           ),
@@ -60,219 +61,121 @@ mod_yearly_mortality_server <- function(id) {
       })
 
     #### UI for tab mortality yearly ####
-    observeEvent(input$geo_group, {
-      if (input$geo_group == "zone") {
-        output$tab_filter_mortality <-
-          renderUI(
-            tagList(
-              fluidRow(
-                column(
-                  width = 6,
-                  select_year(
-                    "select_years_mortality_year",
-                    multiple = T,
-                    resolution = "y"
-                  )
-                ),
-                column(
-                  width = 6,
-                  selectizeInput(
-                    "select_area_mortality_year",
-                    "Velg flere områder",
-                    c(2:12),
-                    selected = c(2:12),
-                    multiple = TRUE
-                  )
-                )
-              )
-            )
-          )
-      } else if (input$geo_group == "fylke") {
-        output$tab_filter_mortality <-
-          renderUI(
-            tagList(
-              fluidRow(
-                column(
-                  width = 6,
-                  select_year(
-                    "select_years_mortality_year",
-                    multiple = T,
-                    resolution = "y"
-                  )
-                ),
-                column(
-                  width = 6,
-                  selectizeInput(
-                    "select_area_mortality_year",
-                    "Velg flere områder",
-                    c(
-                      #"Agder",
-                      "Rogaland",
-                      "Vestland",
-                      "Møre og Romsdal",
-                      "Trøndelag",
-                      "Nordland",
-                      "Troms",
-                      "Finnmark"
-                    ),
-                    selected = c(
-                      #"Agder",
-                      "Rogaland",
-                      "Vestland",
-                      "Møre og Romsdal",
-                      "Trøndelag",
-                      "Nordland",
-                      "Troms",
-                      "Finnmark"
-                    ),
-                    multiple = TRUE
-                  )
-                )
-              )
-            )
-          )
-      } else {
-        output$tab_filter_mortality <-
-          renderUI(
-            tagList(
-              fluidRow(
-                column(
-                  width = 6,
-                  select_year(
-                    "select_years_mortality_year",
-                    multiple = T,
-                    resolution = "y"
-                  )
-                )
-              )
-            )
-          )
-      }
-    })
-
-    output$plot_mortality <- plotly::renderPlotly(
-      plot_ly(
-        df_losses() %>%
-          spread(year, mort) %>%
-          dplyr::filter(
-            !is.na(`2024`) |
-              !is.na(`2023`) |
-              !is.na(`2022`) |
-              !is.na(`2021`) |
-              !is.na(`2020`)
-          ) %>%
-          dplyr::filter(!(area == "All" | area == "Norway")) %>%
-          dplyr::filter(area != "Agder") %>%
-          dplyr::filter(area != "1", area != "13") %>%
-          droplevels(),
-        x = ~area,
-        y = ~`2024`,
-        name = "2024",
-        type = "scatter",
-        mode = "markers",
-        marker = list(color = "#1C4FB9"),
-        hoverinfo = "text",
-        text = ~ paste(
-          "Område: ",
-          area,
-          "<br>",
-          "Prosent: ",
-          `2024`,
-          "<br>",
-          "Aar: 2024"
+    #### Plot and table currently share the same UI ####
+    inputs_ui <- shiny::reactive({
+      if (session$userData$geo_group() == "zone") {
+        render_input_for_mortality_year(
+          ns = ns,
+          dat = df_losses(),
+          viz = "zone"
         )
-      ) %>%
-        add_trace(
-          x = ~area,
-          y = ~`2023`,
-          name = "2023",
-          type = "scatter",
-          mode = "markers",
-          marker = list(color = "#95D9F3"),
-          hoverinfo = "text",
-          text = ~ paste(
-            "Område: ",
-            area,
-            "<br>",
-            "Prosent: ",
-            `2023`,
-            "<br>",
-            "Aar: 2023"
-          )
-        ) %>%
-        add_trace(
-          x = ~area,
-          y = ~`2022`,
-          name = "2022",
-          type = "scatter",
-          mode = "markers",
-          marker = list(color = "#59CD8B"),
-          hoverinfo = "text",
-          text = ~ paste(
-            "Område: ",
-            area,
-            "<br>",
-            "Prosent: ",
-            `2022`,
-            "<br>",
-            "Aar: 2022"
-          )
-        ) %>%
-        add_trace(
-          x = ~area,
-          y = ~`2021`,
-          name = "2021",
-          type = "scatter",
-          mode = "markers",
-          marker = list(color = "#BCEED1"),
-          hoverinfo = "text",
-          text = ~ paste(
-            "Område: ",
-            area,
-            "<br>",
-            "Prosent: ",
-            `2021`,
-            "<br>",
-            "Aar: 2021"
-          )
-        ) %>%
-        add_trace(
-          x = ~area,
-          y = ~`2020`,
-          name = "2020",
-          type = "scatter",
-          mode = "markers",
-          marker = list(color = "#FF5447"),
-          hoverinfo = "text",
-          text = ~ paste(
-            "Område: ",
-            area,
-            "<br>",
-            "Prosent: ",
-            `2020`,
-            "<br>",
-            "Aar: 2020"
-          )
-        ) %>%
-        layout(
-          title = "",
-          annotations = list(
-            yref = "paper",
-            xref = "paper",
-            y = 1.09,
-            x = .2,
-            text = "Velg år:",
-            showarrow = F,
-            font = list(size = 14, face = "bold")
-          ),
-          legend = list(orientation = "h", x = .25, y = 1.1),
-          xaxis = list(title = "Område"),
-          yaxis = list(title = "Dødelighet (%)", categoryarray = ~area),
-          margin = list(l = 100)
-        ) %>%
-        config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
+      } else if (session$userData$geo_group() == "fylke") {
+        render_input_for_mortality_year(
+          ns = ns,
+          dat = df_losses(),
+          viz = "fylke"
+        )
+      } else {
+        render_input_for_mortality_year(
+          ns = ns,
+          dat = df_losses(),
+          viz = "all"
+        )
+      }
+    }) |>
+      bindEvent(session$userData$geo_group())
+
+    output$tab_filter_mortality_month_plot <- shiny::renderUI({
+      inputs_ui()
+    }) |>
+      bindEvent(inputs_ui())
+      
+    output$tab_filter_mortality_month_table <- shiny::renderUI({
+      inputs_ui()
+    }) |>
+      bindEvent(inputs_ui())
+
+    #### Plot mortality yearly ####
+    output$plot_mortality <- plotly::renderPlotly(
+      #### This should be resolved on the dat level ####
+      dat <- df_losses |>
+        spread(year, mort)  |>  
+        dplyr::filter(
+          !is.na(`2024`) |
+            !is.na(`2023`) |
+            !is.na(`2022`) |
+            !is.na(`2021`) |
+            !is.na(`2020`)
+        )  |>
+        dplyr::filter(!(area == "All" | area == "Norway"))  |>
+        dplyr::filter(area != "Agder")  |>
+        dplyr::filter(area != "1", area != "13")  |>
+        droplevels()
+
+        plot_yearly_mortality_outputs(dat)
     )
+      #### Table mortality yearly ####
+      ##### Yearly tables need to observe for Norge #####
+  observeEvent(input$geo_group, {
+    if (input$geo_group == "all") {
+      output$table_mortality <- DT::renderDT(
+        datatable(
+          df_losses() |>
+            dplyr::filter(!is.na(mort)) |>
+            dplyr::select(year, area, mort) |> # this has changed from previous year
+            dplyr::filter(year %in% input$select_years_table2),
+          # filter = "top",
+          rownames = F,
+          colnames = c("År", "Område", "Dødelighet %"),
+          # also here
+          selection = (list(
+            mode = "multiple",
+            selected = "all",
+            target = "column"
+          )),
+          options = list(
+            sDom = '<"top">lrt<"bottom">ip',
+            autoWidth = FALSE,
+            # columnDefs = list(list(width = '100px', targets = c(1, 2))),
+            scrollX = FALSE,
+            language = list(
+              url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"
+            )
+          )
+        )
+      )
+    } else {
+      output$table_mortality <- DT::renderDT(
+        datatable(
+          df_losses() |>
+            dplyr::filter(!is.na(mort)) |>
+            dplyr::select(year, area, mort) |> # this has changed from previous year
+            dplyr::filter(
+              year %in% input$select_years_table2 & area %in% input$select_area2
+            ),
+          # filter = "top",
+          rownames = F,
+          colnames = c("År", "Område", "Dødelighet %"),
+          # also here
+          selection = (list(
+            mode = "multiple",
+            selected = "all",
+            target = "column"
+          )),
+          options = list(
+            sDom = '<"top">lrt<"bottom">ip',
+            autoWidth = FALSE,
+            # columnDefs = list(list(width = '100px', targets = c(1, 2))),
+            scrollX = FALSE,
+            language = list(
+              url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"
+            )
+          )
+        )
+      )
+    }
   })
+})
 }
 
 #### MORTALITY yearly ####
