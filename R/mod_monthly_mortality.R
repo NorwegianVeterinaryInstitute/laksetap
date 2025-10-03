@@ -67,11 +67,23 @@ mod_monthly_mortality_server <- function(id) {
     #### UI for tab mortality monthly ####
     plot_inputs_ui <- shiny::reactive({
       if (session$userData$geo_group() == "zone") {
-        render_input_for_plot(ns = ns, dat = df_mort_month(), viz = "zone")
+        render_input_for_mortality_month_plot(
+          ns = ns,
+          dat = df_mort_month(),
+          viz = "zone"
+        )
       } else if (session$userData$geo_group() == "fylke") {
-        render_input_for_plot(ns = ns, dat = df_mort_month(), viz = "fylke")
+        render_input_for_mortality_month_plot(
+          ns = ns,
+          dat = df_mort_month(),
+          viz = "fylke"
+        )
       } else {
-        render_input_for_plot(ns = ns, dat = df_mort_month(), viz = "all")
+        render_input_for_mortality_month_plot(
+          ns = ns,
+          dat = df_mort_month(),
+          viz = "all"
+        )
       }
     }) |>
       bindEvent(session$userData$geo_group())
@@ -83,11 +95,23 @@ mod_monthly_mortality_server <- function(id) {
 
     table_inputs_ui <- shiny::reactive({
       if (session$userData$geo_group() == "zone") {
-        render_input_for_table(ns = ns, dat = df_mort_month(), viz = "zone")
+        render_input_for_mortality_month_table(
+          ns = ns,
+          dat = df_mort_month(),
+          viz = "zone"
+        )
       } else if (session$userData$geo_group() == "fylke") {
-        render_input_for_table(ns = ns, dat = df_mort_month(), viz = "fylke")
+        render_input_for_mortality_month_table(
+          ns = ns,
+          dat = df_mort_month(),
+          viz = "fylke"
+        )
       } else {
-        render_input_for_table(ns = ns, dat = df_mort_month(), viz = "all")
+        render_input_for_mortality_month_table(
+          ns = ns,
+          dat = df_mort_month(),
+          viz = "all"
+        )
       }
     })
 
