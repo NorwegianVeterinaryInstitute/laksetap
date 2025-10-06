@@ -52,7 +52,7 @@ mod_yearly_mortality_server <- function(id) {
     #### Data ####
     losses <- getOption("losses")
     df_losses <-
-      eventReactive(
+      shiny::eventReactive(
         c(session$userData$species(), session$userData$geo_group()),
         {
           losses |>
@@ -64,7 +64,6 @@ mod_yearly_mortality_server <- function(id) {
       )
 
     #### UI for tab mortality yearly ####
-    #### Plot and table currently share the same UI ####
     inputs_ui <- shiny::reactive({
       if (session$userData$geo_group() == "zone") {
         render_input_for_mortality_year(
@@ -87,11 +86,6 @@ mod_yearly_mortality_server <- function(id) {
       }
     }) |>
       bindEvent(session$userData$geo_group())
-
-    # output$tab_filter_mortality_month_plot <- shiny::renderUI({
-    #   inputs_ui()
-    # }) |>
-    #   bindEvent(inputs_ui())
 
     output$tab_filter_mortality_year_table <- shiny::renderUI({
       inputs_ui()
