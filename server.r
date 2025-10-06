@@ -645,7 +645,7 @@ server <- function(input, output) {
         )
     }
   })
-
+  #### Production mortality ####
   #### UI for tab cohorts  ####
   observeEvent(input$geo_group, {
     if (input$geo_group == "zone") {
@@ -1388,7 +1388,7 @@ server <- function(input, output) {
       ) %>%
       config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
   })
-
+  #### MOVED
   #### COHORTS ####
   df_cohorts <-
     eventReactive(c(input$species, input$geo_group), {
