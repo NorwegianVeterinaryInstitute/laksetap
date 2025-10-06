@@ -159,3 +159,51 @@ render_input_for_mortality_year <- function(ns, dat, viz) {
     )
   }
 }
+
+#' render_input_for_cohorts_table
+#'
+#' @param ns namespace function
+#' @param dat dataframe
+#' @param viz "zone", "fylke" or "all"
+#'
+#' @returns a taglist to be rendered in the UI
+#' for the table
+render_input_for_cohorts_table <- function(ns, dat, viz) {
+  area <- as.character(unique(dat$area[dat$viz == viz]))
+
+  if (viz == "all") {
+    shiny::tagList(
+      shiny::fluidRow(
+        shiny::column(
+          width = 6,
+          select_year(
+            ns("select_years_cohort"),
+            multiple = TRUE
+          )
+        )
+      )
+    )
+  } else {
+    shiny::tagList(
+      shiny::fluidRow(
+        shiny::column(
+          width = 4,
+          select_year(
+            ns("select_years_cohort"),
+            multiple = TRUE
+          )
+        ),
+        shiny::column(
+          width = 4,
+          shiny::selectInput(
+            ns("select_area_cohort"),
+            "Velg flere områder:",
+            area,
+            selected = area,
+            multiple = TRUE
+          )
+        )
+      )
+    )
+  }
+}
