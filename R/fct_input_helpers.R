@@ -19,7 +19,7 @@ render_input_for_mortality_month_plot <- function(ns, dat, viz) {
           width = 6,
           select_year(
             ns("select_years_mortality_month"),
-            multiple = T
+            multiple = TRUE
           )
         )
       )
@@ -31,7 +31,7 @@ render_input_for_mortality_month_plot <- function(ns, dat, viz) {
           width = 4,
           select_year(
             ns("select_years_mortality_month"),
-            multiple = T
+            multiple = TRUE
           )
         ),
         shiny::column(
@@ -67,7 +67,7 @@ render_input_for_mortality_month_table <- function(ns, dat, viz) {
           width = 6,
           select_year(
             ns("select_years_mortality_month_table"),
-            multiple = T
+            multiple = TRUE
           )
         ),
         shiny::column(
@@ -85,7 +85,7 @@ render_input_for_mortality_month_table <- function(ns, dat, viz) {
           width = 4,
           select_year(
             ns("select_years_mortality_month_table"),
-            multiple = T
+            multiple = TRUE
           )
         ),
         shiny::column(
@@ -121,14 +121,14 @@ render_input_for_mortality_month_table <- function(ns, dat, viz) {
 render_input_for_mortality_year <- function(ns, dat, viz) {
   area <- c(as.character(unique(dat$area[dat$viz == viz])), "Norge")
 
-  if (viz = "all") {
+  if (viz == "all") {
     tagList(
       fluidRow(
         column(
           width = 6,
           select_year(
             ns("select_years_mortality_year"),
-            multiple = T,
+            multiple = TRUE,
             resolution = "y"
           )
         )
@@ -141,7 +141,7 @@ render_input_for_mortality_year <- function(ns, dat, viz) {
           width = 6,
           select_year(
             ns("select_years_mortality_year"),
-            multiple = T,
+            multiple = TRUE,
             resolution = "y"
           )
         ),

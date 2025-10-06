@@ -16,8 +16,8 @@ mod_yearly_mortality_ui <- function(id) {
         bslib::nav_panel(
           "Diagram",
           shiny::br(),
-          shiny::uiOutput("tab_filter_mortality_year_plot"),
-          plotly::plotlyOutput("plot_mortality"),
+          #shiny::uiOutput(ns("tab_filter_mortality_year_plot")),
+          plotly::plotlyOutput(ns("plot_mortality_year")),
           shiny::hr(),
           shiny::includeMarkdown(app_sys(
             "www/mortality_yearly_table_and_plot_footer.md"
@@ -26,9 +26,9 @@ mod_yearly_mortality_ui <- function(id) {
         bslib::nav_panel(
           "Tabell",
           shiny::br(),
-          shiny::uiOutput("tab_filter_mortality_year_table"),
+          shiny::uiOutput(ns("tab_filter_mortality_year_table")),
           shiny::div(
-            DT::DTOutput("table_mortality")
+            DT::DTOutput(ns("table_mortality_year"))
           ),
           shiny::hr(),
           shiny::div(
@@ -52,13 +52,16 @@ mod_yearly_mortality_server <- function(id) {
     #### Data ####
     losses <- getOption("losses")
     df_losses <-
-      eventReactive(c(input$species, input$geo_group), {
-        losses |>
-          dplyr::filter(
-            species == input$species &
-              viz == input$geo_group
-          )
-      })
+      eventReactive(
+        c(session$userData$species(), session$userData$geo_group()),
+        {
+          losses |>
+            dplyr::filter(
+              species == session$userData$species() &
+                viz == session$userData$geo_group()
+            )
+        }
+      )
 
     #### UI for tab mortality yearly ####
     #### Plot and table currently share the same UI ####
@@ -85,97 +88,68 @@ mod_yearly_mortality_server <- function(id) {
     }) |>
       bindEvent(session$userData$geo_group())
 
-    output$tab_filter_mortality_month_plot <- shiny::renderUI({
-      inputs_ui()
-    }) |>
-      bindEvent(inputs_ui())
-      
-    output$tab_filter_mortality_month_table <- shiny::renderUI({
+    # output$tab_filter_mortality_month_plot <- shiny::renderUI({
+    #   inputs_ui()
+    # }) |>
+    #   bindEvent(inputs_ui())
+
+    output$tab_filter_mortality_year_table <- shiny::renderUI({
       inputs_ui()
     }) |>
       bindEvent(inputs_ui())
 
     #### Plot mortality yearly ####
-    output$plot_mortality <- plotly::renderPlotly(
-      #### This should be resolved on the dat level ####
-      dat <- df_losses |>
-        spread(year, mort)  |>  
+    output$plot_mortality_year <- plotly::renderPlotly({
+      #### This should be resolved on the data level ####
+      dat <- df_losses() |>
+        tidyr::spread(year, mort) |>
         dplyr::filter(
           !is.na(`2024`) |
             !is.na(`2023`) |
             !is.na(`2022`) |
             !is.na(`2021`) |
             !is.na(`2020`)
-        )  |>
-        dplyr::filter(!(area == "All" | area == "Norway"))  |>
-        dplyr::filter(area != "Agder")  |>
-        dplyr::filter(area != "1", area != "13")  |>
+        ) |>
+        dplyr::filter(!(area == "All" | area == "Norway")) |>
+        dplyr::filter(area != "Agder") |>
+        dplyr::filter(area != "1", area != "13") |>
         droplevels()
+      plot_yearly_mortality_outputs(dat)
+    }) |>
+      bindEvent(
+        df_losses()
+      )
 
-        plot_yearly_mortality_outputs(dat)
-    )
-      #### Table mortality yearly ####
-      ##### Yearly tables need to observe for Norge #####
-  observeEvent(input$geo_group, {
-    if (input$geo_group == "all") {
-      output$table_mortality <- DT::renderDT(
-        datatable(
-          df_losses() |>
-            dplyr::filter(!is.na(mort)) |>
-            dplyr::select(year, area, mort) |> # this has changed from previous year
-            dplyr::filter(year %in% input$select_years_table2),
-          # filter = "top",
-          rownames = F,
-          colnames = c("År", "Område", "Dødelighet %"),
-          # also here
-          selection = (list(
-            mode = "multiple",
-            selected = "all",
-            target = "column"
-          )),
-          options = list(
-            sDom = '<"top">lrt<"bottom">ip',
-            autoWidth = FALSE,
-            # columnDefs = list(list(width = '100px', targets = c(1, 2))),
-            scrollX = FALSE,
-            language = list(
-              url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"
-            )
+    #### Table mortality yearly ####
+    mortality_year_filter_data <- shiny::reactive({
+      if (session$userData$geo_group() != "all") {
+        df_losses() |>
+          dplyr::filter(!is.na(mort)) |>
+          dplyr::select(year, area, mort) |>
+          dplyr::filter(year %in% input$select_years_mortality_year)
+      } else {
+        df_losses() |>
+          dplyr::filter(!is.na(mort)) |>
+          dplyr::select(year, area, mort) |>
+          dplyr::filter(
+            year %in%
+              input$select_years_mortality_year &
+              area %in% input$select_area_mortality_year
           )
-        )
+      }
+    }) |>
+      bindEvent(
+        session$userData$geo_group(),
+        df_losses(),
+        input$select_years_mortality_year,
+        input$select_area_mortality_year
       )
-    } else {
-      output$table_mortality <- DT::renderDT(
-        datatable(
-          df_losses() |>
-            dplyr::filter(!is.na(mort)) |>
-            dplyr::select(year, area, mort) |> # this has changed from previous year
-            dplyr::filter(
-              year %in% input$select_years_table2 & area %in% input$select_area2
-            ),
-          # filter = "top",
-          rownames = F,
-          colnames = c("År", "Område", "Dødelighet %"),
-          # also here
-          selection = (list(
-            mode = "multiple",
-            selected = "all",
-            target = "column"
-          )),
-          options = list(
-            sDom = '<"top">lrt<"bottom">ip',
-            autoWidth = FALSE,
-            # columnDefs = list(list(width = '100px', targets = c(1, 2))),
-            scrollX = FALSE,
-            language = list(
-              url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"
-            )
-          )
-        )
-      )
-    }
+
+    output$table_mortality_year <- DT::renderDT(
+      table_yearly_mortality_outputs(mortality_year_filter_data()),
+    ) |>
+      bindEvent(mortality_year_filter_data())
   })
-})
 }
 
 #### MORTALITY yearly ####

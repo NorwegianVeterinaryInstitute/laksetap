@@ -36,4 +36,5 @@ app_server <- function(input, output, session) {
 
   #### Modules ####
   mod_monthly_mortality_server("monthly_mortality_1")
+  mod_yearly_mortality_server("yearly_mortality_1")
 }
