@@ -19,7 +19,7 @@ mod_cohort_mortality_ui <- function(id) {
           shiny::column(
             width = 6,
             select_year(
-              id = "select_year_cohort",
+              id = ns("select_year_cohort"),
               resolution = "y"
             )
           ),
@@ -105,6 +105,7 @@ mod_cohort_mortality_server <- function(id) {
       eventReactive(
         c(session$userData$species(), session$userData$geo_group()),
         {
+          browser()
           mortality_cohorts_data |>
             dplyr::filter(
               species == session$userData$species() &
@@ -223,7 +224,12 @@ mod_cohort_mortality_server <- function(id) {
       #     )
       # }
       plot_cohorts_output(df_cohorts(), input$select_year_cohort)
-    })
+    }) |>
+      bindEvent(
+        input$select_year_cohort,
+        session$userData$species(),
+        session$userData$geo_group()
+      )
 
     #### Table cohorts mortality ####
     output$table_cohort <- DT::renderDT({
