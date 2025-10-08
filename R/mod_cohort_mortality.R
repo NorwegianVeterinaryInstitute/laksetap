@@ -56,56 +56,19 @@ mod_cohort_mortality_server <- function(id) {
     ns <- session$ns
 
     #### Data ####
-    mortality_cohorts_data <- getOption("mortality_cohorts_data") |>
-      dplyr::mutate(
-        q1 = round(q1, 1),
-        q3 = round(q3, 1),
-        median = round(median, 1)
-      ) |>
-      dplyr::mutate(
-        area = factor(
-          area,
-          levels = c(
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "All"
-          )
-        )
-      ) |>
-      dplyr::filter(
-        area != "13",
-        area != "1",
-        area != "All"
-      ) |>
-      dplyr::mutate(
-        tooltip = paste0(
-          "Area: ",
-          area,
-          "<br>Q1: ",
-          q1,
-          "<br>Median: ",
-          median,
-          "<br>Q3: ",
-          q3
-        )
-      )
+
+    #### Used in the plot ####
+
+    mortality_cohorts_data_zone <- getOption("mortality_cohorts_data_zone")
+    mortality_cohorts_data_other <- getOption("mortality_cohorts_data_other")
+
+    #### Used in the table ####
+    mortality_cohorts_data <- getOption("mortality_cohorts_data")
 
     df_cohorts <-
       eventReactive(
         c(session$userData$species(), session$userData$geo_group()),
         {
-          browser()
           mortality_cohorts_data |>
             dplyr::filter(
               species == session$userData$species() &
@@ -150,80 +113,17 @@ mod_cohort_mortality_server <- function(id) {
         session$userData$species() == "salmon",
         message = "Ingen data å vise"
       ))
-      # if (input$geo_group == "zone") {
-      #   dat <- df_cohorts() |>
-      #     dplyr::filter(
-      #       year == input$select_year_coh,
-      #       area != "13",
-      #       area != "1",
-      #       area != "All"
-      #     ) |>
-      #     dplyr::mutate(
-      #       q1 = round(q1, 1),
-      #       q3 = round(q3, 1),
-      #       median = round(median, 1)
-      #     ) |>
-      #     # constuct tooltip
-      #     dplyr::mutate(
-      #       tooltip = paste0(
-      #         "Area: ",
-      #         area,
-      #         "<br>Q1: ",
-      #         q1,
-      #         "<br>Median: ",
-      #         median,
-      #         "<br>Q3: ",
-      #         q3
-      #       )
-      #     ) |>
-      #     dplyr::mutate(
-      #       area = factor(
-      #         area,
-      #         levels = c(
-      #           "1",
-      #           "2",
-      #           "3",
-      #           "4",
-      #           "5",
-      #           "6",
-      #           "7",
-      #           "8",
-      #           "9",
-      #           "10",
-      #           "11",
-      #           "12",
-      #           "13",
-      #           "All"
-      #         )
-      #       )
-      #     )
-      # } else {
-      #   dat <- df_cohorts() |>
-      #     dplyr::filter(
-      #       year == input$select_year_coh,
-      #       area != "13",
-      #       area != "All"
-      #     ) |>
-      #     dplyr::mutate(
-      #       q1 = round(q1, 1),
-      #       q3 = round(q3, 1),
-      #       median = round(median, 1)
-      #     ) |>
-      #     # constuct tooltip
-      #     dplyr::mutate(
-      #       tooltip = paste0(
-      #         "Area: ",
-      #         area,
-      #         "<br>Q1: ",
-      #         q1,
-      #         "<br>Median: ",
-      #         median,
-      #         "<br>Q3: ",
-      #         q3
-      #       )
-      #     )
-      # }
-      plot_cohorts_output(df_cohorts(), input$select_year_cohort)
+      if (input$geo_group == "zone") {
+        plot_cohorts_output(
+          mortality_cohorts_data_zone,
+          input$select_year_cohort
+        )
+      } else {
+        plot_cohorts_output(
+          mortality_cohorts_data_other,
+          input$select_year_cohort
+        )
+      }
     }) |>
       bindEvent(
         input$select_year_cohort,
@@ -236,17 +136,16 @@ mod_cohort_mortality_server <- function(id) {
       if (session$userData$geo_group() == "all") {
         dat <- df_cohorts() |>
           dplyr::filter(
-            year %in% input$select_years_cohort & area == "Norge"
+            year %in% input$select_years_cohort_table & area == "Norge"
           ) |>
           dplyr::select(year, area, q1, median, q3)
-
         table_cohorts_output(dat)
       } else {
         dat <- df_cohorts() |>
           dplyr::filter(
             year %in%
-              input$select_years_cohort &
-              area %in% input$select_area_cohort
+              input$select_years_cohort_table &
+              area %in% input$select_area_cohort_table
           ) |>
           dplyr::select(year, area, q1, median, q3)
 

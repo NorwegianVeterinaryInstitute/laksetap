@@ -177,8 +177,9 @@ render_input_for_cohorts_table <- function(ns, dat, viz) {
         shiny::column(
           width = 6,
           select_year(
-            ns("select_years_cohort"),
-            multiple = TRUE
+            ns("select_years_cohort_table"),
+            multiple = TRUE,
+            resolution = "y"
           )
         )
       )
@@ -189,14 +190,15 @@ render_input_for_cohorts_table <- function(ns, dat, viz) {
         shiny::column(
           width = 4,
           select_year(
-            ns("select_years_cohort"),
-            multiple = TRUE
+            ns("select_years_cohort_table"),
+            multiple = TRUE,
+            resolution = "y"
           )
         ),
         shiny::column(
           width = 4,
           shiny::selectInput(
-            ns("select_area_cohort"),
+            ns("select_area_cohort_table"),
             "Velg flere områder:",
             area,
             selected = area,
