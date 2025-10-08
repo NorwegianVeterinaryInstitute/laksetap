@@ -134,7 +134,7 @@ server <- function(input, output) {
       (NULL)
     }
   })
-
+  #### MOVED
   #### UI for tab losses monthly ####
   observeEvent(input$geo_group, {
     if (input$geo_group == "zone") {
@@ -240,7 +240,7 @@ server <- function(input, output) {
         )
     }
   })
-
+  #### MOVED ####
   #### UI for tab mortality monthly ####
 
   observeEvent(input$geo_group, {
@@ -464,6 +464,7 @@ server <- function(input, output) {
     }
   })
 
+  #### MOVED
   #### UI for tab losses yearly ####
   observeEvent(input$geo_group, {
     if (input$geo_group == "zone") {
@@ -645,6 +646,7 @@ server <- function(input, output) {
         )
     }
   })
+  #### MOVED
   #### Production mortality ####
   #### UI for tab cohorts  ####
   observeEvent(input$geo_group, {
@@ -1084,6 +1086,7 @@ server <- function(input, output) {
       config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
   )
 
+  #### MOVED ####
   ##### LOSSES monthly ####
 
   df_losses_month <-
@@ -1254,7 +1257,7 @@ server <- function(input, output) {
       ) %>%
       config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
   )
-
+  #### MOVED ####
   ##### MORTALITY monthly ####
 
   df_mort_month <-
