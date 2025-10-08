@@ -40,27 +40,52 @@ select_year <- function(id, multiple = F, resolution = "m") {
 }
 
 
-select_months <- function(id, multiple = T) {
-  selectInput(
-    id,
-    "Velg flere måneder:",
-    c(
-      "jan",
-      "feb",
-      "mar",
-      "apr",
-      "mai",
-      "jun",
-      "jul",
-      "aug",
-      "sep",
-      "okt",
-      "nov",
-      "des"
-    ),
-    selected = c("jan"),
-    multiple = multiple
-  )
+select_months <- function(id, digit = F, multiple = T) {
+  if (digit) {
+    shiny::selectInput(
+      id,
+      "Velg måned:",
+      c(
+        "Måned" = c(
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "10",
+          "11",
+          "12"
+        ),
+        selected = c("01"),
+        multiple = multiple
+      )
+    )
+  } else {
+    selectInput(
+      id,
+      "Velg flere måneder:",
+      c(
+        "jan",
+        "feb",
+        "mar",
+        "apr",
+        "mai",
+        "jun",
+        "jul",
+        "aug",
+        "sep",
+        "okt",
+        "nov",
+        "des"
+      ),
+      selected = c("jan"),
+      multiple = multiple
+    )
+  }
 }
 
 # Static things
