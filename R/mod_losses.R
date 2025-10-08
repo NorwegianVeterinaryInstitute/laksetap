@@ -20,30 +20,15 @@ mod_losses_ui <- function(id) {
             shiny::column(
               width = 6,
               select_year(
-                id = "select_year"
+                id = "select_year_monthly_losses",
               )
             ),
             shiny::column(
               width = 6,
-              shiny::selectInput(
-                "select_month",
-                "Velg måned:",
-                list(
-                  "Måned" = c(
-                    "01",
-                    "02",
-                    "03",
-                    "04",
-                    "05",
-                    "06",
-                    "07",
-                    "08",
-                    "09",
-                    "10",
-                    "11",
-                    "12"
-                  )
-                )
+              select_months(
+                id = "select_month_monthly_losses",
+                digit = TRUE,
+                multiple = FALSE
               )
             )
           ),
@@ -115,6 +100,8 @@ mod_losses_server <- function(id) {
               viz == input$geo_group
           )
       })
+      losses_monthly_data <- getOption("losses_monthly_data")
+
 
     #### UI for tab losses monthly ####
     observeEvent(input$geo_group, {
@@ -641,7 +628,7 @@ mod_losses_server <- function(id) {
       config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
   )
   })
-}
+  }
 
 ## To be copied in the UI
 # mod_losses_ui("losses_1")
