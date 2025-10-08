@@ -60,7 +60,8 @@ mod_cohort_mortality_server <- function(id) {
     #### Used in the plot ####
 
     mortality_cohorts_data_zone <- getOption("mortality_cohorts_data_zone")
-    mortality_cohorts_data_other <- getOption("mortality_cohorts_data_other")
+    mortality_cohorts_data_fylke <- getOption("mortality_cohorts_data_fylke")
+    mortality_cohorts_data_all <- getOption("mortality_cohorts_data_all")
 
     #### Used in the table ####
     mortality_cohorts_data <- getOption("mortality_cohorts_data")
@@ -113,16 +114,24 @@ mod_cohort_mortality_server <- function(id) {
         session$userData$species() == "salmon",
         message = "Ingen data å vise"
       ))
-      if (input$geo_group == "zone") {
-        plot_cohorts_output(
-          mortality_cohorts_data_zone,
-          input$select_year_cohort
-        )
+      if (session$userData$geo_group() == "zone") {
+        mortality_cohorts_data_zone |>
+          dplyr::filter(year == input$select_year_cohort) |>
+          plot_cohorts_output(
+            input$select_year_cohort
+          )
+      } else if (session$userData$geo_group() == "fylke") {
+        mortality_cohorts_data_fylke |>
+          dplyr::filter(year == input$select_year_cohort) |>
+          plot_cohorts_output(
+            input$select_year_cohort
+          )
       } else {
-        plot_cohorts_output(
-          mortality_cohorts_data_other,
-          input$select_year_cohort
-        )
+        mortality_cohorts_data_all |>
+          dplyr::filter(year == input$select_year_cohort) |>
+          plot_cohorts_output(
+            input$select_year_cohort
+          )
       }
     }) |>
       bindEvent(
