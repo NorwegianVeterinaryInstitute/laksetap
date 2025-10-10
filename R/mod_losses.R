@@ -70,7 +70,7 @@ mod_losses_ui <- function(id) {
           shiny::br(),
           shiny::uiOutput(ns("tab_filter_yearly_losses_table")),
           shiny::div(
-            DT::DTOutput(ns("table_losses"))
+            DT::DTOutput(ns("table_losses_year"))
           ),
           shiny::hr(),
           shiny::div(
@@ -122,19 +122,19 @@ mod_losses_server <- function(id) {
     #### UI for table losses monthly ####
     montly_table_inputs_ui <- shiny::reactive({
       if (session$userData$geo_group() == "zone") {
-        render_input_for_losses_montly_table(
+        render_input_for_losses_monthly_table(
           ns = ns,
           dat = df_losses_month(),
           viz = "zone"
         )
       } else if (session$userData$geo_group() == "fylke") {
-        render_input_for_losses_montly_table(
+        render_input_for_losses_monthly_table(
           ns = ns,
           dat = df_losses_month(),
           viz = "fylke"
         )
       } else {
-        render_input_for_losses_montly_table(
+        render_input_for_losses_monthly_table(
           ns = ns,
           dat = df_losses_month(),
           viz = "all"
@@ -176,208 +176,91 @@ mod_losses_server <- function(id) {
       bindEvent(yearly_table_inputs_ui())
 
     #### OUTPUTS ####
+    #### Losses monthly ####
+    output$table_losses_month <- DT::renderDT({
+      if (session$userData$geo_group() == "all") {
+        dat <- losses_data_prep_table(df_losses_month()) |>
+          dplyr::filter(
+            area == "Norge" &
+              year %in% input$select_years_losses_monthly_table &
+              month_name %in% input$select_months_losses_monthly_table
+          )
 
-    #### Yearly losses table ####
-    ##### Yearly tables need to observe for Norge #####
-    observeEvent(input$geo_group, {
-      if (input$geo_group == "all") {
-        output$table_losses <- DT::renderDT(
-          datatable(
-            df_losses() %>%
-              dplyr::select(
-                "year",
-                "area",
-                "losses",
-                "doed",
-                "ut",
-                "romt",
-                "ufor"
-              ) %>%
-              dplyr::filter(
-                year %in% input$select_years_table1
-              ),
-            # filter = "top",
-            rownames = F,
-            colnames = c(
-              "År",
-              "Område",
-              "Total",
-              "Døde",
-              "Utkast",
-              "Rømt",
-              "Annet"
-            ),
-            selection = (list(
-              mode = "multiple",
-              selected = "all",
-              target = "column"
-            )),
-            options = list(
-              sDom = '<"top">lrt<"bottom">ip',
-              scrollX = FALSE,
-              language = list(
-                url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"
-              )
-            )
-          )
-        )
+        losses_table(dat)
       } else {
-        output$table_losses <- DT::renderDT(
-          datatable(
-            df_losses() %>%
-              dplyr::select(
-                "year",
-                "area",
-                "losses",
-                "doed",
-                "ut",
-                "romt",
-                "ufor"
-              ) %>%
-              dplyr::filter(
-                year %in%
-                  input$select_years_table1 &
-                  area %in% input$select_area1
-              ),
-            # filter = "top",
-            rownames = F,
-            colnames = c(
-              "År",
-              "Område",
-              "Total",
-              "Døde",
-              "Utkast",
-              "Rømt",
-              "Annet"
-            ),
-            selection = (list(
-              mode = "multiple",
-              selected = "all",
-              target = "column"
-            )),
-            options = list(
-              sDom = '<"top">lrt<"bottom">ip',
-              scrollX = FALSE,
-              language = list(
-                url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"
-              )
-            )
+        dat <- losses_data_prep_table(df_losses_month()) |>
+          dplyr::filter(
+            year %in%
+              input$select_years_losses_monthly_table &
+              area %in% input$select_months_losses_monthly_table &
+              month_name %in% input$select_area_losses_monthly_table
           )
-        )
+
+        losses_table(dat)
       }
     })
 
-    #### Yearly losses plot ####
-    output$plot_losses <- plotly::renderPlotly({
-      dat <- losses_data_prep(
-        df_losses(),
+    output$plot_losses_monthly <- plotly::renderPlotly({
+      dat <- losses_data_prep_plot(
+        df_losses_month(),
         input$select_year_monthly_losses,
-        resolution = "y"
+        input$select_month_monthly_losses,
+        resolution = "m"
       )
 
       losses_plot(dat)
     })
 
-    #### losses monthly ####
+    #### Losses yearly ####
 
-    output$table_losses_month <- DT::renderDT({
-      if (input$geo_group == "all") {
-        df_losses_month() %>%
-          dplyr::filter(
-            !area == "All" &
-              year %in% input$select_years_table3 &
-              area == "Norge" &
-              month_name %in% input$select_month_table3
-          ) %>%
+    output$table_losses_year <- DT::renderDT({
+      if (session$userData$geo_group() == "all") {
+        dat <-
+          df_losses() |>
           dplyr::select(
             "year",
-            "month_name",
             "area",
             "losses",
             "doed",
             "ut",
             "romt",
             "ufor"
-          ) %>%
-          datatable(
-            # filter = "top",
-            rownames = F,
-            colnames = c(
-              "År",
-              "Måned",
-              "Område",
-              "Total",
-              "Døde",
-              "Utkast",
-              "Rømt",
-              "Annet"
-            ),
-            selection = (list(
-              mode = "multiple",
-              selected = "all",
-              target = "column"
-            )),
-            options = list(
-              sDom = '<"top">lrt<"bottom">ip',
-              scrollX = FALSE,
-              language = list(
-                url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"
-              )
-            )
+          ) |>
+          dplyr::filter(
+            year %in% input$select_years_losses_year_table
           )
+
+        losses_table(dat)
       } else {
-        df_losses_month() %>%
-          dplyr::filter(
-            !area == "All" &
-              year %in% input$select_years_table3 &
-              area %in% input$select_area3 &
-              month_name %in% input$select_month_table3
-          ) %>%
-          dplyr::select(
-            "year",
-            "month_name",
-            "area",
-            "losses",
-            "doed",
-            "ut",
-            "romt",
-            "ufor"
-          ) %>%
-          datatable(
-            # filter = "top",
-            rownames = F,
-            colnames = c(
-              "År",
-              "Måned",
-              "Område",
-              "Total",
-              "Døde",
-              "Utkast",
-              "Rømt",
-              "Annet"
-            ),
-            selection = (list(
-              mode = "multiple",
-              selected = "all",
-              target = "column"
-            )),
-            options = list(
-              sDom = '<"top">lrt<"bottom">ip',
-              scrollX = FALSE,
-              language = list(
-                url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"
-              )
+        output$table_losses <- DT::renderDT({
+          dat <-
+            df_losses() |>
+            dplyr::select(
+              "year",
+              "area",
+              "losses",
+              "doed",
+              "ut",
+              "romt",
+              "ufor"
+            ) |>
+            dplyr::filter(
+              year %in%
+                input$select_years_losses_year_table &
+                area %in% input$select_area_losses_year_table
             )
-          )
+
+          losses_table(dat)
+        })
       }
     })
 
-    output$plot_losses_monthly <- plotly::renderPlotly({
-      dat <- losses_data_prep(
-        df_losses_month(),
+    #### Yearly losses plot ####
+    output$plot_losses <- plotly::renderPlotly({
+      dat <- losses_data_prep_plot(
+        df_losses(),
         input$select_year_monthly_losses,
-        input$select_month_monthly_losses,
-        resolution = "m"
+        resolution = "y"
       )
 
       losses_plot(dat)

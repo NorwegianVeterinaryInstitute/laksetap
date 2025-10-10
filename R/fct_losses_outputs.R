@@ -1,11 +1,11 @@
-#' loses_data_prep
+#' loses_data_prep_plot
 #'
 #' @description Function to make data for the month losses plot.
 #'
 #' @return A dataframe.
 #'
 #' @noRd
-losses_data_prep <- function(
+losses_data_prep_plot <- function(
   dat,
   select_year = NULL,
   select_month = NULL,
@@ -98,29 +98,63 @@ losses_plot <- function(dat) {
     plotly::config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
 }
 
-#' montly_loses_table
+#' loses_data_prep_table
+#'
+#' @description Function to make data for the month losses table.
+#'
+#' @return A dataframe.
+#'
+#' @noRd
+losses_data_prep_table <- function(dat) {
+  dat <- dat |>
+    dplyr::filter(
+      !area == "All"
+    ) |>
+    dplyr::select(
+      "year",
+      "month_name",
+      "area",
+      "losses",
+      "doed",
+      "ut",
+      "romt",
+      "ufor"
+    )
+}
+
+
+#' losses_table
 #'
 #' @description Function to make the monthly loses table.
 #'
 #' @return A datatable object.
 #'
 #' @noRd
-montly_loses_table <- function(dat) {}
-
-#' yearly_loses_plot
-#'
-#' @description Function to make the monthly loses plot.
-#'
-#' @return A plotly object.
-#'
-#' @noRd
-yearly_loses_plot <- function(dat) {}
-
-#' yearly_loses_table
-#'
-#' @description Function to make the monthly loses table.
-#'
-#' @return A datatable object.
-#'
-#' @noRd
-yearly_loses_plot <- function(dat) {}
+losses_table <- function(dat) {
+  DT::datatable(
+    dat,
+    rownames = F,
+    colnames = c(
+      "År",
+      "Måned",
+      "Område",
+      "Total",
+      "Døde",
+      "Utkast",
+      "Rømt",
+      "Annet"
+    ),
+    selection = (list(
+      mode = "multiple",
+      selected = "all",
+      target = "column"
+    )),
+    options = list(
+      sDom = '<"top">lrt<"bottom">ip',
+      scrollX = FALSE,
+      language = list(
+        url = "//cdn.datatables.net/plug-ins/2.0.1/i18n/no-NB.json"
+      )
+    )
+  )
+}
