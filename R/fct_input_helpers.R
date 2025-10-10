@@ -209,3 +209,115 @@ render_input_for_cohorts_table <- function(ns, dat, viz) {
     )
   }
 }
+
+#' render_input_for_losses_montly_table
+#'
+#' @param ns namespace function
+#' @param dat dataframe
+#' @param viz "zone", "fylke" or "all"
+#'
+#' @returns a taglist to be rendered in the UI
+#' for the table
+render_input_for_losses_montly_table <- function(ns, dat, viz) {
+  area <- as.character(unique(dat$area[dat$viz == viz]))
+
+  if (viz == "all") {
+    tagList(
+      fluidRow(
+        column(
+          width = 6,
+          select_year(
+            id = "select_years_losses_montly_table",
+            multiple = T
+          )
+        ),
+        column(
+          width = 6,
+          select_months(
+            id = "select_years_losses_montly_table",
+            digit = FALSE,
+            multiple = TRUE
+          )
+        )
+      )
+    )
+  } else {
+    tagList(
+      fluidRow(
+        column(
+          width = 4,
+          select_year(
+            id = "select_years_losses_montly_table",
+            multiple = T
+          )
+        ),
+        column(
+          width = 4,
+          select_months(
+            id = "select_years_losses_montly_table",
+            digit = FALSE,
+            multiple = TRUE
+          )
+        ),
+        column(
+          width = 4,
+          selectizeInput(
+            "select_areal_losses_montly_table",
+            "Velg flere områder",
+            area,
+            selected = area,
+            multiple = TRUE
+          )
+        )
+      )
+    )
+  }
+}
+
+#' render_input_for_losses_montly_table
+#'
+#' @param ns namespace function
+#' @param dat dataframe
+#' @param viz "zone", "fylke" or "all"
+#'
+#' @returns a taglist to be rendered in the UI
+#' for the table
+render_input_for_losses_yearly_table <- function(ns, dat, viz) {
+  area <- as.character(unique(dat$area[dat$viz == viz]))
+
+  if (viz == "all") {
+    tagList(
+      fluidRow(
+        column(
+          width = 6,
+          select_year(
+            id = "select_years_losses_montly_table",
+            multiple = T
+          )
+        )
+      )
+    )
+  } else {
+    tagList(
+      fluidRow(
+        column(
+          width = 6,
+          select_year(
+            id = "select_years_losses_montly_table",
+            multiple = T
+          )
+        ),
+        column(
+          width = 6,
+          selectizeInput(
+            "select_areal_losses_montly_table",
+            "Velg flere områder",
+            area,
+            selected = area,
+            multiple = TRUE
+          )
+        )
+      )
+    )
+  }
+}
