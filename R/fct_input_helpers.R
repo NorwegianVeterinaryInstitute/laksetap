@@ -210,7 +210,7 @@ render_input_for_cohorts_table <- function(ns, dat, viz) {
   }
 }
 
-#' render_input_for_losses_montly_table
+#' render_input_for_losses_monthly_table
 #'
 #' @param ns namespace function
 #' @param dat dataframe
@@ -218,8 +218,8 @@ render_input_for_cohorts_table <- function(ns, dat, viz) {
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the table
-render_input_for_losses_montly_table <- function(ns, dat, viz) {
-  area <- as.character(unique(dat$area[dat$viz == viz]))
+render_input_for_losses_monthly_table <- function(ns, dat, viz) {
+  area <- as.character(na.omit(unique(dat$area[dat$viz == viz])))
 
   if (viz == "all") {
     tagList(
@@ -227,14 +227,14 @@ render_input_for_losses_montly_table <- function(ns, dat, viz) {
         column(
           width = 6,
           select_year(
-            id = "select_years_losses_montly_table",
+            id = "select_years_losses_monthly_table",
             multiple = T
           )
         ),
         column(
           width = 6,
           select_months(
-            id = "select_years_losses_montly_table",
+            id = "select_months_losses_monthly_table",
             digit = FALSE,
             multiple = TRUE
           )
@@ -247,14 +247,14 @@ render_input_for_losses_montly_table <- function(ns, dat, viz) {
         column(
           width = 4,
           select_year(
-            id = "select_years_losses_montly_table",
+            id = "select_years_losses_monthly_table",
             multiple = T
           )
         ),
         column(
           width = 4,
           select_months(
-            id = "select_years_losses_montly_table",
+            id = "select_months_losses_monthly_table",
             digit = FALSE,
             multiple = TRUE
           )
@@ -262,7 +262,7 @@ render_input_for_losses_montly_table <- function(ns, dat, viz) {
         column(
           width = 4,
           selectizeInput(
-            "select_areal_losses_montly_table",
+            "select_area_losses_monthly_table",
             "Velg flere områder",
             area,
             selected = area,
@@ -274,7 +274,7 @@ render_input_for_losses_montly_table <- function(ns, dat, viz) {
   }
 }
 
-#' render_input_for_losses_montly_table
+#' render_input_for_losses_yearly_table
 #'
 #' @param ns namespace function
 #' @param dat dataframe
@@ -291,7 +291,7 @@ render_input_for_losses_yearly_table <- function(ns, dat, viz) {
         column(
           width = 6,
           select_year(
-            id = "select_years_losses_montly_table",
+            id = "select_years_losses_year_table",
             multiple = T
           )
         )
@@ -303,14 +303,14 @@ render_input_for_losses_yearly_table <- function(ns, dat, viz) {
         column(
           width = 6,
           select_year(
-            id = "select_years_losses_montly_table",
+            id = "select_years_losses_year_table",
             multiple = T
           )
         ),
         column(
           width = 6,
           selectizeInput(
-            "select_areal_losses_montly_table",
+            "select_area_losses_yearly_table",
             "Velg flere områder",
             area,
             selected = area,
