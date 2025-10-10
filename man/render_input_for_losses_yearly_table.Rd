@@ -2,7 +2,7 @@
 % Please edit documentation in R/fct_input_helpers.R
 \name{render_input_for_losses_yearly_table}
 \alias{render_input_for_losses_yearly_table}
-\title{render_input_for_losses_montly_table}
+\title{render_input_for_losses_yearly_table}
 \usage{
 render_input_for_losses_yearly_table(ns, dat, viz)
 }
@@ -18,5 +18,5 @@ a taglist to be rendered in the UI
 for the table
 }
 \description{
-render_input_for_losses_montly_table
+render_input_for_losses_yearly_table
 }
