@@ -120,7 +120,7 @@ mod_losses_server <- function(id) {
       )
 
     #### UI for table losses monthly ####
-    montly_table_inputs_ui <- shiny::reactive({
+    monthly_table_inputs_ui <- shiny::reactive({
       if (session$userData$geo_group() == "zone") {
         render_input_for_losses_monthly_table(
           ns = ns,
@@ -143,9 +143,9 @@ mod_losses_server <- function(id) {
     })
 
     output$tab_filter_monthly_losses_table <- shiny::renderUI({
-      montly_table_inputs_ui()
+      monthly_table_inputs_ui()
     }) |>
-      bindEvent(montly_table_inputs_ui())
+      bindEvent(monthly_table_inputs_ui())
 
     #### UI for table losses yearly ####
     yearly_table_inputs_ui <- shiny::reactive({
@@ -182,8 +182,8 @@ mod_losses_server <- function(id) {
         dat <- losses_data_prep_table(df_losses_month()) |>
           dplyr::filter(
             area == "Norge" &
-              year %in% input$select_years_losses_monthly_table &
-              month_name %in% input$select_months_losses_monthly_table
+              year %in% input$select_years_losses_monthly_table,
+            month_name %in% input$select_months_losses_monthly_table
           )
 
         losses_table(dat)
@@ -191,9 +191,9 @@ mod_losses_server <- function(id) {
         dat <- losses_data_prep_table(df_losses_month()) |>
           dplyr::filter(
             year %in%
-              input$select_years_losses_monthly_table &
-              area %in% input$select_months_losses_monthly_table &
-              month_name %in% input$select_area_losses_monthly_table
+              input$select_years_losses_monthly_table,
+            month_name %in% input$select_months_losses_monthly_table,
+            area %in% input$select_area_losses_monthly_table
           )
 
         losses_table(dat)
@@ -215,6 +215,8 @@ mod_losses_server <- function(id) {
 
     output$table_losses_year <- DT::renderDT({
       if (session$userData$geo_group() == "all") {
+        #browser()
+        #req(input$select_years_losses_year_table)
         dat <-
           df_losses() |>
           dplyr::select(
@@ -232,26 +234,25 @@ mod_losses_server <- function(id) {
 
         losses_table(dat)
       } else {
-        output$table_losses <- DT::renderDT({
-          dat <-
-            df_losses() |>
-            dplyr::select(
-              "year",
-              "area",
-              "losses",
-              "doed",
-              "ut",
-              "romt",
-              "ufor"
-            ) |>
-            dplyr::filter(
-              year %in%
-                input$select_years_losses_year_table &
-                area %in% input$select_area_losses_year_table
-            )
+        browser()
+        dat <-
+          df_losses() |>
+          dplyr::select(
+            "year",
+            "area",
+            "losses",
+            "doed",
+            "ut",
+            "romt",
+            "ufor"
+          ) |>
+          dplyr::filter(
+            year %in%
+              input$select_years_losses_year_table,
+            area %in% input$select_area_losses_year_table
+          )
 
-          losses_table(dat)
-        })
+        losses_table(dat)
       }
     })
 

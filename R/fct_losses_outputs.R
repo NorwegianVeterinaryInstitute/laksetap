@@ -133,7 +133,7 @@ losses_data_prep_table <- function(dat) {
 losses_table <- function(dat) {
   DT::datatable(
     dat,
-    rownames = F,
+    rownames = FALSE,
     colnames = c(
       "År",
       "Måned",

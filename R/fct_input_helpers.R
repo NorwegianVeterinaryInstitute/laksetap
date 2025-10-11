@@ -122,11 +122,11 @@ render_input_for_mortality_year <- function(ns, dat, viz) {
   area <- c(as.character(unique(dat$area[dat$viz == viz])), "Norge")
 
   if (viz == "all") {
-    tagList(
-      fluidRow(
-        column(
+    shiny::tagList(
+      shiny::fluidRow(
+        shiny::column(
           width = 6,
-          select_year(
+          shiny::select_year(
             ns("select_years_mortality_year"),
             multiple = TRUE,
             resolution = "y"
@@ -135,19 +135,19 @@ render_input_for_mortality_year <- function(ns, dat, viz) {
       )
     )
   } else {
-    tagList(
-      fluidRow(
-        column(
+    shiny::tagList(
+      shiny::fluidRow(
+        shiny::column(
           width = 6,
-          select_year(
+          shiny::select_year(
             ns("select_years_mortality_year"),
             multiple = TRUE,
             resolution = "y"
           )
         ),
-        column(
+        shiny::column(
           width = 6,
-          selectizeInput(
+          shiny::selectizeInput(
             ns("select_area_mortality_year"),
             "Velg flere områder",
             area,
@@ -222,19 +222,19 @@ render_input_for_losses_monthly_table <- function(ns, dat, viz) {
   area <- as.character(na.omit(unique(dat$area[dat$viz == viz])))
 
   if (viz == "all") {
-    tagList(
-      fluidRow(
-        column(
+    shiny::tagList(
+      shiny::fluidRow(
+        shiny::column(
           width = 6,
           select_year(
-            id = ns("select_years_losses_monthly_table"),
-            multiple = T
+            ns("select_years_losses_monthly_table"),
+            multiple = TRUE
           )
         ),
-        column(
+        shiny::column(
           width = 6,
           select_months(
-            id = ns("select_months_losses_monthly_table"),
+            ns("select_months_losses_monthly_table"),
             digit = FALSE,
             multiple = TRUE
           )
@@ -242,27 +242,27 @@ render_input_for_losses_monthly_table <- function(ns, dat, viz) {
       )
     )
   } else {
-    tagList(
-      fluidRow(
-        column(
+    shiny::tagList(
+      shiny::fluidRow(
+        shiny::column(
           width = 4,
           select_year(
-            id = ns("select_years_losses_monthly_table"),
-            multiple = T
+            ns("select_years_losses_monthly_table"),
+            multiple = TRUE
           )
         ),
-        column(
+        shiny::column(
           width = 4,
           select_months(
-            id = ns("select_months_losses_monthly_table"),
+            ns("select_months_losses_monthly_table"),
             digit = FALSE,
             multiple = TRUE
           )
         ),
-        column(
+        shiny::column(
           width = 4,
-          selectizeInput(
-            id = ns("select_area_losses_monthly_table"),
+          shiny::selectizeInput(
+            ns("select_area_losses_monthly_table"),
             "Velg flere områder",
             area,
             selected = area,
@@ -286,31 +286,33 @@ render_input_for_losses_yearly_table <- function(ns, dat, viz) {
   area <- as.character(unique(dat$area[dat$viz == viz]))
 
   if (viz == "all") {
-    tagList(
-      fluidRow(
-        column(
+    shiny::tagList(
+      shiny::fluidRow(
+        shiny::column(
           width = 6,
           select_year(
-            id = ns("select_years_losses_year_table"),
-            multiple = T
+            ns("select_years_losses_year_table"),
+            multiple = TRUE,
+            resolution = "y"
           )
         )
       )
     )
   } else {
-    tagList(
-      fluidRow(
-        column(
+    shiny::tagList(
+      shiny::fluidRow(
+        shiny::column(
           width = 6,
           select_year(
-            id = ns("select_years_losses_year_table"),
-            multiple = T
+            ns("select_years_losses_year_table"),
+            multiple = TRUE,
+            resolution = "y"
           )
         ),
-        column(
+        shiny::column(
           width = 6,
-          selectizeInput(
-            ns("select_area_losses_yearly_table"),
+          shiny::selectizeInput(
+            ns("select_area_losses_year_table"),
             "Velg flere områder",
             area,
             selected = area,
