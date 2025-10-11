@@ -56,7 +56,7 @@ mod_losses_ui <- function(id) {
           "Årlige tap diagram",
           shiny::br(),
           select_year(
-            id = ns("select_year_losses"),
+            id = ns("select_year_yearly_losses"),
             resolution = "y"
           ),
           plotly::plotlyOutput(ns("plot_losses")),
@@ -186,7 +186,7 @@ mod_losses_server <- function(id) {
             month_name %in% input$select_months_losses_monthly_table
           )
 
-        losses_table(dat)
+        losses_table(dat, resolution = "m")
       } else {
         dat <- losses_data_prep_table(df_losses_month()) |>
           dplyr::filter(
@@ -196,7 +196,7 @@ mod_losses_server <- function(id) {
             area %in% input$select_area_losses_monthly_table
           )
 
-        losses_table(dat)
+        losses_table(dat, resolution = "m")
       }
     })
 
@@ -215,8 +215,6 @@ mod_losses_server <- function(id) {
 
     output$table_losses_year <- DT::renderDT({
       if (session$userData$geo_group() == "all") {
-        #browser()
-        #req(input$select_years_losses_year_table)
         dat <-
           df_losses() |>
           dplyr::select(
@@ -232,9 +230,8 @@ mod_losses_server <- function(id) {
             year %in% input$select_years_losses_year_table
           )
 
-        losses_table(dat)
+        losses_table(dat, resolution = "y")
       } else {
-        browser()
         dat <-
           df_losses() |>
           dplyr::select(
@@ -252,7 +249,7 @@ mod_losses_server <- function(id) {
             area %in% input$select_area_losses_year_table
           )
 
-        losses_table(dat)
+        losses_table(dat, resolution = "y")
       }
     })
 
@@ -260,7 +257,7 @@ mod_losses_server <- function(id) {
     output$plot_losses <- plotly::renderPlotly({
       dat <- losses_data_prep_plot(
         df_losses(),
-        input$select_year_monthly_losses,
+        input$select_year_yearly_losses,
         resolution = "y"
       )
 

@@ -130,10 +130,8 @@ losses_data_prep_table <- function(dat) {
 #' @return A datatable object.
 #'
 #' @noRd
-losses_table <- function(dat) {
-  DT::datatable(
-    dat,
-    rownames = FALSE,
+losses_table <- function(dat, resolution) {
+  if (resolution == "m") {
     colnames = c(
       "År",
       "Måned",
@@ -143,7 +141,22 @@ losses_table <- function(dat) {
       "Utkast",
       "Rømt",
       "Annet"
-    ),
+    )
+  } else {
+    colnames = c(
+      "År",
+      "Område",
+      "Total",
+      "Døde",
+      "Utkast",
+      "Rømt",
+      "Annet"
+    )
+  }
+  DT::datatable(
+    dat,
+    rownames = FALSE,
+    colnames = colnames,
     selection = (list(
       mode = "multiple",
       selected = "all",
