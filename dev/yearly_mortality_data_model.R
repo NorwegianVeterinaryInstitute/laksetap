@@ -19,7 +19,7 @@ create_yearly_mortality <- function(geo_group){
   
   if (geo_group == "area"){
     # area - string
-    area <- c("1", "2", "3", "4", "5")
+    area <- c("area_1", "area_2", "area_3", "area_4", "area_5")
   }
   else if (geo_group == 'county'){
     # county - string
