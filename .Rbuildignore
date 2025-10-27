@@ -7,3 +7,6 @@ $run_dev.*
 ^.here$
 ^LICENSE\.md$
 ^README\.Rmd$
+^laksetap\.Rcheck$
+^laksetap.*\.tar\.gz$
+^laksetap.*\.tgz$

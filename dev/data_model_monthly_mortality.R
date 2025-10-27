@@ -60,7 +60,7 @@ dat_area <- create_monthly_mortality("area")
 dat_county <- create_monthly_mortality("county")
 dat_country <- create_monthly_mortality("country")
 
-#' @format A data frame with 1080 rows and 7 variables:
+#' @format A data frame with 1,080 rows and 7 variables:
 #' \describe{
 #'   \item{species}{Fish species, either salmon or rainbow trout}
 #'   \item{date}{Reporting month, ranging from 2020-01-01 to 2024-12-01}
