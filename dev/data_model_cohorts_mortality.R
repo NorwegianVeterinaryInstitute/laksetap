@@ -1,4 +1,4 @@
-#' create_yearly_mortality
+#' create_cohorts_mortality
 #' @title Create Yearly Mortality Data Model with Dummy Data
 #' Function to create the yearly mortality data model
 #' and fill in dummy data used for testing and development
@@ -12,15 +12,18 @@
 #' - For 'county': region values are county_1 to county_3
 #' - For 'country': region value is "Country"
 
-create_yearly_mortality <- function(geo_group) {
+create_cohorts_mortality <- function(geo_group) {
+  
   # species - string
-
+  
   species <- c('salmon', 'rainbowtrout')
-
+  
   # year - integer
-
+  
   year <- c(2020, 2021, 2022, 2023, 2024)
-
+  
+  # geo_group - string
+  
   if (geo_group == "area") {
     # area - string
     region <- c("area_1", "area_2", "area_3", "area_4", "area_5")
@@ -31,7 +34,7 @@ create_yearly_mortality <- function(geo_group) {
     # country - string
     region <- c("Country")
   }
-
+  
   dat <- expand.grid(
     species,
     year,
@@ -42,39 +45,45 @@ create_yearly_mortality <- function(geo_group) {
   )
   
   dat <- dat[sample(nrow(dat)), ]
-  
+
   # mortality value - numeric between 10 and 40
   
   n <- nrow(dat)
-  dat$mort <- round(runif(n, min = 0.1, max = 0.4), 2)
-
-  dat
+  dat$median_mort <- round(runif(n, min = 10, max = 40), 2)
+  dat$q1_mort <- round(runif(n, min = 1, max = 39), 2)
+  dat$q3_mort <- round(runif(n, min = 41, max = 80), 2)
   
+  dat
 }
-
-dat_area <- create_yearly_mortality("area")
-dat_county <- create_yearly_mortality("county")
-dat_country <- create_yearly_mortality("country")
+  
+dat_area <- create_cohorts_mortality("area")
+dat_county <- create_cohorts_mortality("county")
+dat_country <- create_cohorts_mortality("country")
 
 #' @format A data frame with 90 rows and 5 variables:
 #' \describe{
 #'   \item{species}{Fish species, either salmon or rainbow trout}
-#'   \item{year}{Year of data collection, ranging from 2020 to 2024}
+#'   \item{year}{Year of harvesting, ranging from 2020 to 2024}
 #'   \item{geo_group}{Geographic grouping level: area, county, or country}
 #'   \item{region}{The specific region name or code, depending on geo_group}
-#'   \item{mort}{Mortality measurement, randomly generated between 10 and 40}
+#'   \item{mort}{Median mortality measurements, randomly generated between 10 and 40}
+#'   \item{mort}{First mortality measurement, randomly generated between 1 and 39}
+#'   \item{mort}{Third quartile measurement, randomly generated between 41 and 80}
 #' }
 
-yearly_mortality_dummy_data <- dplyr::bind_rows(
+cohort_mortality_dummy_data <- dplyr::bind_rows(
   dat_area,
   dat_county,
   dat_country
 )
 
-names(yearly_mortality_dummy_data) <- c(
+names(cohort_mortality_dummy_data) <- c(
   "species",
   "year",
   "geo_group",
   "region",
-  "mort"
+  "median_mort",
+  "q1_mort",
+  "q3_mort"
 )
+

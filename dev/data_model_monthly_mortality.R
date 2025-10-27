@@ -13,6 +13,7 @@
 #' - For 'country': region value is "Country"
 
 create_monthly_mortality <- function(geo_group) {
+  
   # species - string
 
   species <- c('salmon', 'rainbowtrout')
@@ -36,20 +37,21 @@ create_monthly_mortality <- function(geo_group) {
     region <- c("Country")
   }
 
-  median_mort <- round(runif(10, min = 0.1, max = 0.4), 2)
-  q1_mort <- round(runif(10, min = 0.1, max = median_mort), 2)
-  q3_mort <- round(runif(10, min = median_mort, max = 0.4), 2)
-
   dat <- expand.grid(
     species,
     date,
     geo_group,
     region,
-    median_mort,
-    q1_mort,
-    q3_mort,
-    KEEP.OUT.ATTRS = FALSE
+    KEEP.OUT.ATTRS = FALSE,
+    stringsAsFactors = FALSE
   )
+  
+  dat <- dat[sample(nrow(dat)), ]
+  
+  n <- nrow(dat)
+  dat$median_mort <- round(runif(n, min = 0.5, max = 1.5), 2)
+  dat$q1_mort <- round(runif(n, min = 0.1, max = 0.49), 2)
+  dat$q3_mort <- round(runif(n, min = 1.51, max = 2.5), 2)
 
   dat
 }
@@ -58,17 +60,17 @@ dat_area <- create_monthly_mortality("area")
 dat_county <- create_monthly_mortality("county")
 dat_country <- create_monthly_mortality("country")
 
-
 #' @format A data frame with 1080 rows and 7 variables:
 #' \describe{
 #'   \item{species}{Fish species, either salmon or rainbow trout}
-#'   \item{date}{date of data collection, ranging from 2020-01-01 to 2024-12-01}
+#'   \item{date}{Reporting month, ranging from 2020-01-01 to 2024-12-01}
 #'   \item{geo_group}{Geographic grouping level: area, county, or country}
 #'   \item{region}{The specific region name or code, depending on geo_group}
-#'   \item{median_mort}{Median mortality measurement, randomly generated between 0.1 and 0.4}
-#'   \item{q1_mort}{First quartile mortality measurement, randomly generated between 0.1 and median mortality}
-#'   \item{q3_mort}{Third quartile mortality measurement, randomly generated between median mortality and 0.4}
+#'   \item{median_mort}{Median mortality measurement, randomly generated between 0.5 and 1.5}
+#'   \item{q1_mort}{First quartile mortality measurement, randomly generated between 0.1 and 0.49}
+#'   \item{q3_mort}{Third quartile mortality measurement, randomly generated between 1.51 mortality and 2.5}
 #' }
+
 monthly_mortality_dummy_data <- dplyr::bind_rows(
   dat_area,
   dat_county,
