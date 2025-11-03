@@ -36,13 +36,12 @@ load_data <- function() {
       geo_group = 'all'
     )
   } else {
+    # TODO fix correct datasets across the app
+    # losses are now in separate sources
     losses <- readRDS(
-      system.file(
-        "extdata",
-        "losses_and_mortality_yearly_data.rds",
-        package = "laksetap"
-      )
-    )
+      app_sys(
+        "data/losses_and_mortality_yearly_data.rds",
+      ))
     losses_monthly_data <- readRDS(
       system.file(
         "extdata",
@@ -51,11 +50,7 @@ load_data <- function() {
       )
     )
     mortality_rates_monthly_data <- readRDS(
-      system.file(
-        "extdata",
-        "mortality_rates_monthly_data.rds",
-        package = "laksetap"
-      )
+      app_sys("data/monthly_mortality_dummy_data.Rds")
     )
     mortality_cohorts_data <- readRDS(
       app_sys("data/losses.rds")
