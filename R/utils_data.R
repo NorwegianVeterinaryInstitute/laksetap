@@ -1,37 +1,80 @@
 #' @export
 load_data <- function() {
-  laksetap_board <- pins::board_connect()
+  env <- getOption("golem.app.prod")
 
-  losses <- pins::pin_read(
-    laksetap_board,
-    "vi2451/losses_and_mortality_yearly_data"
-  )
-  losses_monthly_data <- pins::pin_read(
-    laksetap_board,
-    "vi2451/losses_monthly_data"
-  )
-  mortality_rates_monthly_data <- pins::pin_read(
-    laksetap_board,
-    "vi2451/mortality_rates_monthly_data"
-  )
-  mortality_cohorts_data <- pins::pin_read(
-    laksetap_board,
-    "vi2451/mortality_cohorts_data"
-  )
+  if (env == TRUE) {
+    laksetap_board <- pins::board_connect()
 
-  mortality_cohorts_data_zone <- prep_cohorts_data(
-    mortality_cohorts_data,
-    geo_group = 'zone'
-  )
-  mortality_cohorts_data_fylke <- prep_cohorts_data(
-    mortality_cohorts_data,
-    geo_group = 'fylke'
-  )
+    losses <- pins::pin_read(
+      laksetap_board,
+      "vi2451/losses_and_mortality_yearly_data"
+    )
+    losses_monthly_data <- pins::pin_read(
+      laksetap_board,
+      "vi2451/losses_monthly_data"
+    )
+    mortality_rates_monthly_data <- pins::pin_read(
+      laksetap_board,
+      "vi2451/mortality_rates_monthly_data"
+    )
+    mortality_cohorts_data <- pins::pin_read(
+      laksetap_board,
+      "vi2451/mortality_cohorts_data"
+    )
 
-  mortality_cohorts_data_all <- prep_cohorts_data(
-    mortality_cohorts_data,
-    geo_group = 'all'
-  )
+    mortality_cohorts_data_zone <- prep_cohorts_data(
+      mortality_cohorts_data,
+      geo_group = 'zone'
+    )
+    mortality_cohorts_data_fylke <- prep_cohorts_data(
+      mortality_cohorts_data,
+      geo_group = 'fylke'
+    )
+
+    mortality_cohorts_data_all <- prep_cohorts_data(
+      mortality_cohorts_data,
+      geo_group = 'all'
+    )
+  } else {
+    losses <- readRDS(
+      system.file(
+        "extdata",
+        "losses_and_mortality_yearly_data.rds",
+        package = "laksetap"
+      )
+    )
+    losses_monthly_data <- readRDS(
+      system.file(
+        "extdata",
+        "losses_monthly_data.rds",
+        package = "laksetap"
+      )
+    )
+    mortality_rates_monthly_data <- readRDS(
+      system.file(
+        "extdata",
+        "mortality_rates_monthly_data.rds",
+        package = "laksetap"
+      )
+    )
+    mortality_cohorts_data <- readRDS(
+      app_sys("data/losses.rds")
+    )
+
+    mortality_cohorts_data_zone <- prep_cohorts_data(
+      mortality_cohorts_data,
+      geo_group = 'zone'
+    )
+    mortality_cohorts_data_fylke <- prep_cohorts_data(
+      mortality_cohorts_data,
+      geo_group = 'fylke'
+    )
+
+    mortality_cohorts_data_all <- prep_cohorts_data(
+      mortality_cohorts_data,
+      geo_group = 'all'
+    )
+  }
 
   options(losses = losses)
   options(losses_monthly_data = losses_monthly_data)
