@@ -5,14 +5,14 @@
 #'
 #' @param ns namespace function
 #' @param dat dataframe
-#' @param viz "zone", "fylke" or "all"
+#' @param geo_group "area", "county" or "country"
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the plot
-render_input_for_mortality_month_plot <- function(ns, dat, viz) {
-  area <- c(as.character(unique(dat$area[dat$viz == viz])), "Norge")
+render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
+  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])), "Norge")
 
-  if (viz == "all") {
+  if (geo_group == "country") {
     shiny::tagList(
       shiny::fluidRow(
         shiny::column(
@@ -37,9 +37,9 @@ render_input_for_mortality_month_plot <- function(ns, dat, viz) {
         shiny::column(
           width = 4,
           shiny::selectInput(
-            ns("select_area_mortality_month_plot"),
+            ns("select_region_mortality_month_plot"),
             "Velg flere områder:",
-            area,
+            region,
             selected = c("Norge"),
             multiple = TRUE
           )
@@ -53,14 +53,14 @@ render_input_for_mortality_month_plot <- function(ns, dat, viz) {
 #'
 #' @param ns namespace function
 #' @param dat dataframe
-#' @param viz "zone", "fylke" or "all"
+#' @param geo_group "area", "county" or "country"
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the table
-render_input_for_mortality_month_table <- function(ns, dat, viz) {
-  area <- c(as.character(unique(dat$area[dat$viz == viz])), "Norge")
+render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
+  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])), "Norge")
 
-  if (viz == "all") {
+  if (geo_group == "country") {
     shiny::tagList(
       shiny::fluidRow(
         shiny::column(
@@ -97,10 +97,10 @@ render_input_for_mortality_month_table <- function(ns, dat, viz) {
         shiny::column(
           width = 4,
           shiny::selectizeInput(
-            ns("select_area_mortality_month"),
+            ns("select_region_mortality_month"),
             "Velg flere områder",
-            area,
-            selected = area,
+            region,
+            selected = region,
             multiple = TRUE
           )
         )
@@ -114,14 +114,14 @@ render_input_for_mortality_month_table <- function(ns, dat, viz) {
 #'
 #' @param ns namespace function
 #' @param dat dataframe
-#' @param viz "zone", "fylke" or "all"
+#' @param geo_group "area", "county" or "country"
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the table
-render_input_for_mortality_year <- function(ns, dat, viz) {
-  area <- c(as.character(unique(dat$area[dat$viz == viz])), "Norge")
+render_input_for_mortality_year <- function(ns, dat, geo_group) {
+  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])), "Norge")
 
-  if (viz == "all") {
+  if (geo_group == "country") {
     shiny::tagList(
       shiny::fluidRow(
         shiny::column(
@@ -148,10 +148,10 @@ render_input_for_mortality_year <- function(ns, dat, viz) {
         shiny::column(
           width = 6,
           shiny::selectizeInput(
-            ns("select_area_mortality_year"),
+            ns("select_region_mortality_year"),
             "Velg flere områder",
-            area,
-            selected = area,
+            region,
+            selected = region,
             multiple = TRUE
           )
         )
@@ -164,14 +164,14 @@ render_input_for_mortality_year <- function(ns, dat, viz) {
 #'
 #' @param ns namespace function
 #' @param dat dataframe
-#' @param viz "zone", "fylke" or "all"
+#' @param geo_group "area", "county" or "country"
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the table
-render_input_for_cohorts_table <- function(ns, dat, viz) {
-  area <- as.character(unique(dat$area[dat$viz == viz]))
+render_input_for_cohorts_table <- function(ns, dat, geo_group) {
+  region <- as.character(unique(dat$region[dat$geo_group == geo_group]))
 
-  if (viz == "all") {
+  if (geo_group == "country") {
     shiny::tagList(
       shiny::fluidRow(
         shiny::column(
@@ -198,10 +198,10 @@ render_input_for_cohorts_table <- function(ns, dat, viz) {
         shiny::column(
           width = 4,
           shiny::selectInput(
-            ns("select_area_cohort_table"),
+            ns("select_region_cohort_table"),
             "Velg flere områder:",
-            area,
-            selected = area,
+            region,
+            selected = region,
             multiple = TRUE
           )
         )
@@ -214,14 +214,14 @@ render_input_for_cohorts_table <- function(ns, dat, viz) {
 #'
 #' @param ns namespace function
 #' @param dat dataframe
-#' @param viz "zone", "fylke" or "all"
+#' @param geo_group "area", "county" or "country"
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the table
-render_input_for_losses_monthly_table <- function(ns, dat, viz) {
-  area <- as.character(na.omit(unique(dat$area[dat$viz == viz])))
+render_input_for_losses_monthly_table <- function(ns, dat, geo_group) {
+  region <- as.character(na.omit(unique(dat$region[dat$geo_group == geo_group])))
 
-  if (viz == "all") {
+  if (geo_group == "country") {
     shiny::tagList(
       shiny::fluidRow(
         shiny::column(
@@ -262,10 +262,10 @@ render_input_for_losses_monthly_table <- function(ns, dat, viz) {
         shiny::column(
           width = 4,
           shiny::selectizeInput(
-            ns("select_area_losses_monthly_table"),
+            ns("select_region_losses_monthly_table"),
             "Velg flere områder",
-            area,
-            selected = area,
+            region,
+            selected = region,
             multiple = TRUE
           )
         )
@@ -278,14 +278,14 @@ render_input_for_losses_monthly_table <- function(ns, dat, viz) {
 #'
 #' @param ns namespace function
 #' @param dat dataframe
-#' @param viz "zone", "fylke" or "all"
+#' @param geo_group "area", "county" or "country"
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the table
-render_input_for_losses_yearly_table <- function(ns, dat, viz) {
-  area <- as.character(unique(dat$area[dat$viz == viz]))
+render_input_for_losses_yearly_table <- function(ns, dat, geo_group) {
+  region <- as.character(unique(dat$region[dat$geo_group == geo_group]))
 
-  if (viz == "all") {
+  if (geo_group == "country") {
     shiny::tagList(
       shiny::fluidRow(
         shiny::column(
@@ -312,10 +312,10 @@ render_input_for_losses_yearly_table <- function(ns, dat, viz) {
         shiny::column(
           width = 6,
           shiny::selectizeInput(
-            ns("select_area_losses_year_table"),
+            ns("select_region_losses_year_table"),
             "Velg flere områder",
-            area,
-            selected = area,
+            region,
+            selected = region,
             multiple = TRUE
           )
         )
