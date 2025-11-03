@@ -59,7 +59,7 @@ mod_monthly_mortality_server <- function(id) {
           mortality_rates_monthly_data |>
             dplyr::filter(
               species == session$userData$species() &
-                viz %in% c(session$userData$geo_group(), "all")
+                viz %in% c(session$userData$geo_group(), "country")
             )
         }
       )
@@ -82,7 +82,7 @@ mod_monthly_mortality_server <- function(id) {
         render_input_for_mortality_month_plot(
           ns = ns,
           dat = df_mort_month(),
-          viz = "all"
+          viz = "country"
         )
       }
     }) |>
@@ -110,7 +110,7 @@ mod_monthly_mortality_server <- function(id) {
         render_input_for_mortality_month_table(
           ns = ns,
           dat = df_mort_month(),
-          viz = "all"
+          viz = "country"
         )
       }
     })
@@ -147,7 +147,7 @@ mod_monthly_mortality_server <- function(id) {
         ) |>
         dplyr::select(year, month_name, region, q1, median, q3)
 
-      if (session$userData$geo_group() != "all") {
+      if (session$userData$geo_group() != "country") {
         req(input$select_region_mortality_month)
         dat <- dat |> dplyr::filter(region %in% input$select_region_mortality_month)
       }
