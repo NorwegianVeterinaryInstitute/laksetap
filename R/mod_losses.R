@@ -179,7 +179,7 @@ mod_losses_server <- function(id) {
     #### Losses monthly ####
     output$table_losses_month <- DT::renderDT({
       if (session$userData$geo_group() == "all") {
-        dat <- losses_data_prep_table(df_losses_month()) |>
+        dat <- losses_data_prep_table(df_losses_month(), resolution='m') |>
           dplyr::filter(
             area == "Norge" &
               year %in% input$select_years_losses_monthly_table,
@@ -188,7 +188,7 @@ mod_losses_server <- function(id) {
 
         losses_table(dat, resolution = "m")
       } else {
-        dat <- losses_data_prep_table(df_losses_month()) |>
+        dat <- losses_data_prep_table(df_losses_month(), resolution='m') |>
           dplyr::filter(
             year %in%
               input$select_years_losses_monthly_table,
@@ -215,34 +215,16 @@ mod_losses_server <- function(id) {
 
     output$table_losses_year <- DT::renderDT({
       if (session$userData$geo_group() == "all") {
-        dat <-
-          df_losses() |>
-          dplyr::select(
-            "year",
-            "area",
-            "losses",
-            "doed",
-            "ut",
-            "romt",
-            "ufor"
-          ) |>
+        dat <- losses_data_prep_table(
+          df_losses(), resolution = "y") |> 
           dplyr::filter(
             year %in% input$select_years_losses_year_table
           )
 
         losses_table(dat, resolution = "y")
       } else {
-        dat <-
-          df_losses() |>
-          dplyr::select(
-            "year",
-            "area",
-            "losses",
-            "doed",
-            "ut",
-            "romt",
-            "ufor"
-          ) |>
+        losses_data_prep_table(
+          df_losses(), resolution = "y") |> 
           dplyr::filter(
             year %in%
               input$select_years_losses_year_table,
