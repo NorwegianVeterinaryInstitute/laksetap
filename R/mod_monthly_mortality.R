@@ -126,10 +126,10 @@ mod_monthly_mortality_server <- function(id) {
     output$plot_mortality_month <- plotly::renderPlotly({
       req(df_mort_month())
       req(input$select_years_mortality_month)
-      req(input$select_area_mortality_month_plot)
+      req(input$select_region_mortality_month_plot)
       p <- df_mort_month() |>
         dplyr::filter(year %in% input$select_years_mortality_month) |>
-        dplyr::filter(area %in% c(input$select_area_mortality_month_plot)) |>
+        dplyr::filter(area %in% c(input$select_region_mortality_month_plot)) |>
         montly_mortality_plot()
 
       style_plotly(p)
@@ -141,21 +141,15 @@ mod_monthly_mortality_server <- function(id) {
       req(input$select_years_mortality_month_table)
       req(input$select_months_mortality_month_table)
       dat <- df_mort_month() |>
-        dplyr::filter(!is.na(median)) |>
         dplyr::filter(
           year %in% input$select_years_mortality_month_table,
           month_name %in% input$select_months_mortality_month_table
         ) |>
-        dplyr::select(year, month_name, area, q1, median, q3) |>
-        dplyr::mutate(
-          q1 = round(q1, 2),
-          median = round(median, 2),
-          q3 = round(q3, 2)
-        )
+        dplyr::select(year, month_name, region, q1, median, q3)
 
       if (session$userData$geo_group() != "all") {
-        req(input$select_area_mortality_month)
-        dat <- dat |> dplyr::filter(area %in% input$select_area_mortality_month)
+        req(input$select_region_mortality_month)
+        dat <- dat |> dplyr::filter(region %in% input$select_region_mortality_month)
       }
 
       montly_mortality_table(dat)
