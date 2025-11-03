@@ -10,13 +10,13 @@
 
 create_yearly_losses <- function(geo_group) {
   # species - string
-  
+
   species <- c('salmon', 'rainbowtrout')
-  
+
   # year - integer
-  
+
   year <- c(2020, 2021, 2022, 2023, 2024)
-  
+
   if (geo_group == "area") {
     # area - string
     region <- c("area_1", "area_2", "area_3", "area_4", "area_5")
@@ -27,7 +27,7 @@ create_yearly_losses <- function(geo_group) {
     # country - string
     region <- c("Country")
   }
-  
+
   dat <- expand.grid(
     species,
     year,
@@ -36,20 +36,19 @@ create_yearly_losses <- function(geo_group) {
     KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE
   )
-  
+
   dat <- dat[sample(nrow(dat)), ]
-  
+
   # mortality value - numeric between 10 and 40
-  
+
   n <- nrow(dat)
   dat$losses <- round(runif(n, min = 50000000, max = 1000000000))
   dat$dead <- round(runif(n, min = 50000000, max = 90000000))
   dat$discarded <- round(runif(n, min = 1000000, max = 5000000))
   dat$escaped <- round(runif(n, min = 100, max = 100000))
   dat$other <- round(runif(n, min = 1000000, max = 15000000))
-  
+
   dat
-  
 }
 
 dat_area <- create_yearly_losses("area")
@@ -87,4 +86,7 @@ names(yearly_losses_dummy_data) <- c(
   "other"
 )
 
-
+saveRDS(
+  yearly_losses_dummy_data,
+  file = "inst/data/yearly_losses_dummy_data.Rds"
+)

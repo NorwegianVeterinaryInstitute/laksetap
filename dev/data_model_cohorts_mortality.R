@@ -13,17 +13,16 @@
 #' - For 'country': region value is "Country"
 
 create_cohorts_mortality <- function(geo_group) {
-  
   # species - string
-  
+
   species <- c('salmon', 'rainbowtrout')
-  
+
   # year - integer
-  
+
   year <- c(2020, 2021, 2022, 2023, 2024)
-  
+
   # geo_group - string
-  
+
   if (geo_group == "area") {
     # area - string
     region <- c("area_1", "area_2", "area_3", "area_4", "area_5")
@@ -34,7 +33,7 @@ create_cohorts_mortality <- function(geo_group) {
     # country - string
     region <- c("Country")
   }
-  
+
   dat <- expand.grid(
     species,
     year,
@@ -43,19 +42,19 @@ create_cohorts_mortality <- function(geo_group) {
     KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE
   )
-  
+
   dat <- dat[sample(nrow(dat)), ]
 
   # mortality value - numeric between 10 and 40
-  
+
   n <- nrow(dat)
   dat$median_mort <- round(runif(n, min = 10, max = 40), 2)
   dat$q1_mort <- round(runif(n, min = 1, max = 39), 2)
   dat$q3_mort <- round(runif(n, min = 41, max = 80), 2)
-  
+
   dat
 }
-  
+
 dat_area <- create_cohorts_mortality("area")
 dat_county <- create_cohorts_mortality("county")
 dat_country <- create_cohorts_mortality("country")
@@ -87,3 +86,7 @@ names(cohort_mortality_dummy_data) <- c(
   "q3_mort"
 )
 
+saveRDS(
+  cohort_mortality_dummy_data,
+  file = "inst/data/cohort_mortality_dummy_data.Rds"
+)

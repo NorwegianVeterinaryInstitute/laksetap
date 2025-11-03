@@ -9,16 +9,19 @@
 #' - For 'country': region value is "Country"
 
 create_monthly_losses <- function(geo_group) {
-  
   # species - string
-  
+
   species <- c('salmon', 'rainbowtrout')
-  
+
   # year_month - string
-  
-  dates <- seq.Date(from = as.Date("2020-01-01"), to = as.Date("2024-12-01"), by = "month")
+
+  dates <- seq.Date(
+    from = as.Date("2020-01-01"),
+    to = as.Date("2024-12-01"),
+    by = "month"
+  )
   year_month <- format(dates, "%Y-%m")
-  
+
   if (geo_group == "area") {
     # area - string
     region <- c("area_1", "area_2", "area_3", "area_4", "area_5")
@@ -29,7 +32,7 @@ create_monthly_losses <- function(geo_group) {
     # country - string
     region <- c("Country")
   }
-  
+
   dat <- expand.grid(
     species,
     year_month,
@@ -38,20 +41,19 @@ create_monthly_losses <- function(geo_group) {
     KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE
   )
-  
+
   dat <- dat[sample(nrow(dat)), ]
-  
+
   # mortality value - numeric between 10 and 40
-  
+
   n <- nrow(dat)
   dat$losses <- round(runif(n, min = 500000, max = 10000000))
   dat$dead <- round(runif(n, min = 500000, max = 8000000))
   dat$discarded <- round(runif(n, min = 100000, max = 5000000))
   dat$escaped <- round(runif(n, min = 0, max = 50000))
   dat$other <- round(runif(n, min = 50000, max = 5000000))
-  
+
   dat
-  
 }
 
 dat_area <- create_monthly_losses("area")
@@ -89,3 +91,7 @@ names(monthly_losses_dummy_data) <- c(
   "other"
 )
 
+saveRDS(
+  monthly_losses_dummy_data,
+  file = "inst/data/monthly_losses_dummy_data.Rds"
+)

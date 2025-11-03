@@ -40,16 +40,15 @@ create_yearly_mortality <- function(geo_group) {
     KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE
   )
-  
+
   dat <- dat[sample(nrow(dat)), ]
-  
+
   # mortality value - numeric between 10 and 40
-  
+
   n <- nrow(dat)
   dat$mort <- round(runif(n, min = 0.1, max = 0.4), 2)
 
   dat
-  
 }
 
 dat_area <- create_yearly_mortality("area")
@@ -77,4 +76,9 @@ names(yearly_mortality_dummy_data) <- c(
   "geo_group",
   "region",
   "mort"
+)
+
+saveRDS(
+  yearly_mortality_dummy_data,
+  file = "inst/data/yearly_mortality_dummy_data.Rds"
 )

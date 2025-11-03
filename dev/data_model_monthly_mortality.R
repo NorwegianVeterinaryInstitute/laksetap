@@ -13,7 +13,6 @@
 #' - For 'country': region value is "Country"
 
 create_monthly_mortality <- function(geo_group) {
-  
   # species - string
 
   species <- c('salmon', 'rainbowtrout')
@@ -45,9 +44,9 @@ create_monthly_mortality <- function(geo_group) {
     KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE
   )
-  
+
   dat <- dat[sample(nrow(dat)), ]
-  
+
   n <- nrow(dat)
   dat$median_mort <- round(runif(n, min = 0.5, max = 1.5), 2)
   dat$q1_mort <- round(runif(n, min = 0.1, max = 0.49), 2)
@@ -85,4 +84,9 @@ names(monthly_mortality_dummy_data) <- c(
   "median_mort",
   "q1_mort",
   "q3_mort"
+)
+
+saveRDS(
+  monthly_mortality_dummy_data,
+  file = "inst/data/monthly_mortality_dummy_data.Rds"
 )
