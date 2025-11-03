@@ -11,7 +11,7 @@ montly_mortality_plot <- function(dat) {
         aes(
             x = date,
             y = median,
-            group = area,
+            group = region,
             text = paste0(
                 "Median: ",
                 round(median, 2),
@@ -23,13 +23,13 @@ montly_mortality_plot <- function(dat) {
         ) +
         labs(x = "Måned", y = "Dødelighet (%)") +
         geom_line(aes(
-            color = factor(area)
+            color = factor(region)
         )) +
         geom_ribbon(
             aes(
                 ymin = .data$q1,
                 ymax = .data$q3,
-                fill = factor(area)
+                fill = factor(region)
             ),
             linetype = 0,
             alpha = 0.1,
