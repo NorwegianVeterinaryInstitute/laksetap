@@ -15,12 +15,11 @@ create_monthly_losses <- function(geo_group) {
 
   # year_month - string
 
-  dates <- seq.Date(
+  date <- seq.Date(
     from = as.Date("2020-01-01"),
     to = as.Date("2024-12-01"),
     by = "month"
   )
-  year_month <- format(dates, "%Y-%m")
 
   if (geo_group == "area") {
     # area - string
@@ -35,7 +34,7 @@ create_monthly_losses <- function(geo_group) {
 
   dat <- expand.grid(
     species,
-    year_month,
+    date,
     geo_group,
     region,
     KEEP.OUT.ATTRS = FALSE,
@@ -63,7 +62,7 @@ dat_country <- create_monthly_losses("country")
 #' @format A data frame with 1,080 rows and 9 variables:
 #' \describe{
 #'   \item{species}{Fish species, either salmon or rainbow trout}
-#'   \item{year}{Year of data collection, ranging from 2020 to 2024}
+#'   \item{date}{Year of data collection, ranging from 2020 to 2024}
 #'   \item{geo_group}{Geographic grouping level: area, county, or country}
 #'   \item{region}{The specific region name or code, depending on geo_group}
 #'   \item{losses}{The number of lost fish — categorized as dead, discarded, escaped, or other — was randomly generated to fall between 500,000 and 10,000,000}
@@ -71,6 +70,9 @@ dat_country <- create_monthly_losses("country")
 #'   \item{discarded}{The number of downgraded fish sorted out at the slaughterhouse and deemed unfit for human consumption — for example due to sexual maturation, blemishes, or deformities — was randomly generated randomly generated to fall between 100,000 and 5,000,000}
 #'   \item{escaped}{The number of escapted fish due to accidents was randomly generated to fall between 0 and 50,000}
 #'   \item{other}{The number of lost fish due to due to reasons not covered by the other three categories was randomly generated to fall between 50,000 and 5,000,000}
+#'   \item{year_month}{Year_month string}
+#'   \item{year}{Year}
+#'   \item{month_name}{Abbrevated name of month}
 #' }
 
 monthly_losses_dummy_data <- dplyr::bind_rows(
@@ -81,7 +83,7 @@ monthly_losses_dummy_data <- dplyr::bind_rows(
 
 names(monthly_losses_dummy_data) <- c(
   "species",
-  "year_month",
+  "date",
   "geo_group",
   "region",
   "losses",
@@ -90,6 +92,12 @@ names(monthly_losses_dummy_data) <- c(
   "escaped",
   "other"
 )
+
+# adding columns used in plot and table for colors/filtering, etc.
+monthly_losses_dummy_data <- monthly_losses_dummy_data |> 
+  dplyr::mutate(year_month = format(date, "%Y-%m")) |> 
+  dplyr::mutate(year = format(date, "%Y")) |> 
+  dplyr::mutate(month_name = format(date, "%b"))
 
 saveRDS(
   monthly_losses_dummy_data,
