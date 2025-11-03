@@ -1,3 +1,6 @@
+#' load_data
+#' Function to load data for the app depending on the
+#' environment prod or dev as set up by golem.app.prod option
 #' @export
 load_data <- function() {
   env <- getOption("golem.app.prod")
@@ -80,6 +83,13 @@ load_data <- function() {
   options(mortality_rates_monthly_data = mortality_rates_monthly_data)
 }
 
+#' prep_cohorts_data
+#' Function to prepare the cohorts dataset for plotting
+#'
+#' @param dat 
+#' @param geo_group 
+#'
+#' @returns a formatted dataframe
 prep_cohorts_data <- function(dat, geo_group) {
   if (geo_group == "zone") {
     prep_dat <- dat |>
