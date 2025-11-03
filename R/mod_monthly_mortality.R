@@ -59,7 +59,7 @@ mod_monthly_mortality_server <- function(id) {
           mortality_rates_monthly_data |>
             dplyr::filter(
               species == session$userData$species() &
-                viz %in% c(session$userData$geo_group(), "country")
+                geo_group %in% c(session$userData$geo_group(), "country")
             )
         }
       )
@@ -70,19 +70,19 @@ mod_monthly_mortality_server <- function(id) {
         render_input_for_mortality_month_plot(
           ns = ns,
           dat = df_mort_month(),
-          viz = "zone"
+          geo_group = "zone"
         )
       } else if (session$userData$geo_group() == "fylke") {
         render_input_for_mortality_month_plot(
           ns = ns,
           dat = df_mort_month(),
-          viz = "fylke"
+          geo_group = "fylke"
         )
       } else {
         render_input_for_mortality_month_plot(
           ns = ns,
           dat = df_mort_month(),
-          viz = "country"
+          geo_group = "country"
         )
       }
     }) |>
@@ -98,19 +98,19 @@ mod_monthly_mortality_server <- function(id) {
         render_input_for_mortality_month_table(
           ns = ns,
           dat = df_mort_month(),
-          viz = "zone"
+          geo_group = "zone"
         )
       } else if (session$userData$geo_group() == "fylke") {
         render_input_for_mortality_month_table(
           ns = ns,
           dat = df_mort_month(),
-          viz = "fylke"
+          geo_group = "fylke"
         )
       } else {
         render_input_for_mortality_month_table(
           ns = ns,
           dat = df_mort_month(),
-          viz = "country"
+          geo_group = "country"
         )
       }
     })
