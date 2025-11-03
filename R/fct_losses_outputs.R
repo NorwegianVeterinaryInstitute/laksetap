@@ -98,28 +98,40 @@ losses_plot <- function(dat) {
     plotly::config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
 }
 
+
 #' loses_data_prep_table
 #'
 #' @description Function to make data for the month losses table.
 #'
 #' @return A dataframe.
 #'
+#' @param dat 
+#' @param resolution 
+#'
 #' @noRd
-losses_data_prep_table <- function(dat) {
-  dat <- dat |>
-    dplyr::filter(
-      !area == "All"
-    ) |>
+losses_data_prep_table <- function(dat, resolution) {
+  if (resolution == "m") {
+  dat |>
     dplyr::select(
       "year",
       "month_name",
-      "area",
+      "region",
       "losses",
-      "doed",
-      "ut",
-      "romt",
-      "ufor"
-    )
+      "dead",
+      "discarded",
+      "escaped",
+      "other"
+    )} else {
+      dat |>
+        dplyr::select(
+          "year",
+          "region",
+          "losses",
+          "dead",
+          "discarded",
+          "escaped",
+          "other")
+    }
 }
 
 
