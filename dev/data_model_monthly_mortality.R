@@ -48,9 +48,9 @@ create_monthly_mortality <- function(geo_group) {
   dat <- dat[sample(nrow(dat)), ]
 
   n <- nrow(dat)
-  dat$median_mort <- round(runif(n, min = 0.5, max = 1.5), 2)
-  dat$q1_mort <- round(runif(n, min = 0.1, max = 0.49), 2)
-  dat$q3_mort <- round(runif(n, min = 1.51, max = 2.5), 2)
+  dat$median<- round(runif(n, min = 0.5, max = 1.5), 2)
+  dat$q1<- round(runif(n, min = 0.1, max = 0.49), 2)
+  dat$q3<- round(runif(n, min = 1.51, max = 2.5), 2)
 
   dat
 }
@@ -65,9 +65,9 @@ dat_country <- create_monthly_mortality("country")
 #'   \item{date}{Reporting month, ranging from 2020-01-01 to 2024-12-01}
 #'   \item{geo_group}{Geographic grouping level: area, county, or country}
 #'   \item{region}{The specific region name or code, depending on geo_group}
-#'   \item{median_mort}{Median mortality measurement, randomly generated between 0.5 and 1.5}
-#'   \item{q1_mort}{First quartile mortality measurement, randomly generated between 0.1 and 0.49}
-#'   \item{q3_mort}{Third quartile mortality measurement, randomly generated between 1.51 mortality and 2.5}
+#'   \item{median}{Median mortality measurement, randomly generated between 0.5 and 1.5}
+#'   \item{q1}{First quartile mortality measurement, randomly generated between 0.1 and 0.49}
+#'   \item{q3}{Third quartile mortality measurement, randomly generated between 1.51 mortality and 2.5}
 #' }
 
 monthly_mortality_dummy_data <- dplyr::bind_rows(
@@ -81,10 +81,12 @@ names(monthly_mortality_dummy_data) <- c(
   "date",
   "geo_group",
   "region",
-  "median_mort",
-  "q1_mort",
-  "q3_mort"
+  "median",
+  "q1",
+  "q3"
 )
+
+
 
 saveRDS(
   monthly_mortality_dummy_data,
