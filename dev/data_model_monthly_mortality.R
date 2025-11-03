@@ -68,6 +68,8 @@ dat_country <- create_monthly_mortality("country")
 #'   \item{median}{Median mortality measurement, randomly generated between 0.5 and 1.5}
 #'   \item{q1}{First quartile mortality measurement, randomly generated between 0.1 and 0.49}
 #'   \item{q3}{Third quartile mortality measurement, randomly generated between 1.51 mortality and 2.5}
+#'   \item{year}{The repoting year}
+#'   \item{month_name}{Abbrevated month name}
 #' }
 
 monthly_mortality_dummy_data <- dplyr::bind_rows(
