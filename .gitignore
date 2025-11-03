@@ -1,4 +1,5 @@
 *data
+!inst/data
 *.Rproj.user
 *.Rhistory
 .Rproj.user
