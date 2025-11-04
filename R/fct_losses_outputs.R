@@ -105,8 +105,8 @@ losses_plot <- function(dat) {
 #'
 #' @return A dataframe.
 #'
-#' @param dat 
-#' @param resolution 
+#' @param dat a data frame
+#' @param resolution 'm' or 'y' when the data is on monthly on yearly level
 #'
 #' @noRd
 losses_data_prep_table <- function(dat, resolution) {
@@ -138,6 +138,9 @@ losses_data_prep_table <- function(dat, resolution) {
 #' losses_table
 #'
 #' @description Function to make the monthly loses table.
+#' 
+#' @param dat a data frame
+#' @param resolution 'm' or 'y' when the data is on monthly on yearly level
 #'
 #' @return A datatable object.
 #'
