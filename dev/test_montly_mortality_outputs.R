@@ -7,14 +7,12 @@ library(ggplot2)
 library(plotly)
 library(DT)
 
-
-
 dat <- readRDS("inst/data/monthly_mortality_dummy_data.rds")
 
-#### Plot for montly mortality
+#### Plot for monthly mortality
 
 # data is first filtered on species and geo_group
-# but we always keep the whole country, so that is hard-codded
+# but we always keep the whole country, so that is hard-coded
 # then it is filtered on years and specific areas 
 # to make the plot
 
@@ -35,7 +33,7 @@ to_plot <- dat |>
   dplyr::filter(year %in% input_year) |> 
   dplyr::filter(region %in% input_area) 
 
-montly_mortality_plot(to_plot) |> 
+monthly_mortality_plot(to_plot) |> 
   style_plotly()
 
 
@@ -46,4 +44,4 @@ dat |>
   dplyr::filter(geo_group %in% input_geo_group) |> 
   dplyr::filter(year %in% input_year) |> 
   dplyr::select(year, month_name, region, q1, median, q3) |>
-  montly_mortality_table()
+  monthly_mortality_table()
