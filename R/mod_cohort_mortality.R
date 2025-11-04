@@ -59,9 +59,9 @@ mod_cohort_mortality_server <- function(id) {
 
     #### Used in the plot ####
 
-    mortality_cohorts_data_zone <- getOption("mortality_cohorts_data_zone")
-    mortality_cohorts_data_fylke <- getOption("mortality_cohorts_data_fylke")
-    mortality_cohorts_data_all <- getOption("mortality_cohorts_data_all")
+    mortality_cohorts_data_area <- getOption("mortality_cohorts_data_zone")
+    mortality_cohorts_data_county <- getOption("mortality_cohorts_data_county")
+    mortality_cohorts_data_country <- getOption("mortality_cohorts_data_country")
 
     #### Used in the table ####
     mortality_cohorts_data <- getOption("mortality_cohorts_data")
@@ -73,30 +73,30 @@ mod_cohort_mortality_server <- function(id) {
           mortality_cohorts_data |>
             dplyr::filter(
               species == session$userData$species() &
-                viz == session$userData$geo_group()
+                geo_group == session$userData$geo_group()
             )
         }
       )
 
     #### UI for cohorts mortality table ####
     table_inputs_ui <- shiny::reactive({
-      if (session$userData$geo_group() == "zone") {
+      if (session$userData$geo_group() == "area") {
         render_input_for_cohorts_table(
           ns = ns,
           dat = df_cohorts(),
-          viz = "zone"
+          geo_group = "area"
         )
-      } else if (session$userData$geo_group() == "fylke") {
+      } else if (session$userData$geo_group() == "county") {
         render_input_for_cohorts_table(
           ns = ns,
           dat = df_cohorts(),
-          viz = "fylke"
+          geo_group = "county"
         )
       } else {
         render_input_for_cohorts_table(
           ns = ns,
           dat = df_cohorts(),
-          viz = "all"
+          geo_group = "country"
         )
       }
     })
@@ -114,14 +114,14 @@ mod_cohort_mortality_server <- function(id) {
         session$userData$species() == "salmon",
         message = "Ingen data å vise"
       ))
-      if (session$userData$geo_group() == "zone") {
+      if (session$userData$geo_group() == "area") {
         mortality_cohorts_data_zone |>
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
             input$select_year_cohort
           )
-      } else if (session$userData$geo_group() == "fylke") {
-        mortality_cohorts_data_fylke |>
+      } else if (session$userData$geo_group() == "county") {
+        mortality_cohorts_data_county |>
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
             input$select_year_cohort
@@ -142,10 +142,10 @@ mod_cohort_mortality_server <- function(id) {
 
     #### Table cohorts mortality ####
     output$table_cohort <- DT::renderDT({
-      if (session$userData$geo_group() == "all") {
+      if (session$userData$geo_group() == "country") {
         dat <- df_cohorts() |>
           dplyr::filter(
-            year %in% input$select_years_cohort_table & area == "Norge"
+            year %in% input$select_years_cohort_table & country == "Norge"
           ) |>
           dplyr::select(year, area, q1, median, q3)
         table_cohorts_output(dat)

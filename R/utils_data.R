@@ -25,18 +25,18 @@ load_data <- function() {
       "vi2451/mortality_cohorts_data"
     )
 
-    mortality_cohorts_data_zone <- prep_cohorts_data(
+    mortality_cohorts_data_area <- prep_cohorts_data(
       mortality_cohorts_data,
-      geo_group = 'zone'
+      geo_group = 'area'
     )
-    mortality_cohorts_data_fylke <- prep_cohorts_data(
+    mortality_cohorts_data_county <- prep_cohorts_data(
       mortality_cohorts_data,
-      geo_group = 'fylke'
+      geo_group = 'county'
     )
 
     mortality_cohorts_data_all <- prep_cohorts_data(
       mortality_cohorts_data,
-      geo_group = 'all'
+      geo_group = 'country'
     )
   } else {
     # TODO fix correct datasets across the app
@@ -59,27 +59,27 @@ load_data <- function() {
       app_sys("data/losses.rds")
     )
 
-    mortality_cohorts_data_zone <- prep_cohorts_data(
+    mortality_cohorts_data_area <- prep_cohorts_data(
       mortality_cohorts_data,
-      geo_group = 'zone'
+      geo_group = 'area'
     )
-    mortality_cohorts_data_fylke <- prep_cohorts_data(
+    mortality_cohorts_data_county <- prep_cohorts_data(
       mortality_cohorts_data,
-      geo_group = 'fylke'
+      geo_group = 'county'
     )
 
     mortality_cohorts_data_all <- prep_cohorts_data(
       mortality_cohorts_data,
-      geo_group = 'all'
+      geo_group = 'country'
     )
   }
 
   options(losses = losses)
   options(losses_monthly_data = losses_monthly_data)
   options(mortality_cohorts_data = mortality_cohorts_data)
-  options(mortality_cohorts_data_zone = mortality_cohorts_data_zone)
-  options(mortality_cohorts_data_fylke = mortality_cohorts_data_fylke)
-  options(mortality_cohorts_data_all = mortality_cohorts_data_all)
+  options(mortality_cohorts_data_area = mortality_cohorts_data_area)
+  options(mortality_cohorts_data_county = mortality_cohorts_data_county)
+  options(mortality_cohorts_data_country = mortality_cohorts_data_country)
   options(mortality_rates_monthly_data = mortality_rates_monthly_data)
 }
 
@@ -91,15 +91,14 @@ load_data <- function() {
 #'
 #' @returns a formatted dataframe
 prep_cohorts_data <- function(dat, geo_group) {
-  if (geo_group == "zone") {
+  if (geo_group == "area") {
     prep_dat <- dat |>
-      dplyr::filter(viz == "zone") |>
+      dplyr::filter(geo_group == "area") |>
       dplyr::mutate(
         area = factor(
           area,
           levels = c(
-            "1",
-            "2",
+            "1 & 2",
             "3",
             "4",
             "5",
@@ -109,16 +108,10 @@ prep_cohorts_data <- function(dat, geo_group) {
             "9",
             "10",
             "11",
-            "12",
-            "13",
-            "All"
+            "12 & 13",
+            "Norge"
           )
         )
-      ) |>
-      dplyr::filter(
-        area != "13",
-        area != "1",
-        area != "All"
       ) |>
       dplyr::mutate(
         q1 = round(q1, 1),
@@ -138,12 +131,9 @@ prep_cohorts_data <- function(dat, geo_group) {
           q3
         )
       )
-  } else if (geo_group == "fylke") {
+  } else if (geo_group == "county") {
     prep_dat <- dat |>
-      dplyr::filter(viz == "fylke") |>
-      dplyr::filter(
-        area != "All"
-      ) |>
+      dplyr::filter(viz == "county") |>
       dplyr::mutate(
         q1 = round(q1, 1),
         q3 = round(q3, 1),
@@ -164,7 +154,7 @@ prep_cohorts_data <- function(dat, geo_group) {
       )
   } else {
     prep_dat <- dat |>
-      dplyr::filter(viz == "all") |>
+      dplyr::filter(geo_group == "country") |>
       dplyr::mutate(
         q1 = round(q1, 1),
         q3 = round(q3, 1),

@@ -48,9 +48,9 @@ create_cohorts_mortality <- function(geo_group) {
   # mortality value - numeric between 10 and 40
 
   n <- nrow(dat)
-  dat$median_mort <- round(runif(n, min = 10, max = 40), 2)
-  dat$q1_mort <- round(runif(n, min = 1, max = 39), 2)
-  dat$q3_mort <- round(runif(n, min = 41, max = 80), 2)
+  dat$median <- round(runif(n, min = 10, max = 40), 2)
+  dat$q1 <- round(runif(n, min = 1, max = dat$median), 2)
+  dat$q3 <- round(runif(n, min = dat$median, max = 80), 2)
 
   dat
 }
@@ -65,9 +65,9 @@ dat_country <- create_cohorts_mortality("country")
 #'   \item{year}{Year of harvesting, ranging from 2020 to 2024}
 #'   \item{geo_group}{Geographic grouping level: area, county, or country}
 #'   \item{region}{The specific region name or code, depending on geo_group}
-#'   \item{mort}{Median mortality measurements, randomly generated between 10 and 40}
-#'   \item{mort}{First mortality measurement, randomly generated between 1 and 39}
-#'   \item{mort}{Third quartile measurement, randomly generated between 41 and 80}
+#'   \item{median}{Median mortality measurements, randomly generated between 10 and 40}
+#'   \item{q1}{First mortality measurement, randomly generated between 1 and 39}
+#'   \item{q3}{Third quartile measurement, randomly generated between 41 and 80}
 #' }
 
 cohort_mortality_dummy_data <- dplyr::bind_rows(
@@ -81,9 +81,9 @@ names(cohort_mortality_dummy_data) <- c(
   "year",
   "geo_group",
   "region",
-  "median_mort",
-  "q1_mort",
-  "q3_mort"
+  "median",
+  "q1",
+  "q3"
 )
 
 saveRDS(
