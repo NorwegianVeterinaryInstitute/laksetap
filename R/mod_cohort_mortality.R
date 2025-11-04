@@ -119,19 +119,19 @@ mod_cohort_mortality_server <- function(id) {
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
             input$select_year_cohort
-          )
+          )  |>  style_plotly(legend = FALSE)
       } else if (session$userData$geo_group() == "county") {
         mortality_cohorts_data_county |>
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
             input$select_year_cohort
-          )
+          )  |>  style_plotly(legend = FALSE)
       } else {
         mortality_cohorts_data_all |>
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
             input$select_year_cohort
-          )
+          ) |>  style_plotly(legend = FALSE)
       }
     }) |>
       bindEvent(
