@@ -61,48 +61,6 @@ losses_plot <- function(dat) {
     labs(x = "Område", y = "Antal (Milioner)") +
     scale_fill_manual(values = my_palette) +
     theme_minimal()
-    
-    # plotly::plot_ly(
-    #   x = ~area,
-    #   y = ~n,
-    #   color = ~type,
-    #   colors = my_palette,
-    #   type = "bar",
-    #   legendgroup = ~type,
-    #   textposition = "none",
-    #   hoverinfo = "text",
-    #   text = ~ paste(
-    #     "Område: ",
-    #     area,
-    #     "<br>",
-    #     "Antall: ",
-    #     n,
-    #     "<br>"
-    #   )
-    # ) |>
-    # plotly::layout(
-    #   legend = list(
-    #     orientation = "h", # horizontal
-    #     x = 0.5,
-    #     y = 1.1,
-    #     xanchor = "center"
-    #   ),
-    #   barmode = "stack",
-    #   title = NULL,
-    #   annotations = list(
-    #     yref = "paper",
-    #     xref = "paper",
-    #     y = 1.05,
-    #     x = 1.1,
-    #     text = "Velg tap:",
-    #     showarrow = F,
-    #     font = list(size = 14, face = "bold")
-    #   ),
-    #   yaxis = list(title = "Antall (millioner)"),
-    #   xaxis = list(title = "Område"),
-    #   showlegend = TRUE
-    # ) |>
-    # plotly::config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
 }
 
 
