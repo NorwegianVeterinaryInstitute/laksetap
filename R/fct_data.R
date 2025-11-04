@@ -39,37 +39,41 @@ load_data <- function() {
       geo_group = 'country'
     )
   } else {
-    # TODO fix correct datasets across the app
-    # losses are now in separate sources
-    losses <- readRDS(
+    
+    yearly_losses_data <- readRDS(
       app_sys(
-        "data/losses_and_mortality_yearly_data.rds",
+        "data/yearly_losses_dummy_data",
       ))
-    losses_monthly_data <- readRDS(
-      system.file(
-        "extdata",
-        "losses_monthly_data.rds",
-        package = "laksetap"
-      )
+    
+    monthly_losses_data <- readRDS(
+      app_sys(
+        "data/monthly_losses_dummy_data",
+      ))
+    
+    yearly_mortality_data <- readRDS(
+      app_sys("data/yearly_mortality_dummy_data.Rds")
     )
-    mortality_rates_monthly_data <- readRDS(
+    
+    monthly_mortality_data <- readRDS(
       app_sys("data/monthly_mortality_dummy_data.Rds")
     )
-    mortality_cohorts_data <- readRDS(
-      app_sys("data/losses.rds")
+    
+    cohort_mortality_data <- readRDS(
+      app_sys("data/cohort_mortalitity_dummy.rds")
     )
 
-    mortality_cohorts_data_area <- prep_cohorts_data(
-      mortality_cohorts_data,
+    cohort_mortality_data_area <- prep_cohorts_data(
+      cohort_mortality_data,
       geo_group = 'area'
     )
-    mortality_cohorts_data_county <- prep_cohorts_data(
-      mortality_cohorts_data,
+    
+    cohort_mortality_data_county <- prep_cohorts_data(
+      cohort_mortality_data,
       geo_group = 'county'
     )
 
-    mortality_cohorts_data_all <- prep_cohorts_data(
-      mortality_cohorts_data,
+    cohort_mortality_data_all <- prep_cohorts_data(
+      cohort_mortality_data,
       geo_group = 'country'
     )
   }
@@ -77,10 +81,10 @@ load_data <- function() {
   options(losses = losses)
   options(losses_monthly_data = losses_monthly_data)
   options(mortality_cohorts_data = mortality_cohorts_data)
-  options(mortality_cohorts_data_area = mortality_cohorts_data_area)
-  options(mortality_cohorts_data_county = mortality_cohorts_data_county)
-  options(mortality_cohorts_data_country = mortality_cohorts_data_country)
-  options(mortality_rates_monthly_data = mortality_rates_monthly_data)
+  options(cohort_mortality_data = cohort_mortality_data)
+  options(cohort_mortality_data_area = mortality_cohorts_data_county_area)
+  options(cohort_mortality_data_county = mortality_cohorts_data_country_county)
+  options(cohort_mortality_data_country = mortality_rates_monthly_data_country)
 }
 
 #' prep_cohorts_data
