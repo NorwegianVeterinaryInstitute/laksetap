@@ -39,27 +39,30 @@ load_data <- function() {
       geo_group = 'country'
     )
   } else {
-    
+
     yearly_losses_data <- readRDS(
       app_sys(
-        "data/yearly_losses_dummy_data",
-      ))
+        "data", "yearly_losses_dummy_data.Rds")
+      )
     
     monthly_losses_data <- readRDS(
       app_sys(
-        "data/monthly_losses_dummy_data",
-      ))
+        "data", "monthly_losses_dummy_data.Rds")
+      )
     
     yearly_mortality_data <- readRDS(
-      app_sys("data/yearly_mortality_dummy_data.Rds")
-    )
+      app_sys(
+        "data", "yearly_mortality_dummy_data.Rds")
+      )
     
     monthly_mortality_data <- readRDS(
-      app_sys("data/monthly_mortality_dummy_data.Rds")
+      app_sys(
+        "data", "monthly_mortality_dummy_data.Rds")
     )
     
     cohort_mortality_data <- readRDS(
-      app_sys("data/cohort_mortalitity_dummy.rds")
+      app_sys(
+        "data", "cohort_mortality_dummy_data.Rds")
     )
 
     cohort_mortality_data_area <- prep_cohorts_data(
@@ -72,19 +75,20 @@ load_data <- function() {
       geo_group = 'county'
     )
 
-    cohort_mortality_data_all <- prep_cohorts_data(
+    cohort_mortality_data_country <- prep_cohorts_data(
       cohort_mortality_data,
       geo_group = 'country'
     )
   }
 
-  options(losses = losses)
-  options(losses_monthly_data = losses_monthly_data)
-  options(mortality_cohorts_data = mortality_cohorts_data)
+  options(yearly_losses_data = yearly_losses_data)
+  options(monthly_losses_data = monthly_losses_data)
+  options(yearly_mortality_data = yearly_mortality_data)
+  options(monthly_mortality_data = monthly_mortality_data)
   options(cohort_mortality_data = cohort_mortality_data)
-  options(cohort_mortality_data_area = mortality_cohorts_data_county_area)
-  options(cohort_mortality_data_county = mortality_cohorts_data_country_county)
-  options(cohort_mortality_data_country = mortality_rates_monthly_data_country)
+  options(cohort_mortality_data_area = cohort_mortality_data_area)
+  options(cohort_mortality_data_county = cohort_mortality_data_county)
+  options(cohort_mortality_data_country = cohort_mortality_data_country)
 }
 
 #' prep_cohorts_data
@@ -99,8 +103,8 @@ prep_cohorts_data <- function(dat, geo_group) {
     prep_dat <- dat |>
       dplyr::filter(geo_group == "area") |>
       dplyr::mutate(
-        area = factor(
-          area,
+        region = factor(
+          region,
           levels = c(
             "1 & 2",
             "3",
@@ -117,16 +121,11 @@ prep_cohorts_data <- function(dat, geo_group) {
           )
         )
       ) |>
-      dplyr::mutate(
-        q1 = round(q1, 1),
-        q3 = round(q3, 1),
-        median = round(median, 1)
-      ) |>
       # constuct tooltip
       dplyr::mutate(
         tooltip = paste0(
           "Area: ",
-          area,
+          region,
           "<br>Q1: ",
           q1,
           "<br>Median: ",
@@ -137,17 +136,12 @@ prep_cohorts_data <- function(dat, geo_group) {
       )
   } else if (geo_group == "county") {
     prep_dat <- dat |>
-      dplyr::filter(viz == "county") |>
-      dplyr::mutate(
-        q1 = round(q1, 1),
-        q3 = round(q3, 1),
-        median = round(median, 1)
-      ) |>
+      dplyr::filter(region == "county") |>
       # constuct tooltip
       dplyr::mutate(
         tooltip = paste0(
           "Area: ",
-          area,
+          region,
           "<br>Q1: ",
           q1,
           "<br>Median: ",
@@ -159,16 +153,11 @@ prep_cohorts_data <- function(dat, geo_group) {
   } else {
     prep_dat <- dat |>
       dplyr::filter(geo_group == "country") |>
-      dplyr::mutate(
-        q1 = round(q1, 1),
-        q3 = round(q3, 1),
-        median = round(median, 1)
-      ) |>
       # constuct tooltip
       dplyr::mutate(
         tooltip = paste0(
           "Area: ",
-          area,
+          region,
           "<br>Q1: ",
           q1,
           "<br>Median: ",

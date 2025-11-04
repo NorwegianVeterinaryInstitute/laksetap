@@ -4,14 +4,14 @@
 \alias{render_input_for_mortality_month_plot}
 \title{render_input_for_mortality_month_plot}
 \usage{
-render_input_for_mortality_month_plot(ns, dat, viz)
+render_input_for_mortality_month_plot(ns, dat, geo_group)
 }
 \arguments{
 \item{ns}{namespace function}
 
 \item{dat}{dataframe}
 
-\item{viz}{"zone", "fylke" or "all"}
+\item{geo_group}{"area", "county" or "country"}
 }
 \value{
 a taglist to be rendered in the UI
