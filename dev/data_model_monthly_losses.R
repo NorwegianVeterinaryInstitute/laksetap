@@ -72,7 +72,7 @@ dat_country <- create_monthly_losses("country")
 #'   \item{other}{The number of lost fish due to due to reasons not covered by the other three categories was randomly generated to fall between 50,000 and 5,000,000}
 #'   \item{year_month}{Year_month string}
 #'   \item{year}{Year}
-#'   \item{month_name}{Abbrevated name of month}
+#'   \item{month_name}{Abbreviated name of month}
 #' }
 
 monthly_losses_dummy_data <- dplyr::bind_rows(
@@ -92,6 +92,9 @@ names(monthly_losses_dummy_data) <- c(
   "escaped",
   "other"
 )
+
+# Setting this so that the months are abbreviated in Norwegian
+Sys.setlocale("LC_TIME", "no_NO.UTF-8")
 
 # adding columns used in plot and table for colors/filtering, etc.
 monthly_losses_dummy_data <- monthly_losses_dummy_data |> 
