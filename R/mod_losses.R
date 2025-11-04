@@ -100,7 +100,7 @@ mod_losses_server <- function(id) {
           monthly_losses_data |>
             dplyr::filter(
               species == session$userData$species() &
-                viz == session$userData$geo_group()
+                geo_group == session$userData$geo_group()
             )
         }
       )
@@ -114,30 +114,30 @@ mod_losses_server <- function(id) {
           yearly_losses_data |>
             dplyr::filter(
               species == session$userData$species() &
-                viz == session$userData$geo_group()
+                geo_group == session$userData$geo_group()
             )
         }
       )
 
     #### UI for table losses monthly ####
     monthly_table_inputs_ui <- shiny::reactive({
-      if (session$userData$geo_group() == "zone") {
+      if (session$userData$geo_group() == "area") {
         render_input_for_losses_monthly_table(
           ns = ns,
           dat = df_losses_month(),
-          viz = "zone"
+          geo_group = "area"
         )
-      } else if (session$userData$geo_group() == "fylke") {
+      } else if (session$userData$geo_group() == "county") {
         render_input_for_losses_monthly_table(
           ns = ns,
           dat = df_losses_month(),
-          viz = "fylke"
+          geo_group = "county"
         )
       } else {
         render_input_for_losses_monthly_table(
           ns = ns,
           dat = df_losses_month(),
-          viz = "all"
+          geo_group = "country"
         )
       }
     })
@@ -149,23 +149,23 @@ mod_losses_server <- function(id) {
 
     #### UI for table losses yearly ####
     yearly_table_inputs_ui <- shiny::reactive({
-      if (session$userData$geo_group() == "zone") {
+      if (session$userData$geo_group() == "area") {
         render_input_for_losses_yearly_table(
           ns = ns,
           dat = df_losses(),
-          viz = "zone"
+          geo_group = "area"
         )
-      } else if (session$userData$geo_group() == "fylke") {
+      } else if (session$userData$geo_group() == "county") {
         render_input_for_losses_yearly_table(
           ns = ns,
           dat = df_losses(),
-          viz = "fylke"
+          geo_group = "county"
         )
       } else {
         render_input_for_losses_yearly_table(
           ns = ns,
           dat = df_losses(),
-          viz = "all"
+          geo_group = "country"
         )
       }
     })
@@ -178,7 +178,7 @@ mod_losses_server <- function(id) {
     #### OUTPUTS ####
     #### Losses monthly ####
     output$table_losses_month <- DT::renderDT({
-      if (session$userData$geo_group() == "all") {
+      if (session$userData$geo_group() == "country") {
         dat <- losses_data_prep_table(df_losses_month(), resolution='m') |>
           dplyr::filter(
             area == "Norge" &
@@ -193,7 +193,7 @@ mod_losses_server <- function(id) {
             year %in%
               input$select_years_losses_monthly_table,
             month_name %in% input$select_months_losses_monthly_table,
-            area %in% input$select_area_losses_monthly_table
+            region %in% input$select_area_losses_monthly_table
           )
 
         losses_table(dat, resolution = "m")
@@ -228,7 +228,7 @@ mod_losses_server <- function(id) {
           dplyr::filter(
             year %in%
               input$select_years_losses_year_table,
-            area %in% input$select_area_losses_year_table
+            area %in% input$select_region_losses_year_table
           )
 
         losses_table(dat, resolution = "y")

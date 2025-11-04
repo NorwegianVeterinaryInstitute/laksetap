@@ -58,30 +58,30 @@ mod_yearly_mortality_server <- function(id) {
           yearly_mortality_data |>
             dplyr::filter(
               species == session$userData$species() &
-                viz == session$userData$geo_group()
+                geo_group == session$userData$geo_group()
             )
         }
       )
 
     #### UI for tab mortality yearly ####
     inputs_ui <- shiny::reactive({
-      if (session$userData$geo_group() == "zone") {
+      if (session$userData$geo_group() == "area") {
         render_input_for_mortality_year(
           ns = ns,
           dat = df_losses(),
-          viz = "zone"
+          geo_group = "area"
         )
-      } else if (session$userData$geo_group() == "fylke") {
+      } else if (session$userData$geo_group() == "county") {
         render_input_for_mortality_year(
           ns = ns,
           dat = df_losses(),
-          viz = "fylke"
+          geo_group = "county"
         )
       } else {
         render_input_for_mortality_year(
           ns = ns,
           dat = df_losses(),
-          viz = "all"
+          geo_group = "country"
         )
       }
     }) |>
