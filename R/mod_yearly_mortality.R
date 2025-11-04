@@ -50,12 +50,12 @@ mod_yearly_mortality_server <- function(id) {
     ns <- session$ns
 
     #### Data ####
-    losses <- getOption("losses")
+    yearly_mortality_data <- getOption("yearly_mortality_data")
     df_losses <-
       shiny::eventReactive(
         c(session$userData$species(), session$userData$geo_group()),
         {
-          losses |>
+          yearly_mortality_data |>
             dplyr::filter(
               species == session$userData$species() &
                 viz == session$userData$geo_group()

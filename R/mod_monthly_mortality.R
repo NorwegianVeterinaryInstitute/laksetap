@@ -51,12 +51,12 @@ mod_monthly_mortality_server <- function(id) {
     ns <- session$ns
 
     #### DATA ####
-    mortality_rates_monthly_data <- getOption("mortality_rates_monthly_data")
+    monthly_mortality_data <- getOption("monthly_mortality_data")
     df_mort_month <-
       eventReactive(
         c(session$userData$species(), session$userData$geo_group()),
         {
-          mortality_rates_monthly_data |>
+          monthly_mortality_data |>
             dplyr::filter(
               species == session$userData$species() &
                 geo_group %in% c(session$userData$geo_group(), "country")

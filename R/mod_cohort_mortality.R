@@ -59,18 +59,18 @@ mod_cohort_mortality_server <- function(id) {
 
     #### Used in the plot ####
 
-    mortality_cohorts_data_area <- getOption("mortality_cohorts_data_zone")
-    mortality_cohorts_data_county <- getOption("mortality_cohorts_data_county")
-    mortality_cohorts_data_country <- getOption("mortality_cohorts_data_country")
+    cohort_mortality_data_area <- getOption("cohort_mortality_data_area")
+    cohort_mortality_data_county <- getOption("cohort_mortality_data_county")
+    cohort_mortality_data_country <- getOption("cohort_mortality_data_country")
 
     #### Used in the table ####
-    mortality_cohorts_data <- getOption("mortality_cohorts_data")
+    cohort_mortality_data <- getOption("cohort_mortality_data")
 
     df_cohorts <-
       eventReactive(
         c(session$userData$species(), session$userData$geo_group()),
         {
-          mortality_cohorts_data |>
+          cohort_mortality_data |>
             dplyr::filter(
               species == session$userData$species() &
                 geo_group == session$userData$geo_group()
@@ -115,19 +115,19 @@ mod_cohort_mortality_server <- function(id) {
         message = "Ingen data å vise"
       ))
       if (session$userData$geo_group() == "area") {
-        mortality_cohorts_data_zone |>
+        cohort_mortality_data_area |>
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
             input$select_year_cohort
           )  |>  style_plotly(legend = FALSE)
       } else if (session$userData$geo_group() == "county") {
-        mortality_cohorts_data_county |>
+        cohort_mortality_data_county |>
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
             input$select_year_cohort
           )  |>  style_plotly(legend = FALSE)
       } else {
-        mortality_cohorts_data_all |>
+        cohort_mortality_data_country |>
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
             input$select_year_cohort

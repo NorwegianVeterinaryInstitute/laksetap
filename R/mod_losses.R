@@ -92,12 +92,12 @@ mod_losses_server <- function(id) {
     ns <- session$ns
     #### Data ####
     #### Monthly losses ####
-    losses_monthly_data <- getOption("losses_monthly_data")
+    monthly_losses_data <- getOption("monthly_losses_data")
     df_losses_month <-
       shiny::eventReactive(
         c(session$userData$species(), session$userData$geo_group()),
         {
-          losses_monthly_data |>
+          monthly_losses_data |>
             dplyr::filter(
               species == session$userData$species() &
                 viz == session$userData$geo_group()
@@ -106,12 +106,12 @@ mod_losses_server <- function(id) {
       )
 
     #### Yearly losses ####
-    losses <- getOption("losses")
+    yearly_losses_data <- getOption("yearly_losses_data")
     df_losses <-
       shiny::eventReactive(
         c(session$userData$species(), session$userData$geo_group()),
         {
-          losses |>
+          yearly_losses_data |>
             dplyr::filter(
               species == session$userData$species() &
                 viz == session$userData$geo_group()
