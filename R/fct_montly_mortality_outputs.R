@@ -44,30 +44,6 @@ monthly_mortality_plot <- function(dat) {
         )
 }
 
-#' style_plotly
-#'
-#' @description A function to style a plotly object.
-#'
-#' @return A plotly object.
-#'
-#' @noRd
-style_plotly <- function(p) {
-    p |>
-        plotly::ggplotly(tooltip = "text") |>
-        plotly::layout(
-            legend = list(
-                orientation = "h", # horizontal
-                x = 0.5,
-                y = 1.1,
-                xanchor = "center"
-            )
-        ) |>
-        plotly::config(
-            displaylogo = FALSE,
-            modeBarButtons = list(list("toImage"))
-        )
-}
-
 #' monhtly_mortality_table
 #'
 #' @description A function to make the data table.
