@@ -12,9 +12,9 @@ plot_cohorts_output <- function(dat, year) {
     ggplot() +
     geom_segment(
       aes(
-        color = as.numeric(factor(area)),
-        x = area,
-        xend = area,
+        color = as.numeric(factor(region)),
+        x = region,
+        xend = region,
         y = q1,
         yend = q3
       ),
@@ -22,13 +22,13 @@ plot_cohorts_output <- function(dat, year) {
     ) +
     scale_color_gradient(low = "#C7D9FF", high = "#1C4FB9") +
     geom_point(
-      aes(x = area, y = median, group = year, text = tooltip),
-      linewidth = 1,
+      shape = 16,
+      aes(x = region, y = median, group = year),
       fill = "black",
       stroke = 0.2
     ) +
     geom_text(
-      aes(x = area, y = median, group = year, label = area),
+      aes(x = region, y = median, group = year, label = region),
       nudge_y = 1
     ) +
     labs(
@@ -44,8 +44,15 @@ plot_cohorts_output <- function(dat, year) {
     plotly::config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
 }
 
+#' cohorts_mortality_table
+#'
+#' @description A function to make the data table.
+#'
+#' @return A DT object.
+#'
+#' @noRd
 
-table_cohorts_output <- function(dat) {
+cohorts_mortality_table <- function(dat) {
   dat |>
     DT::datatable(
       rownames = FALSE,
