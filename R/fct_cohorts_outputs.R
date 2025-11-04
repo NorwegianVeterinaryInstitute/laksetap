@@ -39,9 +39,6 @@ plot_cohorts_output <- function(dat, year) {
     theme_minimal() +
     theme(axis.text.x = element_blank(), legend.position = "none") +
     guides(fill = "none")
-
-  plotly::ggplotly(p, tooltip = "text") |>
-    plotly::config(displaylogo = FALSE, modeBarButtons = list(list("toImage")))
 }
 
 #' cohorts_mortality_table
