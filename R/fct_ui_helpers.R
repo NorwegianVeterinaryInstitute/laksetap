@@ -1,4 +1,4 @@
-#' selesc_year
+#' select_year
 #'
 #' Function to return a vector of years to be rendered in the UI.
 #' Years are hardcoded for now.
@@ -51,7 +51,7 @@ select_year <- function(id, multiple = F, resolution = "m") {
   )
 }
 
-#' selesc_months
+#' select_months
 #'
 #' Function to return a vector of months to be rendered in the UI.
 #'
@@ -66,18 +66,18 @@ select_months <- function(id, digit = F, multiple = T) {
       id,
       "Velg måned:",
       c(
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
-        "10",
-        "11",
-        "12"
+        "jan" = "01",
+        "feb" = "02",
+        "mar" = "03",
+        "apr" = "04",
+        "mai" = "05",
+        "jun" = "06",
+        "jul" = "07",
+        "aug" = "08",
+        "sep" = "09",
+        "okt" = "10",
+        "nov" = "11",
+        "des" = "12"
       ),
       selected = c("01"),
       multiple = multiple
