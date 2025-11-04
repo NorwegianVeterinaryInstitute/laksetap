@@ -49,8 +49,8 @@ create_cohorts_mortality <- function(geo_group) {
 
   n <- nrow(dat)
   dat$median <- round(runif(n, min = 10, max = 40), 2)
-  dat$q1 <- round(runif(n, min = 1, max = 39), 2)
-  dat$q3 <- round(runif(n, min = 41, max = 80), 2)
+  dat$q1 <- round(runif(n, min = 1, max = dat$median), 2)
+  dat$q3 <- round(runif(n, min = dat$median, max = 80), 2)
 
   dat
 }
