@@ -48,11 +48,11 @@ app_ui <- function(request) {
           mod_monthly_mortality_ui("monthly_mortality_1")
         ),
         #### Tab 2 top level tab yearly mortality ####
-        bslib::nav_panel(
-          "Årlig dødelighet %",
-          value = "yearly_mortality",
-          mod_yearly_mortality_ui("yearly_mortality_1")
-        ),
+        # bslib::nav_panel(
+        #   "Årlig dødelighet %",
+        #   value = "yearly_mortality",
+        #   mod_yearly_mortality_ui("yearly_mortality_1")
+        # ),
         #### Tab 3: Top level tab cohorts ####
         bslib::nav_panel(
           "Produksjonssyklus dødelighet %",
