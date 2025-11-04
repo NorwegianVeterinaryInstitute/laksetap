@@ -7,17 +7,10 @@ library(ggplot2)
 library(plotly)
 library(DT)
 
-
-
 dat_m <- readRDS("inst/data/monthly_losses_dummy_data.Rds")
 dat_y <- readRDS("inst/data/yearly_losses_dummy_data.Rds")
 
-#### Plot for montly mortality
-
-# data is first filtered on species and geo_group
-# but we always keep the whole country, so that is hard-codded
-# then it is filtered on years and specific areas 
-# to make the plot
+#### Plot for monthly losses
 
 input_species = "salmon"
 input_geo_group = "area"
@@ -32,13 +25,20 @@ to_plot <- dat_m |>
   dplyr::filter(year %in% input_year) |> 
   dplyr::filter(month %in% input_month) 
 
+#### Table for monthly losses
 
-
-#### Table for monthly mortality
-
-dat |> 
+dat_m |> 
   dplyr::filter(species == input_species) |> 
   dplyr::filter(geo_group %in% input_geo_group) |> 
   dplyr::filter(year %in% input_year) |> 
-  dplyr::select(year, month_name, region, q1, median, q3) |>
-  montly_mortality_table()
+  losses_data_prep_table(resolution = 'm') |> 
+  losses_table(resolution = 'm')
+
+#### Table for monthly losses
+
+dat_y |> 
+  dplyr::filter(species == input_species) |> 
+  dplyr::filter(geo_group %in% input_geo_group) |> 
+  dplyr::filter(year %in% input_year) |> 
+  losses_data_prep_table(resolution = 'y') |> 
+  losses_table(resolution = 'y')
