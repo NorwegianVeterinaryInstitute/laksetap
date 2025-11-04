@@ -1,11 +1,11 @@
-#' montly_mortality_plot
+#' monthly_mortality_plot
 #'
 #' @description A function to make the monthly mortality plot.
 #'
 #' @return A ggplot2 object.
 #'
 #' @noRd
-montly_mortality_plot <- function(dat) {
+monthly_mortality_plot <- function(dat) {
     dat |>
         ggplot2::ggplot() +
         aes(
@@ -68,14 +68,14 @@ style_plotly <- function(p) {
         )
 }
 
-#' montly_mortality_table
+#' monhtly_mortality_table
 #'
 #' @description A function to make the data table.
 #'
 #' @return A DT object.
 #'
 #' @noRd
-montly_mortality_table <- function(dat) {
+monthly_mortality_table <- function(dat) {
     DT::datatable(
         dat,
         rownames = F,
