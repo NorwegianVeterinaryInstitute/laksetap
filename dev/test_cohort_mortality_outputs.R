@@ -14,16 +14,10 @@ dat <- readRDS("inst/data/cohort_mortality_dummy_data.Rds")
 
 #### Plot for cohort mortality
 
-# data is first filtered on species, geo_group and year
-# but we always keep the whole country, so that is hard-codded
-# then it is filtered on years and specific areas 
-# to make the plot
-
 input_species = "salmon"
-input_geo_group = c("area", "country")
+input_geo_group = c("area")
 input_year = 2022
-# in the shiny inputs the country is always pre-selected.
-input_region = c("Country", "area_1", "area_2", "area_3", "area_4", "area_5")
+
 
 to_plot <- dat |> 
   dplyr::filter(species == input_species) |> 
