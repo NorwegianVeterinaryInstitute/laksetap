@@ -93,15 +93,6 @@ names(monthly_losses_dummy_data) <- c(
   "other"
 )
 
-# Setting this so that the months are abbreviated in Norwegian
-Sys.setlocale("LC_TIME", "no_NO.UTF-8")
-
-# adding columns used in plot and table for colors/filtering, etc.
-monthly_losses_dummy_data <- monthly_losses_dummy_data |> 
-  dplyr::mutate(year_month = format(date, "%Y-%m")) |> 
-  dplyr::mutate(year = format(date, "%Y")) |> 
-  dplyr::mutate(month_name = format(date, "%b"))
-
 saveRDS(
   monthly_losses_dummy_data,
   file = "inst/data/monthly_losses_dummy_data.Rds"

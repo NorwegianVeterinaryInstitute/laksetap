@@ -22,10 +22,17 @@ input_year = c(2021, 2022)
 # in the shiny inputs the country is always pre-selected.
 input_area = c("Country", "area_1", "area_2")
 
-my_palette_named <- c(
+vi_palette_named <- c(
   "Country" = "#FF5447",
   "area_1" = "#59CD8B",
   "area_2" = "#95D9F3")
+
+# adding columns used in plot and table for colors/filtering, etc.
+
+Sys.setlocale("LC_TIME", "no_NO.UTF-8")
+dat <- dat |> 
+  dplyr::mutate(year = format(date, "%Y")) |> 
+  dplyr::mutate(month_name = format(date, "%b"))
 
 to_plot <- dat |> 
   dplyr::filter(species == input_species) |> 

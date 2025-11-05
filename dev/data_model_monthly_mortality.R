@@ -88,12 +88,6 @@ names(monthly_mortality_dummy_data) <- c(
   "q3"
 )
 
-Sys.setlocale("LC_TIME", "no_NO.UTF-8")
-# adding columns used in plot and table for colors/filtering, etc.
-monthly_mortality_dummy_data <- monthly_mortality_dummy_data |> 
-  dplyr::mutate(year = format(date, "%Y")) |> 
-  dplyr::mutate(month_name = format(date, "%b"))
-
 
 saveRDS(
   monthly_mortality_dummy_data,

@@ -17,9 +17,18 @@ input_geo_group = "area"
 input_year = 2022
 input_month = c("01")
 
-my_palette <- c("#FF5447", "#59CD8B", "#FFC6C2", "#1C4FB9")
+vi_palette <- c("#FF5447", "#59CD8B", "#FFC6C2", "#1C4FB9")
 
 #### Plot for monthly losses
+
+# Setting this so that the months are abbreviated in Norwegian
+Sys.setlocale("LC_TIME", "no_NO.UTF-8")
+
+# adding columns used in plot and table for colors/filtering, etc.
+dat_m <- dat_m |> 
+  dplyr::mutate(year_month = format(date, "%Y-%m")) |> 
+  dplyr::mutate(year = format(date, "%Y")) |> 
+  dplyr::mutate(month_name = format(date, "%b"))
 
 to_plot <- dat_m |> 
   dplyr::filter(species == input_species) |> 
