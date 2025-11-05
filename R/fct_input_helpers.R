@@ -1,6 +1,4 @@
 # Helper functions for rendering inputs for all the modules
-# TODO: avoid hardcoding "Norge" as an option
-
 #' render_input_for_mortality_month_plot
 #'
 #' @param ns namespace function
@@ -10,8 +8,10 @@
 #' @returns a taglist to be rendered in the UI
 #' for the plot
 render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
-  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])), "Norge")
+  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])),
+              as.character(unique(dat$region[dat$geo_group == 'country'])))
 
+  #browser()
   if (geo_group == "country") {
     shiny::tagList(
       shiny::fluidRow(
@@ -40,7 +40,7 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
             ns("select_region_mortality_month_plot"),
             "Velg flere områder:",
             region,
-            selected = c("Norge"),
+            selected = c(as.character(unique(dat$region[dat$geo_group == 'country']))),
             multiple = TRUE
           )
         )
@@ -58,7 +58,7 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
 #' @returns a taglist to be rendered in the UI
 #' for the table
 render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
-  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])), "Norge")
+  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])), "as.character(unique(dat$region[dat$geo_group == 'country']))")
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -119,7 +119,7 @@ render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
 #' @returns a taglist to be rendered in the UI
 #' for the table
 render_input_for_mortality_year <- function(ns, dat, geo_group) {
-  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])), "Norge")
+  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])), "as.character(unique(dat$region[dat$geo_group == 'country']))")
 
   if (geo_group == "country") {
     shiny::tagList(

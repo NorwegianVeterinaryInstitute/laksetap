@@ -40,11 +40,11 @@ mod_top_bar_server <- function(id) {
                 ns("geo_group"),
                 "Velg geografisk område:",
                 c(
-                  "Fylke" = "fylke",
-                  "Produksjonsområde" = "zone",
-                  "Norge" = "all"
+                  "Fylke" = "area",
+                  "Produksjonsområde" = "county",
+                  "Norge" = "country"
                 ),
-                selected = c("zone")
+                selected = c("area")
               )
             ),
           )
@@ -59,15 +59,15 @@ mod_top_bar_server <- function(id) {
       if (input$species == "rainbowtrout") {
         updateSelectInput(
           inputId = "geo_group",
-          choices = c("Norge" = "all")
+          choices = c("Norge" = "country")
         )
       } else {
         updateSelectInput(
           inputId = "geo_group",
           choices = c(
-            "Fylke" = "fylke",
-            "Produksjonsområde" = "zone",
-            "Norge" = "all"
+            "Fylke" = "area",
+            "Produksjonsområde" = "county",
+            "Norge" = "country"
           )
         )
       }
@@ -77,7 +77,7 @@ mod_top_bar_server <- function(id) {
     observeEvent(input$species, {
       session$userData$species(input$species)
     })
-    session$userData$geo_group <- shiny::reactiveVal('fylke')
+    session$userData$geo_group <- shiny::reactiveVal('area')
     observeEvent(input$geo_group, {
       session$userData$geo_group(input$geo_group)
     })

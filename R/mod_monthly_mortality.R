@@ -127,10 +127,11 @@ mod_monthly_mortality_server <- function(id) {
       req(df_mort_month())
       req(input$select_years_mortality_month)
       req(input$select_region_mortality_month_plot)
+      
       p <- df_mort_month() |>
         dplyr::filter(year %in% input$select_years_mortality_month) |>
-        dplyr::filter(area %in% c(input$select_region_mortality_month_plot)) |>
-        montly_mortality_plot()
+        dplyr::filter(region %in% c(input$select_region_mortality_month_plot)) |>
+        monthly_mortality_plot()
 
       style_plotly(p)
     })
@@ -152,7 +153,7 @@ mod_monthly_mortality_server <- function(id) {
         dat <- dat |> dplyr::filter(region %in% input$select_region_mortality_month)
       }
 
-      montly_mortality_table(dat)
+      monthly_mortality_table(dat)
     })
   })
 }
