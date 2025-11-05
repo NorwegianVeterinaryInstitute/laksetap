@@ -6,6 +6,9 @@
 #'
 #' @noRd
 monthly_mortality_plot <- function(dat) {
+  # Colors #
+  vi_palette_named <- getOption("vi_palette_named")
+  
     dat |>
         ggplot2::ggplot() +
         aes(
@@ -36,8 +39,8 @@ monthly_mortality_plot <- function(dat) {
             show.legend = FALSE
         ) +
         theme_minimal() +
-        scale_color_manual(values = my_palette_named) +
-        scale_fill_manual(values = my_palette_named) +
+        scale_color_manual(values = vi_palette_named) +
+        scale_fill_manual(values = vi_palette_named) +
         guides(
             col = guide_legend(title = "Område"),
             fill = "none"

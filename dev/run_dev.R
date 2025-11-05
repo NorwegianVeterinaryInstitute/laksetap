@@ -14,8 +14,9 @@ golem::detach_all_attached()
 # Document and reload your package
 golem::document_and_reload()
 
-#### Data ####
+# Data and colors
 laksetap::load_data()
+laksetap::make_palette()
 
-# Run the application
+# Run the application 
 run_app()

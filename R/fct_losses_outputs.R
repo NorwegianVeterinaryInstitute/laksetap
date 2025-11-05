@@ -31,11 +31,14 @@ losses_data_prep_plot <- function(
 #'
 #' @noRd
 losses_plot <- function(dat) {
+  # Colors
+  vi_palette <- getOption("vi_palette")
+  
   dat |>
     ggplot(aes(fill=type, x=region, y=n)) + 
     geom_bar(position="stack", stat="identity") +
     labs(x = "Område", y = "Antal (Milioner)") +
-    scale_fill_manual(values = my_palette) +
+    scale_fill_manual(values = vi_palette) +
     theme_minimal()
 }
 
