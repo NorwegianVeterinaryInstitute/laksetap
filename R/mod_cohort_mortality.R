@@ -16,13 +16,14 @@ mod_cohort_mortality_ui <- function(id) {
         bslib::nav_panel(
           "Diagram",
           shiny::br(),
-          shiny::column(
-            width = 6,
-            select_year(
-              id = ns("select_year_cohort"),
-              resolution = "y"
-            )
-          ),
+          # shiny::column(
+          #   width = 6,
+          #   select_year(
+          #     id = ns("select_year_cohort"),
+          #     resolution = "y"
+          #   )
+          # ),
+          shiny::uiOutput(ns("select_year_cohort_ui")),
           shiny::br(),
           shiny::br(),
           shiny::br(),
@@ -77,6 +78,15 @@ mod_cohort_mortality_server <- function(id) {
             )
         }
       )
+    
+    #### UI for select year ####
+    output$select_year_cohort_ui <- shiny::renderUI({
+      shiny::column(
+        width = 6,
+        select_year(
+          id = ns("select_year_cohort"),
+          dat = cohort_mortality_data
+        ))})
 
     #### UI for cohorts mortality table ####
     table_inputs_ui <- shiny::reactive({
@@ -147,18 +157,18 @@ mod_cohort_mortality_server <- function(id) {
           dplyr::filter(
             year %in% input$select_years_cohort_table & country == "Norge"
           ) |>
-          dplyr::select(year, area, q1, median, q3)
-        table_cohorts_output(dat)
+          dplyr::select(year, region, q1, median, q3)
+        cohorts_mortality_table(dat)
       } else {
         dat <- df_cohorts() |>
           dplyr::filter(
             year %in%
               input$select_years_cohort_table &
-              area %in% input$select_area_cohort_table
+              region %in% input$select_region_cohort_table
           ) |>
-          dplyr::select(year, area, q1, median, q3)
+          dplyr::select(year, region, q1, median, q3)
 
-        table_cohorts_output(dat)
+        cohorts_mortality_table(dat)
       }
     })
   })
