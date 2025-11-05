@@ -8,7 +8,7 @@
 #'
 #' @noRd
 plot_cohorts_output <- function(dat, year) {
-  p <- dat |>
+  dat |>
     ggplot() +
     geom_segment(
       aes(
