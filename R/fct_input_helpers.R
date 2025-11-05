@@ -231,6 +231,7 @@ render_input_for_losses_monthly_table <- function(ns, dat, geo_group) {
           width = 6,
           select_year(
             ns("select_years_losses_monthly_table"),
+            dat,
             multiple = TRUE
           )
         ),
@@ -251,6 +252,7 @@ render_input_for_losses_monthly_table <- function(ns, dat, geo_group) {
           width = 4,
           select_year(
             ns("select_years_losses_monthly_table"),
+            dat,
             multiple = TRUE
           )
         ),
@@ -325,16 +327,4 @@ render_input_for_losses_yearly_table <- function(ns, dat, geo_group) {
       )
     )
   }
-}
-
-
-render_select_year_ui <- function(ns, dat) {
-  select_year_cohort <- shiny::renderUI({
-    shiny::column(
-      width = 6,
-      select_year(
-        id = ns(ns),
-        dat = dat
-      ))
-  })
 }
