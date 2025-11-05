@@ -16,13 +16,6 @@ mod_cohort_mortality_ui <- function(id) {
         bslib::nav_panel(
           "Diagram",
           shiny::br(),
-          # shiny::column(
-          #   width = 6,
-          #   select_year(
-          #     id = ns("select_year_cohort"),
-          #     resolution = "y"
-          #   )
-          # ),
           shiny::uiOutput(ns("select_year_cohort_ui")),
           shiny::br(),
           shiny::br(),
