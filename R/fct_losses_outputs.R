@@ -1,27 +1,3 @@
-#' losses_data_pivot_longer
-#' The losses data is in wide format which is OK for the table
-#' but needs to be in long format for ggplot2 to make the bar chart
-#'
-#' @param dat 
-#'
-#' @returns a data frame in long format
-#'
-#' @noRd
-losses_data_pivot_longer <- function(dat){
-  dat |> 
-  tidyr::pivot_longer( cols = c("dead", "discarded", "escaped", "other"),
-                       names_to = "type",
-                       values_to = "n"
-  ) |> 
-    dplyr::mutate(
-      type = factor(
-        type,
-        levels = c("dead", "discarded", "escaped", "other"),
-        labels = c("Døde", "Utkast", "Rømt", "Annet")
-      ))
-  
-}
-
 #' loses_data_prep_plot
 #'
 #' @description Function to make data for the month losses plot.
