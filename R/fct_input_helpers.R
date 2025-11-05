@@ -11,7 +11,6 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
   region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])),
               as.character(unique(dat$region[dat$geo_group == 'country'])))
 
-  #browser()
   if (geo_group == "country") {
     shiny::tagList(
       shiny::fluidRow(
