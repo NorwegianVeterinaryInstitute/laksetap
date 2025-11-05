@@ -48,7 +48,7 @@ load_data <- function() {
     monthly_losses_data <- readRDS(
       app_sys(
         "data", "monthly_losses_dummy_data.Rds")
-      )
+      ) |> monthly_mortality_losses_columns()
     
     
     yearly_losses_data_long <- losses_data_pivot_longer(yearly_losses_data)
@@ -63,7 +63,7 @@ load_data <- function() {
     monthly_mortality_data <- readRDS(
       app_sys(
         "data", "monthly_mortality_dummy_data.Rds")
-    )
+    ) |> monthly_mortality_locale_columns()
     
     cohort_mortality_data <- readRDS(
       app_sys(
@@ -208,3 +208,39 @@ losses_data_pivot_longer <- function(dat){
       ))
   
 }
+
+
+#' monthly_mortality_locale_columns
+#' function to prepare columns for time variables
+#' in locale of country used in plots and tables
+#'
+#' @param dat 
+#'
+#' @returns a data frame
+#' 
+#' @noRd
+monthly_mortality_locale_columns <- function(dat){
+Sys.setlocale("LC_TIME", "no_NO.UTF-8")
+dat |> 
+  dplyr::mutate(year = format(date, "%Y")) |> 
+  dplyr::mutate(month_name = format(date, "%b"))
+
+}
+
+
+#' monthly_losses_locale_columns
+#' function to prepare columns for time variables
+#' in locale of country used in plots and tables
+#'
+#' @param dat 
+#'
+#' @returns a data frame
+#' 
+#' @noRd
+monthly_mortality_losses_columns <- function(dat){
+Sys.setlocale("LC_TIME", "no_NO.UTF-8")
+
+dat |> 
+  dplyr::mutate(year_month = format(date, "%Y-%m")) |> 
+  dplyr::mutate(year = format(date, "%Y")) |> 
+  dplyr::mutate(month_name = format(date, "%b"))}
