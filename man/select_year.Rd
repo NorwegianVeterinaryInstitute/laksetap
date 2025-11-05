@@ -4,7 +4,7 @@
 \alias{select_year}
 \title{select_year}
 \usage{
-select_year(id, multiple = F, resolution = "m")
+select_year(id, dat, multiple = F)
 }
 \arguments{
 \item{id}{id for the selectInput}
