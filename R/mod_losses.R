@@ -17,12 +17,7 @@ mod_losses_ui <- function(id) {
           "Månedlige tap diagram",
           shiny::br(),
           shiny::fluidRow(
-            shiny::column(
-              width = 6,
-              select_year(
-                id = ns("select_year_monthly_losses"),
-              )
-            ),
+            shiny::uiOutput(ns("select_year_monthly_losses_ui")),
             shiny::column(
               width = 6,
               select_months(
@@ -55,10 +50,7 @@ mod_losses_ui <- function(id) {
         bslib::nav_panel(
           "Årlige tap diagram",
           shiny::br(),
-          select_year(
-            id = ns("select_year_yearly_losses"),
-            resolution = "y"
-          ),
+          shiny::uiOutput(ns("select_year_yearly_losses_ui")),
           plotly::plotlyOutput(ns("plot_losses")),
           shiny::hr(),
           shiny::includeMarkdown(app_sys(
@@ -90,6 +82,7 @@ mod_losses_ui <- function(id) {
 mod_losses_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
+    
     #### Data ####
     #### Monthly losses ####
     monthly_losses_data <- getOption("monthly_losses_data")
@@ -105,6 +98,19 @@ mod_losses_server <- function(id) {
         }
       )
 
+    monthly_losses_data_long <- getOption("monthly_losses_data_long")
+    df_losses_month_long <-
+      shiny::eventReactive(
+        c(session$userData$species(), session$userData$geo_group()),
+        {
+          monthly_losses_data_long |>
+            dplyr::filter(
+              species == session$userData$species() &
+                geo_group == session$userData$geo_group()
+            )
+        }
+      )
+    
     #### Yearly losses ####
     yearly_losses_data <- getOption("yearly_losses_data")
     df_losses <-
@@ -118,7 +124,37 @@ mod_losses_server <- function(id) {
             )
         }
       )
-
+    
+    yearly_losses_data_long <- getOption("yearly_losses_data_long")
+    df_losses_long <-
+      shiny::eventReactive(
+        c(session$userData$species(), session$userData$geo_group()),
+        {
+          yearly_losses_data_long |>
+            dplyr::filter(
+              species == session$userData$species() &
+                geo_group == session$userData$geo_group()
+            )
+        }
+      )
+    
+    #### UI for select year ####
+    output$select_year_monthly_losses_ui <- shiny::renderUI({
+      shiny::column(
+        width = 6,
+        select_year(
+          id = ns("select_year_monthly_losses"),
+          dat = monthly_losses_data
+        ))})
+    
+    output$select_year_yearly_losses_ui <- shiny::renderUI({
+      shiny::column(
+        width = 6,
+        select_year(
+          id = ns("select_year_yearly_losses"),
+          dat = yearly_losses_data
+        ))})
+    
     #### UI for table losses monthly ####
     monthly_table_inputs_ui <- shiny::reactive({
       if (session$userData$geo_group() == "area") {
@@ -177,42 +213,62 @@ mod_losses_server <- function(id) {
 
     #### OUTPUTS ####
     #### Losses monthly ####
-    output$table_losses_month <- DT::renderDT({
-      if (session$userData$geo_group() == "country") {
-        dat <- losses_data_prep_table(df_losses_month(), resolution='m') |>
-          dplyr::filter(
-            area == "Norge" &
-              year %in% input$select_years_losses_monthly_table,
-            month_name %in% input$select_months_losses_monthly_table
-          )
-
-        losses_table(dat, resolution = "m")
-      } else {
-        dat <- losses_data_prep_table(df_losses_month(), resolution='m') |>
-          dplyr::filter(
-            year %in%
-              input$select_years_losses_monthly_table,
-            month_name %in% input$select_months_losses_monthly_table,
-            region %in% input$select_area_losses_monthly_table
-          )
-
-        losses_table(dat, resolution = "m")
-      }
-    })
-
+    
     output$plot_losses_monthly <- plotly::renderPlotly({
       dat <- losses_data_prep_plot(
-        df_losses_month(),
+        df_losses_month_long(),
         input$select_year_monthly_losses,
         input$select_month_monthly_losses,
         resolution = "m"
       )
-
+      
       losses_plot(dat)
     })
+    
+    output$table_losses_month <- DT::renderDT({
+      if (session$userData$geo_group() == "country") {
+        dat <- df_losses_month() |>
+          dplyr::filter(
+            geo_group == session$userData$geo_group() &
+              year %in% input$select_years_losses_monthly_table,
+            month_name %in% input$select_months_losses_monthly_table
+          )
+        
+        dat |> 
+        losses_data_prep_table(resolution='m') |> 
+        losses_table( resolution = "m")
+        
+      } else {
+        dat <- df_losses_month() |>
+          dplyr::filter(
+            year %in%
+              input$select_years_losses_monthly_table,
+            month_name %in% input$select_months_losses_monthly_table,
+            region %in% input$select_region_losses_monthly_table
+          )
+        
+        dat |> 
+          losses_data_prep_table(resolution='m') |> 
+          losses_table( resolution = "m")
+      }
+    })
+
+
 
     #### Losses yearly ####
 
+    #### Yearly losses plot ####
+    output$plot_losses <- plotly::renderPlotly({
+      dat <- losses_data_prep_plot(
+        df_losses_long(),
+        input$select_year_yearly_losses,
+        resolution = "y"
+      )
+      
+      losses_plot(dat)
+    })
+    
+    #### Yearly losses table ####
     output$table_losses_year <- DT::renderDT({
       if (session$userData$geo_group() == "all") {
         dat <- losses_data_prep_table(
@@ -228,23 +284,14 @@ mod_losses_server <- function(id) {
           dplyr::filter(
             year %in%
               input$select_years_losses_year_table,
-            area %in% input$select_region_losses_year_table
+            region %in% input$select_region_losses_year_table
           )
 
         losses_table(dat, resolution = "y")
       }
     })
 
-    #### Yearly losses plot ####
-    output$plot_losses <- plotly::renderPlotly({
-      dat <- losses_data_prep_plot(
-        df_losses(),
-        input$select_year_yearly_losses,
-        resolution = "y"
-      )
 
-      losses_plot(dat)
-    })
   })
 }
 
