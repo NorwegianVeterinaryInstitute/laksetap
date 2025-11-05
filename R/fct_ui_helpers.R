@@ -10,43 +10,21 @@
 #' @param resolution "m" for monthly data, "y" for yearly data
 #'
 #' @returns a vector to be used in selectInput
-select_year <- function(id, multiple = F, resolution = "m") {
+select_year <- function(id, dat, multiple = F) {
   if (multiple) {
     text = "Velg flere år:"
   } else {
     text = "Velg år:"
   }
 
-  if (resolution == "m") {
-    selection <- c(
-      "2025" = 2025,
-      "2024" = 2024,
-      "2023" = 2023,
-      "2022" = 2022,
-      "2021" = 2021,
-      "2020" = 2020
-    )
-
-    selected <- c(2025)
-  }
-
-  if (resolution == "y") {
-    selection <- c(
-      "2024" = 2024,
-      "2023" = 2023,
-      "2022" = 2022,
-      "2021" = 2021,
-      "2020" = 2020
-    )
-
-    selected <- c(2024)
-  }
+  years_available <- sort(unique(dat$year), decreasing = TRUE)
+  names(years_available) <- as.character(years_available)
 
   selectInput(
     id,
     text,
-    selection,
-    selected = selected,
+    choices = years_available,
+    selected = max(years_available),
     multiple = multiple
   )
 }

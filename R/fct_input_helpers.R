@@ -19,6 +19,7 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
           width = 6,
           select_year(
             ns("select_years_mortality_month"),
+            dat,
             multiple = TRUE
           )
         )
@@ -31,6 +32,7 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
           width = 4,
           select_year(
             ns("select_years_mortality_month"),
+            dat,
             multiple = TRUE
           )
         ),
@@ -58,7 +60,7 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
 #' @returns a taglist to be rendered in the UI
 #' for the table
 render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
-  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])), "as.character(unique(dat$region[dat$geo_group == 'country']))")
+  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])))
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -67,6 +69,7 @@ render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
           width = 6,
           select_year(
             ns("select_years_mortality_month_table"),
+            dat,
             multiple = TRUE
           )
         ),
@@ -85,6 +88,7 @@ render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
           width = 4,
           select_year(
             ns("select_years_mortality_month_table"),
+            dat,
             multiple = TRUE
           )
         ),
@@ -119,7 +123,7 @@ render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
 #' @returns a taglist to be rendered in the UI
 #' for the table
 render_input_for_mortality_year <- function(ns, dat, geo_group) {
-  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])), "as.character(unique(dat$region[dat$geo_group == 'country']))")
+  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])))
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -128,8 +132,8 @@ render_input_for_mortality_year <- function(ns, dat, geo_group) {
           width = 6,
           shiny::select_year(
             ns("select_years_mortality_year"),
-            multiple = TRUE,
-            resolution = "y"
+            dat,
+            multiple = TRUE
           )
         )
       )
@@ -141,8 +145,8 @@ render_input_for_mortality_year <- function(ns, dat, geo_group) {
           width = 6,
           shiny::select_year(
             ns("select_years_mortality_year"),
-            multiple = TRUE,
-            resolution = "y"
+            dat,
+            multiple = TRUE
           )
         ),
         shiny::column(
@@ -178,8 +182,8 @@ render_input_for_cohorts_table <- function(ns, dat, geo_group) {
           width = 6,
           select_year(
             ns("select_years_cohort_table"),
-            multiple = TRUE,
-            resolution = "y"
+            dat,
+            multiple = TRUE
           )
         )
       )
@@ -191,8 +195,8 @@ render_input_for_cohorts_table <- function(ns, dat, geo_group) {
           width = 4,
           select_year(
             ns("select_years_cohort_table"),
-            multiple = TRUE,
-            resolution = "y"
+            dat,
+            multiple = TRUE
           )
         ),
         shiny::column(
@@ -292,8 +296,8 @@ render_input_for_losses_yearly_table <- function(ns, dat, geo_group) {
           width = 6,
           select_year(
             ns("select_years_losses_year_table"),
-            multiple = TRUE,
-            resolution = "y"
+            dat,
+            multiple = TRUE
           )
         )
       )
@@ -305,8 +309,8 @@ render_input_for_losses_yearly_table <- function(ns, dat, geo_group) {
           width = 6,
           select_year(
             ns("select_years_losses_year_table"),
-            multiple = TRUE,
-            resolution = "y"
+            dat,
+            multiple = TRUE
           )
         ),
         shiny::column(
@@ -322,4 +326,16 @@ render_input_for_losses_yearly_table <- function(ns, dat, geo_group) {
       )
     )
   }
+}
+
+
+render_select_year_ui <- function(ns, dat) {
+  select_year_cohort <- shiny::renderUI({
+    shiny::column(
+      width = 6,
+      select_year(
+        id = ns(ns),
+        dat = dat
+      ))
+  })
 }
