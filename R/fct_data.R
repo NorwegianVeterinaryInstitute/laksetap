@@ -99,26 +99,34 @@ load_data <- function() {
 #'
 #' @returns a formatted dataframe
 prep_cohorts_data <- function(dat, geo_group) {
+  
+  env <- getOption("golem.app.prod")
+  
+  
+  if (env == TRUE){
+    levels = c(
+      "1 & 2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12 & 13")
+  } else {
+    levels = c("area_1", "area_2", "area_3" , "area_4", "area_5")
+  }
+  
   if (geo_group == "area") {
     prep_dat <- dat |>
       dplyr::filter(geo_group == "area") |>
       dplyr::mutate(
         region = factor(
           region,
-          levels = c(
-            "1 & 2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12 & 13",
-            "Norge"
-          )
+          levels = levels
         )
       ) |>
       # constuct tooltip
@@ -136,7 +144,7 @@ prep_cohorts_data <- function(dat, geo_group) {
       )
   } else if (geo_group == "county") {
     prep_dat <- dat |>
-      dplyr::filter(region == "county") |>
+      dplyr::filter(geo_group == "county") |>
       # constuct tooltip
       dplyr::mutate(
         tooltip = paste0(

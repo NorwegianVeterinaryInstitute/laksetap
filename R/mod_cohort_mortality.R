@@ -124,6 +124,7 @@ mod_cohort_mortality_server <- function(id) {
         session$userData$species() == "salmon",
         message = "Ingen data å vise"
       ))
+      req(input$select_year_cohort)
       if (session$userData$geo_group() == "area") {
         cohort_mortality_data_area |>
           dplyr::filter(year == input$select_year_cohort) |>
