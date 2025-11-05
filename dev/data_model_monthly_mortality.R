@@ -20,8 +20,8 @@ create_monthly_mortality <- function(geo_group) {
   # date - Date
 
   date <- seq.Date(
-    from = as.Date("2020-01-01"),
-    to = as.Date("2024-12-01"),
+    from = as.Date("2021-01-01"),
+    to = as.Date("2025-12-01"),
     by = "month"
   )
 
