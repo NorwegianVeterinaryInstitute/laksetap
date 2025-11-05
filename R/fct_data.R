@@ -50,6 +50,11 @@ load_data <- function() {
         "data", "monthly_losses_dummy_data.Rds")
       )
     
+    
+    yearly_losses_data_long <- losses_data_pivot_longer(yearly_losses_data)
+    
+    monthly_losses_data_long <- losses_data_pivot_longer(monthly_losses_data)
+    
     yearly_mortality_data <- readRDS(
       app_sys(
         "data", "yearly_mortality_dummy_data.Rds")
@@ -83,6 +88,8 @@ load_data <- function() {
 
   options(yearly_losses_data = yearly_losses_data)
   options(monthly_losses_data = monthly_losses_data)
+  options(yearly_losses_data_long = yearly_losses_data_long)
+  options(monthly_losses_data_long = monthly_losses_data_long)
   options(yearly_mortality_data = yearly_mortality_data)
   options(monthly_mortality_data = monthly_mortality_data)
   options(cohort_mortality_data = cohort_mortality_data)
@@ -175,4 +182,29 @@ prep_cohorts_data <- function(dat, geo_group) {
         )
       )
   }
+}
+
+
+#' losses_data_pivot_longer
+#' The losses data is in wide format which is OK for the table
+#' but needs to be in long format for ggplot2 to make the bar chart
+#'
+#' @param dat 
+#'
+#' @returns a data frame in long format
+#'
+#' @noRd
+losses_data_pivot_longer <- function(dat){
+  dat |> 
+    tidyr::pivot_longer( cols = c("dead", "discarded", "escaped", "other"),
+                         names_to = "type",
+                         values_to = "n"
+    ) |> 
+    dplyr::mutate(
+      type = factor(
+        type,
+        levels = c("dead", "discarded", "escaped", "other"),
+        labels = c("Døde", "Utkast", "Rømt", "Annet")
+      ))
+  
 }
