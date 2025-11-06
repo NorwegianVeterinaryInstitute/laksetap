@@ -220,7 +220,7 @@ losses_data_pivot_longer <- function(dat){
 #' 
 #' @noRd
 monthly_mortality_locale_columns <- function(dat){
-Sys.setlocale("LC_TIME", "no_NO.UTF-8")
+Sys.setlocale("LC_TIME", "nb_NO.UTF-8")
 dat |> 
   dplyr::mutate(year = format(date, "%Y")) |> 
   dplyr::mutate(month_name = format(date, "%b"))
@@ -238,7 +238,7 @@ dat |>
 #' 
 #' @noRd
 monthly_mortality_losses_columns <- function(dat){
-Sys.setlocale("LC_TIME", "no_NO.UTF-8")
+Sys.setlocale("LC_TIME", "nb_NO.UTF-8")
 
 dat |> 
   dplyr::mutate(year_month = format(date, "%Y-%m")) |> 
