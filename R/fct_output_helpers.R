@@ -27,6 +27,7 @@ style_plotly <- function(p, legend = TRUE) {
 #' need to provided a shorter named palette
 #'
 #' @export
+#' 
 #' @noRd
 make_palette <- function() {
   env <- getOption("golem.app.prod")

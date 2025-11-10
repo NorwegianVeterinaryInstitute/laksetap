@@ -7,6 +7,8 @@
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the plot
+#' 
+#' @noRd
 render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
   region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])),
               as.character(unique(dat$region[dat$geo_group == 'country'])))
@@ -58,6 +60,8 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the table
+#' 
+#' @noRd
 render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
   region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])))
 
@@ -171,6 +175,8 @@ render_input_for_mortality_year <- function(ns, dat, geo_group) {
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the table
+#' 
+#' @noRd
 render_input_for_cohorts_table <- function(ns, dat, geo_group) {
   region <- as.character(unique(dat$region[dat$geo_group == geo_group]))
 
@@ -221,6 +227,8 @@ render_input_for_cohorts_table <- function(ns, dat, geo_group) {
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the table
+#' 
+#' @noRd
 render_input_for_losses_monthly_table <- function(ns, dat, geo_group) {
   region <- as.character(na.omit(unique(dat$region[dat$geo_group == geo_group])))
 

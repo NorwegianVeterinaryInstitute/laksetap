@@ -1,7 +1,10 @@
 #' load_data
-#' Function to load data for the app depending on the
+#' @description Function to load data for the app depending on the
 #' environment prod or dev as set up by golem.app.prod option
+#' 
 #' @export
+#' 
+#' @noRd
 load_data <- function() {
   env <- getOption("golem.app.prod")
 
@@ -109,7 +112,7 @@ load_data <- function() {
 }
 
 #' prep_cohorts_data
-#' Function to prepare the cohorts dataset for plotting
+#' @description Function to prepare the cohorts dataset for plotting
 #'
 #' @param dat 
 #' @param geo_group 
@@ -196,7 +199,7 @@ prep_cohorts_data <- function(dat, geo_group) {
 
 
 #' losses_data_pivot_longer
-#' The losses data is in wide format which is OK for the table
+#' @description The losses data is in wide format which is OK for the table
 #' but needs to be in long format for ggplot2 to make the bar chart
 #'
 #' @param dat 
@@ -221,7 +224,7 @@ losses_data_pivot_longer <- function(dat){
 
 
 #' monthly_mortality_locale_columns
-#' function to prepare columns for time variables
+#' @description function to prepare columns for time variables
 #' in locale of country used in plots and tables
 #'
 #' @param dat 
@@ -239,7 +242,7 @@ dat |>
 
 
 #' monthly_losses_locale_columns
-#' function to prepare columns for time variables
+#' @description function to prepare columns for time variables
 #' in locale of country used in plots and tables
 #'
 #' @param dat 

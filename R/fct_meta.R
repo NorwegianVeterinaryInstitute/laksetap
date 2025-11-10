@@ -2,7 +2,6 @@
 #'
 #' @description Meta block for the app
 #'
-#'
 #' @noRd
 meta_block <- function() {
   metathis::meta() |>
@@ -18,7 +17,6 @@ meta_block <- function() {
 #' tag_manager 
 #'
 #' @description Tag manager for usage tracking
-#'
 #'
 #' @noRd
 tag_manager <- function() {
