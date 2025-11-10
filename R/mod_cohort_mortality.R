@@ -71,7 +71,7 @@ mod_cohort_mortality_server <- function(id) {
             )
         }
       )
-    
+
     #### UI for select year ####
     output$select_year_cohort_ui <- shiny::renderUI({
       shiny::column(
@@ -79,7 +79,9 @@ mod_cohort_mortality_server <- function(id) {
         select_year(
           id = ns("select_year_cohort"),
           dat = cohort_mortality_data
-        ))})
+        )
+      )
+    })
 
     #### UI for cohorts mortality table ####
     table_inputs_ui <- shiny::reactive({
@@ -123,19 +125,22 @@ mod_cohort_mortality_server <- function(id) {
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
             input$select_year_cohort
-          )  |>  style_plotly(legend = FALSE)
+          ) |>
+          style_plotly(legend = FALSE)
       } else if (session$userData$geo_group() == "county") {
         cohort_mortality_data_county |>
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
             input$select_year_cohort
-          )  |>  style_plotly(legend = FALSE)
+          ) |>
+          style_plotly(legend = FALSE)
       } else {
         cohort_mortality_data_country |>
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
             input$select_year_cohort
-          ) |>  style_plotly(legend = FALSE)
+          ) |>
+          style_plotly(legend = FALSE)
       }
     }) |>
       bindEvent(

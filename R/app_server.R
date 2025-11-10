@@ -5,7 +5,6 @@
 #' @import shiny
 #' @noRd
 app_server <- function(input, output, session) {
-
   #### Make the title change with the tab ####
   output$tab_title <- shiny::renderUI({
     if (input$navbar == "monthly_mortality") {

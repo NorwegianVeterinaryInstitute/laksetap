@@ -1,4 +1,4 @@
-#' meta_block 
+#' meta_block
 #'
 #' @description Meta block for the app
 #'
@@ -14,7 +14,7 @@ meta_block <- function() {
     )
 }
 
-#' tag_manager 
+#' tag_manager
 #'
 #' @description Tag manager for usage tracking
 #'

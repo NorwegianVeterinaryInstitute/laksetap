@@ -127,10 +127,12 @@ mod_monthly_mortality_server <- function(id) {
       req(df_mort_month())
       req(input$select_years_mortality_month)
       req(input$select_region_mortality_month_plot)
-      
+
       p <- df_mort_month() |>
         dplyr::filter(year %in% input$select_years_mortality_month) |>
-        dplyr::filter(region %in% c(input$select_region_mortality_month_plot)) |>
+        dplyr::filter(
+          region %in% c(input$select_region_mortality_month_plot)
+        ) |>
         monthly_mortality_plot()
 
       style_plotly(p)
@@ -150,7 +152,8 @@ mod_monthly_mortality_server <- function(id) {
 
       if (session$userData$geo_group() != "country") {
         req(input$select_region_mortality_month)
-        dat <- dat |> dplyr::filter(region %in% input$select_region_mortality_month)
+        dat <- dat |>
+          dplyr::filter(region %in% input$select_region_mortality_month)
       }
 
       monthly_mortality_table(dat)

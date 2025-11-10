@@ -120,7 +120,7 @@ plot_yearly_mortality_outputs <- function(dat) {
 
 
 #' table_yearly_mortality_outputs
-#' 
+#'
 #' @description A function to make the yearly mortality table
 #'
 #' @param dat a data frame

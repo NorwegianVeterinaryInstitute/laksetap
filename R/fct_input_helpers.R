@@ -7,11 +7,13 @@
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the plot
-#' 
+#'
 #' @noRd
 render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
-  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])),
-              as.character(unique(dat$region[dat$geo_group == 'country'])))
+  region <- c(
+    as.character(unique(dat$region[dat$geo_group == geo_group])),
+    as.character(unique(dat$region[dat$geo_group == 'country']))
+  )
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -43,7 +45,9 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
             ns("select_region_mortality_month_plot"),
             "Velg flere områder:",
             region,
-            selected = c(as.character(unique(dat$region[dat$geo_group == 'country']))),
+            selected = c(as.character(unique(dat$region[
+              dat$geo_group == 'country'
+            ]))),
             multiple = TRUE
           )
         )
@@ -60,7 +64,7 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the table
-#' 
+#'
 #' @noRd
 render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
   region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])))
@@ -175,7 +179,7 @@ render_input_for_mortality_year <- function(ns, dat, geo_group) {
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the table
-#' 
+#'
 #' @noRd
 render_input_for_cohorts_table <- function(ns, dat, geo_group) {
   region <- as.character(unique(dat$region[dat$geo_group == geo_group]))
@@ -224,15 +228,17 @@ render_input_for_cohorts_table <- function(ns, dat, geo_group) {
 #' @param ns namespace function
 #' @param dat dataframe
 #' @param geo_group "area", "county" or "country"
-#' 
+#'
 #' @importFrom stats na.omit
-#' 
+#'
 #' @returns a taglist to be rendered in the UI
 #' for the table
-#' 
+#'
 #' @noRd
 render_input_for_losses_monthly_table <- function(ns, dat, geo_group) {
-  region <- as.character(na.omit(unique(dat$region[dat$geo_group == geo_group])))
+  region <- as.character(na.omit(unique(dat$region[
+    dat$geo_group == geo_group
+  ])))
 
   if (geo_group == "country") {
     shiny::tagList(

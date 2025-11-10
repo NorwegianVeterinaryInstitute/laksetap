@@ -33,10 +33,10 @@ losses_data_prep_plot <- function(
 losses_plot <- function(dat) {
   # Colors
   vi_palette <- getOption("vi_palette")
-  
+
   dat |>
-    ggplot(aes(fill=type, x=region, y=n)) + 
-    geom_bar(position="stack", stat="identity") +
+    ggplot(aes(fill = type, x = region, y = n)) +
+    geom_bar(position = "stack", stat = "identity") +
     labs(x = "Område", y = "Antal (Milioner)") +
     scale_fill_manual(values = vi_palette) +
     theme_minimal()
@@ -55,34 +55,36 @@ losses_plot <- function(dat) {
 #' @noRd
 losses_data_prep_table <- function(dat, resolution) {
   if (resolution == "m") {
-  dat |>
-    dplyr::select(
-      "year",
-      "month_name",
-      "region",
-      "losses",
-      "dead",
-      "discarded",
-      "escaped",
-      "other"
-    )} else {
-      dat |>
-        dplyr::select(
-          "year",
-          "region",
-          "losses",
-          "dead",
-          "discarded",
-          "escaped",
-          "other")
-    }
+    dat |>
+      dplyr::select(
+        "year",
+        "month_name",
+        "region",
+        "losses",
+        "dead",
+        "discarded",
+        "escaped",
+        "other"
+      )
+  } else {
+    dat |>
+      dplyr::select(
+        "year",
+        "region",
+        "losses",
+        "dead",
+        "discarded",
+        "escaped",
+        "other"
+      )
+  }
 }
 
 
 #' losses_table
 #'
 #' @description Function to make the monthly loses table.
-#' 
+#'
 #' @param dat a data frame
 #' @param resolution 'm' or 'y' when the data is on monthly on yearly level
 #'

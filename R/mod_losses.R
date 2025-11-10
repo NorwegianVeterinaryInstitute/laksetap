@@ -82,7 +82,7 @@ mod_losses_ui <- function(id) {
 mod_losses_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    
+
     #### Data ####
     #### Monthly losses ####
     monthly_losses_data <- getOption("monthly_losses_data_lc")
@@ -110,7 +110,7 @@ mod_losses_server <- function(id) {
             )
         }
       )
-    
+
     #### Yearly losses ####
     yearly_losses_data <- getOption("yearly_losses_data")
     df_losses <-
@@ -124,7 +124,7 @@ mod_losses_server <- function(id) {
             )
         }
       )
-    
+
     yearly_losses_data_long <- getOption("yearly_losses_data_long")
     df_losses_long <-
       shiny::eventReactive(
@@ -137,7 +137,7 @@ mod_losses_server <- function(id) {
             )
         }
       )
-    
+
     #### UI for select year ####
     output$select_year_monthly_losses_ui <- shiny::renderUI({
       shiny::column(
@@ -145,16 +145,20 @@ mod_losses_server <- function(id) {
         select_year(
           id = ns("select_year_monthly_losses"),
           dat = monthly_losses_data
-        ))})
-    
+        )
+      )
+    })
+
     output$select_year_yearly_losses_ui <- shiny::renderUI({
       shiny::column(
         width = 6,
         select_year(
           id = ns("select_year_yearly_losses"),
           dat = yearly_losses_data
-        ))})
-    
+        )
+      )
+    })
+
     #### UI for table losses monthly ####
     monthly_table_inputs_ui <- shiny::reactive({
       if (session$userData$geo_group() == "area") {
@@ -213,7 +217,7 @@ mod_losses_server <- function(id) {
 
     #### OUTPUTS ####
     #### Losses monthly ####
-    
+
     output$plot_losses_monthly <- plotly::renderPlotly({
       dat <- losses_data_prep_plot(
         df_losses_month_long(),
@@ -221,10 +225,10 @@ mod_losses_server <- function(id) {
         input$select_month_monthly_losses,
         resolution = "m"
       )
-      
+
       losses_plot(dat)
     })
-    
+
     output$table_losses_month <- DT::renderDT({
       if (session$userData$geo_group() == "country") {
         dat <- df_losses_month() |>
@@ -233,11 +237,10 @@ mod_losses_server <- function(id) {
               year %in% input$select_years_losses_monthly_table,
             month_name %in% input$select_months_losses_monthly_table
           )
-        
-        dat |> 
-        losses_data_prep_table(resolution='m') |> 
-        losses_table( resolution = "m")
-        
+
+        dat |>
+          losses_data_prep_table(resolution = 'm') |>
+          losses_table(resolution = "m")
       } else {
         dat <- df_losses_month() |>
           dplyr::filter(
@@ -246,14 +249,12 @@ mod_losses_server <- function(id) {
             month_name %in% input$select_months_losses_monthly_table,
             region %in% input$select_region_losses_monthly_table
           )
-        
-        dat |> 
-          losses_data_prep_table(resolution='m') |> 
-          losses_table( resolution = "m")
+
+        dat |>
+          losses_data_prep_table(resolution = 'm') |>
+          losses_table(resolution = "m")
       }
     })
-
-
 
     #### Losses yearly ####
 
@@ -264,15 +265,17 @@ mod_losses_server <- function(id) {
         input$select_year_yearly_losses,
         resolution = "y"
       )
-      
+
       losses_plot(dat)
     })
-    
+
     #### Yearly losses table ####
     output$table_losses_year <- DT::renderDT({
       if (session$userData$geo_group() == "all") {
         dat <- losses_data_prep_table(
-          df_losses(), resolution = "y") |> 
+          df_losses(),
+          resolution = "y"
+        ) |>
           dplyr::filter(
             year %in% input$select_years_losses_year_table
           )
@@ -280,7 +283,9 @@ mod_losses_server <- function(id) {
         losses_table(dat, resolution = "y")
       } else {
         losses_data_prep_table(
-          df_losses(), resolution = "y") |> 
+          df_losses(),
+          resolution = "y"
+        ) |>
           dplyr::filter(
             year %in%
               input$select_years_losses_year_table,
@@ -290,8 +295,6 @@ mod_losses_server <- function(id) {
         losses_table(dat, resolution = "y")
       }
     })
-
-
   })
 }
 
