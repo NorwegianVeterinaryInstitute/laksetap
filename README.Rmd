@@ -16,6 +16,17 @@ output: github_document
 # Laksetap
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/NorwegianVeterinaryInstitute/laksetap/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/discindo/newscatcheR/actions/workflows/R-CMD-check.yaml)
+
 <!-- badges: end -->
 
-App for reporting salmon and rainbow trout losses in Norway
+Laksetap is a R Golem Shiny App for reporting salmon and rainbow trout losses 
+in Norway. 
+
+It is published at [apps.vetinst.no/laksetap](https://apps.vetinst.no/laksetap).
+
+It is also distributed with dummy data. For anyone interested in implementing 
+the app with their own data, running the app from [dev/run_dev.R](dev/run_dev.R) 
+will load the app with the dummy data. The `dev` folder also contains definitions
+of the data sets and scripts to test the visualization functions with the dummy
+data.
