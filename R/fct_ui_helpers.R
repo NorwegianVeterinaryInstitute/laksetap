@@ -38,48 +38,37 @@ select_year <- function(id, dat, multiple = F) {
 #' @param multiple TRUE/FALSE for multiple selection
 #'
 #' @returns a vector to be used in selectInput
+
 select_months <- function(id, digit = F, multiple = T) {
+  
+  months_abbv <- get_month_abbrev("nb_NO.UTF-8")
+  months_digit <- c("01", "02", "03", "04", "05", "06",
+                    "07", "08", "09", "10", "11", "12")
+  
+  names(months_digit) <- months_abbv
+  
   if (digit) {
     shiny::selectInput(
       id,
       "Velg måned:",
-      c(
-        "jan" = "01",
-        "feb" = "02",
-        "mar" = "03",
-        "apr" = "04",
-        "mai" = "05",
-        "jun" = "06",
-        "jul" = "07",
-        "aug" = "08",
-        "sep" = "09",
-        "okt" = "10",
-        "nov" = "11",
-        "des" = "12"
-      ),
-      selected = c("01"),
+     months_digit,
+      selected = months_digit[[1]],
       multiple = multiple
     )
   } else {
     selectInput(
       id,
       "Velg flere måneder:",
-      c(
-        "jan",
-        "feb",
-        "mar",
-        "apr",
-        "mai",
-        "jun",
-        "jul",
-        "aug",
-        "sep",
-        "okt",
-        "nov",
-        "des"
-      ),
-      selected = c("jan"),
+      months_abbv,
+      selected = months_abbv[[1]],
       multiple = multiple
     )
   }
+}
+
+# Function to get abbreviated month names in a specific locale
+get_month_abbrev <- function(locale) {
+  Sys.setlocale("LC_TIME", locale)
+  months <- format(as.Date(paste0("2023-", 1:12, "-01")), "%b")
+  return(months)
 }
