@@ -95,5 +95,5 @@ names(monthly_losses_dummy_data) <- c(
 
 saveRDS(
   monthly_losses_dummy_data,
-  file = "inst/data/monthly_losses_dummy_data.Rds"
+  file = "inst/extdata/monthly_losses_dummy_data.Rds"
 )

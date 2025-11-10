@@ -7,7 +7,7 @@ library(ggplot2)
 library(plotly)
 library(DT)
 
-dat <- readRDS("inst/data/monthly_mortality_dummy_data.rds")
+dat <- readRDS("inst/extdata/monthly_mortality_dummy_data.rds")
 
 #### Plot for monthly mortality
 

@@ -88,5 +88,5 @@ names(yearly_losses_dummy_data) <- c(
 
 saveRDS(
   yearly_losses_dummy_data,
-  file = "inst/data/yearly_losses_dummy_data.Rds"
+  file = "inst/extdata/yearly_losses_dummy_data.Rds"
 )

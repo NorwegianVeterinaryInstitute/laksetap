@@ -133,7 +133,7 @@ render_input_for_mortality_year <- function(ns, dat, geo_group) {
       shiny::fluidRow(
         shiny::column(
           width = 6,
-          shiny::select_year(
+          select_year(
             ns("select_years_mortality_year"),
             dat,
             multiple = TRUE
@@ -146,7 +146,7 @@ render_input_for_mortality_year <- function(ns, dat, geo_group) {
       shiny::fluidRow(
         shiny::column(
           width = 6,
-          shiny::select_year(
+          select_year(
             ns("select_years_mortality_year"),
             dat,
             multiple = TRUE
@@ -224,7 +224,9 @@ render_input_for_cohorts_table <- function(ns, dat, geo_group) {
 #' @param ns namespace function
 #' @param dat dataframe
 #' @param geo_group "area", "county" or "country"
-#'
+#' 
+#' @importFrom stats na.omit
+#' 
 #' @returns a taglist to be rendered in the UI
 #' for the table
 #' 

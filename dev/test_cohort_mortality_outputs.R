@@ -10,7 +10,7 @@ library(DT)
 
 ### Template cohort mortality 
 
-dat <- readRDS("inst/data/cohort_mortality_dummy_data.Rds")
+dat <- readRDS("inst/extdata/cohort_mortality_dummy_data.Rds")
 
 #### Plot for cohort mortality
 

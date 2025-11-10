@@ -88,5 +88,5 @@ names(cohort_mortality_dummy_data) <- c(
 
 saveRDS(
   cohort_mortality_dummy_data,
-  file = "inst/data/cohort_mortality_dummy_data.Rds"
+  file = "inst/extdata/cohort_mortality_dummy_data.Rds"
 )

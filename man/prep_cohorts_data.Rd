@@ -2,20 +2,18 @@
 % Please edit documentation in R/fct_data.R
 \name{prep_cohorts_data}
 \alias{prep_cohorts_data}
-\title{prep_cohorts_data
-Function to prepare the cohorts dataset for plotting}
+\title{prep_cohorts_data}
 \usage{
 prep_cohorts_data(dat, geo_group)
 }
 \arguments{
-\item{dat}{}
+\item{dat}{a data frame}
 
-\item{geo_group}{}
+\item{geo_group}{area, county or country}
 }
 \value{
 a formatted dataframe
 }
 \description{
-prep_cohorts_data
 Function to prepare the cohorts dataset for plotting
 }

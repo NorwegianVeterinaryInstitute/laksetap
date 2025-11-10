@@ -10,3 +10,7 @@ $run_dev.*
 ^laksetap\.Rcheck$
 ^laksetap.*\.tar\.gz$
 ^laksetap.*\.tgz$
+.dockerignore
+^air.toml$
+^app.R$
+^\.github$

@@ -2,14 +2,11 @@
 % Please edit documentation in R/fct_data.R
 \name{load_data}
 \alias{load_data}
-\title{load_data
-Function to load data for the app depending on the
-environment prod or dev as set up by golem.app.prod option}
+\title{load_data}
 \usage{
 load_data()
 }
 \description{
-load_data
 Function to load data for the app depending on the
 environment prod or dev as set up by golem.app.prod option
 }

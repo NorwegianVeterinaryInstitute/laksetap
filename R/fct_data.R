@@ -3,8 +3,6 @@
 #' environment prod or dev as set up by golem.app.prod option
 #' 
 #' @export
-#' 
-#' @noRd
 load_data <- function() {
   env <- getOption("golem.app.prod")
 
@@ -49,12 +47,12 @@ load_data <- function() {
 
     yearly_losses_data <- readRDS(
       app_sys(
-        "data", "yearly_losses_dummy_data.Rds")
+        "extdata", "yearly_losses_dummy_data.Rds")
       )
     
     monthly_losses_data <- readRDS(
       app_sys(
-        "data", "monthly_losses_dummy_data.Rds")
+        "extdata", "monthly_losses_dummy_data.Rds")
       )
     
     monthly_losses_data_lc <-monthly_mortality_losses_columns(monthly_losses_data)
@@ -66,19 +64,19 @@ load_data <- function() {
     
     yearly_mortality_data <- readRDS(
       app_sys(
-        "data", "yearly_mortality_dummy_data.Rds")
+        "extdata", "yearly_mortality_dummy_data.Rds")
       )
     
     monthly_mortality_data <- readRDS(
       app_sys(
-        "data", "monthly_mortality_dummy_data.Rds")
+        "extdata", "monthly_mortality_dummy_data.Rds")
     ) 
     
     monthly_mortality_data_lc <- monthly_mortality_locale_columns(monthly_mortality_data)
     
     cohort_mortality_data <- readRDS(
       app_sys(
-        "data", "cohort_mortality_dummy_data.Rds")
+        "extdata", "cohort_mortality_dummy_data.Rds")
     )
 
     cohort_mortality_data_area <- prep_cohorts_data(
@@ -114,8 +112,8 @@ load_data <- function() {
 #' prep_cohorts_data
 #' @description Function to prepare the cohorts dataset for plotting
 #'
-#' @param dat 
-#' @param geo_group 
+#' @param dat a data frame
+#' @param geo_group area, county or country
 #'
 #' @returns a formatted dataframe
 prep_cohorts_data <- function(dat, geo_group) {

@@ -7,8 +7,8 @@ library(ggplot2)
 library(plotly)
 library(DT)
 
-dat_m <- readRDS("inst/data/monthly_losses_dummy_data.Rds")
-dat_y <- readRDS("inst/data/yearly_losses_dummy_data.Rds")
+dat_m <- readRDS("inst/extdata/monthly_losses_dummy_data.Rds")
+dat_y <- readRDS("inst/extdata/yearly_losses_dummy_data.Rds")
 
 #### Plot for monthly losses
 
