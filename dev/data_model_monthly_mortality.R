@@ -48,9 +48,9 @@ create_monthly_mortality <- function(geo_group) {
   dat <- dat[sample(nrow(dat)), ]
 
   n <- nrow(dat)
-  dat$median<- round(runif(n, min = 0.5, max = 1.5), 2)
-  dat$q1<- round(runif(n, min = 0.1, max = 0.49), 2)
-  dat$q3<- round(runif(n, min = 1.51, max = 2.5), 2)
+  dat$median <- round(runif(n, min = 0.5, max = 1.5), 2)
+  dat$q1 <- round(runif(n, min = 0.1, max = 0.49), 2)
+  dat$q3 <- round(runif(n, min = 1.51, max = 2.5), 2)
 
   dat
 }

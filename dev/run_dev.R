@@ -18,5 +18,5 @@ golem::document_and_reload()
 laksetap::load_data()
 laksetap::make_palette()
 
-# Run the application 
+# Run the application
 run_app()
