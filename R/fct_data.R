@@ -12,14 +12,17 @@ load_data <- function() {
       laksetap_board,
       "vi2451/losses_and_mortality_yearly_data"
     )
+    
     losses_monthly_data <- pins::pin_read(
       laksetap_board,
       "vi2451/losses_monthly_data"
     )
+    
     mortality_rates_monthly_data <- pins::pin_read(
       laksetap_board,
       "vi2451/mortality_rates_monthly_data"
     )
+    
     mortality_cohorts_data <- pins::pin_read(
       laksetap_board,
       "vi2451/mortality_cohorts_data"
@@ -29,6 +32,7 @@ load_data <- function() {
       mortality_cohorts_data,
       geo_group = 'area'
     )
+    
     mortality_cohorts_data_county <- prep_cohorts_data(
       mortality_cohorts_data,
       geo_group = 'county'
@@ -48,12 +52,14 @@ load_data <- function() {
     monthly_losses_data <- readRDS(
       app_sys(
         "data", "monthly_losses_dummy_data.Rds")
-      ) |> monthly_mortality_losses_columns()
+      )
+    
+    monthly_losses_data_lc <-monthly_mortality_losses_columns(monthly_losses_data)
     
     
     yearly_losses_data_long <- losses_data_pivot_longer(yearly_losses_data)
     
-    monthly_losses_data_long <- losses_data_pivot_longer(monthly_losses_data)
+    monthly_losses_data_long <- losses_data_pivot_longer(monthly_losses_data_lc)
     
     yearly_mortality_data <- readRDS(
       app_sys(
@@ -63,7 +69,9 @@ load_data <- function() {
     monthly_mortality_data <- readRDS(
       app_sys(
         "data", "monthly_mortality_dummy_data.Rds")
-    ) |> monthly_mortality_locale_columns()
+    ) 
+    
+    monthly_mortality_data_lc <- monthly_mortality_locale_columns(monthly_mortality_data)
     
     cohort_mortality_data <- readRDS(
       app_sys(
@@ -88,10 +96,12 @@ load_data <- function() {
 
   options(yearly_losses_data = yearly_losses_data)
   options(monthly_losses_data = monthly_losses_data)
+  options(monthly_losses_data_lc = monthly_losses_data_lc)
   options(yearly_losses_data_long = yearly_losses_data_long)
   options(monthly_losses_data_long = monthly_losses_data_long)
   options(yearly_mortality_data = yearly_mortality_data)
   options(monthly_mortality_data = monthly_mortality_data)
+  options(monthly_mortality_data_lc = monthly_mortality_data_lc)
   options(cohort_mortality_data = cohort_mortality_data)
   options(cohort_mortality_data_area = cohort_mortality_data_area)
   options(cohort_mortality_data_county = cohort_mortality_data_county)
