@@ -51,7 +51,7 @@ mod_monthly_mortality_server <- function(id) {
     ns <- session$ns
 
     #### DATA ####
-    monthly_mortality_data <- getOption("monthly_mortality_data")
+    monthly_mortality_data <- getOption("monthly_mortality_data_lc")
     df_mort_month <-
       eventReactive(
         c(session$userData$species(), session$userData$geo_group()),

@@ -85,7 +85,7 @@ mod_losses_server <- function(id) {
     
     #### Data ####
     #### Monthly losses ####
-    monthly_losses_data <- getOption("monthly_losses_data")
+    monthly_losses_data <- getOption("monthly_losses_data_lc")
     df_losses_month <-
       shiny::eventReactive(
         c(session$userData$species(), session$userData$geo_group()),
