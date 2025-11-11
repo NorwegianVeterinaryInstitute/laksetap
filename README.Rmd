@@ -25,8 +25,15 @@ in Norway.
 
 It is published at [apps.vetinst.no/laksetap](https://apps.vetinst.no/laksetap).
 
-It is also distributed with dummy data. For anyone interested in implementing 
-the app with their own data, running the app from [dev/run_dev.R](dev/run_dev.R) 
-will load the app with the dummy data. The `dev` folder also contains definitions
-of the data sets and scripts to test the visualization functions with the dummy
-data.
+## Running the app localy
+
+The app runs with dummy data locally without the need to be connected to VI's 
+server. The dummy data is distributed as part of the package in [inst/extdata](inst/extdata). 
+For anyone interested in implementing  the app with their own data, running 
+the app from [dev/run_dev.R](dev/run_dev.R)  will load the app with the dummy 
+data. The `dev` folder also contains definitions of the data sets and scripts 
+to test the visualization functions with the dummy data.
+
+## Translating the app
+
+All labels used in the app are in [inst/app/www/labels_nb_no.json](inst/app/www/labels_nb_no.json). Translating the `.json` file and providing the new file as an `golem option` in `run_app.R` will make the app use a different language for labels on UI inputs, and other HTML elements. The long form text (i.e. more than a few words) is in separate `.md` files [inst/app/www/](inst/app/www/).
