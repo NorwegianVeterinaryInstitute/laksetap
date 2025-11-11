@@ -28,10 +28,12 @@ Imports:
     DT,
     ggplot2,
     golem,
+    jsonlite,
     markdown,
     metathis,
     pins,
     plotly,
+    readr,
     shiny,
     tidyr
 Encoding: UTF-8

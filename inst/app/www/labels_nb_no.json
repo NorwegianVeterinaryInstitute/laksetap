@@ -5,7 +5,7 @@
     "navbar_prod_mortality": "Produksjonssyklus dødelighet %",
     "navbar_calc_mortality": "Dødelighetskalkulator",
     "navbar_losses": "Tapstall",
-    "navbar_about": "Om statistikken"
+    "navbar_about": "Om tjenesten"
     },
   "modules": {
     "mod_overview": {

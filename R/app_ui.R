@@ -67,7 +67,7 @@ app_ui <- function(request) {
         ),
         #### Tab 5: Top level tab for about the app ####
         bslib::nav_panel(
-          "Om applikasjonen",
+          "Om tjenesten",
           value = "about",
           mod_about_ui("about_1")
         )
