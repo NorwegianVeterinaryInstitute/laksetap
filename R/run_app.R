@@ -25,6 +25,8 @@ run_app <- function(
     ),
     golem_opts = list(
       labels = jsonlite::fromJSON(
-        app_sys("app/www/labels_nb_no.json"))
-  ))
+        app_sys("app/www/labels_nb_no.json")
+      )
+    )
+  )
 }

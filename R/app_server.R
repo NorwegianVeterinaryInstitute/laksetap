@@ -5,10 +5,9 @@
 #' @import shiny
 #' @noRd
 app_server <- function(input, output, session) {
-  
   #### Labels to be used in the UI ####
   labels <- golem::get_golem_options(which = "labels")
-  
+
   #### Make the title change with the tab ####
   output$tab_title <- shiny::renderUI({
     if (input$navbar == "monthly_mortality") {

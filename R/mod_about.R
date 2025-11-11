@@ -41,11 +41,11 @@ mod_about_ui <- function(id) {
               shiny::downloadButton(
                 ns("download_csv"),
                 "Last ned valgt dataset (CSV)"
-                
-              ), 
+              ),
               shiny::downloadButton(
                 ns("download_json"),
-                "Last ned valgt dataset (JSON)")
+                "Last ned valgt dataset (JSON)"
+              )
             )
           )
         )
@@ -68,13 +68,13 @@ mod_about_server <- function(id) {
       monthly_losses_data = getOption("monthly_losses_data"),
       cohort_mortality_data_area = getOption("cohort_mortality_data_area")
     )
-    
+
     # Reactive for selected dataset
     selected_dataset <- reactive({
       req(input$which_dataset)
       input$which_dataset
     })
-    
+
     #### Download handler for selected dataset - CSV ####
     output$download_csv <- shiny::downloadHandler(
       filename = function() {
@@ -95,7 +95,7 @@ mod_about_server <- function(id) {
       },
       contentType = "text/csv"
     )
-    
+
     #### Download handler for selected dataset - JSON ####
     output$download_json <- shiny::downloadHandler(
       filename = function() {
@@ -105,16 +105,27 @@ mod_about_server <- function(id) {
         dat <- datasets_list[[selected_dataset()]]
         if (is.null(dat)) {
           # Write a small JSON with message
-          msg <- list(message = paste("Dataset", selected_dataset(), "is not available"))
-          jsonlite::write_json(msg, path = file, pretty = TRUE, auto_unbox = TRUE)
+          msg <- list(
+            message = paste("Dataset", selected_dataset(), "is not available")
+          )
+          jsonlite::write_json(
+            msg,
+            path = file,
+            pretty = TRUE,
+            auto_unbox = TRUE
+          )
         } else {
           # Write dataset as JSON
-          jsonlite::write_json(dat, path = file, pretty = TRUE, auto_unbox = TRUE)
+          jsonlite::write_json(
+            dat,
+            path = file,
+            pretty = TRUE,
+            auto_unbox = TRUE
+          )
         }
       },
       contentType = "application/json"
     )
-    
   })
 }
 
