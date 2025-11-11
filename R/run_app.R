@@ -23,6 +23,8 @@ run_app <- function(
       enableBookmarking = enableBookmarking,
       uiPattern = uiPattern
     ),
-    golem_opts = list(...)
-  )
+    golem_opts = list(
+      labels = jsonlite::fromJSON(
+        app_sys("app/www/labels_nb_no.json"))
+  ))
 }

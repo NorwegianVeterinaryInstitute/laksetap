@@ -1,0 +1,20 @@
+{
+  "app_server": {
+    "navbar_monthly_mortality": "Månedlig dødelighet %",
+    "navbar_yearly_mortality": "Årlig dødelighet %",
+    "navbar_prod_mortality": "Produksjonssyklus dødelighet %",
+    "navbar_calc_mortality": "Dødelighetskalkulator",
+    "navbar_losses": "Tapstall",
+    "navbar_about": "Om statistikken"
+    },
+  "modules": {
+    "mod_overview": {
+      "header": "Overview",
+      "description": "This section provides an overview."
+    },
+    "mod_details": {
+      "header": "Details",
+      "description": "Here are the details."
+    }
+  }
+}

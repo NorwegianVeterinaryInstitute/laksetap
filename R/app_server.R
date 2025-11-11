@@ -5,20 +5,24 @@
 #' @import shiny
 #' @noRd
 app_server <- function(input, output, session) {
+  
+  #### Labels to be used in the UI ####
+  labels <- golem::get_golem_options(which = "labels")
+  
   #### Make the title change with the tab ####
   output$tab_title <- shiny::renderUI({
     if (input$navbar == "monthly_mortality") {
-      shiny::h2("Månedlig dødelighet %")
+      shiny::h2(labels$app_server$monthly_mortality)
     } else if (input$navbar == "yearly_mortality") {
-      shiny::h2("Årlig dødelighet %")
+      shiny::h2(labels$app_server$yearly_mortality)
     } else if (input$navbar == "prod_mortality") {
-      shiny::h2("Produksjonssyklus dødelighet %")
-    } else if (input$navbar == "calc_main") {
-      shiny::h2("Dødelighetskalkulator")
+      shiny::h2(labels$app_server$prod_mortality)
+    } else if (input$navbar == "calc_mortality") {
+      shiny::h2(labels$app_server$calc_mortality)
     } else if (input$navbar == "losses") {
-      shiny::h2("Tapstall")
+      shiny::h2(labels$app_server$losses)
     } else if (input$navbar == "about") {
-      shiny::h2("Om statistikken")
+      shiny::h2(labels$app_server$about)
     }
   })
 
