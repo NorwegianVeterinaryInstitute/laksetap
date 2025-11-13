@@ -1,5 +1,5 @@
 *data
-!inst/data
+!inst/extdata
 *.Rproj.user
 *.Rhistory
 .Rproj.user
