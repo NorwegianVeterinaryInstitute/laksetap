@@ -9,24 +9,23 @@
 #' @importFrom shiny NS tagList
 mod_cohort_mortality_ui <- function(id) {
   ns <- shiny::NS(id)
+
+  labels <- golem::get_golem_options(which = "labels")
+
   shiny::tagList(
     shiny::div(
       class = "container",
       bslib::navset_tab(
         bslib::nav_panel(
-          "Diagram",
+          labels$modules$plot,
           shiny::br(),
           shiny::uiOutput(ns("select_year_cohort_ui")),
-          shiny::br(),
-          shiny::br(),
-          shiny::br(),
-          shiny::br(),
           plotly::plotlyOutput(ns("plot_cohort")),
           shiny::hr(),
           shiny::includeMarkdown(app_sys("www/cohorts_plot_footer.md"))
         ),
         bslib::nav_panel(
-          "Tabell",
+          labels$modules$table,
           shiny::br(),
           shiny::uiOutput(ns("tab_filter_cohorts_table")),
           shiny::div(

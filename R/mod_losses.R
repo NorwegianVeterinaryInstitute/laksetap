@@ -9,12 +9,15 @@
 #' @importFrom shiny NS tagList
 mod_losses_ui <- function(id) {
   ns <- shiny::NS(id)
+
+  labels <- golem::get_golem_options(which = "labels")
+
   shiny::tagList(
     shiny::div(
       class = "container",
       bslib::navset_tab(
         bslib::nav_panel(
-          "Månedlige tap diagram",
+          labels$modules$plot_losses_month,
           shiny::br(),
           shiny::fluidRow(
             shiny::uiOutput(ns("select_year_monthly_losses_ui")),
@@ -34,7 +37,7 @@ mod_losses_ui <- function(id) {
           ))
         ),
         bslib::nav_panel(
-          "Månedlige tap tabell",
+          labels$modules$table_losses_month,
           shiny::br(),
           shiny::uiOutput(ns("tab_filter_monthly_losses_table")),
           shiny::div(
@@ -48,7 +51,7 @@ mod_losses_ui <- function(id) {
           )
         ),
         bslib::nav_panel(
-          "Årlige tap diagram",
+          labels$modules$plot_losses_year,
           shiny::br(),
           shiny::uiOutput(ns("select_year_yearly_losses_ui")),
           plotly::plotlyOutput(ns("plot_losses")),
@@ -58,7 +61,7 @@ mod_losses_ui <- function(id) {
           ))
         ),
         bslib::nav_panel(
-          "Årlige tap tabell",
+          labels$modules$table_losses_year,
           shiny::br(),
           shiny::uiOutput(ns("tab_filter_yearly_losses_table")),
           shiny::div(
@@ -124,7 +127,7 @@ mod_losses_server <- function(id) {
             )
         }
       )
-
+  
     yearly_losses_data_long <- getOption("yearly_losses_data_long")
     df_losses_long <-
       shiny::eventReactive(

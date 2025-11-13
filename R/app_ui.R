@@ -5,6 +5,8 @@
 #' @import shiny
 #' @noRd
 app_ui <- function(request) {
+  labels <- golem::get_golem_options(which = "labels")
+  
   shiny::tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
@@ -43,31 +45,31 @@ app_ui <- function(request) {
 
         #### Tab 1: top level tab monthly mortality ####
         bslib::nav_panel(
-          "Månedlig dødelighet %",
+          labels$app_server$navbar_monthly_mortality,
           value = "monthly_mortality",
           mod_monthly_mortality_ui("monthly_mortality_1")
         ),
         #### Tab 2 top level tab yearly mortality ####
         # bslib::nav_panel(
-        #   "Årlig dødelighet %",
+        #   labels$app_server$navbar_yearly_mortality,
         #   value = "yearly_mortality",
         #   mod_yearly_mortality_ui("yearly_mortality_1")
         # ),
         #### Tab 3: Top level tab cohorts ####
         bslib::nav_panel(
-          "Produksjonssyklus dødelighet %",
+          labels$app_server$navbar_prod_mortality,
           value = "prod_mortality",
           mod_cohort_mortality_ui("cohort_mortality_1")
         ),
         #### Tab 4: Top level tab for all losses ####
         bslib::nav_panel(
-          "Tapstall",
+          labels$app_server$navbar_losses,
           value = "losses",
           mod_losses_ui("losses_1")
         ),
         #### Tab 5: Top level tab for about the app ####
         bslib::nav_panel(
-          "Om tjenesten",
+          labels$app_server$navbar_about,
           value = "about",
           mod_about_ui("about_1")
         )
@@ -85,6 +87,9 @@ app_ui <- function(request) {
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
 #' @noRd
 golem_add_external_resources <- function() {
+  
+  labels <- golem::get_golem_options(which = "labels")
+  
   add_resource_path(
     "www",
     app_sys("app/www")
@@ -94,7 +99,7 @@ golem_add_external_resources <- function() {
     favicon(ext = "png"),
     bundle_resources(
       path = app_sys("app/www"),
-      app_title = "Laksetap - Statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen"
+      app_title = labels$app_ui$app_title
     )
 
     # Add here other external resources

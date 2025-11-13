@@ -10,6 +10,8 @@
 #'
 #' @noRd
 render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
+  labels <- golem::get_golem_options(which = "labels")
+
   region <- c(
     as.character(unique(dat$region[dat$geo_group == geo_group])),
     as.character(unique(dat$region[dat$geo_group == 'country']))
@@ -43,7 +45,8 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
           width = 4,
           shiny::selectInput(
             ns("select_region_mortality_month_plot"),
-            "Velg flere områder:",
+            #"Velg flere områder:",
+            label = labels$functions$select_multiple_places,
             region,
             selected = c(as.character(unique(dat$region[
               dat$geo_group == 'country'
@@ -67,6 +70,8 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
 #'
 #' @noRd
 render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
+  labels <- golem::get_golem_options(which = "labels")
+
   region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])))
 
   if (geo_group == "country") {
@@ -109,7 +114,8 @@ render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
           width = 4,
           shiny::selectizeInput(
             ns("select_region_mortality_month"),
-            "Velg flere områder",
+            #"Velg flere områder",
+            label = labels$functions$select_multiple_places,
             region,
             selected = region,
             multiple = TRUE
@@ -130,6 +136,8 @@ render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
 #' @returns a taglist to be rendered in the UI
 #' for the table
 render_input_for_mortality_year <- function(ns, dat, geo_group) {
+  labels <- golem::get_golem_options(which = "labels")
+
   region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])))
 
   if (geo_group == "country") {
@@ -160,7 +168,8 @@ render_input_for_mortality_year <- function(ns, dat, geo_group) {
           width = 6,
           shiny::selectizeInput(
             ns("select_region_mortality_year"),
-            "Velg flere områder",
+            #"Velg flere områder",
+            label = labels$functions$select_multiple_places,
             region,
             selected = region,
             multiple = TRUE
@@ -182,6 +191,8 @@ render_input_for_mortality_year <- function(ns, dat, geo_group) {
 #'
 #' @noRd
 render_input_for_cohorts_table <- function(ns, dat, geo_group) {
+  labels <- golem::get_golem_options(which = "labels")
+
   region <- as.character(unique(dat$region[dat$geo_group == geo_group]))
 
   if (geo_group == "country") {
@@ -212,7 +223,8 @@ render_input_for_cohorts_table <- function(ns, dat, geo_group) {
           width = 4,
           shiny::selectInput(
             ns("select_region_cohort_table"),
-            "Velg flere områder:",
+            #"Velg flere områder:",
+            label = labels$functions$select_multiple_places,
             region,
             selected = region,
             multiple = TRUE
@@ -236,6 +248,8 @@ render_input_for_cohorts_table <- function(ns, dat, geo_group) {
 #'
 #' @noRd
 render_input_for_losses_monthly_table <- function(ns, dat, geo_group) {
+  labels <- golem::get_golem_options(which = "labels")
+
   region <- as.character(na.omit(unique(dat$region[
     dat$geo_group == geo_group
   ])))
@@ -284,7 +298,8 @@ render_input_for_losses_monthly_table <- function(ns, dat, geo_group) {
           width = 4,
           shiny::selectizeInput(
             ns("select_region_losses_monthly_table"),
-            "Velg flere områder",
+            #"Velg flere områder",
+            label = labels$functions$select_multiple_places,
             region,
             selected = region,
             multiple = TRUE
@@ -304,6 +319,8 @@ render_input_for_losses_monthly_table <- function(ns, dat, geo_group) {
 #' @returns a taglist to be rendered in the UI
 #' for the table
 render_input_for_losses_yearly_table <- function(ns, dat, geo_group) {
+  labels <- golem::get_golem_options(which = "labels")
+
   region <- as.character(unique(dat$region[dat$geo_group == geo_group]))
 
   if (geo_group == "country") {
@@ -334,7 +351,8 @@ render_input_for_losses_yearly_table <- function(ns, dat, geo_group) {
           width = 6,
           shiny::selectizeInput(
             ns("select_region_losses_year_table"),
-            "Velg flere områder",
+            #"Velg flere områder",
+            label = labels$functions$select_multiple_places,
             region,
             selected = region,
             multiple = TRUE

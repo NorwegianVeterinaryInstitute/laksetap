@@ -10,12 +10,15 @@
 #' @import ggplot2
 mod_monthly_mortality_ui <- function(id) {
   ns <- shiny::NS(id)
+
+  labels <- golem::get_golem_options(which = "labels")
+
   shiny::tagList(
     shiny::div(
       class = "container",
       bslib::navset_tab(
         bslib::nav_panel(
-          "Diagram",
+          labels$modules$plot,
           shiny::br(),
           shiny::uiOutput(ns("tab_filter_mortality_month_plot")),
           plotly::plotlyOutput(ns("plot_mortality_month")),
@@ -25,7 +28,7 @@ mod_monthly_mortality_ui <- function(id) {
           )),
         ),
         bslib::nav_panel(
-          "Tabell",
+          labels$modules$table,
           shiny::br(),
           shiny::uiOutput(ns("tab_filter_mortality_month_table")),
           shiny::div(

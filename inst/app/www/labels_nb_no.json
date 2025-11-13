@@ -1,4 +1,7 @@
 {
+  "app_ui": {
+    "app_title": "Laksetap - Statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen"
+  },
   "app_server": {
     "navbar_monthly_mortality": "Månedlig dødelighet %",
     "navbar_yearly_mortality": "Årlig dødelighet %",
@@ -8,13 +11,27 @@
     "navbar_about": "Om tjenesten"
     },
   "modules": {
-    "mod_overview": {
-      "header": "Overview",
-      "description": "This section provides an overview."
-    },
-    "mod_details": {
-      "header": "Details",
-      "description": "Here are the details."
-    }
+   "plot": "Diagram",
+   "table": "Tabell",
+   "plot_losses_month": "Månedlige tap diagram",
+   "table_losses_month": "Månedlige tap tabell",
+   "plot_losses_year": "Årlige tap diagram",
+   "table_losses_year": "Årlige tap tabell",
+   "about": "Om statistikken",
+   "download": "Nedlasting",
+   "radio_button": "Velg dataset å laste ned:",
+   "monthly_mortality_data": "Månedlig dødelighet %",
+   "yearly_mortality_data": "Årlig dødelighet %",
+   "monthly_losses_data": "Månedlige tapstall", 
+   "yearly_losses_data": "Årlige tapstall",
+   "cohort_mortality_data_area": "Produksjonssyklus dødelighet %",
+   "download_button": "Last ned valgt dataset (CSV)"
+   },
+  "functions": {
+    "select_year": "Velg år:",
+    "select_multiple_years": "Velg flere år:",
+    "select_month": "Velg måneder:",
+    "select_multiple_months": "Velg flere måneder:",
+    "select_multiple_places": "Velg flere områder:"
   }
 }

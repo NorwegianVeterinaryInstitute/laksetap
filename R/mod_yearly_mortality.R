@@ -14,9 +14,9 @@ mod_yearly_mortality_ui <- function(id) {
       class = "container",
       bslib::navset_tab(
         bslib::nav_panel(
-          "Diagram",
+          labels$modules$plot,
           shiny::br(),
-          #shiny::uiOutput(ns("tab_filter_mortality_year_plot")),
+          shiny::uiOutput(ns("tab_filter_mortality_year_plot")),
           plotly::plotlyOutput(ns("plot_mortality_year")),
           shiny::hr(),
           shiny::includeMarkdown(app_sys(
@@ -24,7 +24,7 @@ mod_yearly_mortality_ui <- function(id) {
           ))
         ),
         bslib::nav_panel(
-          "Tabell",
+          labels$modules$table,
           shiny::br(),
           shiny::uiOutput(ns("tab_filter_mortality_year_table")),
           shiny::div(

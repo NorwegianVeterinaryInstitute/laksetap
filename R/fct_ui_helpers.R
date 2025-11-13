@@ -13,10 +13,12 @@
 #'
 #' @noRd
 select_year <- function(id, dat, multiple = F) {
+  labels <- golem::get_golem_options(which = "labels")
+  
   if (multiple) {
-    text = "Velg flere år:"
+    text = labels$functions$select_multiple_years
   } else {
-    text = "Velg år:"
+    text = labels$functions$select_year
   }
 
   years_available <- sort(unique(dat$year), decreasing = TRUE)
@@ -43,28 +45,16 @@ select_year <- function(id, dat, multiple = F) {
 #'
 #' @noRd
 select_months <- function(id, digit = F, multiple = T) {
+  labels <- golem::get_golem_options(which = "labels")
   months_abbv <- get_month_abbrev("nb_NO.UTF-8")
-  months_digit <- c(
-    "01",
-    "02",
-    "03",
-    "04",
-    "05",
-    "06",
-    "07",
-    "08",
-    "09",
-    "10",
-    "11",
-    "12"
-  )
+  months_digit <- formatC(1:12, width = 2, flag = "0")
 
   names(months_digit) <- months_abbv
 
   if (digit) {
     shiny::selectInput(
       id,
-      "Velg måned:",
+      labels$functions$select_month,
       months_digit,
       selected = months_digit[[1]],
       multiple = multiple
@@ -72,7 +62,7 @@ select_months <- function(id, digit = F, multiple = T) {
   } else {
     selectInput(
       id,
-      "Velg flere måneder:",
+      labels$functions$select_multiple_months,
       months_abbv,
       selected = months_abbv[[1]],
       multiple = multiple

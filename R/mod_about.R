@@ -9,42 +9,54 @@
 #' @importFrom shiny NS tagList
 mod_about_ui <- function(id) {
   ns <- shiny::NS(id)
+
+  labels <- golem::get_golem_options(which = "labels")
+
+  choices = c(
+    "monthly_mortality_data",
+    "yearly_mortality_data",
+    "monthly_losses_data",
+    "yearly_losses_data",
+    "cohort_mortality_data_area"
+  )
+  names(choices) <- c(
+    labels$modules$monthly_mortality_data,
+    labels$modules$yearly_mortality_data,
+    labels$modules$monthly_losses_data,
+    labels$modules$yearly_losses_data,
+    labels$modules$cohort_mortality_data_area
+  )
+
   shiny::tagList(
     shiny::div(
       class = "container",
       bslib::navset_tab(
         bslib::nav_panel(
-          "Om Statistikken",
+          labels$modules$about,
           shiny::column(
             width = 9,
             shiny::includeMarkdown(app_sys("app/www/about.md"))
           )
         ),
         bslib::nav_panel(
-          "Nedlasting",
+          labels$modules$download,
           shiny::column(
             width = 9,
             shiny::tags$div(
               shiny::includeMarkdown(app_sys("app/www/download.md")),
               shiny::radioButtons(
                 inputId = ns("which_dataset"),
-                label = "Velg dataset å laste ned:",
-                choices = list(
-                  "Månedlig dødelighet %" = "monthly_mortality_data",
-                  "Årlig dødelighet %" = "yearly_mortality_data",
-                  "Årlige tapstall" = "yearly_losses_data",
-                  "Månedlige tapstall" = "monthly_losses_data",
-                  "Produksjonssyklus dødelighet %" = "cohort_mortality_data_area"
-                ),
-                selected = "monthly_mortality_data"
+                label = labels$modules$radio_button,
+                choices = choices,
+                selected = choices[[1]]
               ),
               shiny::downloadButton(
                 ns("download_csv"),
-                "Last ned valgt dataset (CSV)"
+                label = labels$modules$download_button
               ),
               shiny::downloadButton(
                 ns("download_json"),
-                "Last ned valgt dataset (JSON)"
+                label = labels$modules$download_button
               )
             )
           )
@@ -64,8 +76,8 @@ mod_about_server <- function(id) {
     datasets_list <- list(
       monthly_mortality_data = getOption("monthly_mortality_data"),
       yearly_mortality_data = getOption("yearly_mortality_data"),
-      yearly_losses_data = getOption("yearly_losses_data"),
       monthly_losses_data = getOption("monthly_losses_data"),
+      yearly_losses_data = getOption("yearly_losses_data"),
       cohort_mortality_data_area = getOption("cohort_mortality_data_area")
     )
 
