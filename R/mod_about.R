@@ -146,23 +146,19 @@ mod_about_server <- function(id) {
       },
       contentType = "application/json"
     )
-    
+
     #### Calculator download ####
-    
+
     output$download_excel <- downloadHandler(
       filename = function() {
-        "fish_mortality_calculator.xlsm"  
+        "fish_mortality_calculator.xlsm"
       },
       content = function(file) {
         source_file <- app_sys("app/www/fish_mortality_calculator.xlsm")
-        
+
         file.copy(source_file, file)
       }
-    
-)
-
-    
-    
+    )
   })
 }
 
