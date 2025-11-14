@@ -57,7 +57,8 @@ mod_about_ui <- function(id) {
               shiny::downloadButton(
                 ns("download_json"),
                 label = labels$modules$download_button
-              )
+              ),
+              shiny::includeMarkdown(app_sys("app/www/license.md"))
             )
           )
         )
