@@ -27,11 +27,54 @@
    "cohort_mortality_data_area": "Produksjonssyklus dødelighet %",
    "download_button": "Last ned valgt dataset (CSV)"
    },
-  "functions": {
+  "input_functions": {
+    "select_species": "Velg art:",
+    "species": ["Laks", "rainbowtrout"],
+    "select_geo_group": "Velg geografisk område:",
+    "geo_group": ["Fylke", "Produksjonsområde", "Norge"],
     "select_year": "Velg år:",
     "select_multiple_years": "Velg flere år:",
     "select_month": "Velg måneder:",
     "select_multiple_months": "Velg flere måneder:",
     "select_multiple_places": "Velg flere områder:"
-  }
+  },
+  "output_functions": {
+    "monthly_mortality_plot_label_x": "Måned",
+    "monthly_mortality_plot_label_y": "Dødelighet (%)",
+    "monthly_mortality_plot_label_title": "Område",
+    "table_colnames": ["År",
+      "Område",
+      "1 Kvartil %",
+      "Median %",
+      "3 Kvartil %"],
+    "cohorts_plot_title": "Fullførte produksjonssykluser (>= 8 måneder)",
+    "cohorts_plot_label_y": "Dødelighet %",
+    "losses_plot_label_x": "Område",
+    "losses_plot_label_y": "Antal (Milioner)",
+    "losses_data_labels": ["Døde", "Utkast", "Rømt", "Annet"],
+    "losses_table_months": ["År",
+      "Måned",
+      "Område",
+      "Total",
+      "Døde",
+      "Utkast",
+      "Rømt",
+      "Annet"],
+    "losses_table_years": ["År",
+      "Område",
+      "Total",
+      "Døde",
+      "Utkast",
+      "Rømt",
+      "Annet"]
+  },
+  "meta": {
+    "title": "Laksetap: Statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen",
+    "description": "Utforsk interaktiv statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen i Norge",
+    "image_alt": "Veterinærinstituttets logo"
+    },
+  "header": {
+    "skip_link": "Hopp til hovedinnhold",
+    "h1": "Statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen"
+    }
 }

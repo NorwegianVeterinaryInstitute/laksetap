@@ -4,13 +4,16 @@
 #'
 #' @noRd
 meta_block <- function() {
+  labels <- golem::get_golem_options(which = "labels")
+  config <- golem::get_golem_options(which = "config")
+
   metathis::meta() |>
     metathis::meta_social(
-      title = "Laksetap: Statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen",
-      description = "Utforsk interaktiv statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen i Norge",
-      url = "https://apps.vetinst.no/laksetap",
-      image = "https://www.vetinst.no/_/image/5c4e853a-130b-4e7f-92a3-8ca38bec0b56:2dcf9428a329fc0044b412c55b8c9e471f742d65/block-1200-630/Logo-vetinst-open-graph-no-svg-1200x630.png.jpg",
-      image_alt = "Veterinærinstituttets logo"
+      title = labels$meta$title,
+      description = labels$meta$description,
+      url = config$meta$url,
+      image = config$meta$image,
+      image_alt = labels$meta$image_alt
     )
 }
 

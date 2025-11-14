@@ -8,6 +8,7 @@
 #'
 #' @noRd
 plot_cohorts_output <- function(dat, year) {
+  labels <- golem::get_golem_options(which = "labels")
   dat |>
     ggplot() +
     geom_segment(
@@ -32,9 +33,9 @@ plot_cohorts_output <- function(dat, year) {
       nudge_y = 1
     ) +
     labs(
-      title = "Fullførte produksjonssykluser (>= 8 måneder)",
+      title = labels$output_functions$cohorts_plot_title,
       x = year,
-      y = "Dødelighet %"
+      y = labels$output_functions$cohorts_plot_label_y
     ) +
     theme_minimal() +
     theme(axis.text.x = element_blank(), legend.position = "none") +
@@ -50,16 +51,11 @@ plot_cohorts_output <- function(dat, year) {
 #' @noRd
 
 cohorts_mortality_table <- function(dat) {
+  labels <- golem::get_golem_options(which = "labels")
   dat |>
     DT::datatable(
       rownames = FALSE,
-      colnames = c(
-        "År",
-        "Område",
-        "1 Kvartil %",
-        "Median %",
-        "3 Kvartil %"
-      ),
+      colnames = labels$output_functions$table_colnames,
       selection = (list(
         mode = "multiple",
         selected = "all",

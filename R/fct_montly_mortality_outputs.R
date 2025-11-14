@@ -8,6 +8,7 @@
 monthly_mortality_plot <- function(dat) {
   # Colors #
   vi_palette_named <- getOption("vi_palette_named")
+  labels <- golem::get_golem_options(which = "labels")
 
   dat |>
     ggplot2::ggplot() +
@@ -24,7 +25,10 @@ monthly_mortality_plot <- function(dat) {
         round(q3, 2)
       )
     ) +
-    labs(x = "Måned", y = "Dødelighet (%)") +
+    labs(
+      x = labels$output_functions$monthly_mortality_plot_label_x,
+      y = labels$output_functions$monthly_mortality_plot_label_y
+    ) +
     geom_line(aes(
       color = factor(region)
     )) +
@@ -42,7 +46,9 @@ monthly_mortality_plot <- function(dat) {
     scale_color_manual(values = vi_palette_named) +
     scale_fill_manual(values = vi_palette_named) +
     guides(
-      col = guide_legend(title = "Område"),
+      col = guide_legend(
+        title = labels$output_functions$monthly_mortality_plot_label_title
+      ),
       fill = "none"
     )
 }
@@ -55,17 +61,11 @@ monthly_mortality_plot <- function(dat) {
 #'
 #' @noRd
 monthly_mortality_table <- function(dat) {
+  labels <- golem::get_golem_options(which = "labels")
   DT::datatable(
     dat,
     rownames = F,
-    colnames = c(
-      "År",
-      "Måned",
-      "Område",
-      "1 Kvartil %",
-      "Median %",
-      "3 Kvartil %"
-    ),
+    colnames = labels$output_functions$table_colnames,
     selection = (list(
       mode = "multiple",
       selected = "all",

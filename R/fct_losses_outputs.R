@@ -1,4 +1,4 @@
-#' loses_data_prep_plot
+#' losses_data_prep_plot
 #'
 #' @description Function to make data for the month losses plot.
 #'
@@ -25,7 +25,7 @@ losses_data_prep_plot <- function(
 
 #' losses_plot
 #'
-#' @description Function to make the monthly loses plot.
+#' @description Function to make the monthly losses plot.
 #'
 #' @return A ggplot2 object.
 #'
@@ -33,17 +33,22 @@ losses_data_prep_plot <- function(
 losses_plot <- function(dat) {
   # Colors
   vi_palette <- getOption("vi_palette")
+  labels <- golem::get_golem_options(which = "labels")
 
   dat |>
     ggplot(aes(fill = type, x = region, y = n)) +
     geom_bar(position = "stack", stat = "identity") +
-    labs(x = "Område", y = "Antal (Milioner)") +
+    labs(
+      x = labels$output_functions$losses_plot_label_x,
+      y = labels$output_functions$losses_plot_label_y
+    ) +
     scale_fill_manual(values = vi_palette) +
-    theme_minimal()
+    theme_minimal() +
+    theme(legend.title = element_blank())
 }
 
 
-#' loses_data_prep_table
+#' losses_data_prep_table
 #'
 #' @description Function to make data for the month losses table.
 #'
@@ -83,7 +88,7 @@ losses_data_prep_table <- function(dat, resolution) {
 
 #' losses_table
 #'
-#' @description Function to make the monthly loses table.
+#' @description Function to make the monthly losses table.
 #'
 #' @param dat a data frame
 #' @param resolution 'm' or 'y' when the data is on monthly on yearly level
@@ -92,27 +97,11 @@ losses_data_prep_table <- function(dat, resolution) {
 #'
 #' @noRd
 losses_table <- function(dat, resolution) {
+  labels <- golem::get_golem_options(which = "labels")
   if (resolution == "m") {
-    colnames = c(
-      "År",
-      "Måned",
-      "Område",
-      "Total",
-      "Døde",
-      "Utkast",
-      "Rømt",
-      "Annet"
-    )
+    colnames = labels$output_functions$losses_table_months
   } else {
-    colnames = c(
-      "År",
-      "Område",
-      "Total",
-      "Døde",
-      "Utkast",
-      "Rømt",
-      "Annet"
-    )
+    colnames = labels$output_functions$losses_table_years
   }
   DT::datatable(
     dat,

@@ -14,7 +14,7 @@
 #' @noRd
 select_year <- function(id, dat, multiple = F) {
   labels <- golem::get_golem_options(which = "labels")
-  
+
   if (multiple) {
     text = labels$functions$select_multiple_years
   } else {

@@ -127,7 +127,7 @@ mod_losses_server <- function(id) {
             )
         }
       )
-  
+
     yearly_losses_data_long <- getOption("yearly_losses_data_long")
     df_losses_long <-
       shiny::eventReactive(

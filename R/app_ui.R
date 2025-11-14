@@ -6,7 +6,7 @@
 #' @noRd
 app_ui <- function(request) {
   labels <- golem::get_golem_options(which = "labels")
-  
+
   shiny::tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
@@ -87,9 +87,8 @@ app_ui <- function(request) {
 #' @importFrom golem add_resource_path activate_js favicon bundle_resources
 #' @noRd
 golem_add_external_resources <- function() {
-  
   labels <- golem::get_golem_options(which = "labels")
-  
+
   add_resource_path(
     "www",
     app_sys("app/www")

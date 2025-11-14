@@ -5,6 +5,9 @@
 #'
 #' @noRd
 page_header <- function() {
+  labels <- golem::get_golem_options(which = "labels")
+  config <- golem::get_golem_options(which = "config")
+
   div(
     class = "d-flex flex-column p-4 gap-3",
     style = "background-color: #d7f4ff",
@@ -13,7 +16,7 @@ page_header <- function() {
       shiny::tags$a(
         href = "#main-content",
         class = "skip-link",
-        "Hopp til hovedinnhold"
+        labels$header$skip_link
       ),
       shiny::tags$a(
         href = "https://www.vetinst.no/",
@@ -21,8 +24,8 @@ page_header <- function() {
         div(
           class = "container",
           tags$img(
-            src = "www/vetinst-logo-no.svg",
-            alt = "Veterinærinstituttets logo",
+            src = config$header$image,
+            alt = labels$meta$image_alt,
             style = "height:64px;",
           )
         )
@@ -30,12 +33,12 @@ page_header <- function() {
     ),
     div(
       class = "container",
-      style = "background-color:#d7f4ff;", #padding-left:15px;",
+      style = "background-color:#d7f4ff;",
       shiny::tags$div(
         role = "region",
         `aria-label` = "App Title",
         shiny::tags$h1(
-          "Statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen",
+          labels$header$h1,
           role = "heading",
           `aria-label` = "1",
         ),

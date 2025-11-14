@@ -21,6 +21,14 @@ mod_top_bar_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
 
+    labels <- golem::get_golem_options(which = "labels")
+
+    species_choices <- c("salmon", "rainbowtrout")
+    names(species_choices) <- labels$input_species$species
+
+    geo_group_choices <- c("area", "county", "country")
+    names(geo_group_choices) <- labels$input_species$geo_group
+
     output$top_bar <- shiny::renderUI({
       if (session$userData$active_tab() != "about") {
         shiny::tagList(
@@ -29,22 +37,18 @@ mod_top_bar_server <- function(id) {
               width = 6,
               shiny::selectInput(
                 ns("species"),
-                "Velg art:",
-                c("Laks" = "salmon", "Regnbueørret" = "rainbowtrout"),
-                selected = c("salmon")
+                label = labels$input_species$select_species,
+                choices = species_choices,
+                selected = species_choices[[1]]
               )
             ),
             shiny::column(
               width = 6,
               shiny::selectInput(
                 ns("geo_group"),
-                "Velg geografisk område:",
-                c(
-                  "Fylke" = "area",
-                  "Produksjonsområde" = "county",
-                  "Norge" = "country"
-                ),
-                selected = c("area")
+                label = labels$input_species$select_geo_group,
+                choices = geo_group_choices,
+                selected = geo_group_choices[[1]]
               )
             ),
           )
@@ -59,16 +63,12 @@ mod_top_bar_server <- function(id) {
       if (input$species == "rainbowtrout") {
         updateSelectInput(
           inputId = "geo_group",
-          choices = c("Norge" = "country")
+          choices = geo_group_choices[[3]]
         )
       } else {
         updateSelectInput(
           inputId = "geo_group",
-          choices = c(
-            "Fylke" = "area",
-            "Produksjonsområde" = "county",
-            "Norge" = "country"
-          )
+          choices = geo_group_choices
         )
       }
     })
