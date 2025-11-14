@@ -52,15 +52,22 @@ mod_about_ui <- function(id) {
               ),
               shiny::downloadButton(
                 ns("download_csv"),
-                label = labels$modules$download_button
+                label = labels$modules$download_button_csv
               ),
               shiny::downloadButton(
                 ns("download_json"),
-                label = labels$modules$download_button
-              ),
-              shiny::includeMarkdown(app_sys("app/www/license.md"))
+                label = labels$modules$download_button_json
+              )
+            ),
+            shiny::br(),
+            shiny::tags$div(
+              shiny::downloadButton(
+                ns("download_excel"),
+                label = labels$modules$download_button_excel
+              )
             )
-          )
+          ),
+          shiny::includeMarkdown(app_sys("app/www/license.md"))
         )
       )
     )
@@ -139,6 +146,23 @@ mod_about_server <- function(id) {
       },
       contentType = "application/json"
     )
+    
+    #### Calculator download ####
+    
+    output$download_excel <- downloadHandler(
+      filename = function() {
+        "fish_mortality_calculator.xlsm"  
+      },
+      content = function(file) {
+        source_file <- app_sys("app/www/fish_mortality_calculator.xlsm")
+        
+        file.copy(source_file, file)
+      }
+    
+)
+
+    
+    
   })
 }
 

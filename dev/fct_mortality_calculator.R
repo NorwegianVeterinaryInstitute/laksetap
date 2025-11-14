@@ -8,7 +8,7 @@ library(tibble)
 library(patchwork)
 
 dat_1 <- tibble::tribble(
-  ~month    , ~beginning_count , ~end_count , ~dead_count ,
+  ~month       , ~beginning_count , ~end_count , ~dead_count ,
   "2025-01-01" , 1000L            , 950L       , 50L         ,
   "2025-02-01" , 1000L            , 950L       , 50L         ,
   "2025-03-01" , 1000L            , 950L       , 50L         ,
@@ -19,7 +19,7 @@ dat_1 <- tibble::tribble(
 )
 
 dat_2 <- tibble::tribble(
-  ~month    , ~beginning_count , ~end_count , ~dead_count ,
+  ~month       , ~beginning_count , ~end_count , ~dead_count ,
   "2025-01-01" , 1000L            ,  950L      ,  50L        ,
   "2025-02-01" , 1100L            ,  750L      , 100L        ,
   "2025-03-01" ,  900L            ,  650L      , 800L        ,
@@ -29,36 +29,33 @@ dat_2 <- tibble::tribble(
   "2025-07-01" , 1500L            , 1150L      , 120L
 )
 
-calculate_mortality <- function(dat){
-  
+calculate_mortality <- function(dat) {
   dat$month <- as.Date(dat$month)
   dat$ar_count <- (dat$beginning_count + dat$end_count) / 2
   dat$mort_rate <- dat$dead_count / dat$ar_count
   dat$mort_risk <- 1 - exp(-dat$mort_rate)
   dat$cum_risks <- 1 - exp(-cumsum(-log(1 - dat$mort_risk)))
-  
-  dat
 
+  dat
 }
 
-plot_monthly_mortality <- function(dat){
+plot_monthly_mortality <- function(dat) {
   ggplot(dat) +
     aes(x = month, y = mort_risk) +
     geom_bar(stat = "identity", fill = "steelblue") +
-    labs(title = "Monthly Mortality Rate",
-         x = "Month",
-         y = "Mortality Rate") +
+    labs(title = "Monthly Mortality Rate", x = "Month", y = "Mortality Rate") +
     theme_minimal()
-  
 }
 
-plot_cummulative_mortality <- function(dat){
+plot_cummulative_mortality <- function(dat) {
   ggplot(dat) +
     aes(x = month, y = cum_risks) +
     geom_line() +
-    labs(title = "Cummulative Mortality Rate",
-         x = "Month",
-         y = "Mortality Rate") +
+    labs(
+      title = "Cummulative Mortality Rate",
+      x = "Month",
+      y = "Mortality Rate"
+    ) +
     theme_minimal()
 }
 

@@ -25,7 +25,9 @@
    "monthly_losses_data": "Månedlige tapstall", 
    "yearly_losses_data": "Årlige tapstall",
    "cohort_mortality_data_area": "Produksjonssyklus dødelighet %",
-   "download_button": "Last ned valgt dataset (CSV)"
+   "download_button_csv": "Last ned valgt dataset (CSV)",
+   "download_button_json": "Last ned valgt dataset (JSON)",
+   "download_button_excel": "Last ned kalkulator (Excel)"
    },
   "input_functions": {
     "select_species": "Velg art:",

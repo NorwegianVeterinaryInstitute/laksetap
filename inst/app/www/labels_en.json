@@ -25,7 +25,9 @@
     "monthly_losses_data": "Monthly Loss Figures",
     "yearly_losses_data": "Yearly Loss Figures",
     "cohort_mortality_data_area": "Production Cycle Mortality %",
-    "download_button": "Download selected dataset (CSV)"
+    "download_button_csv": "Download selected dataset (CSV)",
+    "download_button_json": "Download selected dataset (JSON)",
+    "download_button_excel": "Download Excel calculator (Excel)"
   },
   "input_functions": {
     "select_species": "Select species:",

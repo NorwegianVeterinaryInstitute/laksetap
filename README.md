@@ -71,3 +71,12 @@ like for example labeling of data for
 but the idea here is to be able to use the data functions both in the
 app, and in an interactive R session. One should be aware of this when
 working with the data and app.
+
+## Mortality calculator
+
+We provide a mortality calculator in R and Excel as part of the
+repository, and downloadable from the app. The calculator itself is not
+part of the app UI because we don’t want to handle company or farm level
+data in the app and potentially run into legal or security issues. The
+calculator uses the same approach to calculating fish mortality as used
+in Norwegian Veterinary Institute’s Fish Health Report.
