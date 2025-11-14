@@ -285,7 +285,7 @@ mod_losses_server <- function(id) {
 
         losses_table(dat, resolution = "y")
       } else {
-        losses_data_prep_table(
+        dat <- losses_data_prep_table(
           df_losses(),
           resolution = "y"
         ) |>
