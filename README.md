@@ -34,11 +34,11 @@ available. Additionally, Norway’s geographical areas for displaying this
 data are also assumed: area and county as “Fylke” and
 “Produksjonsområde”, and country.
 
-Because of this, we hard-codded the choices for `species` and
-`geo_group` in `mod_top_bar.R` and implemented a logic about adjusting
-the UI when switching between them. This could be improved, or
-generalized so any species can be displayed in the app, but for the time
-being this remains as like so.
+Because of this, the app has choices (adjustable in the config) for
+`species` and `geo_group` in `mod_top_bar.R` and we have implemented a
+logic about adjusting the UI when switching between them. This could be
+improved, or generalized so any species can be displayed in the app, but
+for the time being this remains as like so.
 
 The code that produces the dummy data also follows this assumption and
 does not generate data for other geographical levels than country for
