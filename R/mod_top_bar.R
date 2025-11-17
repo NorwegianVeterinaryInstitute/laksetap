@@ -22,11 +22,12 @@ mod_top_bar_server <- function(id) {
     ns <- session$ns
 
     labels <- golem::get_golem_options(which = "labels")
+    config <- golem::get_golem_options(which = "config")
 
-    species_choices <- c("salmon", "rainbowtrout")
+    species_choices <- config$mod_top_bar$species_choices
     names(species_choices) <- labels$input_species$species
 
-    geo_group_choices <- c("area", "county", "country")
+    geo_group_choices <- config$mod_top_bar$geo_group_choices
     names(geo_group_choices) <- labels$input_species$geo_group
 
     output$top_bar <- shiny::renderUI({

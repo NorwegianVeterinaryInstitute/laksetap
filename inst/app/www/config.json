@@ -5,5 +5,9 @@
   },
   "header": {
     "image": "www/vetinst-logo-no.svg"
+    },
+    "mod_top_bar": {
+    "species_choices": ["salmon", "rainbowtrout"],
+    "geo_group_choices": ["area", "county", "country"]
     }
 }
