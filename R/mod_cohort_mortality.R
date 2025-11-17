@@ -47,6 +47,7 @@ mod_cohort_mortality_ui <- function(id) {
 mod_cohort_mortality_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
+    labels <- golem::get_golem_options(which = "labels")
 
     #### Data ####
 
@@ -116,7 +117,7 @@ mod_cohort_mortality_server <- function(id) {
     output$plot_cohort <- plotly::renderPlotly({
       validate(need(
         session$userData$species() == "salmon",
-        message = "Ingen data å vise"
+        message = labels$modules$no_data_message
       ))
       req(input$select_year_cohort)
       if (session$userData$geo_group() == "area") {
