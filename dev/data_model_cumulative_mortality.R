@@ -36,43 +36,67 @@ create_cumulative_mortality <- function(geo_group) {
   }
 
   dat <- expand.grid(
-    species,
-    date,
-    geo_group,
-    region,
+    species = species,
+    date = date,
+    geo_group = geo_group,
+    region = region,
     KEEP.OUT.ATTRS = FALSE,
     stringsAsFactors = FALSE
   )
+  
+  dat$year <- format(dat$date, "%Y")
+  
+  dat <- dat[order(dat$species, dat$region, dat$date), ]
+  
+  dat$mean <- NA
+  dat$lci <- NA
+  dat$uci <- NA
+  
+  # Generate cumulative mortality per species-region
+  for (sp in species) {
+    for (reg in region) {
+      for (yr in unique(dat$year)){
+      idx <- which(dat$species == sp & dat$region == reg & dat$year == yr)
+      monthly_values <- runif(length(idx), min = 0.5, max = 3)  # random monthly mortality increments
+      cumulative_values <- cumsum(monthly_values)               # cumulative sum
+      cumulative_values <- pmin(cumulative_values, 100)  # cap at 100
+      
+      # assign mean
+      dat$mean[idx] <- round(cumulative_values, 2)
+      
+      # Confidence intervals: ensure LCI < mean < UCI
+      dat$lci[idx] <- round(pmax(cumulative_values - runif(length(idx), min = 1, max = 5), 0),2)
+      dat$uci[idx] <- round(pmin(cumulative_values + runif(length(idx), min = 1, max = 5), 100),2)
+      
+      }
+    }
+    }
 
-  # mortality value - numeric between 10 and 40
-
-  n <- nrow(dat)
-  dat$mean <- cumsum(seq(from = 0.1, by = 0.15, length.out = n))
-  dat$lci <- dat$mean - round(runif(n, min = 0, max = dat$mean), 2)
-  dat$uci <- dat$mean + round(runif(n, min =  dat$mean, max = dat$mean*1.5), 2)
-  dat
+  return(dat)
 }
 
 dat_area <- create_cumulative_mortality("area")
 dat_county <- create_cumulative_mortality("county")
 dat_country <- create_cumulative_mortality("country")
 
-#' @format A data frame with 90 rows and 5 variables:
+#' @format A data frame with rows equal to (species × regions × months) and 8 variables:
 #' \describe{
 #'   \item{species}{Fish species, either salmon or rainbow trout}
-#'   \item{date}{Reporting month, ranging from 2020-01-01 to 2024-12-01}
+#'   \item{date}{Reporting month, ranging from 2020-01-01 to 2025-12-01}
 #'   \item{geo_group}{Geographic grouping level: area, county, or country}
 #'   \item{region}{The specific region name or code, depending on geo_group}
-#'   \item{mean}{Mortality mean measurement, randomly generated between 0.1 and 0.4}
-#'   \item{lci}{Lower confidence interval, randomly generated between 0.1 and 0.49}
-#'   \item{uci}{Upper confidence interval, randomly generated between 0.51 and 1.5}
+#'   \item{year}{Year extracted from the date (2021–2025), used for resetting cumulative values.}#'   
+#'   \item{mean}{Cumulative mortality percentage for the given month, capped between 0 and 100. Resets each year.}
+#'   \item{lci}{Lower confidence interval for mortality, always less than mean and ≥ 0.}
+#'   \item{uci}{Upper confidence interval for mortality, always greater than mean and ≤ 100.}
 #' }
 
 cumulative_mortality_dummy_data <- dplyr::bind_rows(
   dat_area,
   dat_county,
   dat_country
-)
+) %>% 
+  dplyr::select(-year)
 
 names(cumulative_mortality_dummy_data) <- c(
   "species",
