@@ -1,4 +1,4 @@
-#' create_yearly_mortality
+#' create_cumulative_mortality_yr
 #' Function to create the yearly mortality data model
 #' and fill in dummy data used for testing and development
 #'
@@ -11,7 +11,7 @@
 #' - For 'county': region values are county_1 to county_3
 #' - For 'country': region value is "Country"
 
-create_cumulative_mortality <- function(geo_group) {
+create_cumulative_mortality_yr <- function(geo_group) {
   # species - string
 
   species <- c('salmon', 'rainbowtrout')
@@ -75,9 +75,9 @@ create_cumulative_mortality <- function(geo_group) {
   return(dat)
 }
 
-dat_area <- create_cumulative_mortality("area")
-dat_county <- create_cumulative_mortality("county")
-dat_country <- create_cumulative_mortality("country")
+dat_area <- create_cumulative_mortality_yr("area")
+dat_county <- create_cumulative_mortality_yr("county")
+dat_country <- create_cumulative_mortality_yr("country")
 
 #' @format A data frame with rows equal to (species × regions × months) and 8 variables:
 #' \describe{
@@ -91,14 +91,14 @@ dat_country <- create_cumulative_mortality("country")
 #'   \item{uci}{Upper confidence interval for mortality, always greater than mean and ≤ 100.}
 #' }
 
-cumulative_mortality_dummy_data <- dplyr::bind_rows(
+cumulative_mortality_yr_dummy_data <- dplyr::bind_rows(
   dat_area,
   dat_county,
   dat_country
 ) %>% 
   dplyr::select(-year)
 
-names(cumulative_mortality_dummy_data) <- c(
+names(cumulative_mortality_yr_dummy_data) <- c(
   "species",
   "date",
   "geo_group",
@@ -109,6 +109,6 @@ names(cumulative_mortality_dummy_data) <- c(
 )
 
 saveRDS(
-  cumulative_mortality_dummy_data,
+  cumulative_mortality_yr_dummy_data,
   file = "inst/extdata/cumulative_mortality_dummy_data.Rds"
 )
