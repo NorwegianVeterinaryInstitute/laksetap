@@ -26,8 +26,8 @@ monthly_mortality_plot <- function(dat) {
       )
     ) +
     labs(
-      x = labels$output_functions$monthly_mortality_plot_label_x,
-      y = labels$output_functions$monthly_mortality_plot_label_y
+      x = labels$output_functions$mortality_plot_label_x,
+      y = labels$output_functions$mortality_plot_label_y
     ) +
     geom_line(aes(
       color = factor(region)
@@ -47,7 +47,7 @@ monthly_mortality_plot <- function(dat) {
     scale_fill_manual(values = vi_palette_named) +
     guides(
       col = guide_legend(
-        title = labels$output_functions$monthly_mortality_plot_label_title
+        title = labels$output_functions$mortality_plot_label_title
       ),
       fill = "none"
     )
