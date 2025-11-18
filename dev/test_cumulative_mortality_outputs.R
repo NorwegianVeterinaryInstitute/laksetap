@@ -37,7 +37,7 @@ to_plot <- dat |>
   dplyr::filter(year %in% input_year) |>
   dplyr::filter(region %in% input_area)
 
-cumulative_mortality_plot(to_plot) |> 
+cumulative_mortality_plot(to_plot) |>
   style_plotly()
 
 #### Table for cohort mortality
@@ -46,5 +46,5 @@ dat |>
   dplyr::filter(species == input_species) |>
   dplyr::filter(year %in% input_year) |>
   dplyr::filter(geo_group %in% input_geo_group) |>
-  dplyr::select(year, month_name, region, mean) |> 
+  dplyr::select(year, month_name, region, mean) |>
   cumulative_mortality_table()
