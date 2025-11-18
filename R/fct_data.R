@@ -9,24 +9,29 @@ load_data <- function() {
   if (env == TRUE) {
     laksetap_board <- pins::board_connect()
 
-    losses <- pins::pin_read(
+    yearly_losses_data <- pins::pin_read(
       laksetap_board,
-      "vi2451/losses_and_mortality_yearly_data"
+      "vi2108/yearly_losses_app_data"
     )
 
-    losses_monthly_data <- pins::pin_read(
+    monthly_losses_data <- pins::pin_read(
       laksetap_board,
-      "vi2451/losses_monthly_data"
+      "vi2108/monthly_losses_app_data"
     )
 
     mortality_rates_monthly_data <- pins::pin_read(
       laksetap_board,
-      "vi2451/mortality_rates_monthly_data"
+      "vi2108/monthly_mortality_app_data"
+    )
+
+    cumulative_mortality_data <- pins::pin_read(
+      laksetap_board,
+      "vi2108/cumulative_mortality_app_data"
     )
 
     mortality_cohorts_data <- pins::pin_read(
       laksetap_board,
-      "vi2451/mortality_cohorts_data"
+      "vi2108/cohort_mortality_app_data"
     )
 
     mortality_cohorts_data_area <- prep_cohorts_data(
@@ -90,20 +95,41 @@ load_data <- function() {
         "cohort_mortality_dummy_data.Rds"
       )
     )
-
-    cohort_mortality_data_area <- prep_cohorts_data(
+    #salmon
+    cohort_mortality_data_area_salmon <- prep_cohorts_data(
       cohort_mortality_data,
-      geo_group = 'area'
+      geo_group = 'area',
+      species = "salmon"
     )
 
-    cohort_mortality_data_county <- prep_cohorts_data(
+    cohort_mortality_data_county_salmon <- prep_cohorts_data(
       cohort_mortality_data,
-      geo_group = 'county'
+      geo_group = 'county',
+      species = "salmon"
     )
 
-    cohort_mortality_data_country <- prep_cohorts_data(
+    cohort_mortality_data_country_salmon <- prep_cohorts_data(
       cohort_mortality_data,
-      geo_group = 'country'
+      geo_group = 'country',
+      species = "salmon"
+    )
+
+    cohort_mortality_data_area_rainbowtrout <- prep_cohorts_data(
+      cohort_mortality_data,
+      geo_group = 'area',
+      species = "rainbowtrout"
+    )
+
+    cohort_mortality_data_county_rainbowtrout <- prep_cohorts_data(
+      cohort_mortality_data,
+      geo_group = 'county',
+      species = "rainbowtrout"
+    )
+
+    cohort_mortality_data_country_rainbowtrout <- prep_cohorts_data(
+      cohort_mortality_data,
+      geo_group = 'country',
+      species = "rainbowtrout"
     )
   }
 
@@ -116,9 +142,22 @@ load_data <- function() {
   options(monthly_mortality_data = monthly_mortality_data)
   options(monthly_mortality_data_lc = monthly_mortality_data_lc)
   options(cohort_mortality_data = cohort_mortality_data)
-  options(cohort_mortality_data_area = cohort_mortality_data_area)
-  options(cohort_mortality_data_county = cohort_mortality_data_county)
-  options(cohort_mortality_data_country = cohort_mortality_data_country)
+  options(cohort_mortality_data_area_salmon = cohort_mortality_data_area_salmon)
+  options(
+    cohort_mortality_data_county_salmon = cohort_mortality_data_county_salmon
+  )
+  options(
+    cohort_mortality_data_country_salmon = cohort_mortality_data_country_salmon
+  )
+  options(
+    cohort_mortality_data_area_rainbowtrout = cohort_mortality_data_area_rainbowtrout
+  )
+  options(
+    cohort_mortality_data_county_rainbowtrout = cohort_mortality_data_county
+  )
+  options(
+    cohort_mortality_data_country_rainbowtrout = cohort_mortality_data_country_rainbowtrout
+  )
 }
 
 #' prep_cohorts_data
@@ -128,11 +167,11 @@ load_data <- function() {
 #' @param geo_group area, county or country
 #'
 #' @returns a formatted dataframe
-prep_cohorts_data <- function(dat, geo_group) {
+prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
   env <- getOption("golem.app.prod")
 
   if (env == TRUE) {
-    levels = c(
+    levels_area_salmon <- c(
       "1 & 2",
       "3",
       "4",
@@ -145,17 +184,38 @@ prep_cohorts_data <- function(dat, geo_group) {
       "11",
       "12 & 13"
     )
+
+    levels_county_salmon <- c(
+      "Agder & Rogaland",
+      "Vestland",
+      "Møre og Romsdal",
+      "Trøndelag",
+      "Nordland",
+      "Troms",
+      "Finnmark"
+    )
+
+    levels_area_rainbowtrout <- c("2 & 3", "4", "5, 6, & 9")
+
+    levels_county_rainbowtrout <- c(
+      "Rogaland & Vestland",
+      "Møre og Romsdal, Trøndelag,  Nordland, & Troms"
+    )
   } else {
-    levels = c("area_1", "area_2", "area_3", "area_4", "area_5")
+    levels_area_salmon = c("area_1", "area_2", "area_3", "area_4", "area_5")
+    levels_area_rainbowtrout = levels_area_salmon
+
+    levels_county_salmon <- c("county_1", "county_2", "county_3")
+    levels_county_salmon <- levels_county_rainbowtrout
   }
 
-  if (geo_group == "area") {
+  if (geo_group == "area" & species == "salmon") {
     prep_dat <- dat |>
-      dplyr::filter(geo_group == "area") |>
+      dplyr::filter(geo_group == "area", species == "salmon") |>
       dplyr::mutate(
         region = factor(
           region,
-          levels = levels
+          levels = levels_area_salmon
         )
       ) |>
       # constuct tooltip
@@ -171,9 +231,75 @@ prep_cohorts_data <- function(dat, geo_group) {
           q3
         )
       )
-  } else if (geo_group == "county") {
+  } else if (geo_group == "county" & species == "salmon") {
     prep_dat <- dat |>
-      dplyr::filter(geo_group == "county") |>
+      dplyr::filter(geo_group == "county", species == "salmon") |>
+      dplyr::mutate(
+        region = factor(
+          region,
+          levels = levels_county_salmon
+        )
+      ) |>
+      # constuct tooltip
+      dplyr::mutate(
+        tooltip = paste0(
+          "Area: ",
+          region,
+          "<br>Q1: ",
+          q1,
+          "<br>Median: ",
+          median,
+          "<br>Q3: ",
+          q3
+        )
+      )
+  } else if (geo_group == "area" & species == "rainbowtrout") {
+    prep_dat <- dat |>
+      dplyr::filter(geo_group == "area", species == "rainbowtrout") |>
+      dplyr::mutate(
+        region = factor(
+          region,
+          levels = levels_area_rainbowtrout
+        )
+      ) |>
+      # constuct tooltip
+      dplyr::mutate(
+        tooltip = paste0(
+          "Area: ",
+          region,
+          "<br>Q1: ",
+          q1,
+          "<br>Median: ",
+          median,
+          "<br>Q3: ",
+          q3
+        )
+      )
+  } else if (geo_group == "county" & species == "rainbowtrout") {
+    prep_dat <- dat |>
+      dplyr::filter(geo_group == "county", species == "rainbowtrout") |>
+      dplyr::mutate(
+        region = factor(
+          region,
+          levels = levels_county_rainbowtrout
+        )
+      ) |>
+      # constuct tooltip
+      dplyr::mutate(
+        tooltip = paste0(
+          "Area: ",
+          region,
+          "<br>Q1: ",
+          q1,
+          "<br>Median: ",
+          median,
+          "<br>Q3: ",
+          q3
+        )
+      )
+  } else if (geo_group == "county" & species == "salmon") {
+    prep_dat <- dat |>
+      dplyr::filter(geo_group == "country", species == "salmon") |>
       # constuct tooltip
       dplyr::mutate(
         tooltip = paste0(
@@ -189,7 +315,7 @@ prep_cohorts_data <- function(dat, geo_group) {
       )
   } else {
     prep_dat <- dat |>
-      dplyr::filter(geo_group == "country") |>
+      dplyr::filter(geo_group == "country", species == "rainbowtrout") |>
       # constuct tooltip
       dplyr::mutate(
         tooltip = paste0(
