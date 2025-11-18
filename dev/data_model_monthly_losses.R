@@ -70,9 +70,6 @@ dat_country <- create_monthly_losses("country")
 #'   \item{discarded}{The number of downgraded fish sorted out at the slaughterhouse and deemed unfit for human consumption — for example due to sexual maturation, blemishes, or deformities — was randomly generated randomly generated to fall between 100,000 and 5,000,000}
 #'   \item{escaped}{The number of escapted fish due to accidents was randomly generated to fall between 0 and 50,000}
 #'   \item{other}{The number of lost fish due to due to reasons not covered by the other three categories was randomly generated to fall between 50,000 and 5,000,000}
-#'   \item{year_month}{Year_month string}
-#'   \item{year}{Year}
-#'   \item{month_name}{Abbreviated name of month}
 #' }
 
 monthly_losses_dummy_data <- dplyr::bind_rows(
