@@ -15,9 +15,16 @@ dat <- readRDS("inst/extdata/cumulative_mortality_dummy_data.Rds")
 #### Plot for cohort mortality
 
 input_species = "salmon"
-input_geo_group = c("area")
+input_geo_group = "area"
 input_year = 2021
-input_region = "area_1"
+# in the shiny inputs the country is always pre-selected.
+input_area = c("Country", "area_1", "area_2")
+
+vi_palette_named <- c(
+  "Country" = "#FF5447",
+  "area_1" = "#59CD8B",
+  "area_2" = "#95D9F3"
+)
 
 Sys.setlocale("LC_TIME", "no_NO.UTF-8")
 dat <- dat |>
@@ -26,23 +33,12 @@ dat <- dat |>
 
 to_plot <- dat |>
   dplyr::filter(species == input_species) |>
-  dplyr::filter(year == input_year) |>
-  dplyr::filter(geo_group %in% input_geo_group) |>
-  dplyr::filter(region %in% input_region)
+  dplyr::filter(geo_group %in% c(input_geo_group, "country")) |>
+  dplyr::filter(year %in% input_year) |>
+  dplyr::filter(region %in% input_area)
 
-plot_cumulative_mortality <- function(dat) {
-  dat |>
-    ggplot() +
-    aes(x = date, y =  mean) +
-    geom_line(size = 2) +
-    geom_ribbon(
-      aes(ymin = lci, ymax = uci, fill = year),
-      alpha = 0.4,
-      color = NA
-    )
-}
-
-plot_cumulative_mortality(to_plot)
+cumulative_mortality_plot(to_plot) |> 
+  style_plotly()
 
 #### Table for cohort mortality
 
@@ -51,7 +47,4 @@ dat |>
   dplyr::filter(year %in% input_year) |>
   dplyr::filter(geo_group %in% input_geo_group) |>
   dplyr::select(year, month_name, region, mean) |> 
-  DT::datatable()
-  
-  
-  #cumulative_mortality_table()
+  cumulative_mortality_table()
