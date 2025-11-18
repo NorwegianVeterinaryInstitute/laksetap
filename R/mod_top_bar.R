@@ -60,19 +60,19 @@ mod_top_bar_server <- function(id) {
     })
 
     ##### UI updates because the dropdowns are not the same between species ####
-    observeEvent(input$species, {
-      if (input$species == "rainbowtrout") {
-        updateSelectInput(
-          inputId = "geo_group",
-          choices = geo_group_choices[[3]]
-        )
-      } else {
-        updateSelectInput(
-          inputId = "geo_group",
-          choices = geo_group_choices
-        )
-      }
-    })
+    # observeEvent(input$species, {
+    #   if (input$species == "rainbowtrout") {
+    #     updateSelectInput(
+    #       inputId = "geo_group",
+    #       choices = geo_group_choices[[3]]
+    #     )
+    #   } else {
+    #     updateSelectInput(
+    #       inputId = "geo_group",
+    #       choices = geo_group_choices
+    #     )
+    #   }
+    # })
 
     session$userData$species <- shiny::reactiveVal('salmon')
     observeEvent(input$species, {
