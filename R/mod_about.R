@@ -17,14 +17,14 @@ mod_about_ui <- function(id) {
     "cumulative_mortality_data",
     "monthly_losses_data",
     "yearly_losses_data",
-    "cohort_mortality_data_area"
+    "cohort_mortality_data"
   )
   names(choices) <- c(
     labels$modules$monthly_mortality_data,
     labels$modules$cumulative_mortality_data,
     labels$modules$monthly_losses_data,
     labels$modules$yearly_losses_data,
-    labels$modules$cohort_mortality_data_area
+    labels$modules$cohort_mortality_data
   )
 
   shiny::tagList(
