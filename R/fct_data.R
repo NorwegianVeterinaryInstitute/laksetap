@@ -26,7 +26,7 @@ load_data <- function() {
 
     cumulative_mortality_data <- pins::pin_read(
       laksetap_board,
-      "vi2108/cumulative_mortality_app_data"
+      "vi2108/cumulative_mortality_yr_app_data"
     )
 
     mortality_cohorts_data <- pins::pin_read(
