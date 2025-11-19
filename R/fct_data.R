@@ -153,7 +153,7 @@ load_data <- function() {
     cohort_mortality_data_area_rainbowtrout = cohort_mortality_data_area_rainbowtrout
   )
   options(
-    cohort_mortality_data_county_rainbowtrout = cohort_mortality_data_county
+    cohort_mortality_data_county_rainbowtrout = cohort_mortality_data_county_rainbowtrout
   )
   options(
     cohort_mortality_data_country_rainbowtrout = cohort_mortality_data_country_rainbowtrout
@@ -206,7 +206,7 @@ prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
     levels_area_rainbowtrout = levels_area_salmon
 
     levels_county_salmon <- c("county_1", "county_2", "county_3")
-    levels_county_salmon <- levels_county_rainbowtrout
+    levels_county_rainbowtrout <- levels_county_salmon 
   }
 
   if (geo_group == "area" & species == "salmon") {
