@@ -145,41 +145,46 @@ mod_cohort_mortality_server <- function(id) {
             input$select_year_cohort
           ) |>
           style_plotly(legend = FALSE)
-      } else if (session$userData$species() == "salmon" &
-        session$userData$geo_group() == "county") {
+      } else if (
+        session$userData$species() == "salmon" &
+          session$userData$geo_group() == "county"
+      ) {
         cohort_mortality_data_county_salmon |>
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
             input$select_year_cohort
           ) |>
           style_plotly(legend = FALSE)
-      } else if  (session$userData$species() == "salmon" &
-          session$userData$geo_group() == "county"){
+      } else if (
+        session$userData$species() == "salmon" &
+          session$userData$geo_group() == "county"
+      ) {
         cohort_mortality_data_country_salmon |>
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
             input$select_year_cohort
           ) |>
           style_plotly(legend = FALSE)
-      } else if( session$userData$species() == "rainbowtrout" &
-                 session$userData$geo_group() == "area"
+      } else if (
+        session$userData$species() == "rainbowtrout" &
+          session$userData$geo_group() == "area"
       ) {
         cohort_mortality_data_area_rainbowtrout |>
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
             input$select_year_cohort
           ) |>
-          style_plotly(legend = FALSE)}
-        
-       else if( session$userData$species() == "rainbowtrout" &
-                session$userData$geo_group() == "county"){
-         cohort_mortality_data_county_rainbowtrout |>
-           dplyr::filter(year == input$select_year_cohort) |>
-           plot_cohorts_output(
-             input$select_year_cohort
-           ) |>
-           style_plotly(legend = FALSE)
-        
+          style_plotly(legend = FALSE)
+      } else if (
+        session$userData$species() == "rainbowtrout" &
+          session$userData$geo_group() == "county"
+      ) {
+        cohort_mortality_data_county_rainbowtrout |>
+          dplyr::filter(year == input$select_year_cohort) |>
+          plot_cohorts_output(
+            input$select_year_cohort
+          ) |>
+          style_plotly(legend = FALSE)
       } else {
         cohort_mortality_data_country_rainbowtrout |>
           dplyr::filter(year == input$select_year_cohort) |>

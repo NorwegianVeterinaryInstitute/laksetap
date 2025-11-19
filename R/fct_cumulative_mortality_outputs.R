@@ -1,7 +1,7 @@
 #' cumulative_mortality_plot
 #'
 #' @description A function to make the monthly mortality plot.
-#' 
+#'
 #' @param dat a data frame
 #'
 #' @return A ggplot2 object.

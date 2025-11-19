@@ -81,7 +81,7 @@ load_data <- function() {
     cumulative_mortality_data_lc <- locale_columns(
       cumulative_mortality_data
     )
-    
+
     monthly_mortality_data <- readRDS(
       app_sys(
         "extdata",
@@ -211,7 +211,7 @@ prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
     levels_area_rainbowtrout = levels_area_salmon
 
     levels_county_salmon <- c("county_1", "county_2", "county_3")
-    levels_county_rainbowtrout <- levels_county_salmon 
+    levels_county_rainbowtrout <- levels_county_salmon
   }
 
   if (geo_group == "area" & species == "salmon") {

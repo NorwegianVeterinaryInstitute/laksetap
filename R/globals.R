@@ -57,5 +57,12 @@ globalVariables(unique(c(
   "median",
   "q1",
   "q3",
-  "region"
+  "region",
+  # cumulative_mortality_plot:
+  "lci",
+  "uci",
+  # mod_cohort_mortality_server : <anonymous>:
+  "cohort_mortality_data_area_rainbowtrout",
+  "cohort_mortality_data_country_rainbowtrout",
+  "cohort_mortality_data_county_rainbowtrout",
 )))

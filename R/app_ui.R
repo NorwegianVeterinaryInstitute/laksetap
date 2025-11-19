@@ -50,11 +50,11 @@ app_ui <- function(request) {
           mod_monthly_mortality_ui("monthly_mortality_1")
         ),
         #### Tab 2 top level tab cumulative yearly mortality ####
-         bslib::nav_panel(
-           labels$app_server$navbar_cumulative_mortality,
-           value = "cumulative_mortality",
-           mod_cumulative_mortality_ui("cumulative_mortality_1")
-         ),
+        bslib::nav_panel(
+          labels$app_server$navbar_cumulative_mortality,
+          value = "cumulative_mortality",
+          mod_cumulative_mortality_ui("cumulative_mortality_1")
+        ),
         #### Tab 3: Top level tab cohorts ####
         bslib::nav_panel(
           labels$app_server$navbar_prod_mortality,

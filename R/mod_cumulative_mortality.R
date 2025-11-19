@@ -148,7 +148,7 @@ mod_cumulative_mortality_server <- function(id) {
       #req(input$select_months_cumulative_mortality_table)
       dat <- df_cumulative() |>
         dplyr::filter(
-          year %in% input$select_years_cumulative_mortality_table#,
+          year %in% input$select_years_cumulative_mortality_table #,
           #month_name %in% input$select_months_cumulative_mortality_table
         ) |>
         dplyr::select(year, month_name, region, mean)

@@ -138,12 +138,12 @@ render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
 #' @noRd
 render_input_for_cumulative_mortality_plot <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
-  
+
   region <- c(
     as.character(unique(dat$region[dat$geo_group == geo_group])),
     as.character(unique(dat$region[dat$geo_group == 'country']))
   )
-  
+
   if (geo_group == "country") {
     shiny::tagList(
       shiny::fluidRow(
@@ -197,9 +197,9 @@ render_input_for_cumulative_mortality_plot <- function(ns, dat, geo_group) {
 #' @noRd
 render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
-  
+
   region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])))
-  
+
   if (geo_group == "country") {
     shiny::tagList(
       shiny::fluidRow(
@@ -210,12 +210,12 @@ render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
             dat,
             multiple = TRUE
           )
-        # ),
-        # shiny::column(
-        #   width = 4,
-        #   select_months(
-        #     id = ns("select_months_cumulative_mortality_table")
-        #   )
+          # ),
+          # shiny::column(
+          #   width = 4,
+          #   select_months(
+          #     id = ns("select_months_cumulative_mortality_table")
+          #   )
         )
       )
     )
@@ -229,12 +229,12 @@ render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
             dat,
             multiple = TRUE
           )
-        # ),
-        # shiny::column(
-        #   width = 4,
-        #   select_months(
-        #     id = ns("select_months_cumulative_mortality_table"),
-        #  )
+          # ),
+          # shiny::column(
+          #   width = 4,
+          #   select_months(
+          #     id = ns("select_months_cumulative_mortality_table"),
+          #  )
         ),
         shiny::column(
           width = 6,
