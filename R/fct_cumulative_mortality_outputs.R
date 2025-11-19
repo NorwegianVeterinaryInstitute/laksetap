@@ -1,6 +1,8 @@
 #' cumulative_mortality_plot
 #'
 #' @description A function to make the monthly mortality plot.
+#' 
+#' @param dat a data frame
 #'
 #' @return A ggplot2 object.
 #'
@@ -65,7 +67,7 @@ cumulative_mortality_table <- function(dat) {
   DT::datatable(
     dat,
     rownames = F,
-    colnames = labels$output_functions$table_colnames,
+    colnames = labels$output_functions$cumulative_table_colnames,
     selection = (list(
       mode = "multiple",
       selected = "all",
