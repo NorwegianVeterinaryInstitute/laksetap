@@ -14,14 +14,14 @@ mod_about_ui <- function(id) {
 
   choices = c(
     "monthly_mortality_data",
-    "yearly_mortality_data",
+    "cumulative_mortality_data",
     "monthly_losses_data",
     "yearly_losses_data",
     "cohort_mortality_data_area"
   )
   names(choices) <- c(
     labels$modules$monthly_mortality_data,
-    labels$modules$yearly_mortality_data,
+    labels$modules$cumulative_mortality_data,
     labels$modules$monthly_losses_data,
     labels$modules$yearly_losses_data,
     labels$modules$cohort_mortality_data_area
@@ -83,7 +83,7 @@ mod_about_server <- function(id) {
     #### Data (read from options) ####
     datasets_list <- list(
       monthly_mortality_data = getOption("monthly_mortality_data"),
-      yearly_mortality_data = getOption("yearly_mortality_data"),
+      cumulative_mortality_data = getOption("cumulative_mortality_data"),
       monthly_losses_data = getOption("monthly_losses_data"),
       yearly_losses_data = getOption("yearly_losses_data"),
       cohort_mortality_data_area = getOption("cohort_mortality_data_area")
