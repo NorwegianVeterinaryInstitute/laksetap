@@ -20,3 +20,4 @@ laksetap::make_palette()
 
 # Run the application
 run_app()
+
