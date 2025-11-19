@@ -71,13 +71,17 @@ load_data <- function() {
 
     monthly_losses_data_long <- losses_data_pivot_longer(monthly_losses_data_lc)
 
-    yearly_mortality_data <- readRDS(
+    cumulative_mortality_data <- readRDS(
       app_sys(
         "extdata",
-        "yearly_mortality_dummy_data.Rds"
+        "cumulative_mortality_dummy_data.Rds"
       )
     )
 
+    cumulative_mortality_data_lc <- locale_columns(
+      cumulative_mortality_data
+    )
+    
     monthly_mortality_data <- readRDS(
       app_sys(
         "extdata",
@@ -85,7 +89,7 @@ load_data <- function() {
       )
     )
 
-    monthly_mortality_data_lc <- monthly_mortality_locale_columns(
+    monthly_mortality_data_lc <- locale_columns(
       monthly_mortality_data
     )
 
@@ -138,7 +142,8 @@ load_data <- function() {
   options(monthly_losses_data_lc = monthly_losses_data_lc)
   options(yearly_losses_data_long = yearly_losses_data_long)
   options(monthly_losses_data_long = monthly_losses_data_long)
-  options(yearly_mortality_data = yearly_mortality_data)
+  options(cumulative_mortality_data = cumulative_mortality_data)
+  options(cumulative_mortality_data_lc = cumulative_mortality_data_lc)
   options(monthly_mortality_data = monthly_mortality_data)
   options(monthly_mortality_data_lc = monthly_mortality_data_lc)
   options(cohort_mortality_data = cohort_mortality_data)
@@ -359,7 +364,7 @@ losses_data_pivot_longer <- function(dat) {
 }
 
 
-#' monthly_mortality_locale_columns
+#' locale_columns
 #' @description function to prepare columns for time variables
 #' in locale of country used in plots and tables
 #'
@@ -368,7 +373,7 @@ losses_data_pivot_longer <- function(dat) {
 #' @returns a data frame
 #'
 #' @noRd
-monthly_mortality_locale_columns <- function(dat) {
+locale_columns <- function(dat) {
   Sys.setlocale("LC_TIME", "nb_NO.UTF-8")
   dat |>
     dplyr::mutate(year = format(date, "%Y")) |>
