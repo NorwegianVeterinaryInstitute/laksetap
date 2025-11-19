@@ -34,7 +34,7 @@
    },
   "input_functions": {
     "select_species": "Velg art:",
-    "species": ["Laks", "rainbowtrout"],
+    "species": ["Laks", "Regnbueørret"],
     "select_geo_group": "Velg geografisk område:",
     "geo_group": ["Fylke", "Produksjonsområde", "Norge"],
     "select_year": "Velg år:",
