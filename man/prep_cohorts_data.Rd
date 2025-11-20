@@ -10,6 +10,8 @@ prep_cohorts_data(dat, geo_group = NULL, species = NULL)
 \item{dat}{a data frame}
 
 \item{geo_group}{area, county or country}
+
+\item{species}{fish species}
 }
 \value{
 a formatted dataframe
