@@ -24,21 +24,21 @@ plot_cohorts_output <- function(dat, year) {
     scale_color_gradient(low = "#C7D9FF", high = "#1C4FB9") +
     geom_point(
       shape = 16,
-      aes(x = region, y = median, group = year),
+      aes(x = region, y = median, group = year, text = tooltip),
       fill = "black",
       stroke = 0.2
     ) +
-    geom_text(
-      aes(x = region, y = median, group = year, label = region),
-      nudge_y = 1
-    ) +
+    # geom_text(
+    #   aes(x = region, y = median, group = year, label = region),
+    #   nudge_y = 1
+    # ) +
     labs(
       title = labels$output_functions$cohorts_plot_title,
       x = year,
       y = labels$output_functions$cohorts_plot_label_y
     ) +
     theme_minimal() +
-    theme(axis.text.x = element_blank(), legend.position = "none") +
+    theme(legend.position = "none") +
     guides(fill = "none")
 }
 
