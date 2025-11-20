@@ -86,7 +86,7 @@ mod_about_server <- function(id) {
       cumulative_mortality_data = getOption("cumulative_mortality_data"),
       monthly_losses_data = getOption("monthly_losses_data"),
       yearly_losses_data = getOption("yearly_losses_data"),
-      cohort_mortality_data_area = getOption("cohort_mortality_data_area")
+      cohort_mortality_data = getOption("cohort_mortality_data")
     )
 
     #### Download handler for selected dataset - CSV ####
