@@ -22,7 +22,7 @@
     "download": "Download",
     "radio_button": "Select dataset to download:",
     "monthly_mortality_data": "Monthly Mortality %",
-    "cumulative_mortality_data": "Cumulative Yearly Mortality %",
+    "cumulative_mortality_yr_data": "Cumulative Yearly Mortality %",
     "yearly_mortality_data": "Yearly Mortality %",
     "monthly_losses_data": "Monthly Loss Figures",
     "yearly_losses_data": "Yearly Loss Figures",
