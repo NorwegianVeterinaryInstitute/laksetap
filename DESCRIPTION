@@ -2,28 +2,24 @@ Package: laksetap
 Title: A Shiny app for reporting salmon and rainbow trout losses in Norway
 Version: 0.9.1
 Authors@R: c(
-    person("Novica", "Nakov",
-           role = c("aut", "cre"), email = "novica.nakov@vetinst.no",
+    person("Novica", "Nakov", , "novica.nakov@vetinst.no", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0005-7773-7718")),
-    person("Victor Henrique", "Silva De Oliveira",
-           role = "aut", email = "victor.henrique.silva.de.oliveira@vetinst.no",
+    person("Victor Henrique", "Silva De Oliveira", , "victor.henrique.silva.de.oliveira@vetinst.no", role = "aut",
            comment = c(ORCID = "0000-0003-3817-9192")),
-    person("Lars", "Qviller",
-           role = "ctb", email = "lars.qviller@vetinst.no",
-           comment = c(ORCID = "0000-0003-0663-5173")),           
-    person("Trishang", "Udhwani",
-           role = c( "ctb"), email = "trishang.udhwani@vetinst.no",
+    person("Lars", "Qviller", , "lars.qviller@vetinst.no", role = "ctb",
+           comment = c(ORCID = "0000-0003-0663-5173")),
+    person("Trishang", "Udhwani", , "trishang.udhwani@vetinst.no", role = "ctb",
            comment = c(ORCID = "0009-0000-8841-6497")),
-    person("Katharine Rose", "Dean",
-           role = c( "ctb"), email = "katharine.rose.dean@vetinst.no",
-           comment = c(ORCID = "0000-0003-2262-0385")),           
+    person("Katharine Rose", "Dean", , "katharine.rose.dean@vetinst.no", role = "ctb",
+           comment = c(ORCID = "0000-0003-2262-0385")),
     person("Norwegian Veterinary Institute", role = c("cph", "fnd"))
-    )
-Description: A Shiny app that displays losses and mortality statistics
-    for the Norwegian fish production by zones and areas.
-URL: https://github.com/NorwegianVeterinaryInstitute/laksetap
-BugReports: https://github.com/NorwegianVeterinaryInstitute/laksetap/issues
+  )
+Description: A Shiny app that displays losses and mortality statistics for
+    the Norwegian fish production by zones and areas.
 License: Apache License (>= 2)
+URL: https://github.com/NorwegianVeterinaryInstitute/laksetap
+BugReports: 
+    https://github.com/NorwegianVeterinaryInstitute/laksetap/issues
 Imports: 
     bslib,
     config,
@@ -32,12 +28,13 @@ Imports:
     ggplot2,
     golem,
     jsonlite,
-    markdown,
     metathis,
+    markdown,
     pins,
     plotly,
     readr,
     shiny,
+    stats,
     tibble,
     tidyr
 Encoding: UTF-8

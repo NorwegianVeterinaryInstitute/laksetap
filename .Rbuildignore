@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
@@ -15,3 +17,5 @@ $run_dev.*
 ^app.R$
 ^\.github$
 ^manifest.json$
+Dockerfile*
+^renv.lock.prod$
