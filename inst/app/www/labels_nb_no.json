@@ -30,7 +30,9 @@
    "download_button_csv": "Last ned valgt dataset (CSV)",
    "download_button_json": "Last ned valgt dataset (JSON)",
    "download_button_excel": "Last ned kalkulator (Excel)",
-   "no_data_message": "Ingen data å vise"
+   "no_data_message": "Ingen data å vise",
+   "dataset": "Datasettet",
+   "not-available": "er ikke tilgjengelig."
    },
   "input_functions": {
     "select_species": "Velg art:",

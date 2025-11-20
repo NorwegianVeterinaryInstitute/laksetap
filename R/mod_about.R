@@ -99,7 +99,7 @@ mod_about_server <- function(id) {
         if (is.null(dat)) {
           # write a small CSV with message
           msg <- tibble::tibble(
-            message = paste("Dataset", input$which_dataset, "is not available")
+            message = paste(labels$modules$dataset, input$which_dataset, labels$modules$not_available)
           )
           readr::write_csv(msg, file)
         } else {

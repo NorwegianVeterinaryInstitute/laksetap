@@ -30,7 +30,9 @@
     "download_button_csv": "Download Selected Dataset (CSV)",
     "download_button_json": "Download Selected Dataset (JSON)",
     "download_button_excel": "Download Calculator (Excel)",
-    "no_data_message": "No data to display"
+    "no_data_message": "No data to display",
+    "dataset": "Dataset",
+    "not-available": "is not available."
   },
   "input_functions": {
     "select_species": "Select species:",
