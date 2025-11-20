@@ -17,13 +17,13 @@ load_data <- function() {
       monthly_mortality_data
     )
 
-    cumulative_mortality_data <- pins::pin_read(
+    cumulative_mortality_yr_data <- pins::pin_read(
       laksetap_board,
       "vi2108/cumulative_mortality_yr_app_data"
     )
 
-    cumulative_mortality_data_lc <- locale_columns(
-      cumulative_mortality_data
+    cumulative_mortality_yr_data_lc <- locale_columns(
+      cumulative_mortality_yr_data
     )
 
     monthly_losses_data <- pins::pin_read(
@@ -99,15 +99,15 @@ load_data <- function() {
       monthly_mortality_data
     )
 
-    cumulative_mortality_data <- readRDS(
+    cumulative_mortality_yr_data <- readRDS(
       app_sys(
         "extdata",
         "cumulative_mortality_dummy_data.Rds"
       )
     )
 
-    cumulative_mortality_data_lc <- locale_columns(
-      cumulative_mortality_data
+    cumulative_mortality_yr_data_lc <- locale_columns(
+      cumulative_mortality_yr_data
     )
 
     monthly_losses_data <- readRDS(
@@ -181,8 +181,8 @@ load_data <- function() {
   options(monthly_losses_data_lc = monthly_losses_data_lc)
   options(yearly_losses_data_long = yearly_losses_data_long)
   options(monthly_losses_data_long = monthly_losses_data_long)
-  options(cumulative_mortality_data = cumulative_mortality_data)
-  options(cumulative_mortality_data_lc = cumulative_mortality_data_lc)
+  options(cumulative_mortality_yr_data = cumulative_mortality_yr_data)
+  options(cumulative_mortality_yr_data_lc = cumulative_mortality_yr_data_lc)
   options(monthly_mortality_data = monthly_mortality_data)
   options(monthly_mortality_data_lc = monthly_mortality_data_lc)
   options(cohort_mortality_data = cohort_mortality_data)

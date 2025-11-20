@@ -54,12 +54,12 @@ mod_cumulative_mortality_server <- function(id) {
     ns <- session$ns
 
     #### DATA ####
-    cumulative_mortality_data <- getOption("cumulative_mortality_data_lc")
+    cumulative_mortality_yr_data <- getOption("cumulative_mortality_yr_data_lc")
     df_cumulative <-
       eventReactive(
         c(session$userData$species(), session$userData$geo_group()),
         {
-          cumulative_mortality_data |>
+          cumulative_mortality_yr_data |>
             dplyr::filter(
               species == session$userData$species() &
                 geo_group %in% c(session$userData$geo_group(), "country")
