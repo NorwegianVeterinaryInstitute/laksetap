@@ -99,7 +99,11 @@ mod_about_server <- function(id) {
         if (is.null(dat)) {
           # write a small CSV with message
           msg <- tibble::tibble(
-            message = paste(labels$modules$dataset, input$which_dataset, labels$modules$not_available)
+            message = paste(
+              labels$modules$dataset,
+              input$which_dataset,
+              labels$modules$not_available
+            )
           )
           readr::write_csv(msg, file)
         } else {
@@ -108,7 +112,8 @@ mod_about_server <- function(id) {
         }
       },
       contentType = "text/csv"
-    ) |> shiny::bindEvent(input$which_dataset)
+    ) |>
+      shiny::bindEvent(input$which_dataset)
 
     #### Download handler for selected dataset - JSON ####
     output$download_json <- shiny::downloadHandler(
@@ -139,7 +144,8 @@ mod_about_server <- function(id) {
         }
       },
       contentType = "application/json"
-    ) |> shiny::bindEvent(input$which_dataset)
+    ) |>
+      shiny::bindEvent(input$which_dataset)
 
     #### Calculator download ####
 

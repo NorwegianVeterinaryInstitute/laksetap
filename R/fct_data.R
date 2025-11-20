@@ -5,7 +5,7 @@
 #' @export
 load_data <- function() {
   env <- getOption("golem.app.prod")
-  
+
   if (env == TRUE) {
     laksetap_board <- pins::board_connect()
 
@@ -209,11 +209,12 @@ load_data <- function() {
 #'
 #' @param dat a data frame
 #' @param geo_group area, county or country
+#' @param species fish species
 #'
 #' @returns a formatted dataframe
 prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
   env <- getOption("golem.app.prod")
-  
+
   if (env == TRUE) {
     levels_area_salmon <- c(
       "1 & 2",
