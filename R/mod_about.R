@@ -89,23 +89,17 @@ mod_about_server <- function(id) {
       cohort_mortality_data_area = getOption("cohort_mortality_data_area")
     )
 
-    # Reactive for selected dataset
-    selected_dataset <- reactive({
-      req(input$which_dataset)
-      input$which_dataset
-    })
-
     #### Download handler for selected dataset - CSV ####
     output$download_csv <- shiny::downloadHandler(
       filename = function() {
-        paste0(selected_dataset(), "_", Sys.Date(), ".csv")
+        paste0(input$which_dataset, "_", Sys.Date(), ".csv")
       },
       content = function(file) {
-        dat <- datasets_list[[selected_dataset()]]
+        dat <- datasets_list[[input$which_dataset]]
         if (is.null(dat)) {
           # write a small CSV with message
           msg <- tibble::tibble(
-            message = paste("Dataset", selected_dataset(), "is not available")
+            message = paste("Dataset", input$which_dataset, "is not available")
           )
           readr::write_csv(msg, file)
         } else {
@@ -114,19 +108,19 @@ mod_about_server <- function(id) {
         }
       },
       contentType = "text/csv"
-    )
+    ) |> shiny::bindEvent(input$which_dataset)
 
     #### Download handler for selected dataset - JSON ####
     output$download_json <- shiny::downloadHandler(
       filename = function() {
-        paste0(selected_dataset(), "_", Sys.Date(), ".json")
+        paste0(input$which_dataset, "_", Sys.Date(), ".json")
       },
       content = function(file) {
-        dat <- datasets_list[[selected_dataset()]]
+        dat <- datasets_list[[input$which_dataset]]
         if (is.null(dat)) {
           # Write a small JSON with message
           msg <- list(
-            message = paste("Dataset", selected_dataset(), "is not available")
+            message = paste("Dataset", input$which_dataset, "is not available")
           )
           jsonlite::write_json(
             msg,
@@ -145,7 +139,7 @@ mod_about_server <- function(id) {
         }
       },
       contentType = "application/json"
-    )
+    ) |> shiny::bindEvent(input$which_dataset)
 
     #### Calculator download ####
 
