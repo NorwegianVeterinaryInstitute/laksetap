@@ -1,0 +1,49 @@
+# Deploy a shiny app to Posit Connect
+# Worflow derived from https://github.com/r-lib/actions/blob/v2/examples/shiny-deploy.yaml
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+# See also: https://solutions.posit.co/operations/deploy-methods/ci-cd/github-actions/
+
+name: Deploy a Golem Shiny app to Posit Connect
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install ubuntu deps
+        run: |
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
+    
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-renv@v2
+
+      - name: Install rsconnect
+        run: install.packages("rsconnect")
+        shell: Rscript {0}
+
+      - name: Generate rsconnect manifest.json
+        run: rsconnect::writeManifest()
+        shell: Rscript {0}
+      
+      - name: Publish to Posit Connect
+        uses: rstudio/actions/connect-publish@main
+        with:
+          url: ${{ secrets.CONNECT_SERVER }}
+          api-key: ${{ secrets.CONNECT_API_KEY }}
+          access-type: all
+          dir: |
+            .:/laksetap
