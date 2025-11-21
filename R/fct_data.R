@@ -6,7 +6,7 @@
 load_data <- function() {
   env <- getOption("golem.app.prod")
 
-  if (env == TRUE) {
+  if (env) {
     laksetap_board <- pins::board_connect()
 
     monthly_mortality_data <- pins::pin_read(
@@ -215,7 +215,7 @@ load_data <- function() {
 prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
   env <- getOption("golem.app.prod")
 
-  if (env == TRUE) {
+  if (env) {
     levels_area_salmon <- c(
       "1 & 2",
       "3",
@@ -247,8 +247,8 @@ prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
       "Møre og Romsdal, Trøndelag,  Nordland, & Troms"
     )
   } else {
-    levels_area_salmon = c("area_1", "area_2", "area_3", "area_4", "area_5")
-    levels_area_rainbowtrout = levels_area_salmon
+    levels_area_salmon <- c("area_1", "area_2", "area_3", "area_4", "area_5")
+    levels_area_rainbowtrout <- levels_area_salmon
 
     levels_county_salmon <- c("county_1", "county_2", "county_3")
     levels_county_rainbowtrout <- levels_county_salmon

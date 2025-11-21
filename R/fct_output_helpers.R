@@ -30,7 +30,7 @@ style_plotly <- function(p, legend = TRUE) {
 make_palette <- function() {
   env <- getOption("golem.app.prod")
 
-  if (env == TRUE) {
+  if (env) {
     vi_palette <- c("#FF5447", "#59CD8B", "#FFC6C2", "#1C4FB9")
 
     vi_palette_long <- c(

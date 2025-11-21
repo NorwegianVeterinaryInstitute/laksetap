@@ -12,7 +12,7 @@ mod_about_ui <- function(id) {
 
   labels <- golem::get_golem_options(which = "labels")
 
-  choices = c(
+  choices <- c(
     "monthly_mortality_data",
     "cumulative_mortality_yr_data",
     "monthly_losses_data",
