@@ -45,8 +45,13 @@ cumulative_mortality_plot <- function(dat) {
       show.legend = FALSE
     ) +
     theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45)) +
     scale_color_manual(values = vi_palette_named) +
     scale_fill_manual(values = vi_palette_named) +
+    scale_x_date(
+      date_breaks = "1 month",
+      date_labels = "%b %Y"
+    ) +
     guides(
       col = guide_legend(
         title = labels$output_functions$mortality_plot_label_title
