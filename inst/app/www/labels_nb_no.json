@@ -31,7 +31,7 @@
    "download_button_json": "Last ned valgt dataset (JSON)",
    "download_button_excel": "Last ned kalkulator (Excel)",
    "no_data_message": "Ingen data å vise",
-   "dataset": "Datasettet",
+   "dataset": "Datasetet",
    "not-available": "er ikke tilgjengelig."
    },
   "input_functions": {
