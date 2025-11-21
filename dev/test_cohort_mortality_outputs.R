@@ -14,9 +14,9 @@ dat <- readRDS("inst/extdata/cohort_mortality_dummy_data.Rds")
 
 #### Plot for cohort mortality
 
-input_species = "salmon"
-input_geo_group = c("area")
-input_year = 2022
+input_species <- "salmon"
+input_geo_group <- c("area")
+input_year <- 2022
 
 
 to_plot <- dat |>

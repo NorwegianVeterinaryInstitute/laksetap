@@ -14,11 +14,11 @@ dat <- readRDS("inst/extdata/cumulative_mortality_dummy_data.Rds")
 
 #### Plot for cohort mortality
 
-input_species = "salmon"
-input_geo_group = "area"
-input_year = 2021
+input_species <- "salmon"
+input_geo_group <- "area"
+input_year <- 2021
 # in the shiny inputs the country is always pre-selected.
-input_area = c("Country", "area_1", "area_2")
+input_area <- c("Country", "area_1", "area_2")
 
 vi_palette_named <- c(
   "Country" = "#FF5447",
