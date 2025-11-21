@@ -66,7 +66,7 @@ cumulative_mortality_table <- function(dat) {
   labels <- golem::get_golem_options(which = "labels")
   DT::datatable(
     dat,
-    rownames = F,
+    rownames = FALSE,
     colnames = labels$output_functions$cumulative_table_colnames,
     selection = (list(
       mode = "multiple",
