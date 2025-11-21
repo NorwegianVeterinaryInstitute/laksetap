@@ -38,7 +38,7 @@
     "select_species": "Velg art:",
     "species": ["Laks", "Regnbueørret"],
     "select_geo_group": "Velg geografisk område:",
-    "geo_group": ["Fylke", "Produksjonsområde", "Norge"],
+    "geo_group": ["Produksjonsområde", "Fylke", "Norge"],
     "select_year": "Velg år:",
     "select_multiple_years": "Velg flere år:",
     "select_month": "Velg måneder:",

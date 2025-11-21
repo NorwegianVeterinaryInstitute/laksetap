@@ -38,7 +38,7 @@
     "select_species": "Select species:",
     "species": ["Salmon", "Rainbow Trout"],
     "select_geo_group": "Select geographic area:",
-    "geo_group": ["County", "Production Area", "Norway"],
+    "geo_group": ["Production Area", "County", "Norway"],
     "select_year": "Select year:",
     "select_multiple_years": "Select multiple years:",
     "select_month": "Select months:",
