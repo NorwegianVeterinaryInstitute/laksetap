@@ -20,6 +20,8 @@ output: github_document
 
 <!-- badges: end -->
 
+![](doc/laksetap_logo.png){width=25%}
+
 Laksetap is a R Golem Shiny App for reporting salmon and rainbow trout losses 
 in Norway. 
 
