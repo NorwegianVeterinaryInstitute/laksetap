@@ -32,17 +32,6 @@ globalVariables(unique(c(
   "region",
   "species",
   "year",
-  # mod_yearly_mortality_server : <anonymous>:
-  "2020",
-  "2021",
-  "2022",
-  "2023",
-  "2024",
-  "area",
-  "geo_group",
-  "mort",
-  "species",
-  "year",
   # monthly_mortality_plot:
   "median",
   "q1",
