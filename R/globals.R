@@ -42,6 +42,7 @@ globalVariables(unique(c(
   "q1",
   "q3",
   "region",
+  "tooltip",
   # prep_cohorts_data:
   "median",
   "q1",
