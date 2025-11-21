@@ -135,6 +135,8 @@ mod_cohort_mortality_server <- function(id) {
       #   message = labels$modules$no_data_message
       # ))
       req(input$select_year_cohort)
+      req(session$userData$species())
+      req(session$userData$geo_group())
       if (
         session$userData$species() == "salmon" &
           session$userData$geo_group() == "area"
