@@ -52,19 +52,11 @@ mod_about_ui <- function(id) {
               ),
               shiny::downloadButton(
                 ns("download_csv"),
-                label = labels$modules$download_button_csv,
-                
-                onclick = "var dataset = document.querySelector('input[name=\"about_1-which_dataset\"]:checked').value;
-                          console.log('Download button clicked. Format: csv. Dataset:', dataset);"
-              
+                label = labels$modules$download_button_csv
               ),
               shiny::downloadButton(
                 ns("download_json"),
-                label = labels$modules$download_button_json,
-                
-                onclick = "var dataset = document.querySelector('input[name=\"about_1-which_dataset\"]:checked').value;
-                          console.log('Download button clicked. Format: json. Dataset:', dataset);"
-                
+                label = labels$modules$download_button_json
               )
             ),
             shiny::br(),
