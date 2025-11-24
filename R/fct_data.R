@@ -342,7 +342,7 @@ prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
           q3
         )
       )
-  } else if (geo_group == "county" & species == "salmon") {
+  } else if (geo_group == "country" & species == "salmon") {
     prep_dat <- dat |>
       dplyr::filter(geo_group == "country", species == "salmon") |>
       # constuct tooltip
@@ -375,6 +375,7 @@ prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
         )
       )
   }
+  return(prep_dat)
 }
 
 
