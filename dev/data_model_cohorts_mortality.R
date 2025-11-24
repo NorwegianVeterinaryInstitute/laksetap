@@ -15,7 +15,7 @@
 create_cohorts_mortality <- function(geo_group) {
   # species - string
 
-  species <- c('salmon')
+  species <- c('salmon', 'rainbowtrout')
 
   # year - integer
 
