@@ -39,16 +39,16 @@ create_yearly_losses <- function(geo_group) {
 
   dat <- dat[sample(nrow(dat)), ]
 
-  # mortality value - numeric between 10 and 40
-
   n <- nrow(dat)
-  dat$losses <- round(runif(n, min = 50000000, max = 1000000000))
-  dat$dead <- round(runif(n, min = 50000000, max = 90000000))
-  dat$discarded <- round(runif(n, min = 1000000, max = 5000000))
-  dat$escaped <- round(runif(n, min = 100, max = 100000))
-  dat$other <- round(runif(n, min = 1000000, max = 15000000))
-
-  dat
+  
+  dat$losses <- round(runif(n, min = 5000000, max = 10000000))
+  
+  dat$dead <- round(dat$losses * runif(n, 0.7, 0.9))       # 70-90% dead
+  dat$discarded <- round(dat$losses * runif(n, 0.02, 0.05)) # 2-5% discarded
+  dat$escaped <- round(dat$losses * runif(n, 0.0001, 0.001)) # very small
+  dat$other <- pmax(dat$losses - (dat$dead + dat$discarded + dat$escaped), 0)
+  
+  return(dat)
 }
 
 dat_area <- create_yearly_losses("area")
@@ -61,11 +61,11 @@ dat_country <- create_yearly_losses("country")
 #'   \item{year}{Year of data collection, ranging from 2020 to 2024}
 #'   \item{geo_group}{Geographic grouping level: area, county, or country}
 #'   \item{region}{The specific region name or code, depending on geo_group}
-#'   \item{losses}{The number of lost fish — categorized as dead, discarded, escaped, or other — was randomly generated to fall between 50,000,000 and 1,000,000,000}
-#'   \item{dead}{The number of physically removed fish from the cage and recorded as dead due to various causes was randomly generated randomly generated to fall between 50,000,000 and 90,000,000}
-#'   \item{discarded}{The number of downgraded fish sorted out at the slaughterhouse and deemed unfit for human consumption — for example due to sexual maturation, blemishes, or deformities — was randomly generated randomly generated to fall between 1,000,000 and 5,000,000}
-#'   \item{escaped}{The number of escapted fish due to accidents was randomly generated to fall between 100 and 100,000}
-#'   \item{other}{The number of lost fish due to due to reasons not covered by the other three categories was randomly generated to fall between 1,000,000 and 15,000,000}
+#'   \item{losses}{The number of lost fish — categorized as dead, discarded, escaped, or other — was randomly generated to fall between 5,000,000 and 10,000,000}
+#'   \item{dead}{The number of physically removed fish from the cage and recorded as dead due to various causes was randomly generated randomly generated as a proportion of the lost fish}
+#'   \item{discarded}{The number of downgraded fish sorted out at the slaughterhouse and deemed unfit for human consumption — for example due to sexual maturation, blemishes, or deformities — was randomly generated randomly generated as a proportion of the lost fish}
+#'   \item{escaped}{The number of escapted fish due to accidents was randomly generated as a proportion of the lost fish}
+#'   \item{other}{The number of lost fish due to due to reasons not covered by the other three categories was randomly generated as a proportion of the lost fish}
 #' }
 
 yearly_losses_dummy_data <- dplyr::bind_rows(
