@@ -64,5 +64,5 @@ globalVariables(unique(c(
   # mod_cohort_mortality_server : <anonymous>:
   "cohort_mortality_data_area_rainbowtrout",
   "cohort_mortality_data_country_rainbowtrout",
-  "cohort_mortality_data_county_rainbowtrout",
+  "cohort_mortality_data_county_rainbowtrout"
 )))

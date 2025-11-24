@@ -100,7 +100,7 @@ cumulative_mortality_yr_dummy_data <- dplyr::bind_rows(
   dat_area,
   dat_county,
   dat_country
-) %>%
+) |>
   dplyr::select(-year)
 
 names(cumulative_mortality_yr_dummy_data) <- c(
@@ -116,4 +116,10 @@ names(cumulative_mortality_yr_dummy_data) <- c(
 saveRDS(
   cumulative_mortality_yr_dummy_data,
   file = "inst/extdata/cumulative_mortality_dummy_data.Rds"
+)
+
+write.csv(
+  cumulative_mortality_yr_dummy_data,
+  file = "inst/extdata/cumulative_mortality_dummy_data.csv",
+  row.names = FALSE
 )

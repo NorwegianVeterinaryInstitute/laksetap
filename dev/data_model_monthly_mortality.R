@@ -93,3 +93,9 @@ saveRDS(
   monthly_mortality_dummy_data,
   file = "inst/extdata/monthly_mortality_dummy_data.Rds"
 )
+
+write.csv(
+  monthly_mortality_dummy_data,
+  file = "inst/extdata/monthly_mortality_dummy_data.csv",
+  row.names = FALSE
+)

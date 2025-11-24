@@ -90,3 +90,9 @@ saveRDS(
   cohort_mortality_dummy_data,
   file = "inst/extdata/cohort_mortality_dummy_data.Rds"
 )
+
+write.csv(
+  cohort_mortality_dummy_data,
+  file = "inst/extdata/cohort_mortality_dummy_data.csv",
+  row.names = FALSE
+)
