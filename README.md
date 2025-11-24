@@ -9,6 +9,8 @@
 
 <!-- badges: end -->
 
+<img src="doc/laksetap_logo.png" style="width:25.0%" />
+
 Laksetap is a R Golem Shiny App for reporting salmon and rainbow trout
 losses in Norway.
 
@@ -80,3 +82,12 @@ part of the app UI because we don’t want to handle company or farm level
 data in the app and potentially run into legal or security issues. The
 calculator uses the same approach to calculating fish mortality as used
 in Norwegian Veterinary Institute’s Fish Health Report.
+
+## Docker
+
+Running the app with docker *should* work:
+
+    docker build -f Dockerfile_base --progress=plain -t laksetap_base .
+    docker build -f Dockerfile --progress=plain -t laksetap:latest .
+    docker run -p 80:80 laksetap:latest
+    # then go to 127.0.0.1:80

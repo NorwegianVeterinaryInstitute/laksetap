@@ -60,3 +60,9 @@ rsconnect::deployApp(
   lint = FALSE,
   forceUpdate = TRUE
 )
+
+## Deploy to posit connect upon release
+## 1. Merge dev branch into main.
+## 2. Update renv with package from main.
+## 3. Commit tag and make release.
+## 4. GH-action runs on release.

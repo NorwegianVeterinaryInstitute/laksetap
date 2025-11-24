@@ -30,7 +30,7 @@ style_plotly <- function(p, legend = TRUE) {
 make_palette <- function() {
   env <- getOption("golem.app.prod")
 
-  if (env == TRUE) {
+  if (env) {
     vi_palette <- c("#FF5447", "#59CD8B", "#FFC6C2", "#1C4FB9")
 
     vi_palette_long <- c(
@@ -58,14 +58,15 @@ make_palette <- function() {
 
     vi_palette_named <- c(
       "Norge" = "#FF5447",
-      "Agder" = "#59CD8B",
-      "Rogaland" = "#95D9F3",
+      "Agder & Rogaland" = "#59CD8B",
       "Vestland" = "#1C4FB9",
       "Møre og Romsdal" = "#FFC6C2",
       "Trøndelag" = "#BCEED1",
       "Nordland" = "#D7F4FF",
       "Troms" = "#C7D9FF",
       "Finnmark" = "#091A3E",
+      "Rogaland & Vestland" = "#1C4FB9",
+      "Møre og Romsdal, Trøndelag,  Nordland, & Troms" = "#FFC6C2",
       "1 & 2" = "#CC0E00",
       "3" = "#288550",
       "4" = "#1FC0FF",
@@ -76,7 +77,9 @@ make_palette <- function() {
       "9" = "#C0ECD3",
       "10" = "#0076A3",
       "11" = "#F5D34A",
-      "12 & 13" = "#59CD8B"
+      "12 & 13" = "#59CD8B",
+      "2 & 3" = "#CC0E00",
+      "5, 6, & 9" = "#6892E8"
     )
   } else {
     vi_palette <- c("#FF5447", "#59CD8B", "#FFC6C2", "#1C4FB9")

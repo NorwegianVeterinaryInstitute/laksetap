@@ -1,3 +1,5 @@
+^renv$
+^renv\.lock$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
@@ -12,6 +14,10 @@ $run_dev.*
 ^laksetap.*\.tgz$
 .dockerignore
 ^air.toml$
+^jarl.toml$
 ^app.R$
 ^\.github$
 ^manifest.json$
+Dockerfile*
+^renv.lock.prod$
+^doc$

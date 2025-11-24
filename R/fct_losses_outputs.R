@@ -99,9 +99,9 @@ losses_data_prep_table <- function(dat, resolution) {
 losses_table <- function(dat, resolution) {
   labels <- golem::get_golem_options(which = "labels")
   if (resolution == "m") {
-    colnames = labels$output_functions$losses_table_months
+    colnames <- labels$output_functions$losses_table_months
   } else {
-    colnames = labels$output_functions$losses_table_years
+    colnames <- labels$output_functions$losses_table_years
   }
   DT::datatable(
     dat,

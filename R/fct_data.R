@@ -6,12 +6,24 @@
 load_data <- function() {
   env <- getOption("golem.app.prod")
 
-  if (env == TRUE) {
+  if (env) {
     laksetap_board <- pins::board_connect()
 
-    yearly_losses_data <- pins::pin_read(
+    monthly_mortality_data <- pins::pin_read(
       laksetap_board,
-      "vi2108/yearly_losses_app_data"
+      "vi2108/monthly_mortality_app_data"
+    )
+    monthly_mortality_data_lc <- locale_columns(
+      monthly_mortality_data
+    )
+
+    cumulative_mortality_yr_data <- pins::pin_read(
+      laksetap_board,
+      "vi2108/cumulative_mortality_yr_app_data"
+    )
+
+    cumulative_mortality_yr_data_lc <- locale_columns(
+      cumulative_mortality_yr_data
     )
 
     monthly_losses_data <- pins::pin_read(
@@ -19,69 +31,63 @@ load_data <- function() {
       "vi2108/monthly_losses_app_data"
     )
 
-    mortality_rates_monthly_data <- pins::pin_read(
-      laksetap_board,
-      "vi2108/monthly_mortality_app_data"
-    )
-
-    cumulative_mortality_data <- pins::pin_read(
-      laksetap_board,
-      "vi2108/cumulative_mortality_yr_app_data"
-    )
-
-    mortality_cohorts_data <- pins::pin_read(
-      laksetap_board,
-      "vi2108/cohort_mortality_app_data"
-    )
-
-    mortality_cohorts_data_area <- prep_cohorts_data(
-      mortality_cohorts_data,
-      geo_group = 'area'
-    )
-
-    mortality_cohorts_data_county <- prep_cohorts_data(
-      mortality_cohorts_data,
-      geo_group = 'county'
-    )
-
-    mortality_cohorts_data_all <- prep_cohorts_data(
-      mortality_cohorts_data,
-      geo_group = 'country'
-    )
-  } else {
-    yearly_losses_data <- readRDS(
-      app_sys(
-        "extdata",
-        "yearly_losses_dummy_data.Rds"
-      )
-    )
-
-    monthly_losses_data <- readRDS(
-      app_sys(
-        "extdata",
-        "monthly_losses_dummy_data.Rds"
-      )
-    )
-
-    monthly_losses_data_lc <- monthly_mortality_losses_columns(
+    monthly_losses_data_lc <- monthly_losses_locale_columns(
       monthly_losses_data
+    )
+
+    monthly_losses_data_long <- losses_data_pivot_longer(monthly_losses_data_lc)
+
+    yearly_losses_data <- pins::pin_read(
+      laksetap_board,
+      "vi2108/yearly_losses_app_data"
     )
 
     yearly_losses_data_long <- losses_data_pivot_longer(yearly_losses_data)
 
-    monthly_losses_data_long <- losses_data_pivot_longer(monthly_losses_data_lc)
-
-    cumulative_mortality_data <- readRDS(
-      app_sys(
-        "extdata",
-        "cumulative_mortality_dummy_data.Rds"
-      )
+    # Cohort data require multiple transformation because
+    # of need for ordered factor. Should be improved.
+    cohort_mortality_data <- pins::pin_read(
+      laksetap_board,
+      "vi2108/cohort_mortality_app_data"
     )
 
-    cumulative_mortality_data_lc <- locale_columns(
-      cumulative_mortality_data
+    #salmon
+    cohort_mortality_data_area_salmon <- prep_cohorts_data(
+      cohort_mortality_data,
+      geo_group = 'area',
+      species = "salmon"
     )
 
+    cohort_mortality_data_county_salmon <- prep_cohorts_data(
+      cohort_mortality_data,
+      geo_group = 'county',
+      species = "salmon"
+    )
+
+    cohort_mortality_data_country_salmon <- prep_cohorts_data(
+      cohort_mortality_data,
+      geo_group = 'country',
+      species = "salmon"
+    )
+    #rainbowtrout
+    cohort_mortality_data_area_rainbowtrout <- prep_cohorts_data(
+      cohort_mortality_data,
+      geo_group = 'area',
+      species = "rainbowtrout"
+    )
+
+    cohort_mortality_data_county_rainbowtrout <- prep_cohorts_data(
+      cohort_mortality_data,
+      geo_group = 'county',
+      species = "rainbowtrout"
+    )
+
+    cohort_mortality_data_country_rainbowtrout <- prep_cohorts_data(
+      cohort_mortality_data,
+      geo_group = 'country',
+      species = "rainbowtrout"
+    )
+  } else {
     monthly_mortality_data <- readRDS(
       app_sys(
         "extdata",
@@ -92,6 +98,39 @@ load_data <- function() {
     monthly_mortality_data_lc <- locale_columns(
       monthly_mortality_data
     )
+
+    cumulative_mortality_yr_data <- readRDS(
+      app_sys(
+        "extdata",
+        "cumulative_mortality_dummy_data.Rds"
+      )
+    )
+
+    cumulative_mortality_yr_data_lc <- locale_columns(
+      cumulative_mortality_yr_data
+    )
+
+    monthly_losses_data <- readRDS(
+      app_sys(
+        "extdata",
+        "monthly_losses_dummy_data.Rds"
+      )
+    )
+
+    monthly_losses_data_lc <- monthly_losses_locale_columns(
+      monthly_losses_data
+    )
+
+    monthly_losses_data_long <- losses_data_pivot_longer(monthly_losses_data_lc)
+
+    yearly_losses_data <- readRDS(
+      app_sys(
+        "extdata",
+        "yearly_losses_dummy_data.Rds"
+      )
+    )
+
+    yearly_losses_data_long <- losses_data_pivot_longer(yearly_losses_data)
 
     cohort_mortality_data <- readRDS(
       app_sys(
@@ -117,7 +156,7 @@ load_data <- function() {
       geo_group = 'country',
       species = "salmon"
     )
-
+    #rainbowtrout
     cohort_mortality_data_area_rainbowtrout <- prep_cohorts_data(
       cohort_mortality_data,
       geo_group = 'area',
@@ -142,8 +181,8 @@ load_data <- function() {
   options(monthly_losses_data_lc = monthly_losses_data_lc)
   options(yearly_losses_data_long = yearly_losses_data_long)
   options(monthly_losses_data_long = monthly_losses_data_long)
-  options(cumulative_mortality_data = cumulative_mortality_data)
-  options(cumulative_mortality_data_lc = cumulative_mortality_data_lc)
+  options(cumulative_mortality_yr_data = cumulative_mortality_yr_data)
+  options(cumulative_mortality_yr_data_lc = cumulative_mortality_yr_data_lc)
   options(monthly_mortality_data = monthly_mortality_data)
   options(monthly_mortality_data_lc = monthly_mortality_data_lc)
   options(cohort_mortality_data = cohort_mortality_data)
@@ -170,12 +209,13 @@ load_data <- function() {
 #'
 #' @param dat a data frame
 #' @param geo_group area, county or country
+#' @param species fish species
 #'
 #' @returns a formatted dataframe
 prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
   env <- getOption("golem.app.prod")
 
-  if (env == TRUE) {
+  if (env) {
     levels_area_salmon <- c(
       "1 & 2",
       "3",
@@ -207,8 +247,8 @@ prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
       "Møre og Romsdal, Trøndelag,  Nordland, & Troms"
     )
   } else {
-    levels_area_salmon = c("area_1", "area_2", "area_3", "area_4", "area_5")
-    levels_area_rainbowtrout = levels_area_salmon
+    levels_area_salmon <- c("area_1", "area_2", "area_3", "area_4", "area_5")
+    levels_area_rainbowtrout <- levels_area_salmon
 
     levels_county_salmon <- c("county_1", "county_2", "county_3")
     levels_county_rainbowtrout <- levels_county_salmon
@@ -302,7 +342,7 @@ prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
           q3
         )
       )
-  } else if (geo_group == "county" & species == "salmon") {
+  } else if (geo_group == "country" & species == "salmon") {
     prep_dat <- dat |>
       dplyr::filter(geo_group == "country", species == "salmon") |>
       # constuct tooltip
@@ -335,6 +375,7 @@ prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
         )
       )
   }
+  return(prep_dat)
 }
 
 
@@ -390,7 +431,7 @@ locale_columns <- function(dat) {
 #' @returns a data frame
 #'
 #' @noRd
-monthly_mortality_losses_columns <- function(dat) {
+monthly_losses_locale_columns <- function(dat) {
   Sys.setlocale("LC_TIME", "nb_NO.UTF-8")
 
   dat |>

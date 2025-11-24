@@ -1,3 +1,16 @@
+# laksetap 1.0.0
+
+## Breaking changes
+
+## New features
+
+* New plot for displaying cumulative yearly mortality.
+* Fully configurable and translatable app.
+* Download tab for all data and a calculator.
+* A dockerfile for running the app in a container.
+
+## Bug fixes
+
 # laksetap 0.9.3
 
 ## Breaking changes

@@ -12,10 +12,10 @@ dat_y <- readRDS("inst/extdata/yearly_losses_dummy_data.Rds")
 
 #### Plot for monthly losses
 
-input_species = "salmon"
-input_geo_group = "area"
-input_year = 2022
-input_month = c("01")
+input_species <- "salmon"
+input_geo_group <- "area"
+input_year <- 2022
+input_month <- c("01")
 
 vi_palette <- c("#FF5447", "#59CD8B", "#FFC6C2", "#1C4FB9")
 

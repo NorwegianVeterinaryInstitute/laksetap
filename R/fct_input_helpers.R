@@ -252,60 +252,6 @@ render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
 }
 
 
-#' render_input_for_mortality_year
-#' function renders input for both plot and table
-#'
-#' @param ns namespace function
-#' @param dat dataframe
-#' @param geo_group "area", "county" or "country"
-#'
-#' @returns a taglist to be rendered in the UI
-#' for the table
-render_input_for_mortality_year <- function(ns, dat, geo_group) {
-  labels <- golem::get_golem_options(which = "labels")
-
-  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])))
-
-  if (geo_group == "country") {
-    shiny::tagList(
-      shiny::fluidRow(
-        shiny::column(
-          width = 6,
-          select_year(
-            ns("select_years_mortality_year"),
-            dat,
-            multiple = TRUE
-          )
-        )
-      )
-    )
-  } else {
-    shiny::tagList(
-      shiny::fluidRow(
-        shiny::column(
-          width = 6,
-          select_year(
-            ns("select_years_mortality_year"),
-            dat,
-            multiple = TRUE
-          )
-        ),
-        shiny::column(
-          width = 6,
-          shiny::selectizeInput(
-            ns("select_region_mortality_year"),
-            #"Velg flere områder",
-            label = labels$functions$select_multiple_places,
-            region,
-            selected = region,
-            multiple = TRUE
-          )
-        )
-      )
-    )
-  }
-}
-
 #' render_input_for_cohorts_table
 #'
 #' @param ns namespace function

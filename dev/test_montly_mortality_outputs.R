@@ -16,11 +16,11 @@ dat <- readRDS("inst/extdata/monthly_mortality_dummy_data.rds")
 # then it is filtered on years and specific areas
 # to make the plot
 
-input_species = "salmon"
-input_geo_group = "area"
-input_year = c(2021, 2022)
+input_species <- "salmon"
+input_geo_group <- "area"
+input_year <- c(2021, 2022)
 # in the shiny inputs the country is always pre-selected.
-input_area = c("Country", "area_1", "area_2")
+input_area <- c("Country", "area_1", "area_2")
 
 vi_palette_named <- c(
   "Country" = "#FF5447",

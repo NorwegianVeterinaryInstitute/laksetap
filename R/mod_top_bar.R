@@ -25,10 +25,10 @@ mod_top_bar_server <- function(id) {
     config <- golem::get_golem_options(which = "config")
 
     species_choices <- config$mod_top_bar$species_choices
-    names(species_choices) <- labels$input_species$species
+    names(species_choices) <- labels$input_functions$species
 
     geo_group_choices <- config$mod_top_bar$geo_group_choices
-    names(geo_group_choices) <- labels$input_species$geo_group
+    names(geo_group_choices) <- labels$input_functions$geo_group
 
     output$top_bar <- shiny::renderUI({
       if (session$userData$active_tab() != "about") {
@@ -38,7 +38,7 @@ mod_top_bar_server <- function(id) {
               width = 6,
               shiny::selectInput(
                 ns("species"),
-                label = labels$input_species$select_species,
+                label = labels$input_functions$select_species,
                 choices = species_choices,
                 selected = species_choices[[1]]
               )
@@ -47,7 +47,7 @@ mod_top_bar_server <- function(id) {
               width = 6,
               shiny::selectInput(
                 ns("geo_group"),
-                label = labels$input_species$select_geo_group,
+                label = labels$input_functions$select_geo_group,
                 choices = geo_group_choices,
                 selected = geo_group_choices[[1]]
               )

@@ -12,19 +12,19 @@ mod_about_ui <- function(id) {
 
   labels <- golem::get_golem_options(which = "labels")
 
-  choices = c(
+  choices <- c(
     "monthly_mortality_data",
-    "cumulative_mortality_data",
+    "cumulative_mortality_yr_data",
     "monthly_losses_data",
     "yearly_losses_data",
-    "cohort_mortality_data_area"
+    "cohort_mortality_data"
   )
   names(choices) <- c(
     labels$modules$monthly_mortality_data,
-    labels$modules$cumulative_mortality_data,
+    labels$modules$cumulative_mortality_yr_data,
     labels$modules$monthly_losses_data,
     labels$modules$yearly_losses_data,
-    labels$modules$cohort_mortality_data_area
+    labels$modules$cohort_mortality_data
   )
 
   shiny::tagList(
@@ -83,29 +83,27 @@ mod_about_server <- function(id) {
     #### Data (read from options) ####
     datasets_list <- list(
       monthly_mortality_data = getOption("monthly_mortality_data"),
-      cumulative_mortality_data = getOption("cumulative_mortality_data"),
+      cumulative_mortality_yr_data = getOption("cumulative_mortality_yr_data"),
       monthly_losses_data = getOption("monthly_losses_data"),
       yearly_losses_data = getOption("yearly_losses_data"),
-      cohort_mortality_data_area = getOption("cohort_mortality_data_area")
+      cohort_mortality_data = getOption("cohort_mortality_data")
     )
-
-    # Reactive for selected dataset
-    selected_dataset <- reactive({
-      req(input$which_dataset)
-      input$which_dataset
-    })
 
     #### Download handler for selected dataset - CSV ####
     output$download_csv <- shiny::downloadHandler(
       filename = function() {
-        paste0(selected_dataset(), "_", Sys.Date(), ".csv")
+        paste0(input$which_dataset, "_", Sys.Date(), ".csv")
       },
       content = function(file) {
-        dat <- datasets_list[[selected_dataset()]]
+        dat <- datasets_list[[input$which_dataset]]
         if (is.null(dat)) {
           # write a small CSV with message
           msg <- tibble::tibble(
-            message = paste("Dataset", selected_dataset(), "is not available")
+            message = paste(
+              labels$modules$dataset,
+              input$which_dataset,
+              labels$modules$not_available
+            )
           )
           readr::write_csv(msg, file)
         } else {
@@ -114,19 +112,20 @@ mod_about_server <- function(id) {
         }
       },
       contentType = "text/csv"
-    )
+    ) |>
+      shiny::bindEvent(input$which_dataset)
 
     #### Download handler for selected dataset - JSON ####
     output$download_json <- shiny::downloadHandler(
       filename = function() {
-        paste0(selected_dataset(), "_", Sys.Date(), ".json")
+        paste0(input$which_dataset, "_", Sys.Date(), ".json")
       },
       content = function(file) {
-        dat <- datasets_list[[selected_dataset()]]
+        dat <- datasets_list[[input$which_dataset]]
         if (is.null(dat)) {
           # Write a small JSON with message
           msg <- list(
-            message = paste("Dataset", selected_dataset(), "is not available")
+            message = paste("Dataset", input$which_dataset, "is not available")
           )
           jsonlite::write_json(
             msg,
@@ -145,7 +144,8 @@ mod_about_server <- function(id) {
         }
       },
       contentType = "application/json"
-    )
+    ) |>
+      shiny::bindEvent(input$which_dataset)
 
     #### Calculator download ####
 
