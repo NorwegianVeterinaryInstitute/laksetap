@@ -52,8 +52,8 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
           shiny::selectInput(
             ns("select_region_mortality_month_plot"),
             #"Velg flere områder:",
-            label = labels$functions$select_multiple_places,
-            region,
+            label = labels$input_functions$select_multiple_places,
+            choices = region,
             selected = c(as.character(unique(dat$region[
               dat$geo_group == 'country'
             ]))),
@@ -82,6 +82,7 @@ render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
   region <- factor(unique(dat$region[dat$geo_group == geo_group]),
                    levels = levels(dat$region))
   
+  region <- as.character(sort(region))
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -124,8 +125,8 @@ render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
           shiny::selectizeInput(
             ns("select_region_mortality_month"),
             #"Velg flere områder",
-            label = labels$functions$select_multiple_places,
-            region,
+            label = labels$input_functions$select_multiple_places,
+            choices = region,
             selected = region,
             multiple = TRUE
           )
@@ -188,7 +189,7 @@ render_input_for_cumulative_mortality_plot <- function(ns, dat, geo_group) {
           width = 4,
           shiny::selectInput(
             ns("select_region_cumulative_mortality_plot"),
-            label = labels$functions$select_multiple_places,
+            label = labels$input_functions$select_multiple_places,
             region,
             selected = c(as.character(unique(dat$region[
               dat$geo_group == 'country'
@@ -259,7 +260,7 @@ render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
           width = 6,
           shiny::selectizeInput(
             ns("select_region_cumulative_mortality"),
-            label = labels$functions$select_multiple_places,
+            label = labels$input_functions$select_multiple_places,
             region,
             selected = region,
             multiple = TRUE
@@ -318,7 +319,7 @@ render_input_for_cohorts_table <- function(ns, dat, geo_group) {
           shiny::selectInput(
             ns("select_region_cohort_table"),
             #"Velg flere områder:",
-            label = labels$functions$select_multiple_places,
+            label = labels$input_functions$select_multiple_places,
             region,
             selected = region,
             multiple = TRUE
@@ -394,7 +395,7 @@ render_input_for_losses_monthly_table <- function(ns, dat, geo_group) {
           shiny::selectizeInput(
             ns("select_region_losses_monthly_table"),
             #"Velg flere områder",
-            label = labels$functions$select_multiple_places,
+            label = labels$input_functions$select_multiple_places,
             region,
             selected = region,
             multiple = TRUE
@@ -450,7 +451,7 @@ render_input_for_losses_yearly_table <- function(ns, dat, geo_group) {
           shiny::selectizeInput(
             ns("select_region_losses_year_table"),
             #"Velg flere områder",
-            label = labels$functions$select_multiple_places,
+            label = labels$input_functions$select_multiple_places,
             region,
             selected = region,
             multiple = TRUE

@@ -16,9 +16,9 @@ select_year <- function(id, dat, multiple = F) {
   labels <- golem::get_golem_options(which = "labels")
 
   if (multiple) {
-    text <- labels$functions$select_multiple_years
+    text <- labels$input_functions$select_multiple_years
   } else {
-    text <- labels$functions$select_year
+    text <- labels$input_functions$select_year
   }
 
   years_available <- sort(unique(dat$year), decreasing = TRUE)
@@ -54,7 +54,7 @@ select_months <- function(id, digit = F, multiple = T) {
   if (digit) {
     shiny::selectInput(
       id,
-      labels$functions$select_month,
+      labels$input_functions$select_month,
       months_digit,
       selected = months_digit[[1]],
       multiple = multiple
@@ -62,7 +62,7 @@ select_months <- function(id, digit = F, multiple = T) {
   } else {
     selectInput(
       id,
-      labels$functions$select_multiple_months,
+      labels$input_functions$select_multiple_months,
       months_abbv,
       selected = months_abbv[[1]],
       multiple = multiple
