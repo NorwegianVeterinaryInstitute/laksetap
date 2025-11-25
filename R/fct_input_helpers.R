@@ -198,7 +198,7 @@ render_input_for_cumulative_mortality_plot <- function(ns, dat, geo_group) {
 render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  region <- c(as.character(unique(dat$region[dat$geo_group == geo_group])))
+  region <- unique(dat$region[dat$geo_group == geo_group])
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -265,7 +265,7 @@ render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
 render_input_for_cohorts_table <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  region <- as.character(unique(dat$region[dat$geo_group == geo_group]))
+  region <- unique(dat$region[dat$geo_group == geo_group])
 
   if (geo_group == "country") {
     shiny::tagList(
