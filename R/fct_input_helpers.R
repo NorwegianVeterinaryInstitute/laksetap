@@ -12,13 +12,16 @@
 render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  region <- c(
-    
-    factor(unique(dat$region[dat$geo_group == geo_group]),
-                     levels = levels(dat$region))
-    ,
-    unique(dat$region[dat$geo_group == 'country'])
+  
+  region <- factor(
+    c(
+      unique(dat$region[dat$geo_group == geo_group]),
+      unique(dat$region[dat$geo_group == "country"])
+    ),
+    levels = levels(dat$region)  # preserve original ordering
   )
+  
+  region <- as.character(sort(region))
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -145,12 +148,18 @@ render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
 render_input_for_cumulative_mortality_plot <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  region <- c(
-    
-    factor(unique(dat$region[dat$geo_group == geo_group]),
-                     levels = levels(dat$region)),
-    unique(dat$region[dat$geo_group == 'country']))
-
+  
+  region <- factor(
+    c(
+      unique(dat$region[dat$geo_group == geo_group]),
+      unique(dat$region[dat$geo_group == "country"])
+    ),
+    levels = levels(dat$region)  # preserve original ordering
+  )
+  
+  
+  region <- as.character(sort(region))
+  
   if (geo_group == "country") {
     shiny::tagList(
       shiny::fluidRow(
