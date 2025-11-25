@@ -129,8 +129,11 @@ mod_about_server <- function(id) {
         if (is.null(dat)) {
           # Write a small JSON with message
           msg <- list(
-            message = paste("Dataset", input$which_dataset, "is not available")
-          )
+            message = paste(
+              labels$modules$dataset,
+              input$which_dataset,
+              labels$modules$not_available
+            )          )
           jsonlite::write_json(
             msg,
             path = file,
