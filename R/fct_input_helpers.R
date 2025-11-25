@@ -149,7 +149,7 @@ render_input_for_cumulative_mortality_plot <- function(ns, dat, geo_group) {
     
     factor(unique(dat$region[dat$geo_group == geo_group]),
                      levels = levels(dat$region)),
-    unique(dat$region[dat$geo_group == 'country'])
+    unique(dat$region[dat$geo_group == 'country']))
 
   if (geo_group == "country") {
     shiny::tagList(
