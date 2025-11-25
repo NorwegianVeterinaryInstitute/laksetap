@@ -40,14 +40,14 @@ create_yearly_losses <- function(geo_group) {
   dat <- dat[sample(nrow(dat)), ]
 
   n <- nrow(dat)
-  
+
   dat$losses <- round(runif(n, min = 5000000, max = 10000000))
-  
-  dat$dead <- round(dat$losses * runif(n, 0.7, 0.9))       # 70-90% dead
+
+  dat$dead <- round(dat$losses * runif(n, 0.7, 0.9)) # 70-90% dead
   dat$discarded <- round(dat$losses * runif(n, 0.02, 0.05)) # 2-5% discarded
   dat$escaped <- round(dat$losses * runif(n, 0.0001, 0.001)) # very small
   dat$other <- pmax(dat$losses - (dat$dead + dat$discarded + dat$escaped), 0)
-  
+
   return(dat)
 }
 

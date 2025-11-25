@@ -45,37 +45,49 @@ mod_about_ui <- function(id) {
             shiny::tags$div(
               shiny::includeMarkdown(app_sys("app/www/download.md")),
               shiny::tags$fieldset(
-              shiny::radioButtons(
-                inputId = ns("which_dataset"),
-                label = labels$modules$radio_button,
-                choices = choices,
-                selected = choices[[1]]
-              ))),
-              
-              # Wrap buttons in a container
-              
-            
+                shiny::radioButtons(
+                  inputId = ns("which_dataset"),
+                  label = labels$modules$radio_button,
+                  choices = choices,
+                  selected = choices[[1]]
+                )
+              )
+            ),
+
+            # Wrap buttons in a container
+
             shiny::tags$div(
               class = "download-buttons",
-              
+
               # First row: CSV + JSON side by side
               shiny::tags$div(
                 class = "button-row",
-                shiny::downloadButton(ns("download_csv"), label = labels$modules$download_button_csv),
-                shiny::downloadButton(ns("download_json"), label = labels$modules$download_button_json)
+                shiny::downloadButton(
+                  ns("download_csv"),
+                  label = labels$modules$download_button_csv
+                ),
+                shiny::downloadButton(
+                  ns("download_json"),
+                  label = labels$modules$download_button_json
+                )
               ),
-              
+
               # Second row: Excel aligned left, same size as others
               shiny::tags$div(
                 class = "button-row",
-                shiny::downloadButton(ns("download_excel"), label = labels$modules$download_button_excel)
-              )),
-          shiny::br(),
-          shiny::includeMarkdown(app_sys("app/www/license.md"))
+                shiny::downloadButton(
+                  ns("download_excel"),
+                  label = labels$modules$download_button_excel
+                )
+              )
+            ),
+            shiny::br(),
+            shiny::includeMarkdown(app_sys("app/www/license.md"))
+          )
         )
       )
     )
-  ))
+  )
 }
 #' about Server Functions
 #'
@@ -133,7 +145,8 @@ mod_about_server <- function(id) {
               labels$modules$dataset,
               input$which_dataset,
               labels$modules$not_available
-            )          )
+            )
+          )
           jsonlite::write_json(
             msg,
             path = file,

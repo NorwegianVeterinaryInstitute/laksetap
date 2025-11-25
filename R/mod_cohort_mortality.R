@@ -172,7 +172,6 @@ mod_cohort_mortality_server <- function(id) {
         session$userData$species() == "rainbowtrout" &
           session$userData$geo_group() == "area"
       ) {
-        
         cohort_mortality_data_area_rainbowtrout |>
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
@@ -190,7 +189,6 @@ mod_cohort_mortality_server <- function(id) {
           ) |>
           style_plotly(legend = FALSE)
       } else {
-        
         cohort_mortality_data_country_rainbowtrout |>
           dplyr::filter(year == input$select_year_cohort) |>
           plot_cohorts_output(
