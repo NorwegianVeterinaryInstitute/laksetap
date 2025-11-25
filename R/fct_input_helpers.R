@@ -14,7 +14,7 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
 
   region <- c(
     
-    region <- factor(unique(dat$region[dat$geo_group == geo_group]),
+    factor(unique(dat$region[dat$geo_group == geo_group]),
                      levels = levels(dat$region))
     ,
     unique(dat$region[dat$geo_group == 'country'])
@@ -147,10 +147,9 @@ render_input_for_cumulative_mortality_plot <- function(ns, dat, geo_group) {
 
   region <- c(
     
-    region <- factor(unique(dat$region[dat$geo_group == geo_group]),
-                     levels = levels(dat$region))
+    factor(unique(dat$region[dat$geo_group == geo_group]),
+                     levels = levels(dat$region)),
     unique(dat$region[dat$geo_group == 'country'])
-  )
 
   if (geo_group == "country") {
     shiny::tagList(
