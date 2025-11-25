@@ -32,7 +32,7 @@ app_ui <- function(request) {
           ),
         ),
         id = "navbar",
-        theme = bslib::bs_theme(primary = "#d7f4ff"),
+        theme = bslib::bs_theme(primary = "#d7f4ff", version = 5),
         header = shiny::tagList(
           shiny::div(
             class = "container",

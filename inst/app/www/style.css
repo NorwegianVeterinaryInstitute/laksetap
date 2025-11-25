@@ -232,3 +232,74 @@ ul.nav.navbar-nav.nav-underline.shiny-tab-input.shiny-bound-input {
     padding-right: 1rem;
   }
 }*/
+
+
+
+/* Base style for Shiny download buttons */
+.shiny-download-link.btn-default {
+  background-color: #f7f7f7; /* neutral gray */
+  color: #091A3E;
+  border: 1px solid #ced4da;
+  padding: 0.5rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem; /* space between icon and text */
+  transition: background-color 120ms ease, border-color 120ms ease;
+}
+
+/* Hover: lighter gray like DataTables pagination */
+.shiny-download-link.btn-default:hover {
+  background-color: #e9ecef; /* lighter gray */
+  border-color: #bfc8cf;
+  color: #091A3E;
+  text-decoration: none; /* prevent underline */
+}
+
+/* Focus-visible for keyboard users */
+.shiny-download-link.btn-default:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 0.2rem rgba(20, 57, 133, 0.25);
+}
+
+/* Active state */
+.shiny-download-link.btn-default:active {
+  background-color: #dee2e6;
+  border-color: #b1bbc3;
+}
+
+
+
+.download-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* vertical spacing between rows */
+}
+
+/* Each row uses flex for normal screens */
+.button-row {
+  display: flex;
+  gap: 16px; /* space between buttons */
+}
+
+
+.button-row .btn {
+  flex: 0 0 300px;    /* basis = 200px, no grow, no shrink on normal screens */
+  min-width: 160px;
+  padding: 0.6rem 1rem;
+}
+
+
+/* Small screens: full width stack */
+@media (max-width: 575.98px) {
+  .button-row {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .button-row .btn {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 0.7rem 1rem;
+  }
+
+
+
