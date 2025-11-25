@@ -289,6 +289,16 @@ ul.nav.navbar-nav.nav-underline.shiny-tab-input.shiny-bound-input {
 }
 
 
+/* Make sure button content is centered */
+.button-row .btn {
+  display: flex;              /* use flexbox for alignment */
+  align-items: center;        /* vertical centering */
+  justify-content: center;    /* horizontal centering */
+  gap: 0.5rem;                /* space between icon and text */
+  text-align: center;         /* fallback for text */
+}
+
+
 /* Small screens: full width stack */
 @media (max-width: 575.98px) {
   .button-row {
