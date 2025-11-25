@@ -22,7 +22,7 @@ mod_cohort_mortality_ui <- function(id) {
           shiny::uiOutput(ns("select_year_cohort_ui")),
           plotly::plotlyOutput(ns("plot_cohort")),
           shiny::hr(),
-          shiny::includeMarkdown(app_sys("www/cohorts_plot_footer.md"))
+          shiny::includeMarkdown(app_sys("app/www/cohorts_plot_footer.md"))
         ),
         bslib::nav_panel(
           labels$modules$table,
@@ -33,7 +33,7 @@ mod_cohort_mortality_ui <- function(id) {
           ),
           shiny::hr(),
           shiny::div(
-            shiny::includeMarkdown(app_sys("www/cohorts_table_footer.md"))
+            shiny::includeMarkdown(app_sys("app/www/cohorts_table_footer.md"))
           )
         )
       )
