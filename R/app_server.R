@@ -11,17 +11,17 @@ app_server <- function(input, output, session) {
   #### Make the title change with the tab ####
   output$tab_title <- shiny::renderUI({
     if (input$navbar == "monthly_mortality") {
-      shiny::h2(labels$app_server$monthly_mortality)
+      shiny::h2(labels$app_server$navbar_monthly_mortality)
     } else if (input$navbar == "cumulative_mortality") {
-      shiny::h2(labels$app_server$cumulative_mortality)
+      shiny::h2(labels$app_server$navbar_cumulative_mortality)
     } else if (input$navbar == "prod_mortality") {
-      shiny::h2(labels$app_server$prod_mortality)
+      shiny::h2(labels$app_server$navbar_prod_mortality)
     } else if (input$navbar == "calc_mortality") {
-      shiny::h2(labels$app_server$calc_mortality)
+      shiny::h2(labels$app_server$navbar_calc_mortality)
     } else if (input$navbar == "losses") {
-      shiny::h2(labels$app_server$losses)
+      shiny::h2(labels$app_server$navbar_losses)
     } else if (input$navbar == "about") {
-      shiny::h2(labels$app_server$about)
+      shiny::h2(labels$app_server$navbar_about)
     }
   })
 
