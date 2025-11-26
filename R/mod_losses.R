@@ -274,7 +274,7 @@ mod_losses_server <- function(id) {
 
     #### Yearly losses table ####
     output$table_losses_year <- DT::renderDT({
-      if (session$userData$geo_group() == "all") {
+      if (session$userData$geo_group() == "country") {
         dat <- losses_data_prep_table(
           df_losses(),
           resolution = "y"
