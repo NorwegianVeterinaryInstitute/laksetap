@@ -12,16 +12,7 @@
 render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  
-  region <- factor(
-    c(
-      unique(dat$region[dat$geo_group == geo_group]),
-      unique(dat$region[dat$geo_group == "country"])
-    ),
-    levels = levels(dat$region)  # preserve original ordering
-  )
-  
-  region <- as.character(sort(region))
+  factor_order_on_region_dropdown(with_country = TRUE)
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -51,7 +42,7 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
           width = 4,
           shiny::selectInput(
             ns("select_region_mortality_month_plot"),
-            #"Velg flere områder:",
+
             label = labels$input_functions$select_multiple_places,
             choices = region,
             selected = c(as.character(unique(dat$region[
@@ -78,11 +69,7 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
 render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  
-  region <- factor(unique(dat$region[dat$geo_group == geo_group]),
-                   levels = levels(dat$region))
-  
-  region <- as.character(sort(region))
+  factor_order_on_region_dropdown(with_country = FALSE)
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -149,18 +136,8 @@ render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
 render_input_for_cumulative_mortality_plot <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  
-  region <- factor(
-    c(
-      unique(dat$region[dat$geo_group == geo_group]),
-      unique(dat$region[dat$geo_group == "country"])
-    ),
-    levels = levels(dat$region)  # preserve original ordering
-  )
-  
-  
-  region <- as.character(sort(region))
-  
+  factor_order_on_region_dropdown(with_country = TRUE)
+
   if (geo_group == "country") {
     shiny::tagList(
       shiny::fluidRow(
@@ -215,10 +192,7 @@ render_input_for_cumulative_mortality_plot <- function(ns, dat, geo_group) {
 render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  
-    region <- factor(unique(dat$region[dat$geo_group == geo_group]),
-                     levels = levels(dat$region))
-  
+  factor_order_on_region_dropdown(with_country = FALSE)
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -230,12 +204,6 @@ render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
             dat,
             multiple = TRUE
           )
-          # ),
-          # shiny::column(
-          #   width = 4,
-          #   select_months(
-          #     id = ns("select_months_cumulative_mortality_table")
-          #   )
         )
       )
     )
@@ -249,12 +217,6 @@ render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
             dat,
             multiple = TRUE
           )
-          # ),
-          # shiny::column(
-          #   width = 4,
-          #   select_months(
-          #     id = ns("select_months_cumulative_mortality_table"),
-          #  )
         ),
         shiny::column(
           width = 6,
@@ -285,10 +247,7 @@ render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
 render_input_for_cohorts_table <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  
-  region <- factor(unique(dat$region[dat$geo_group == geo_group]),
-                   levels = levels(dat$region))
-  
+  factor_order_on_region_dropdown(with_country = FALSE)
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -318,7 +277,7 @@ render_input_for_cohorts_table <- function(ns, dat, geo_group) {
           width = 4,
           shiny::selectInput(
             ns("select_region_cohort_table"),
-            #"Velg flere områder:",
+
             label = labels$input_functions$select_multiple_places,
             region,
             selected = region,
@@ -345,10 +304,7 @@ render_input_for_cohorts_table <- function(ns, dat, geo_group) {
 render_input_for_losses_monthly_table <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  
-  region <- factor(unique(dat$region[dat$geo_group == geo_group]),
-                   levels = levels(dat$region))
-  
+  factor_order_on_region_dropdown(with_country = FALSE)
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -394,7 +350,7 @@ render_input_for_losses_monthly_table <- function(ns, dat, geo_group) {
           width = 4,
           shiny::selectizeInput(
             ns("select_region_losses_monthly_table"),
-            #"Velg flere områder",
+
             label = labels$input_functions$select_multiple_places,
             region,
             selected = region,
@@ -414,13 +370,12 @@ render_input_for_losses_monthly_table <- function(ns, dat, geo_group) {
 #'
 #' @returns a taglist to be rendered in the UI
 #' for the table
+#'
+#' @noRd
 render_input_for_losses_yearly_table <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  
-  region <- factor(unique(dat$region[dat$geo_group == geo_group]),
-                   levels = levels(dat$region))
-  
+  factor_order_on_region_dropdown(with_country = FALSE)
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -450,7 +405,7 @@ render_input_for_losses_yearly_table <- function(ns, dat, geo_group) {
           width = 6,
           shiny::selectizeInput(
             ns("select_region_losses_year_table"),
-            #"Velg flere områder",
+
             label = labels$input_functions$select_multiple_places,
             region,
             selected = region,
@@ -460,4 +415,35 @@ render_input_for_losses_yearly_table <- function(ns, dat, geo_group) {
       )
     )
   }
+}
+
+
+#' factor_order_on_region_dropdown
+#'
+#' @param with_country TRUE or FALSE
+#'
+#' @returns a sorted vector
+#'
+#' @noRd
+factor_order_on_region_dropdown <- function(with_country = TRUE) {
+  if (with_country) {
+    region <- factor(
+      c(
+        unique(dat$region[dat$geo_group == geo_group]),
+        unique(dat$region[dat$geo_group == "country"])
+      ),
+      levels = levels(dat$region)
+    )
+
+    region <- as.character(sort(region))
+  } else {
+    region <- factor(
+      unique(dat$region[dat$geo_group == geo_group]),
+      levels = levels(dat$region)
+    )
+
+    region <- as.character(sort(region))
+  }
+
+  region
 }
