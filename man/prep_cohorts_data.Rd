@@ -4,7 +4,7 @@
 \alias{prep_cohorts_data}
 \title{prep_cohorts_data}
 \usage{
-prep_cohorts_data(dat, geo_group = NULL, species = NULL)
+prep_cohorts_data(dat)
 }
 \arguments{
 \item{dat}{a data frame}

@@ -55,7 +55,7 @@ cohorts_mortality_table <- function(dat) {
   dat |>
     DT::datatable(
       rownames = FALSE,
-      colnames = labels$output_functions$table_colnames,
+      colnames = labels$output_functions$table_colnames_cohorts,
       selection = (list(
         mode = "multiple",
         selected = "all",
