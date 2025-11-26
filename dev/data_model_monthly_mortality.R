@@ -76,7 +76,7 @@ monthly_mortality_dummy_data <- dplyr::bind_rows(
   dat_area,
   dat_county,
   dat_country
-)
+) 
 
 names(monthly_mortality_dummy_data) <- c(
   "species",
@@ -88,6 +88,8 @@ names(monthly_mortality_dummy_data) <- c(
   "q3"
 )
 
+monthly_mortality_dummy_data <- monthly_mortality_dummy_data |> 
+  dplyr::mutate(region = factor(region))
 
 saveRDS(
   monthly_mortality_dummy_data,

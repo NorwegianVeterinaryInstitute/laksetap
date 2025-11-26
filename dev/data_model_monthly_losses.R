@@ -78,7 +78,7 @@ monthly_losses_dummy_data <- dplyr::bind_rows(
   dat_area,
   dat_county,
   dat_country
-)
+) 
 
 names(monthly_losses_dummy_data) <- c(
   "species",
@@ -90,7 +90,10 @@ names(monthly_losses_dummy_data) <- c(
   "discarded",
   "escaped",
   "other"
-)
+) 
+
+monthly_losses_dummy_data <- monthly_losses_dummy_data |> 
+  dplyr::mutate(region = factor(region))
 
 saveRDS(
   monthly_losses_dummy_data,

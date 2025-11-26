@@ -86,6 +86,9 @@ names(yearly_losses_dummy_data) <- c(
   "other"
 )
 
+yearly_losses_dummy_data <- yearly_losses_dummy_data |>
+  dplyr::mutate(region = factor(region))
+
 saveRDS(
   yearly_losses_dummy_data,
   file = "inst/extdata/yearly_losses_dummy_data.Rds"

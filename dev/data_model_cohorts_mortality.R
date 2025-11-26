@@ -74,7 +74,7 @@ cohort_mortality_dummy_data <- dplyr::bind_rows(
   dat_area,
   dat_county,
   dat_country
-)
+) 
 
 names(cohort_mortality_dummy_data) <- c(
   "species",
@@ -85,6 +85,9 @@ names(cohort_mortality_dummy_data) <- c(
   "q1",
   "q3"
 )
+
+cohort_mortality_dummy_data <- cohort_mortality_dummy_data |> 
+  dplyr::mutate(region = factor(region))
 
 saveRDS(
   cohort_mortality_dummy_data,
