@@ -229,7 +229,7 @@ mod_losses_server <- function(id) {
         resolution = "m"
       )
 
-      losses_plot(dat)
+      losses_plot(dat) |> style_plotly()
     })
 
     output$table_losses_month <- DT::renderDT({
@@ -269,7 +269,7 @@ mod_losses_server <- function(id) {
         resolution = "y"
       )
 
-      losses_plot(dat)
+      losses_plot(dat) |> style_plotly()
     })
 
     #### Yearly losses table ####
