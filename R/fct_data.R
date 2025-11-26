@@ -51,42 +51,44 @@ load_data <- function() {
       "vi2108/cohort_mortality_app_data"
     )
 
-    #salmon
-    cohort_mortality_data_area_salmon <- prep_cohorts_data(
-      cohort_mortality_data,
-      geo_group = 'area',
-      species = "salmon"
-    )
-
-    cohort_mortality_data_county_salmon <- prep_cohorts_data(
-      cohort_mortality_data,
-      geo_group = 'county',
-      species = "salmon"
-    )
-
-    cohort_mortality_data_country_salmon <- prep_cohorts_data(
-      cohort_mortality_data,
-      geo_group = 'country',
-      species = "salmon"
-    )
-    #rainbowtrout
-    cohort_mortality_data_area_rainbowtrout <- prep_cohorts_data(
-      cohort_mortality_data,
-      geo_group = 'area',
-      species = "rainbowtrout"
-    )
-
-    cohort_mortality_data_county_rainbowtrout <- prep_cohorts_data(
-      cohort_mortality_data,
-      geo_group = 'county',
-      species = "rainbowtrout"
-    )
-
-    cohort_mortality_data_country_rainbowtrout <- prep_cohorts_data(
-      cohort_mortality_data,
-      geo_group = 'country',
-      species = "rainbowtrout"
-    )
+    cohort_mortality_data<- prep_cohorts_data(cohort_mortality_data)
+    
+    # #salmon
+    # cohort_mortality_data_area_salmon <- prep_cohorts_data(
+    #   cohort_mortality_data,
+    #   geo_group = 'area',
+    #   species = "salmon"
+    # )
+    # 
+    # cohort_mortality_data_county_salmon <- prep_cohorts_data(
+    #   cohort_mortality_data,
+    #   geo_group = 'county',
+    #   species = "salmon"
+    # )
+    # 
+    # cohort_mortality_data_country_salmon <- prep_cohorts_data(
+    #   cohort_mortality_data,
+    #   geo_group = 'country',
+    #   species = "salmon"
+    # )
+    # #rainbowtrout
+    # cohort_mortality_data_area_rainbowtrout <- prep_cohorts_data(
+    #   cohort_mortality_data,
+    #   geo_group = 'area',
+    #   species = "rainbowtrout"
+    # )
+    # 
+    # cohort_mortality_data_county_rainbowtrout <- prep_cohorts_data(
+    #   cohort_mortality_data,
+    #   geo_group = 'county',
+    #   species = "rainbowtrout"
+    # )
+    # 
+    # cohort_mortality_data_country_rainbowtrout <- prep_cohorts_data(
+    #   cohort_mortality_data,
+    #   geo_group = 'country',
+    #   species = "rainbowtrout"
+    # )
   } else {
     monthly_mortality_data <- readRDS(
       app_sys(
