@@ -17,11 +17,11 @@ monthly_mortality_plot <- function(dat) {
       y = median,
       group = region,
       text = paste0(
-        "Median: ",
+        "Median %: ",
         round(median, 2),
-        "<br>Q1: ",
+        "<br>1 Kvartil %: ",
         round(q1, 2),
-        "<br>Q3: ",
+        "<br>3 Kvartil %: ",
         round(q3, 2)
       )
     ) +

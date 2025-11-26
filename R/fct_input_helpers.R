@@ -69,7 +69,11 @@ render_input_for_mortality_month_plot <- function(ns, dat, geo_group) {
 render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  region <-  factor_order_on_region_dropdown(dat, geo_group, with_country = FALSE)
+  region <- factor_order_on_region_dropdown(
+    dat,
+    geo_group,
+    with_country = FALSE
+  )
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -136,7 +140,7 @@ render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
 render_input_for_cumulative_mortality_plot <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  region <-  factor_order_on_region_dropdown(dat, geo_group, with_country = TRUE)
+  region <- factor_order_on_region_dropdown(dat, geo_group, with_country = TRUE)
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -192,7 +196,11 @@ render_input_for_cumulative_mortality_plot <- function(ns, dat, geo_group) {
 render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  region <- factor_order_on_region_dropdown(dat, geo_group, with_country = FALSE)
+  region <- factor_order_on_region_dropdown(
+    dat,
+    geo_group,
+    with_country = FALSE
+  )
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -247,7 +255,11 @@ render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
 render_input_for_cohorts_table <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  region <- factor_order_on_region_dropdown(dat, geo_group, with_country = FALSE)
+  region <- factor_order_on_region_dropdown(
+    dat,
+    geo_group,
+    with_country = FALSE
+  )
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -304,7 +316,11 @@ render_input_for_cohorts_table <- function(ns, dat, geo_group) {
 render_input_for_losses_monthly_table <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  region <- factor_order_on_region_dropdown(dat, geo_group, with_country = FALSE)
+  region <- factor_order_on_region_dropdown(
+    dat,
+    geo_group,
+    with_country = FALSE
+  )
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -375,7 +391,11 @@ render_input_for_losses_monthly_table <- function(ns, dat, geo_group) {
 render_input_for_losses_yearly_table <- function(ns, dat, geo_group) {
   labels <- golem::get_golem_options(which = "labels")
 
-  region <- factor_order_on_region_dropdown(dat, geo_group, with_country = FALSE)
+  region <- factor_order_on_region_dropdown(
+    dat,
+    geo_group,
+    with_country = FALSE
+  )
 
   if (geo_group == "country") {
     shiny::tagList(
@@ -427,7 +447,11 @@ render_input_for_losses_yearly_table <- function(ns, dat, geo_group) {
 #' @returns a sorted vector
 #'
 #' @noRd
-factor_order_on_region_dropdown <- function(dat, geo_group, with_country = TRUE) {
+factor_order_on_region_dropdown <- function(
+  dat,
+  geo_group,
+  with_country = TRUE
+) {
   if (with_country) {
     region <- factor(
       c(

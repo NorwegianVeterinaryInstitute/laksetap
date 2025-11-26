@@ -36,7 +36,19 @@ losses_plot <- function(dat) {
   labels <- golem::get_golem_options(which = "labels")
 
   dat |>
-    ggplot(aes(fill = type, x = region, y = n)) +
+    ggplot(aes(
+      fill = type,
+      x = region,
+      y = n,
+      text = paste0(
+        "Område: ",
+        region,
+        "<br>Antall: ",
+        n,
+        "<br>Type: ",
+        type
+      )
+    )) +
     geom_bar(position = "stack", stat = "identity") +
     labs(
       x = labels$output_functions$losses_plot_label_x,

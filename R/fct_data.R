@@ -266,13 +266,13 @@ prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
       # constuct tooltip
       dplyr::mutate(
         tooltip = paste0(
-          "Area: ",
+          "Område: ",
           region,
-          "<br>Q1: ",
+          "<br>1 Kvartil %: ",
           q1,
-          "<br>Median: ",
+          "<br>Median %: ",
           median,
-          "<br>Q3: ",
+          "<br>3 Kvartil %: ",
           q3
         )
       )
@@ -288,13 +288,13 @@ prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
       # constuct tooltip
       dplyr::mutate(
         tooltip = paste0(
-          "Area: ",
+          "Område: ",
           region,
-          "<br>Q1: ",
+          "<br>1 Kvartil %: ",
           q1,
-          "<br>Median: ",
+          "<br>Median %: ",
           median,
-          "<br>Q3: ",
+          "<br>3 Kvartil %: ",
           q3
         )
       )
@@ -310,13 +310,13 @@ prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
       # constuct tooltip
       dplyr::mutate(
         tooltip = paste0(
-          "Area: ",
+          "Område: ",
           region,
-          "<br>Q1: ",
+          "<br>1 Kvartil %: ",
           q1,
-          "<br>Median: ",
+          "<br>Median %: ",
           median,
-          "<br>Q3: ",
+          "<br>3 Kvartil %: ",
           q3
         )
       )
@@ -332,13 +332,13 @@ prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
       # constuct tooltip
       dplyr::mutate(
         tooltip = paste0(
-          "Area: ",
+          "Område: ",
           region,
-          "<br>Q1: ",
+          "<br>1 Kvartil %: ",
           q1,
-          "<br>Median: ",
+          "<br>Median %: ",
           median,
-          "<br>Q3: ",
+          "<br>3 Kvartil %: ",
           q3
         )
       )
@@ -348,13 +348,13 @@ prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
       # constuct tooltip
       dplyr::mutate(
         tooltip = paste0(
-          "Area: ",
+          "Område: ",
           region,
-          "<br>Q1: ",
+          "<br>1 Kvartil %: ",
           q1,
-          "<br>Median: ",
+          "<br>Median %: ",
           median,
-          "<br>Q3: ",
+          "<br>3 Kvartil %: ",
           q3
         )
       )
@@ -364,13 +364,13 @@ prep_cohorts_data <- function(dat, geo_group = NULL, species = NULL) {
       # constuct tooltip
       dplyr::mutate(
         tooltip = paste0(
-          "Area: ",
+          "Område: ",
           region,
-          "<br>Q1: ",
+          "<br>1 Kvartil %: ",
           q1,
-          "<br>Median: ",
+          "<br>Median %: ",
           median,
-          "<br>Q3: ",
+          "<br>3 Kvartil %: ",
           q3
         )
       )

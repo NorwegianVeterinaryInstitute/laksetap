@@ -21,9 +21,9 @@ cumulative_mortality_plot <- function(dat) {
       text = paste0(
         "Mean: ",
         mean,
-        "<br>LCI: ",
+        "<br>Nedre konfidensintervall: ",
         lci,
-        "<br>UCI: ",
+        "<br>Øvre konfidensintervall: ",
         uci
       )
     ) +
