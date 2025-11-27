@@ -93,5 +93,10 @@
   "header": {
     "skip_link": "Hopp til hovedinnhold",
     "h1": "Statistikk over tap og dødelighet av laks og regnbueørret i sjøfasen"
+    },
+    "tooltips": {
+      "losses_region": "Område: ",
+      "losses_count": "<br>Antall: ",
+      "losses_type": "<br>Type: "
     }
 }

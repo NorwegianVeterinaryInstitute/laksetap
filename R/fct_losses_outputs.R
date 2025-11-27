@@ -41,11 +41,11 @@ losses_plot <- function(dat) {
       x = region,
       y = n,
       text = paste0(
-        "Område: ",
+        paste(labels$tooltips$losses_region),
         region,
-        "<br>Antall: ",
+        paste(labels$tooltips$losses_count),
         n,
-        "<br>Type: ",
+        paste(labels$tooltips$losses_type),
         type
       )
     )) +
@@ -55,6 +55,9 @@ losses_plot <- function(dat) {
       y = labels$output_functions$losses_plot_label_y
     ) +
     scale_fill_manual(values = vi_palette) +
+    scale_y_continuous(
+      labels = scales::label_number(scale = 1e-6, suffix = "M")
+    ) +
     theme_minimal() +
     theme(legend.title = element_blank())
 }
