@@ -7,6 +7,7 @@
 #' @noRd
 #'
 #' @importFrom shiny NS tagList
+#' @importFrom markdown mark_html
 mod_about_ui <- function(id) {
   ns <- shiny::NS(id)
 
