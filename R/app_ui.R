@@ -10,6 +10,7 @@ app_ui <- function(request) {
   shiny::tagList(
     # Leave this function for adding external resources
     golem_add_external_resources(),
+
     shiny::tags$head(
       meta_block(),
       tag_manager(),

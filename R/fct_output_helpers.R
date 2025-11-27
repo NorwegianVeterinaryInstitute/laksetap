@@ -1,7 +1,7 @@
 #' style_plotly
 #'
 #' @description A function to style a plotly object.
-#' 
+#'
 #' @param p a ggplot object
 #'
 #' @return A plotly object.
