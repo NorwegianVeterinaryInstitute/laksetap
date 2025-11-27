@@ -44,8 +44,6 @@ load_data <- function() {
 
     yearly_losses_data_long <- losses_data_pivot_longer(yearly_losses_data)
 
-    # Cohort data require multiple transformation because
-    # of need for ordered factor. Should be improved.
     cohort_mortality_data <- pins::pin_read(
       laksetap_board,
       "vi2108/cohort_mortality_app_data"
