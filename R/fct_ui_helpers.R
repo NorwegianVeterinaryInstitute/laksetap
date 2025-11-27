@@ -1,7 +1,6 @@
 #' select_year
 #'
 #' @description Function to return a vector of years to be rendered in the UI.
-#' Years are hardcoded for now.
 #' Monthly data resolution has data from the current year,
 #' yearly data resolution has data up to last full year.
 #'
@@ -44,7 +43,7 @@ select_year <- function(id, dat, multiple = F) {
 #' @returns a vector to be used in selectInput
 #'
 #' @noRd
-select_months <- function(id, digit = F, multiple = T) {
+select_months <- function(id, digit = FALSE, multiple = TRUE) {
   labels <- golem::get_golem_options(which = "labels")
   months_abbv <- get_month_abbrev("nb_NO.UTF-8")
   months_digit <- formatC(1:12, width = 2, flag = "0")
