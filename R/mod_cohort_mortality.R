@@ -51,29 +51,6 @@ mod_cohort_mortality_server <- function(id) {
 
     #### Data ####
 
-    #### Used in the plot ####
-    #
-    #     cohort_mortality_data_area_salmon <- getOption(
-    #       "cohort_mortality_data_area_salmon"
-    #     )
-    #     cohort_mortality_data_county_salmon <- getOption(
-    #       "cohort_mortality_data_county_salmon"
-    #     )
-    #     cohort_mortality_data_country_salmon <- getOption(
-    #       "cohort_mortality_data_country_salmon"
-    #     )
-    #     cohort_mortality_data_area_rainbowtrout <- getOption(
-    #       "cohort_mortality_data_area_rainbowtrout"
-    #     )
-    #     cohort_mortality_data_county_rainbowtrout <- getOption(
-    #       "cohort_mortality_data_county_rainbowtrout"
-    #     )
-    #
-    #     cohort_mortality_data_country_rainbowtrout <- getOption(
-    #       "cohort_mortality_data_country_rainbowtrout"
-    #     )
-    #
-    #     #### Used in the table ####
     cohort_mortality_data <- getOption("cohort_mortality_data")
 
     df_cohorts <-
@@ -144,65 +121,6 @@ mod_cohort_mortality_server <- function(id) {
           input$select_year_cohort
         )
       style_plotly(p)
-      #
-      # if (
-      #   session$userData$species() == "salmon" &
-      #     session$userData$geo_group() == "area"
-      # ) {
-      #   cohort_mortality_data_area_salmon |>
-      #     dplyr::filter(year == input$select_year_cohort) |>
-      #     plot_cohorts_output(
-      #       input$select_year_cohort
-      #     ) |>
-      #     style_plotly(legend = FALSE)
-      # } else if (
-      #   session$userData$species() == "salmon" &
-      #     session$userData$geo_group() == "county"
-      # ) {
-      #   cohort_mortality_data_county_salmon |>
-      #     dplyr::filter(year == input$select_year_cohort) |>
-      #     plot_cohorts_output(
-      #       input$select_year_cohort
-      #     ) |>
-      #     style_plotly(legend = FALSE)
-      # } else if (
-      #   session$userData$species() == "salmon" &
-      #     session$userData$geo_group() == "country"
-      # ) {
-      #   cohort_mortality_data_country_salmon |>
-      #     dplyr::filter(year == input$select_year_cohort) |>
-      #     plot_cohorts_output(
-      #       input$select_year_cohort
-      #     ) |>
-      #     style_plotly(legend = FALSE)
-      # } else if (
-      #   session$userData$species() == "rainbowtrout" &
-      #     session$userData$geo_group() == "area"
-      # ) {
-      #   cohort_mortality_data_area_rainbowtrout |>
-      #     dplyr::filter(year == input$select_year_cohort) |>
-      #     plot_cohorts_output(
-      #       input$select_year_cohort
-      #     ) |>
-      #     style_plotly(legend = FALSE)
-      # } else if (
-      #   session$userData$species() == "rainbowtrout" &
-      #     session$userData$geo_group() == "county"
-      # ) {
-      #   cohort_mortality_data_county_rainbowtrout |>
-      #     dplyr::filter(year == input$select_year_cohort) |>
-      #     plot_cohorts_output(
-      #       input$select_year_cohort
-      #     ) |>
-      #     style_plotly(legend = FALSE)
-      # } else {
-      #   cohort_mortality_data_country_rainbowtrout |>
-      #     dplyr::filter(year == input$select_year_cohort) |>
-      #     plot_cohorts_output(
-      #       input$select_year_cohort
-      #     ) |>
-      #     style_plotly(legend = FALSE)
-      # }
     }) |>
       bindEvent(
         input$select_year_cohort,
@@ -212,9 +130,6 @@ mod_cohort_mortality_server <- function(id) {
 
     #### Table cohorts mortality ####
     output$table_cohort <- DT::renderDT({
-      # req(session$userData$geo_group())
-      # req(input$select_years_cohort_table)
-      # req(input$select_region_cohort_table)
       if (session$userData$geo_group() == "country") {
         dat <- df_cohorts() |>
           dplyr::filter(
