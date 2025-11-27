@@ -22,13 +22,13 @@ create_monthly_losses <- function(geo_group) {
   )
 
   if (geo_group == "area") {
-    # area - string
+    # area - factor -- see below
     region <- c("area_1", "area_2", "area_3", "area_4", "area_5")
   } else if (geo_group == 'county') {
-    # county - string
+    # county - factor
     region <- c('county_1', "county_2", "county_3")
   } else {
-    # country - string
+    # country - factor
     region <- c("Country")
   }
 

@@ -25,13 +25,13 @@ create_cumulative_mortality_yr <- function(geo_group) {
   )
 
   if (geo_group == "area") {
-    # area - string
+    # area - factor -- see below
     region <- c("area_1", "area_2", "area_3", "area_4", "area_5")
   } else if (geo_group == 'county') {
-    # county - string
+    # county - factor
     region <- c('county_1', "county_2", "county_3")
   } else {
-    # country - string
+    # country - factor
     region <- c("Country")
   }
 
@@ -90,7 +90,6 @@ dat_country <- create_cumulative_mortality_yr("country")
 #'   \item{date}{Reporting month, ranging from 2020-01-01 to 2025-12-01}
 #'   \item{geo_group}{Geographic grouping level: area, county, or country}
 #'   \item{region}{The specific region name or code, depending on geo_group}
-#'   \item{year}{Year extracted from the date (2021–2025), used for resetting cumulative values.}#'
 #'   \item{mean}{Cumulative mortality percentage for the given month, capped between 0 and 100. Resets each year.}
 #'   \item{lci}{Lower confidence interval for mortality, always less than mean and ≥ 0.}
 #'   \item{uci}{Upper confidence interval for mortality, always greater than mean and ≤ 100.}
