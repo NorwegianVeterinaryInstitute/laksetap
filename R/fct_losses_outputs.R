@@ -41,11 +41,11 @@ losses_plot <- function(dat) {
       x = region,
       y = n,
       text = paste0(
-        paste(labels$tooltips$losses_region),
+        labels$tooltips$region,
         region,
-        paste(labels$tooltips$losses_count),
+        labels$tooltips$count,
         n,
-        paste(labels$tooltips$losses_type),
+        labels$tooltips$type,
         type
       )
     )) +

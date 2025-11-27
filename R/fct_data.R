@@ -128,13 +128,13 @@ prep_cohorts_data <- function(dat) {
   dat |>
     dplyr::mutate(
       tooltip = paste0(
-        "Område: ",
+        labels$tooltips$region,
         region,
-        "<br>1 Kvartil %: ",
+        labels$tooltips$q1,
         q1,
-        "<br>Median %: ",
+        labels$tooltips$median,
         median,
-        "<br>3 Kvartil %: ",
+        labels$tooltips$q3,
         q3
       )
     )

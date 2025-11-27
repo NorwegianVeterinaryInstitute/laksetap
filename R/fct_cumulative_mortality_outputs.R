@@ -19,11 +19,11 @@ cumulative_mortality_plot <- function(dat) {
       y = mean,
       group = region,
       text = paste0(
-        "Mean: ",
-        mean,
-        "<br>Nedre konfidensintervall: ",
+        labels$tooltips$lci,
         lci,
-        "<br>Øvre konfidensintervall: ",
+        labels$tooltips$mean,
+        mean,
+        labels$tooltips$uci,
         uci
       )
     ) +
