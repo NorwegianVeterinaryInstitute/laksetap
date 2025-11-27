@@ -1,11 +1,13 @@
 #' style_plotly
 #'
 #' @description A function to style a plotly object.
+#' 
+#' @param p a ggplot object
 #'
 #' @return A plotly object.
 #'
 #' @noRd
-style_plotly <- function(p, legend = TRUE) {
+style_plotly <- function(p) {
   p |>
     plotly::ggplotly(tooltip = "text") |>
     plotly::layout(
