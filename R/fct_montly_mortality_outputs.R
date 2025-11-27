@@ -16,7 +16,7 @@ monthly_mortality_plot <- function(dat) {
       x = date,
       y = median,
       group = region,
-      tooltip = paste0(
+      text = paste0(
         labels$tooltips$q1,
         q1,
         labels$tooltips$median,
