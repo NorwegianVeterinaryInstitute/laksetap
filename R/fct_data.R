@@ -125,6 +125,8 @@ load_data <- function() {
 #'
 #' @returns a formatted dataframe
 prep_cohorts_data <- function(dat) {
+  labels <- golem::get_golem_options(which = "labels")
+  
   dat |>
     dplyr::mutate(
       tooltip = paste0(
