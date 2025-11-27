@@ -93,5 +93,16 @@
   "header": {
     "skip_link": "Skip to main content",
     "h1": "Statistics on Loss and Mortality of Salmon and Rainbow Trout in the Sea Phase"
-  }
+  },
+    "tooltips": {
+      "region": "Area: ",
+      "count": "<br>Count: ",
+      "type": "<br>Type: ",
+      "lci": "Lower confidence interval: ",
+      "mean": "<br>Mean: ",
+      "uci": "<br>Upper confidnce interval: ",
+      "q1": "<br>1 Quartile  %: ",
+      "q3": "<br>3 Quartile  %: ",
+      "median":  "<br>Median %: "
+    }
 }
