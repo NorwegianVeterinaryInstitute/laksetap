@@ -125,18 +125,16 @@ load_data <- function() {
 #'
 #' @returns a formatted dataframe
 prep_cohorts_data <- function(dat) {
-  labels <- golem::get_golem_options(which = "labels")
-  
   dat |>
     dplyr::mutate(
       tooltip = paste0(
-        labels$tooltips$region,
+        "Område: ",
         region,
-        labels$tooltips$q1,
+        "<br>1 Kvartil %: ",
         q1,
-        labels$tooltips$median,
+        "<br>Median %: ",
         median,
-        labels$tooltips$q3,
+        "<br>3 Kvartil %: ",
         q3
       )
     )
