@@ -150,7 +150,9 @@ mod_losses_server <- function(id) {
           dat = monthly_losses_data
         )
       )
-    })
+    }) |>
+      bindEvent(session$userData$species(),
+                session$userData$geo_group())
 
     output$select_year_yearly_losses_ui <- shiny::renderUI({
       shiny::column(
@@ -160,7 +162,9 @@ mod_losses_server <- function(id) {
           dat = yearly_losses_data
         )
       )
-    })
+    }) |>
+      bindEvent(session$userData$species(),
+                session$userData$geo_group()) 
 
     #### UI for table losses monthly ####
     monthly_table_inputs_ui <- shiny::reactive({
@@ -183,7 +187,9 @@ mod_losses_server <- function(id) {
           geo_group = "country"
         )
       }
-    })
+    }) |>
+      bindEvent(session$userData$species(),
+                session$userData$geo_group())
 
     output$tab_filter_monthly_losses_table <- shiny::renderUI({
       monthly_table_inputs_ui()
@@ -211,7 +217,9 @@ mod_losses_server <- function(id) {
           geo_group = "country"
         )
       }
-    })
+    }) |>
+      bindEvent(session$userData$species(),
+                session$userData$geo_group())
 
     output$tab_filter_yearly_losses_table <- shiny::renderUI({
       yearly_table_inputs_ui()

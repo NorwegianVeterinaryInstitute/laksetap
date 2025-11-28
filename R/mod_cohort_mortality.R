@@ -74,7 +74,9 @@ mod_cohort_mortality_server <- function(id) {
           dat = cohort_mortality_data
         )
       )
-    })
+    }) |>
+      bindEvent(session$userData$species(),
+                session$userData$geo_group())
 
     #### UI for cohorts mortality table ####
     table_inputs_ui <- shiny::reactive({
@@ -97,7 +99,9 @@ mod_cohort_mortality_server <- function(id) {
           geo_group = "country"
         )
       }
-    })
+    }) |>
+      bindEvent(session$userData$species(),
+                session$userData$geo_group())
 
     output$tab_filter_cohorts_table <- shiny::renderUI({
       table_inputs_ui()
