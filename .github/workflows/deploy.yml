@@ -9,7 +9,6 @@ name: Deploy a Golem Shiny app to Posit Connect
 on:
   release:
     types: [published]
-  workflow_dispatch:
 
 jobs:
   ci:
