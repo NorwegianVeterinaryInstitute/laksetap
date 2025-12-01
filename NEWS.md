@@ -1,3 +1,9 @@
+# laksetap 1.0.1
+
+## Bug fixes
+
+Fixing needed missing deps for deployment.
+
 # laksetap 1.0.0
 
 ## Breaking changes

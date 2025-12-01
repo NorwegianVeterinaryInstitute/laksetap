@@ -6,9 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/NorwegianVeterinaryInstitute/laksetap/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/NorwegianVeterinaryInstitute/laksetap/actions/workflows/R-CMD-check.yaml)
-
 [![DOI](https://zenodo.org/badge/251582797.svg)](https://doi.org/10.5281/zenodo.17778248)
-
 <!-- badges: end -->
 
 <img src="doc/laksetap_logo.png" style="width:25.0%" />

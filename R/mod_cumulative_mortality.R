@@ -37,9 +37,9 @@ mod_cumulative_mortality_ui <- function(id) {
           #,
           #shiny::hr(),
           #shiny::div(
-           # shiny::includeMarkdown(app_sys(
-            #  "app/www/cumulative_mortality_yearly_table_footer.md"
-            #))
+          # shiny::includeMarkdown(app_sys(
+          #  "app/www/cumulative_mortality_yearly_table_footer.md"
+          #))
           #)
         )
       )
@@ -90,8 +90,7 @@ mod_cumulative_mortality_server <- function(id) {
         )
       }
     }) |>
-      bindEvent(session$userData$species(),
-                session$userData$geo_group())
+      bindEvent(session$userData$species(), session$userData$geo_group())
 
     output$tab_filter_cumulative_mortality_plot <- shiny::renderUI({
       plot_inputs_ui()
@@ -118,9 +117,8 @@ mod_cumulative_mortality_server <- function(id) {
           geo_group = "country"
         )
       }
-    })  |>
-      bindEvent(session$userData$species(),
-                session$userData$geo_group())
+    }) |>
+      bindEvent(session$userData$species(), session$userData$geo_group())
 
     output$tab_filter_cumulative_mortality_table <- shiny::renderUI({
       table_inputs_ui()

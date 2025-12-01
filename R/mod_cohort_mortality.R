@@ -34,7 +34,7 @@ mod_cohort_mortality_ui <- function(id) {
           #,
           #shiny::hr(),
           #shiny::div(
-           # shiny::includeMarkdown(app_sys("app/www/cohorts_table_footer.md"))
+          # shiny::includeMarkdown(app_sys("app/www/cohorts_table_footer.md"))
           #)
         )
       )
@@ -76,8 +76,7 @@ mod_cohort_mortality_server <- function(id) {
         )
       )
     }) |>
-      bindEvent(session$userData$species(),
-                session$userData$geo_group())
+      bindEvent(session$userData$species(), session$userData$geo_group())
 
     #### UI for cohorts mortality table ####
     table_inputs_ui <- shiny::reactive({
@@ -101,8 +100,7 @@ mod_cohort_mortality_server <- function(id) {
         )
       }
     }) |>
-      bindEvent(session$userData$species(),
-                session$userData$geo_group())
+      bindEvent(session$userData$species(), session$userData$geo_group())
 
     output$tab_filter_cohorts_table <- shiny::renderUI({
       table_inputs_ui()
