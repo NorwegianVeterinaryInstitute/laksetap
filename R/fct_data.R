@@ -101,7 +101,7 @@ load_data <- function() {
         "cohort_mortality_dummy_data.Rds"
       )
     )
-    cohort_mortality_data <- prep_cohorts_data(cohort_mortality_data)
+    #cohort_mortality_data <- prep_cohorts_data(cohort_mortality_data)
   }
 
   options(yearly_losses_data = yearly_losses_data)
