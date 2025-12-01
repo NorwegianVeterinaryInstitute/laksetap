@@ -1,3 +1,10 @@
+# laksetap 1.0.2
+
+## Bug fixes
+
+Downloaded data files will not have plot tooltips.
+
+
 # laksetap 1.0.1
 
 ## Bug fixes
