@@ -49,7 +49,7 @@ load_data <- function() {
       "vi2108/cohort_mortality_app_data"
     )
 
-    cohort_mortality_data <- prep_cohorts_data(cohort_mortality_data)
+    #cohort_mortality_data <- prep_cohorts_data(cohort_mortality_data)
   } else {
     monthly_mortality_data <- readRDS(
       app_sys(
