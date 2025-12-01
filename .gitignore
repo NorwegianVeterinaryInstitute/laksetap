@@ -1,7 +1,11 @@
 *data
+!inst/extdata
 *.Rproj.user
 *.Rhistory
 .Rproj.user
 rsconnect
 laksetap.Rproj
 *merged_calculator_2.R
+laksetap.Rcheck/
+laksetap*.tar.gz
+laksetap*.tgz

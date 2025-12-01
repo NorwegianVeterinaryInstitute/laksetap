@@ -1,0 +1,101 @@
+#' data_model_yearly_losses
+#'
+#' @param geo_group One of 'area', 'county', 'country'. Determines the geographic level of the data.
+#'
+#' @return A data frame containing fish mortality data across months and regions.
+#' The `region` column reflects the value of the selected `geo_group`:
+#' - For 'area': region values are area_1 to area_5
+#' - For 'county': region values are county_1 to county_3
+#' - For 'country': region value is "Country"
+
+create_yearly_losses <- function(geo_group) {
+  # species - string
+
+  species <- c('salmon', 'rainbowtrout')
+
+  # year - integer
+
+  year <- c(2020, 2021, 2022, 2023, 2024)
+
+  if (geo_group == "area") {
+    # area - factor -- see below
+    region <- c("area_1", "area_2", "area_3", "area_4", "area_5")
+  } else if (geo_group == 'county') {
+    # county - factor
+    region <- c('county_1', "county_2", "county_3")
+  } else {
+    # country - factor
+    region <- c("Country")
+  }
+
+  dat <- expand.grid(
+    species,
+    year,
+    geo_group,
+    region,
+    KEEP.OUT.ATTRS = FALSE,
+    stringsAsFactors = FALSE
+  )
+
+  dat <- dat[sample(nrow(dat)), ]
+
+  n <- nrow(dat)
+
+  dat$losses <- round(runif(n, min = 5000000, max = 10000000))
+
+  dat$dead <- round(dat$losses * runif(n, 0.7, 0.9)) # 70-90% dead
+  dat$discarded <- round(dat$losses * runif(n, 0.02, 0.05)) # 2-5% discarded
+  dat$escaped <- round(dat$losses * runif(n, 0.0001, 0.001)) # very small
+  dat$other <- pmax(dat$losses - (dat$dead + dat$discarded + dat$escaped), 0)
+
+  return(dat)
+}
+
+dat_area <- create_yearly_losses("area")
+dat_county <- create_yearly_losses("county")
+dat_country <- create_yearly_losses("country")
+
+#' @format A data frame with 90 rows and 9 variables:
+#' \describe{
+#'   \item{species}{Fish species, either salmon or rainbow trout}
+#'   \item{year}{Year of data collection, ranging from 2020 to 2024}
+#'   \item{geo_group}{Geographic grouping level: area, county, or country}
+#'   \item{region}{The specific region name or code, depending on geo_group}
+#'   \item{losses}{The number of lost fish — categorized as dead, discarded, escaped, or other — was randomly generated to fall between 5,000,000 and 10,000,000}
+#'   \item{dead}{The number of physically removed fish from the cage and recorded as dead due to various causes was randomly generated randomly generated as a proportion of the lost fish}
+#'   \item{discarded}{The number of downgraded fish sorted out at the slaughterhouse and deemed unfit for human consumption — for example due to sexual maturation, blemishes, or deformities — was randomly generated randomly generated as a proportion of the lost fish}
+#'   \item{escaped}{The number of escapted fish due to accidents was randomly generated as a proportion of the lost fish}
+#'   \item{other}{The number of lost fish due to due to reasons not covered by the other three categories was randomly generated as a proportion of the lost fish}
+#' }
+
+yearly_losses_dummy_data <- dplyr::bind_rows(
+  dat_area,
+  dat_county,
+  dat_country
+)
+
+names(yearly_losses_dummy_data) <- c(
+  "species",
+  "year",
+  "geo_group",
+  "region",
+  "losses",
+  "dead",
+  "discarded",
+  "escaped",
+  "other"
+)
+
+yearly_losses_dummy_data <- yearly_losses_dummy_data |>
+  dplyr::mutate(region = factor(region))
+
+saveRDS(
+  yearly_losses_dummy_data,
+  file = "inst/extdata/yearly_losses_dummy_data.Rds"
+)
+
+write.csv(
+  yearly_losses_dummy_data,
+  file = "inst/extdata/yearly_losses_dummy_data.csv",
+  row.names = FALSE
+)

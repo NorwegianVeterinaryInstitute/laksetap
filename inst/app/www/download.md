@@ -1,0 +1,1 @@
+Appen bruker flere forhåndsdefinerte datasett for å bygge de ulike statistikkene.

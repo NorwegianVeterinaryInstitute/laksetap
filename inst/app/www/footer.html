@@ -1,0 +1,76 @@
+<footer class="footer" role="contentinfo">
+  <style>
+    .footer {
+      background-color: #091a3e;
+      color: #f7fdff;
+      padding: 3rem;
+      margin-top: 4rem;
+      font-size: 1.125rem;
+      font-weight: 400;
+    }
+
+    .footer-content {
+      max-width: 1320px;
+      margin-left: auto;
+      margin-right: auto;
+      display: flex;
+      justify-content: space-between;
+      flex-direction: column;
+      padding: 0 1rem;
+    }
+
+    .footer-content ul {
+      list-style: none;
+      padding-left: 0px;
+      padding-top: 20px;
+      margin: 0px;
+      gap: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer-content ul li a {
+      color: #f7fdff !important;
+      text-decoration: none;
+      border-bottom: 2px solid #59cd8b;
+      padding-left: 3px;
+      padding-right: 3px;
+    }
+
+    .footer-content ul li a:hover {
+      background-color: #59cd8b;
+      color: #091a3e;
+    }
+
+    @media (min-width: 991px) {
+      .footer-content {
+        flex-direction: row;
+      }
+    }
+    @media (max-width: 990px) {
+      .footer {
+        padding-left: 0.5rem;
+      }
+    }
+  </style>
+
+  <div class="footer-content">
+    <a href="https://www.vetinst.no">
+      <img
+        class="logo"
+        src="www/assets/logo-white.svg"
+        alt="Veterinærinstituttet sin logo"
+      />
+    </a>
+    <ul class="policies">
+      <li>
+        <a href="https://uustatus.no/nb/erklaringer/publisert/0c385175-c759-4683-8049-e2c97ca0aa0b" target="_blank">Tilgjengelighetserklæring</a>
+      </li>
+      <li>
+        <a href="https://www.vetinst.no/personvernerklaering" target="_blank">
+          Personvernerklæring og informasjonskapsler
+        </a>
+      </li>
+    </ul>
+  </div>
+</footer>
