@@ -33,13 +33,13 @@ mod_monthly_mortality_ui <- function(id) {
           shiny::uiOutput(ns("tab_filter_mortality_month_table")),
           shiny::div(
             DT::DTOutput(ns("table_mortality_month"))
-          ),
-          shiny::hr(),
-          shiny::div(
-            shiny::includeMarkdown(app_sys(
-              "app/www/mortality_monthly_table_footer.md"
-            ))
-          )
+          )#,
+          #shiny::hr(),
+         # shiny::div(
+         #   shiny::includeMarkdown(app_sys(
+         #     "app/www/mortality_monthly_table_footer.md"
+          #  ))
+         # )
         )
       )
     )

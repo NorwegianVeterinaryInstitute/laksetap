@@ -30,11 +30,12 @@ mod_cohort_mortality_ui <- function(id) {
           shiny::uiOutput(ns("tab_filter_cohorts_table")),
           shiny::div(
             DT::DTOutput(ns("table_cohort"))
-          ),
-          shiny::hr(),
-          shiny::div(
-            shiny::includeMarkdown(app_sys("app/www/cohorts_table_footer.md"))
           )
+          #,
+          #shiny::hr(),
+          #shiny::div(
+           # shiny::includeMarkdown(app_sys("app/www/cohorts_table_footer.md"))
+          #)
         )
       )
     )
