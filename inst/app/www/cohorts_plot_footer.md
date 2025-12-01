@@ -1,6 +1,1 @@
-Median (1.-3.kvartil) dødelighetsrisiko for fullførte produksjonssykluser for laks
-fordelt på produksjonsområder, fylker, og for hele Norge. Produksjonsområder med færre enn fem 
-lokaliteter med fullførte produksjonssykluser er ikke inkludert. De punktum
-inne i boksene representerer middelverdien, noe som betyr at halvparten av
-produksjonssyklusene hadde lavere dødelighet og halvparten hadde høyere dødelighet.
-Fargede boksene indikerer interkvartilbreddene, som er intervallene for dødelighet i halvparten av lokaliteter.
+Heltrukne linjer representerer medianverdier for dødelighet, mens de fargede boksene indikerer intervallet som dekker de midterste 50 % av lokalitetene. Med andre ord hadde 25 % av lokalitetene høyere produksjonssyklus dødelighet enn boksen, og 25 % hadde lavere. Data fra produksjonsområder eller fylker med svært få lokaliteter med komplette produksjonssykler kan ha blitt slått sammen eller ikke vist separat i visualiseringene for å sikre konfidensialitet. Disse dataene er imidlertid fortsatt inkludert i sammendragene på nasjonalt nivå.
