@@ -65,5 +65,8 @@ rsconnect::deployApp(
 ## 1. Merge dev branch into main.
 ## 2. Update renv with package from main.
 ## 3. Delete old manifest.json
-## 4. Commit tag and make release.
-## 5. GH-action runs on release.
+## 4. Needed for connect:
+## install.packages(c("pkgload", "pkgbuild", "desc",  "processx"))
+## renv::record(c("pkgload", "pkgbuild", "desc",  "processx"))
+## 5. Commit tag and make release.
+## 6. GH-action runs on release.
