@@ -29,12 +29,12 @@ to test the visualization functions with the dummy data.
 
 ## Assumptions and behaviour regarding what is displayed
 
-Since the app is built for reporting fish mortality in Norway, it assumes
-that the species displayed are salmon and rainbow trout. However, the available
-data for these species may differ in terms of aggregation levels.
-Additionally, Norway’s geographical areas for displaying this
-data are also assumed: production area as “Produksjonsområde”, county as 
-“Fylke”, and country.
+Since the app is built for reporting fish mortality in Norway, it
+assumes that the species displayed are salmon and rainbow trout.
+However, the available data for these species may differ in terms of
+aggregation levels. Additionally, Norway’s geographical areas for
+displaying this data are also assumed: production area as
+“Produksjonsområde”, county as “Fylke”, and country.
 
 Because of this, the app has choices (adjustable in the config) for
 `species` and `geo_group` in `mod_top_bar.R` and we have implemented a
@@ -80,8 +80,8 @@ We provide a mortality calculator in R and Excel as part of the
 repository, and downloadable from the app. The calculator itself is not
 part of the app UI because we don’t want to handle company or farm level
 data in the app and potentially run into legal or security issues. The
-calculator uses the same approach to calculate fish mortality as used
-in Norwegian Veterinary Institute’s Fish Health Report.
+calculator uses the same approach to calculate fish mortality as used in
+Norwegian Veterinary Institute’s Fish Health Report.
 
 ## Docker
 
@@ -91,3 +91,22 @@ Running the app with docker *should* work:
     docker build -f Dockerfile --progress=plain -t laksetap:latest .
     docker run -p 80:80 laksetap:latest
     # then go to 127.0.0.1:80
+
+## Citation
+
+To cite package ‘laksetap’ in publications use:
+
+Nakov N, Silva De Oliveira V (2025). *laksetap: A Shiny app for
+reporting salmon and rainbow trout losses in Norway*. R package version
+1.0.3, <https://github.com/NorwegianVeterinaryInstitute/laksetap>.
+
+A BibTeX entry for LaTeX users is
+
+      @Manual{,
+        title = {laksetap: A Shiny app for reporting salmon and rainbow trout losses in
+    Norway},
+        author = {Novica Nakov and Victor Henrique {Silva De Oliveira}},
+        year = {2025},
+        note = {R package version 1.0.3},
+        url = {https://github.com/NorwegianVeterinaryInstitute/laksetap},
+      }
