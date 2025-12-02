@@ -29,12 +29,12 @@ to test the visualization functions with the dummy data.
 
 ## Assumptions and behaviour regarding what is displayed
 
-Since the app is build for reporting fish mortality in Norway, it has a
-hard assumption that the species for which data is shown is salmon and
-rainbow trout, and that for the latter, only country wide data is
-available. Additionally, Norway’s geographical areas for displaying this
-data are also assumed: area and county as “Fylke” and
-“Produksjonsområde”, and country.
+Since the app is built for reporting fish mortality in Norway, it assumes
+that the species displayed are salmon and rainbow trout. However, the available
+data for these species may differ in terms of aggregation levels.
+Additionally, Norway’s geographical areas for displaying this
+data are also assumed: production area as “Produksjonsområde”, county as 
+“Fylke”, and country.
 
 Because of this, the app has choices (adjustable in the config) for
 `species` and `geo_group` in `mod_top_bar.R` and we have implemented a
@@ -80,7 +80,7 @@ We provide a mortality calculator in R and Excel as part of the
 repository, and downloadable from the app. The calculator itself is not
 part of the app UI because we don’t want to handle company or farm level
 data in the app and potentially run into legal or security issues. The
-calculator uses the same approach to calculating fish mortality as used
+calculator uses the same approach to calculate fish mortality as used
 in Norwegian Veterinary Institute’s Fish Health Report.
 
 ## Docker
