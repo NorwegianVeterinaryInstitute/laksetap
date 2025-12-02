@@ -1,6 +1,6 @@
 Package: laksetap
 Title: A Shiny app for reporting salmon and rainbow trout losses in Norway
-Version: 0.9.1
+Version: 1.0.3
 Authors@R: c(
     person("Novica", "Nakov", , "novica.nakov@vetinst.no", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0005-7773-7718")),
