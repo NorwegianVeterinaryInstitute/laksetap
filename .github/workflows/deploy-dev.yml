@@ -4,12 +4,16 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 # See also: https://solutions.posit.co/operations/deploy-methods/ci-cd/github-actions/
 
-name: Deploy a Golem Shiny app to Posit Connect
+name: Deploy a Golem Shiny app to Posit Connect (dev)
 
 on:
-  release:
-    types: [published]
-  workflow_dispatch:
+  push:
+    branch: dev
+    paths-ignore:
+      - "README.Rmd"
+      - "docs/**"
+      - "*.md"
+      - ".github/**"
 
 jobs:
   ci:
@@ -21,7 +25,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends libcurl4-openssl-dev
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+        with:
+          ref: "dev"
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -46,4 +52,4 @@ jobs:
           api-key: ${{ secrets.CONNECT_API_KEY }}
           access-type: all
           dir: |
-            .:/laksetap
+            .:/laksetap-dev

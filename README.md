@@ -40,7 +40,7 @@ Because of this, the app has choices (adjustable in the config) for
 `species` and `geo_group` in `mod_top_bar.R` and we have implemented a
 logic about adjusting the UI when switching between them. This could be
 improved, or generalized so any species can be displayed in the app, but
-for the time being this remains as like so.
+for the time being this remains like so.
 
 The code that produces the dummy data also follows this assumption and
 does not generate data for other geographical levels than country for
@@ -80,8 +80,8 @@ We provide a mortality calculator in R and Excel as part of the
 repository, and downloadable from the app. The calculator itself is not
 part of the app UI because we don’t want to handle company or farm level
 data in the app and potentially run into legal or security issues. The
-calculator uses the same approach to calculate fish mortality as used in
-Norwegian Veterinary Institute’s Fish Health Report.
+calculator uses the same approach to calculate fish mortality that is
+used in Norwegian Veterinary Institute’s Fish Health Report.
 
 ## Docker
 

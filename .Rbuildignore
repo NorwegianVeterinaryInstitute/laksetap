@@ -17,7 +17,7 @@ $run_dev.*
 ^jarl.toml$
 ^app.R$
 ^\.github$
-^manifest.json$
+^*.json$
 Dockerfile*
 ^renv.lock.prod$
 ^doc$
