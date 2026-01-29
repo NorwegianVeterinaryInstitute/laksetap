@@ -29,13 +29,13 @@ plot_cohorts_output <- function(dat, year) {
         y = median,
         group = year,
         text = paste0(
-          "Område: ",
+          labels$tooltips$region,
           region,
-          "<br>1 Kvartil %: ",
+          labels$tooltips$q1,
           q1,
-          "<br>Median %: ",
+          labels$tooltips$median,
           median,
-          "<br>3 Kvartil %: ",
+          labels$tooltips$q3,
           q3
         ),
         fill = "black",
