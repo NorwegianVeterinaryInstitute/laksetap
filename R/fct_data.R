@@ -5,13 +5,13 @@
 #' @export
 load_data <- function() {
   env <- getOption("golem.app.prod")
-  data_env <- Sys.getenv('data_env')
-  
+  data_env <- Sys.getenv("data_env")
+
   if (env) {
     laksetap_board <- pins::board_connect()
-    
+
     # read dev data for app
-    if (data_env == "dev"){
+    if (data_env == "dev") {
       monthly_mortality_data <- pins::pin_read(
         laksetap_board,
         "vi2108/monthly_mortality_app_data_dev"
@@ -19,79 +19,83 @@ load_data <- function() {
       monthly_mortality_data_lc <- locale_columns(
         monthly_mortality_data
       )
-      
+
       cumulative_mortality_yr_data <- pins::pin_read(
         laksetap_board,
         "vi2108/cumulative_mortality_yr_app_data_dev"
       )
-      
+
       cumulative_mortality_yr_data_lc <- locale_columns(
         cumulative_mortality_yr_data
       )
-      
+
       monthly_losses_data <- pins::pin_read(
         laksetap_board,
         "vi2108/monthly_losses_app_data_dev"
       )
-      
+
       monthly_losses_data_lc <- monthly_losses_locale_columns(
         monthly_losses_data
       )
-      
-      monthly_losses_data_long <- losses_data_pivot_longer(monthly_losses_data_lc)
-      
+
+      monthly_losses_data_long <- losses_data_pivot_longer(
+        monthly_losses_data_lc
+      )
+
       yearly_losses_data <- pins::pin_read(
         laksetap_board,
         "vi2108/yearly_losses_app_data_dev"
       )
-      
+
       yearly_losses_data_long <- losses_data_pivot_longer(yearly_losses_data)
-      
+
       cohort_mortality_data <- pins::pin_read(
         laksetap_board,
         "vi2108/cohort_mortality_app_data_dev"
       )
-      
     } else {
-    monthly_mortality_data <- pins::pin_read(
-      laksetap_board,
-      "vi2108/monthly_mortality_app_data"
-    )
-    monthly_mortality_data_lc <- locale_columns(
-      monthly_mortality_data
-    )
+      monthly_mortality_data <- pins::pin_read(
+        laksetap_board,
+        "vi2108/monthly_mortality_app_data"
+      )
+      monthly_mortality_data_lc <- locale_columns(
+        monthly_mortality_data
+      )
 
-    cumulative_mortality_yr_data <- pins::pin_read(
-      laksetap_board,
-      "vi2108/cumulative_mortality_yr_app_data"
-    )
+      cumulative_mortality_yr_data <- pins::pin_read(
+        laksetap_board,
+        "vi2108/cumulative_mortality_yr_app_data"
+      )
 
-    cumulative_mortality_yr_data_lc <- locale_columns(
-      cumulative_mortality_yr_data
-    )
+      cumulative_mortality_yr_data_lc <- locale_columns(
+        cumulative_mortality_yr_data
+      )
 
-    monthly_losses_data <- pins::pin_read(
-      laksetap_board,
-      "vi2108/monthly_losses_app_data"
-    )
+      monthly_losses_data <- pins::pin_read(
+        laksetap_board,
+        "vi2108/monthly_losses_app_data"
+      )
 
-    monthly_losses_data_lc <- monthly_losses_locale_columns(
-      monthly_losses_data
-    )
+      monthly_losses_data_lc <- monthly_losses_locale_columns(
+        monthly_losses_data
+      )
 
-    monthly_losses_data_long <- losses_data_pivot_longer(monthly_losses_data_lc)
+      monthly_losses_data_long <- losses_data_pivot_longer(
+        monthly_losses_data_lc
+      )
 
-    yearly_losses_data <- pins::pin_read(
-      laksetap_board,
-      "vi2108/yearly_losses_app_data"
-    )
+      yearly_losses_data <- pins::pin_read(
+        laksetap_board,
+        "vi2108/yearly_losses_app_data"
+      )
 
-    yearly_losses_data_long <- losses_data_pivot_longer(yearly_losses_data)
+      yearly_losses_data_long <- losses_data_pivot_longer(yearly_losses_data)
 
-    cohort_mortality_data <- pins::pin_read(
-      laksetap_board,
-      "vi2108/cohort_mortality_app_data"
-    )}
+      cohort_mortality_data <- pins::pin_read(
+        laksetap_board,
+        "vi2108/cohort_mortality_app_data"
+      )
+    }
 
     #cohort_mortality_data <- prep_cohorts_data(cohort_mortality_data)
   } else {
