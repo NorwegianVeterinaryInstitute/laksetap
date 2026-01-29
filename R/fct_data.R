@@ -96,8 +96,6 @@ load_data <- function() {
         "vi2108/cohort_mortality_app_data"
       )
     }
-
-    #cohort_mortality_data <- prep_cohorts_data(cohort_mortality_data)
   } else {
     monthly_mortality_data <- readRDS(
       app_sys(
@@ -149,7 +147,6 @@ load_data <- function() {
         "cohort_mortality_dummy_data.Rds"
       )
     )
-    #cohort_mortality_data <- prep_cohorts_data(cohort_mortality_data)
   }
 
   options(yearly_losses_data = yearly_losses_data)
@@ -163,29 +160,6 @@ load_data <- function() {
   options(monthly_mortality_data_lc = monthly_mortality_data_lc)
   options(cohort_mortality_data = cohort_mortality_data)
 }
-
-#' prep_cohorts_data
-#' @description Function to prepare the cohorts dataset for plotting
-#'
-#' @param dat a data frame
-#'
-#' @returns a formatted dataframe
-prep_cohorts_data <- function(dat) {
-  dat |>
-    dplyr::mutate(
-      tooltip = paste0(
-        "Område: ",
-        region,
-        "<br>1 Kvartil %: ",
-        q1,
-        "<br>Median %: ",
-        median,
-        "<br>3 Kvartil %: ",
-        q3
-      )
-    )
-}
-
 
 #' losses_data_pivot_longer
 #' @description The losses data is in wide format which is OK for the table
