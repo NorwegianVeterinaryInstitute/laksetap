@@ -8,7 +8,8 @@ name: Deploy a Golem Shiny app to Posit Connect (dev)
 
 on:
   push:
-    branch: dev
+    branches:
+      - dev
     paths-ignore:
       - "README.Rmd"
       - "docs/**"
