@@ -18,24 +18,30 @@ plot_cohorts_output <- function(dat, year) {
         xend = region,
         y = q1,
         yend = q3,
-      linewidth = 10
-    )) +
+        linewidth = 10
+      )
+    ) +
     scale_color_gradient(low = "#C7D9FF", high = "#1C4FB9") +
     geom_point(
       shape = 16,
-      aes(x = region, y = median, group = year, text =     paste0(
-        "Område: ",
-        region,
-        "<br>1 Kvartil %: ",
-        q1,
-        "<br>Median %: ",
-        median,
-        "<br>3 Kvartil %: ",
-        q3
-      ),
-      fill = "black",
-      stroke = 0.2
-    )) +
+      aes(
+        x = region,
+        y = median,
+        group = year,
+        text = paste0(
+          "Område: ",
+          region,
+          "<br>1 Kvartil %: ",
+          q1,
+          "<br>Median %: ",
+          median,
+          "<br>3 Kvartil %: ",
+          q3
+        ),
+        fill = "black",
+        stroke = 0.2
+      )
+    ) +
     # geom_text(
     #   aes(x = region, y = median, group = year, label = region),
     #   nudge_y = 1
