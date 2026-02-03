@@ -3,7 +3,12 @@
     ".": {
       "release-type": "r",
       "package-name": "laksetap",
-      "extra-files": ["DESCRIPTION"]
+      "extra-files": ["DESCRIPTION",
+      {
+          "jsonpath": "$.version",
+          "path": "CITATION.cff",
+          "type": "yaml"
+        }]
   }
 }
 }

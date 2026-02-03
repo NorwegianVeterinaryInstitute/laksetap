@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Nakov"
+  given-names: "Novica"
+  orcid: "https://orcid.org/0009-0005-7773-7718"
+- family-names: "Victor Henrique"
+  given-names: "Silva De Oliveira"
+  orcid: "https://orcid.org/0000-0003-3817-9192"
+title: "laksetap"
+version: 1.1.0
+doi: 10.5281/zenodo.17778248
+date-released: 2026-01-29
+url: "https://github.com/NorwegianVeterinaryInstitute/laksetap"
