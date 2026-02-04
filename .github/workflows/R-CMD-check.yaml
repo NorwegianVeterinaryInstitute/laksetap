@@ -5,6 +5,7 @@ on:
     paths-ignore:
       - "README.Rmd"
       - "docs/**"
+      - "inst/**"
       - "*.md"
       - ".github/**"
       - "*.json "
