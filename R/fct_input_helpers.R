@@ -79,7 +79,7 @@ render_input_for_mortality_month_table <- function(ns, dat, geo_group) {
     shiny::tagList(
       shiny::fluidRow(
         shiny::column(
-          width = 6,
+          width = 4,
           select_year(
             ns("select_years_mortality_month_table"),
             dat,
@@ -212,6 +212,12 @@ render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
             dat,
             multiple = TRUE
           )
+        ),
+        shiny::column(
+          width = 6,
+          select_months(
+            id = ns("select_months_cumulative_mortality_table")
+          )
         )
       )
     )
@@ -219,7 +225,7 @@ render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
     shiny::tagList(
       shiny::fluidRow(
         shiny::column(
-          width = 6,
+          width = 4,
           select_year(
             ns("select_years_cumulative_mortality_table"),
             dat,
@@ -227,7 +233,13 @@ render_input_for_cumulative_mortality_table <- function(ns, dat, geo_group) {
           )
         ),
         shiny::column(
-          width = 6,
+          width = 4,
+          select_months(
+            id = ns("select_months_cumulative_mortality_table")
+          )
+        ),
+        shiny::column(
+          width = 4,
           shiny::selectizeInput(
             ns("select_region_cumulative_mortality"),
             label = labels$input_functions$select_multiple_places,
