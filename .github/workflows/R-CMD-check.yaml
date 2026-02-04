@@ -9,6 +9,7 @@ on:
       - "*.md"
       - ".github/**"
       - "*.json "
+      - "CITATION.cff"
 
 name: R-CMD-check.yaml
 
