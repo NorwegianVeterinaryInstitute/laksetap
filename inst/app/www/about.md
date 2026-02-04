@@ -7,7 +7,7 @@ Fisketap er kategorisert i fire kategorier; dødfisk, utkast fra slakteri, rømm
 - **Dødfisk**: Antall fisk som fysisk er tatt opp. Årsak til denne typen død kan være sykdom, sår, skader etc. uten at årsaken er nærmere spesifisert.
 - **Utkast fra slakteri**: Antall fisk som er vraket på slakteriet. Fisken kan være vraket som følge av kjønnsmodning, defekter, lyter, etc.
 - **Rømming**: Antall fisk som er rømt i forbindelse med uhell.
-- **Annet**: Antall fisk som er tapt som følge av predatorer, tyveri, tellefeil og andre årsaker.
+- **Annet**: Antall fisk som er tapt som følge av predatorer, tyveri og andre årsaker. Tellefeil er ikke inkludert. 
 
 Definisjoner finnes på: https://www.fiskeridir.no/statistikk-tall-og-analyse/data-og-statistikk-om-akvakultur/om-statistikk-for-akvakultur (besøkt 24. november 2025).
 
