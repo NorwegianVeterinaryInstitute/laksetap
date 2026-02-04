@@ -147,11 +147,11 @@ mod_cumulative_mortality_server <- function(id) {
     output$table_cumulative_mortality <- DT::renderDT({
       req(session$userData$geo_group())
       req(input$select_years_cumulative_mortality_table)
-      #req(input$select_months_cumulative_mortality_table)
+      req(input$select_months_cumulative_mortality_table)
       dat <- df_cumulative() |>
         dplyr::filter(
-          year %in% input$select_years_cumulative_mortality_table #,
-          #month_name %in% input$select_months_cumulative_mortality_table
+          year %in% input$select_years_cumulative_mortality_table,
+          month_name %in% input$select_months_cumulative_mortality_table
         ) |>
         dplyr::select(year, month_name, region, mean)
 
