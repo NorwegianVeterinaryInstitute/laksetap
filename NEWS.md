@@ -1,3 +1,11 @@
+## [1.2.0](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/laksetap-v1.1.0...laksetap-v1.2.0) (2026-02-04)
+
+
+### Features
+
+* resolves [#138](https://github.com/NorwegianVeterinaryInstitute/laksetap/issues/138) ([60539b6](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/60539b6b8bbdd641c9c05417d48f9f4279d6fc67))
+* resolves [#138](https://github.com/NorwegianVeterinaryInstitute/laksetap/issues/138) ([dbbbdee](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/dbbbdee7c84ced2aa98d37f3c85693bc719cf36f))
+
 ## [1.1.0](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/laksetap-v1.0.3...laksetap-v1.1.0) (2026-01-29)
 
 
