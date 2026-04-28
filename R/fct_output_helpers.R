@@ -16,6 +16,18 @@ style_plotly <- function(p) {
         x = 0.5,
         y = 1.1,
         xanchor = "center"
+      ),
+      images = list(
+        list(
+          source = base64enc::dataURI(file = app_sys("app/www/vetinst-logo-no.png")),
+          xref = "paper",
+          yref = "paper",
+          x = 0.05,
+          y = 0.35,
+          sizex = 0.4,
+          sizey = 0.4,
+          opacity = 0.3
+        )
       )
     ) |>
     plotly::config(
