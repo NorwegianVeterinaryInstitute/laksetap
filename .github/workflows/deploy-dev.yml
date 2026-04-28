@@ -40,12 +40,12 @@ jobs:
 
       - uses: r-lib/actions/setup-renv@v2
 
-      - name: Install rsconnect
-        run: install.packages("rsconnect")
-        shell: Rscript {0}
-
       - name: Generate rsconnect manifest.json
         run: rsconnect::writeManifest()
+        shell: Rscript {0}
+        
+      - name: Install rsconnect
+        run: install.packages("rsconnect")
         shell: Rscript {0}
 
       - name: Publish to Posit Connect
