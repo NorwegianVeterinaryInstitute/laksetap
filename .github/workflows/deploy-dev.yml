@@ -39,7 +39,9 @@ jobs:
           use-public-rspm: true
 
       - name: Install rsconnect
-        run: install.packages("rsconnect")
+        run: | 
+          install.packages("remotes")
+          remotes::install_version("rsconnect", version = "1.7.0", repos = "http://cran.us.r-project.org")
         shell: Rscript {0}
 
       - uses: r-lib/actions/setup-renv@v2
