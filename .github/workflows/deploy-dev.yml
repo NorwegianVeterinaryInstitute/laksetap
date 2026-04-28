@@ -38,11 +38,11 @@ jobs:
           r-version: '4.5.1' 
           use-public-rspm: true
 
-      - uses: r-lib/actions/setup-renv@v2
-
       - name: Install rsconnect
         run: install.packages("rsconnect")
         shell: Rscript {0}
+
+      - uses: r-lib/actions/setup-renv@v2
 
       - name: Generate rsconnect manifest.json
         run: rsconnect::writeManifest(packageRepositoryResolutionR = "lockfile")
