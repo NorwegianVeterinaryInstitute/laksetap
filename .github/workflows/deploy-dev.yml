@@ -41,11 +41,7 @@ jobs:
       - uses: r-lib/actions/setup-renv@v2
 
       - name: Install rsconnect
-        run: |
-          dir.create("~/rsconnect-lib", showWarnings = FALSE)
-          install.packages("rsconnect", lib = "~/rsconnect-lib")
-          library(rsconnect, lib.loc = "~/rsconnect-lib")
-          rsconnect::writeManifest()
+        run: install.packages("rsconnect")
         shell: Rscript {0}
 
       - name: Generate rsconnect manifest.json
