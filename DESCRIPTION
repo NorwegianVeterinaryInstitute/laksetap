@@ -37,7 +37,8 @@ Imports:
     stats,
     tibble,
     tidyr,
-    scales
+    scales,
+    base64enc
 Suggests:
   testthat,
   shinytest2
