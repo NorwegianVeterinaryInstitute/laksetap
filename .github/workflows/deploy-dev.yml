@@ -41,7 +41,7 @@ jobs:
       - uses: r-lib/actions/setup-renv@v2
       
       - name: Setup manifest file
-      - uses: r-lib/actions/setup-manifest@feature/setup-manifest
+        uses: r-lib/actions/setup-manifest@feature/setup-manifest
 
       - name: Publish to Posit Connect
         uses: rstudio/actions/connect-publish@main
