@@ -1,4 +1,4 @@
-name: update-citation-date-in-release-pr
+name: Update Citation Date in Release PR
 
 on:
   pull_request:
