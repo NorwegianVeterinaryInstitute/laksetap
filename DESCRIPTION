@@ -38,7 +38,11 @@ Imports:
     tibble,
     tidyr,
     scales,
-    base64enc
+    base64enc,
+    desc,
+    pkgbuild,
+    pkgload,
+    processx
 Suggests:
   testthat,
   shinytest2
