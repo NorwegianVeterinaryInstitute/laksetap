@@ -100,7 +100,7 @@ cumulative_mortality_yr_dummy_data <- dplyr::bind_rows(
   dat_county,
   dat_country
 ) |>
-  dplyr::select(-year) |>
+  dplyr::select(-year, -lci, -uci) |>
   dplyr::mutate(region = factor(region))
 
 names(cumulative_mortality_yr_dummy_data) <- c(
@@ -108,9 +108,7 @@ names(cumulative_mortality_yr_dummy_data) <- c(
   "date",
   "geo_group",
   "region",
-  "mean",
-  "lci",
-  "uci"
+  "mean"
 )
 
 saveRDS(
