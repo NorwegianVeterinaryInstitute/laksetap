@@ -19,7 +19,9 @@ style_plotly <- function(p) {
       ),
       images = list(
         list(
-          source = base64enc::dataURI(file = app_sys("app/www/vetinst-logo-no.png")),
+          source = base64enc::dataURI(
+            file = app_sys("app/www/vetinst-logo-no.png")
+          ),
           xref = "paper",
           yref = "paper",
           x = 0.05,

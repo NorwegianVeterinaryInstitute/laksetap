@@ -165,7 +165,7 @@ load_data <- function() {
 #' @description The losses data is in wide format which is OK for the table
 #' but needs to be in long format for ggplot2 to make the bar chart
 #'
-#' @param dat
+#' @param dat a data frame
 #'
 #' @returns a data frame in long format
 #'
@@ -191,7 +191,7 @@ losses_data_pivot_longer <- function(dat) {
 #' @description function to prepare columns for time variables
 #' in locale of country used in plots and tables
 #'
-#' @param dat
+#' @param dat a data frame
 #'
 #' @returns a data frame
 #'
@@ -208,7 +208,7 @@ locale_columns <- function(dat) {
 #' @description function to prepare columns for time variables
 #' in locale of country used in plots and tables
 #'
-#' @param dat
+#' @param dat a data frame
 #'
 #' @returns a data frame
 #'
