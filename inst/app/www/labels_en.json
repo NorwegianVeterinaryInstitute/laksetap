@@ -19,6 +19,7 @@
     "plot_losses_year": "Yearly Losses Chart",
     "table_losses_year": "Yearly Losses Table",
     "about": "About the Statistics",
+    "method": "Methodology",
     "download": "Download",
     "radio_button": "Select dataset to download:",
     "monthly_mortality_data": "Monthly Mortality %",

@@ -40,6 +40,14 @@ mod_about_ui <- function(id) {
           )
         ),
         bslib::nav_panel(
+          labels$modules$method,
+          shiny::column(
+            width = 9,
+            shiny::withMathJax(
+            shiny::includeMarkdown(app_sys("app/www/method.md")))
+          )
+        ),
+        bslib::nav_panel(
           labels$modules$download,
           shiny::column(
             width = 9,
