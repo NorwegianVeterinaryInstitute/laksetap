@@ -24,11 +24,11 @@ style_plotly <- function(p) {
           ),
           xref = "paper",
           yref = "paper",
-          x = 0.05,
-          y = 0.35,
-          sizex = 0.4,
-          sizey = 0.4,
-          opacity = 0.3
+          x = 0,
+          y = 1.1,
+          sizex = 0.1,
+          sizey = 0.1,
+          opacity = 0.5
         )
       )
     ) |>
