@@ -54,10 +54,7 @@ Imports:
     tidyr,
     scales,
     base64enc,
-    desc,
-    pkgbuild,
-    pkgload,
-    processx
+    pkgload
 Suggests:
   testthat,
   shinytest2
