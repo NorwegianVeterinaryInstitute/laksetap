@@ -5,3 +5,4 @@ Medianen representerer middelverdien, noe som betyr at halvparten av produksjons
 hadde lavere dødelighet og halvparten hadde høyere dødelighet.
 interkvartilbreddene viser de midterste 50% av lokalitetene,
 og gir en indikasjon på hvor de fleste av de som fullførte produksjonssyklusene faller.
+Basert på tilgjengelig data per 30.04.2026.
