@@ -53,7 +53,7 @@ Let $\mathit{S}$ denote a subset of the farms, representing a geographical aggre
 The first step is to identify valid production cycles. The following criteria is used:  
 - The production cycle has to be registered as slaughtered (the last month has registration "0" for variable ***months\_at\_sea***).  
 - The production cycle has to have valid registrations for ***at\_risk*** and ***dead*** for all months in the cycle (no missing data allowed).  
-- The production cycle has to have been at sea for a minimum of 8 months and maximum of ???
+- The production cycle has to have been at sea for a minimum of 8 months and maximum of 24 months.
 
 
 ## Subsets of prtoduction cycles
@@ -77,6 +77,9 @@ $$\overline{\Delta M_{\mathit{S}_{yt}}} = \frac{1}{n_{\mathit{S}_{yt}}}\sum_{i \
 $$R^{tot}_{\mathit{S},t} = 1-e^{-\sum_{k = 1}^{t}\overline{\Delta M_{\mathit{S}_{yt}}}}\hspace{10mm} (5)$$
 
 - ***Step 4*** The mean yearly cumulative mortality risks for all months, January till December, for the different spatial aggregation levels, are shown and reported in the Laksetap app. 
+
+# References
+Bang Jensen, B., Qviller, L., og Toft, N. (2020). Spatio-temporal variations in mortality during the seawater production phase of Atlantic salmon (Salmo salar) in Norway. Journal of Fish Diseases, 43, 445–457.
 
 
 
