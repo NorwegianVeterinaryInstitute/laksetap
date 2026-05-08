@@ -34,7 +34,7 @@ Medianen deler observasjonene i to like deler – 50 % av observasjonene er lave
 
 **Tolkning**: Median og IKO gir en indikasjon på den “typiske” risikoen og hvor mye den varierer, uten å bli påvirket av ekstreme verdier. Variasjonen gjenspeiler forskjeller mellom lokaliteter innenfor det aggregerte nivået som vises.
 
-**Gjennomsnitt og konfidensintervall (KI)**: 
+**Gjennomsnitt**: 
 
 Gjennomsnittet er det aritmetiske snittet av verdiene.
 
