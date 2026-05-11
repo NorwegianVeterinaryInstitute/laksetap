@@ -1,7 +1,7 @@
-# Background
+#### Background
 This document describes the mathematical formulas used in the Laksetap app to calculate mortality, including monthly mortality, yearly cumulative mortality, and cumulative mortality over production cycles. All measures are expressed as mortality risk. Data preprocessing procedures are not included.
 
-# Data
+#### Data
 The following data is used as input for the different calculations:
 
 - ***site_nr*** (string). ID for a sea site, given as a five-digit code.
@@ -10,9 +10,9 @@ The following data is used as input for the different calculations:
 - ***dead*** (integer). Number of dead fish per site and month. Let $M_{it}$ denote the number of dead fish for sea site $i$ in month $t$.
 - ***at_risk*** (numeric). Number of fish at risk of dying during a month, defined as the average number of fish present over the month. Let $N_{it}$ be the number of fish at the start of month $t$ for sea site $i$, and let $N_{i(t+1)}$ be the number at the start of the following month. The number of fish at risk is defined as:
   
-  $$
+  \[
   \overline{N}_{it} = \frac{N_{it} + N_{i(t+1)}}{2},
-  $$
+  \]
   
   i.e., the average number of fish at the start and end of the month.  
   *Note:* $N_{i(t+1)}$ does not necessarily equal $N_{it} - M_{it}$, since fish may leave the sea site for reasons other than death (e.g. escape, discarded, or other causes).
@@ -21,16 +21,16 @@ The following data is used as input for the different calculations:
 - ***county*** (categorical): County with 8 levels ("Norway", "Agder", "Møre og Romsdal", "Trøndelag", "Nordland", "Troms", "Rogaland", "Vestland"), depending on data availability and minimum reporting thresholds.
 - ***months_at_sea*** (integer): Number of months the production cycle has been at sea. The first month is coded as "1", the second as "2", and so on. The month of slaughter is coded as "0".
 
-# Formulas
+#### Formulas
 
-## Mortality rate
+##### Mortality rate
 The mortality rate, $\Delta M_{it}$, for ***site_nr*** $i$ in month $t$, is defined as the proportion of dead fish relative to the number of fish at risk, i.e.:
 
 $$
 \Delta M_{it} = \frac{M_{it}}{\overline{N}_{it}} \hspace{10mm} (1)
 $$
 
-## Mortality risk
+##### Mortality risk
 Furthermore, the mortality risk, $R_{it}$, for ***site_nr*** $i$ in month $t$, is defined as:
 
 $$
@@ -45,7 +45,7 @@ The mortality risk $R_{it}$, on the other hand, is bounded between 0 and 1 and c
 
 ![Mortality risk as function of mortality rate with black line, the red line show the 1:1 relationship](rate_vs_risk.png)
 
-## Cumulative mortality risk
+##### Cumulative mortality risk
 An important point is that the total (cumulative) risk over several months, from month $t$ to month $t+n$, denoted $R^{\mathrm{tot}}_{i,t,t+n}$ for ***site_nr*** $i$, can be calculated as follows (see Bang Jensen, Qviller \& Toft, 2020):
 
 $$
@@ -54,7 +54,7 @@ $$
 
 which is an equivalent way of expressing that the survival probabilities $(1 - \text{risk})$ can be multiplied.
 
-# Monthly mortality
+#### Monthly mortality
 
 Let $\mathit{S}$ denote a subset of sea sites representing a geographical aggregation level. The level may be a county or a combination of counties, a production area or a combination of production areas, or the national level. For subset $\mathit{S}$, the following quantities are calculated:
 
@@ -64,9 +64,9 @@ Let $\mathit{S}$ denote a subset of sea sites representing a geographical aggreg
 
 **Note:** The percentiles $\xi^{R_{St}}_{25}$ and $\xi^{R_{St}}_{75}$ represent the variation in mortality risk between sea sites. These percentiles are not systematically affected by the number of sites ($n_{St}$).
 
-# Yearly cumulative mortality
+#### Yearly cumulative mortality
 
-## Subset of sea sites
+##### Subset of sea sites
 
 Let $\mathit{S}_y$ denote the subset of sea sites within a given geographical aggregation level that have valid registrations for at least one month within year $y$. The yearly cumulative mortality is calculated and reported as follows:
 
@@ -74,21 +74,21 @@ Let $\mathit{S}_y$ denote the subset of sea sites within a given geographical ag
 
 - ***Step 2***: Let $n_{\mathit{S}_{yt}}$ be the number of sea sites in $\mathit{S}_y$ with valid data in month $t$, where $t \in y$. The mean mortality rate in month $t$ is calculated as:
 
-$$
+\[
 \overline{\Delta M}_{\mathit{S}_{yt}} = \frac{1}{n_{\mathit{S}_{yt}}} \sum_{i \in \mathit{S}_{yt}} \Delta M_{it} \hspace{10mm} (4)
-$$
+\]
 
 - ***Step 3***: The mean yearly cumulative mortality risk up to month $t = 1, \ldots, 12$ is calculated as:
 
-$$
+\[
 R^{\mathrm{tot}}_{\mathit{S},t} = 1 - e^{-\sum_{k = 1}^{t} \overline{\Delta M}_{\mathit{S}_{yk}}} \hspace{10mm} (5)
-$$
+\]
 
 - ***Step 4***: The mean yearly cumulative mortality risk for all months (January to December), across the different geographical aggregation levels, is reported in the Laksetap app.
 
-# Production cycle cumulative mortality
+#### Production cycle cumulative mortality
 
-## Valid production cycles
+##### Valid production cycles
 
 The first step is to identify valid production cycles. The following criteria are used:
 
@@ -96,7 +96,7 @@ The first step is to identify valid production cycles. The following criteria ar
 - The production cycle has to have valid registrations for ***at_risk*** and ***dead*** for all months in the cycle, with no missing data. The observations must cover a continuous sequence of months (i.e., no gaps in time).
 - The production cycle has to have been at sea for a minimum of 8 months and a maximum of 24 months.
 
-## Subsets of production cycles
+##### Subsets of production cycles
 
 Let $\mathit{S}_y$ denote a subset of valid production cycles that are slaughtered within a given year ($y$) and within a defined geographical aggregation level (PA, county, or the whole country). For each such subset, the following quantities are calculated:
 
@@ -106,7 +106,7 @@ Let $\mathit{S}_y$ denote a subset of valid production cycles that are slaughter
 
 - In Laksetap, $\xi^{25}_{R^{\mathrm{tot}}_{\mathit{S}_y}}$, $\xi^{50}_{R^{\mathrm{tot}}_{\mathit{S}_y}}$, and $\xi^{75}_{R^{\mathrm{tot}}_{\mathit{S}_y}}$, i.e., the 25th, 50th (median), and 75th percentiles of the cumulative mortality risk within subset $\mathit{S}_y$, are reported.
 
-# References
+#### References
 
 Bang Jensen, B., Qviller, L., og Toft, N. (2020). *Spatio-temporal variations in mortality during the seawater production phase of Atlantic salmon (Salmo salar) in Norway*. Journal of Fish Diseases, 43, 445–457.
 
