@@ -7,8 +7,8 @@ The following data is used as input for the different calculations:
 - ***site_nr*** (string). ID for a sea site, given as a five-digit code.
 - ***species*** (string). The two species of interest: "Laks" (Atlantic salmon) and "Regnbueørret" (rainbow trout).
 - ***date*** (Date, YYYY-MM-DD). Observation date with monthly resolution.
-- ***dead*** (integer). Number of dead fish per site and month. Let $M_{it}$ denote the number of dead fish for farm $i$ in month $t$.
-- ***at_risk*** (numeric). Number of fish at risk of dying during a month, defined as the average number of fish present over the month. Let $N_{it}$ be the number of fish at the start of month $t$ for farm $i$, and let $N_{i(t+1)}$ be the number at the start of the following month. The number of fish at risk is defined as:
+- ***dead*** (integer). Number of dead fish per site and month. Let $M_{it}$ denote the number of dead fish for sea site $i$ in month $t$.
+- ***at_risk*** (numeric). Number of fish at risk of dying during a month, defined as the average number of fish present over the month. Let $N_{it}$ be the number of fish at the start of month $t$ for sea site $i$, and let $N_{i(t+1)}$ be the number at the start of the following month. The number of fish at risk is defined as:
   
   $$
   \overline{N}_{it} = \frac{N_{it} + N_{i(t+1)}}{2},
@@ -66,13 +66,13 @@ Let $\mathit{S}$ denote a subset of sea sites representing a geographical aggreg
 
 # Yearly cumulative mortality
 
-## Subset of farms
+## Subset of sea sites
 
 Let $\mathit{S}_y$ denote the subset of sea sites within a given geographical aggregation level that have valid registrations for at least one month within year $y$. The yearly cumulative mortality is calculated and reported as follows:
 
-- ***Step 1***: Calculate monthly mortality rates $\Delta M_{it}$ for all farms $i \in \mathit{S}_y$ and for all months with valid data, according to Equation (1).
+- ***Step 1***: Calculate monthly mortality rates $\Delta M_{it}$ for all sea sites $i \in \mathit{S}_y$ and for all months with valid data, according to Equation (1).
 
-- ***Step 2***: Let $n_{\mathit{S}_{yt}}$ be the number of farms in $\mathit{S}_y$ with valid data in month $t$, where $t \in y$. The mean mortality rate in month $t$ is calculated as:
+- ***Step 2***: Let $n_{\mathit{S}_{yt}}$ be the number of sea sites in $\mathit{S}_y$ with valid data in month $t$, where $t \in y$. The mean mortality rate in month $t$ is calculated as:
 
 $$
 \overline{\Delta M}_{\mathit{S}_{yt}} = \frac{1}{n_{\mathit{S}_{yt}}} \sum_{i \in \mathit{S}_{yt}} \Delta M_{it} \hspace{10mm} (4)
