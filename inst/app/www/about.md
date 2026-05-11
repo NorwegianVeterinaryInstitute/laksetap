@@ -41,6 +41,7 @@ Gjennomsnittet er det aritmetiske snittet av verdiene.
 **Tolkning**: Gjennomsnittet gir et samlet mål på nivået av risiko i det aktuelle området. Det påvirkes i større grad av høye og lave enkeltverdier enn medianen, og kan derfor gi et annet bilde dersom det er stor variasjon mellom lokaliteter.
 
 #### Metoder for beregning av dødelighet:
+Matematiske formler er beskrevet i detalj under fanen "Metodikk".
 
 
 **Månedlig dødelighet**: 
@@ -49,7 +50,7 @@ For å beregne månedlig dødelighet beregnes først dødelighetsraten som antal
 
 **Kumulativ årlig dødelighet**:  
 
-Som for månedlig dødelighet beregnes kumulativ årlig dødelighet via dødelighetsrater. Gjennomsnittlige månedlige dødelighetsrater beregnes som gjennomsnitt av dødelighetsrater for alle lokaliteter innenfor det gjeldende aggregerte nivået for hver kalendermåned. Disse månedlige gjennomsnittene summeres deretter over månedene for å få en kumulativ dødelighetsrate gjennom hele året eller fra årsstart og fram til registrert måned. De kumulative dødelighetsratene omregnes til en samlet dødelighetsrisiko, dvs. sannsynligheten for at en fisk dør i løpet av det aktuelle året eller den definerte delen av året. Formelen som benyttes er den samme som for månedlig dødelighet. 
+Som for månedlig dødelighet beregnes kumulativ årlig dødelighet via dødelighetsrater. Gjennomsnittlige månedlige dødelighetsrater beregnes som gjennomsnitt av dødelighetsrater for alle lokaliteter innenfor det gjeldende aggregerte nivået for hver kalendermåned. Disse månedlige gjennomsnittene summeres deretter over månedene for å få en kumulativ dødelighetsrate gjennom hele året eller fra årsstart og fram til registrert måned. De kumulative dødelighetsratene omregnes til en samlet dødelighetsrisiko, dvs. sannsynligheten for at en fisk dør i løpet av det aktuelle året eller den definerte delen av året.  
 
 Dødelighetsrisikoene som vises i appen, angir sannsynligheten for at en fisk innenfor det aggregerte nivået (produksjonsområde, fylke eller nasjonalt) dør i løpet av det aktuelle året eller valgt dato, uttrykt som prosent (0–100 %). 
 
