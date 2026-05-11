@@ -44,7 +44,8 @@ style_plotly <- function(p) {
     ) |>
     plotly::config(
       displaylogo = FALSE,
-      modeBarButtons = list(list("toImage"))
+      modeBarButtons = list(list("toImage")),
+      displayModeBar = TRUE
     )
 }
 
