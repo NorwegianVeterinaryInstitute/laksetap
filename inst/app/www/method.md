@@ -1,112 +1,114 @@
-#### Background
-This document describes the mathematical formulas used in the Laksetap app to calculate mortality, including monthly mortality, yearly cumulative mortality, and cumulative mortality over production cycles. All measures are expressed as mortality risk. Data preprocessing procedures are not included.
+#### Introduksjon
+Under denne fanen ("Metodikk") er det gitt presise matematiske formler for de utregningene som presenteres i Laksetap. Dette inkluderer formler for månedlig dødelighet, kumulativ årlig dødelighet og produksjonssyklus dødelighet. Alle disse dødelighetene presenteres som dødelighetsrisiko, ikke dødelighetsrater. Prosedyrerene for datavask og kontroll er ikke inkludert under denne fanen. 
 
 #### Data
-The following data is used as input for the different calculations:
+Følgende variabler er benyttet som grunnlag for utregningene (engelske variabelnavn i parentes):
 
-- ***site_nr*** (string). ID for a sea site, given as a five-digit code.
-- ***species*** (string). The two species of interest: "Laks" (Atlantic salmon) and "Regnbueørret" (rainbow trout).
-- ***date*** (Date, YYYY-MM-DD). Observation date with monthly resolution.
-- ***dead*** (integer). Number of dead fish per site and month. Let $M_{it}$ denote the number of dead fish for sea site $i$ in month $t$.
-- ***at_risk*** (numeric). Number of fish at risk of dying during a month, defined as the average number of fish present over the month. Let $N_{it}$ be the number of fish at the start of month $t$ for sea site $i$, and let $N_{i(t+1)}$ be the number at the start of the following month. The number of fish at risk is defined as:
-
-    $$
-    \overline{N}\_{it} = \frac{N\_{it} + N\_{i(t+1)}}{2}
-    $$
-    
-  i.e., the average number of fish at the start and end of the month.  
-  *Note:* $N_{i(t+1)}$ does not necessarily equal $N_{it} - M_{it}$, since fish may leave the sea site for reasons other than death (e.g. escape, discarded, or other causes).
+- ***lokalitet\_id (site\_id)*** (tekststreng). ID for lokalitet, gitt som en fem siffret kode.
+- ***art (species)*** (tekststreng). De to artene som benyttes i Laksetap er "Laks" og "Regnbueørret".
+- ***dato (date)*** (dato i YYYY-MM-DD format). Datoen for registreringene. Oppløsningen er månedlig.
+- ***døde (dead)*** (integer). Antall fisk registert som dødfisk per lokalitet og måned. I det videre vil $M\_{it}$ betegne antall dødfisk registert ved lokalitet $i$ i måned $t$.
+- ***i\_risiko (at\_risk)*** (numerisk). Antall fisk som er under risiko for å dø i løpet av en måned, definert som gjennomsnittlig antall fisk i live ved en lokalitet gjennom en måned. I det videre benyttes notasjonen $\overline{N}\_{it}$ for antall fisk "i_risk" for lokalitet $i$, måned $t$. Videre er notasjonen $N\_{it}$ benyttet for antall fisk i live ved starten av måned $t$ for lokalitet $i$. Følgelig er $N\_{i(t+1)}$ antall fisk i live ved starten av påfølgende måned. Antall fisk "i_risiko" er definert som:
   
-- ***area*** (categorical): Production area (PA) with 12 levels ("Norway", "PA1-2", "PA3", "PA4", "PA5", "PA6", "PA7", "PA8", "PA9", "PA10", "PA11", and "PA12-13"), depending on data availability and minimum reporting thresholds.
-- ***county*** (categorical): County with 8 levels ("Norway", "Agder", "Møre og Romsdal", "Trøndelag", "Nordland", "Troms", "Rogaland", "Vestland"), depending on data availability and minimum reporting thresholds.
-- ***months_at_sea*** (integer): Number of months the production cycle has been at sea. The first month is coded as "1", the second as "2", and so on. The month of slaughter is coded as "0".
+  $$
+  \overline{N}\_{it} = \frac{N\_{it} + N\_{i(t+1)}}{2},
+  $$
+  
+  dvs. gjennomsnittet av antall fisk som var i live ved starten og slutten av måneden, noe man har registeringer for.  
+  
+  *Merk:* $N\_{i(t+1)}$ er ikke nødvendigvis gitt ved $N\_{it} - M\_{it}$, siden fisk kan forsvinne fra lokaliteten av andre årsaker enn at de er registrert som "dødfisk", eksempelvis gjennom rømming, utkast fra slakteri eller andre årsaker.
+  
+- ***produksjonsområde (area)*** (kategorisk). Produksjonsområde (PO) gitt som 12 nivå ("Norge", "1 & 2", "3", "4", "5", "6", "7", "8", "9", "10", "11" og "12  & 13"). Noen produksjonsområder slås sammen avhengig av datatilgang og krav til minimum antall lokaliter for innsyn via Laksetap.
+- ***fylke (county)*** (kategorisk): Fylker gitt som 8 ulike nivåer ("Norge", "Agder & Rogaland", "Vestland", "Møre og Romsdal", "Trøndelag", "Nordland", "Troms", "Finmark"). Noen fylker slås sammen avhengig av datatilgang og krav til minimum antall lokaliter for innsyn via Laksetap.
+- ***måneder\_i\_sjøen (months\_at\_sea)*** (integer): Antall måneder som angjeldende produksjonsyklus har vært i sjøen. Første måned er gitt verdi "1", andre måned verdi "2"  osv. Måneden hvor produksjonssyklusen ble slaktet er gitt verdi "0".
 
-#### Formulas
+#### Formler
 
-##### Mortality rate
-The mortality rate, $\Delta M_{it}$, for ***site_nr*** $i$ in month $t$, is defined as the proportion of dead fish relative to the number of fish at risk, i.e.:
+##### Dødelighetsrate
+Dødelighetsraten, $\Delta M_{it}$, for ***lokalitet_nr*** $i$ i måned $t$, er definert som forholdet mellom antall dødfisk og antall fisk ***i_risiko***, dvs: 
 
 $$
 \Delta M_{it} = \frac{M_{it}}{\overline{N}_{it}} \hspace{10mm} (1)
 $$
 
-##### Mortality risk
-Furthermore, the mortality risk, $R_{it}$, for ***site_nr*** $i$ in month $t$, is defined as:
+##### Dødelighetsrisiko
+Dødelighetsrisiko, $R_{it}$, for ***lokalitet_nr*** $i$ i måned $t$, er definert som:
 
 $$
 R_{it} = 1 - e^{-\Delta M_{it}} \hspace{10mm} (2)
 $$
 
-The mortality rate and mortality risk are closely connected. The mortality risk is a strictly increasing function of the mortality rate. For small values, the mortality rate and mortality risk are approximately equal. As the mortality rate increases, the difference between the mortality rate and the mortality risk also increases.
+Dødelighetsrate og dødelighetsrisiko henger nøye sammen. Dødelighetsrisiko er en strengt voksende funksjon av dødelighetsrate. For små verdier avviker dødelighetsraten og dødelighetsrisikoen lite fra hverandre. Ved økende dødelighetsrate blir forskjellene tydeligere som vist i figuren under.
 
-**Note:** The mortality rate $\Delta M_{it}$ is not a probability and may exceed 1 (100%) in some cases. This can occur because the number of fish at risk is defined as an average over the month, and fish may both leave the population for reasons other than death and be added during the month (e.g., due to multiple stockings).
+*Merk:* Dødelighetsraten $\Delta M_{it}$ er ikke en sannsynelighet og den kan i helt spesielle tilfeller få en verdi større enn 1 (100%). Årsdaken til dette er at antall fisk ***i_risiko*** er definert som gjennomsnittet gjennom måneden. 
 
-The mortality risk $R_{it}$, on the other hand, is bounded between 0 and 1 and can be interpreted as the probability of death during the month. As the mortality rate increases, the difference between the mortality rate and the mortality risk becomes more pronounced (see figure below).
+På den andre siden vil dødelighetsrisikoen, $R_{it}$, alltid bli et tall mellom 0 og 1. Dødelighetsrisikoen kan tolkes som sannsyneligheten en tilfeldig fisk har for å dø (som kategori "dødfisk") i løpet av måneden. 
 
-![Mortality risk as function of mortality rate with black line, the red line show the 1:1 relationship](rate_vs_risk.png)
+![Dødelighetsrisiko som funksjon av dødelighetsrate med svart linje. Den røde linjen viser 1:1 forholdet for sammenligning.](rate_vs_risk.png)
 
-##### Cumulative mortality risk
-An important point is that the total (cumulative) risk over several months, from month $t$ to month $t+n$, denoted $R^{\mathrm{tot}}_{i,t,t+n}$ for ***site_nr*** $i$, can be calculated as follows (see Bang Jensen, Qviller \& Toft, 2020):
+##### Kumulativ dødelighetsrisiko
+Et avgjørende poeng er at total (kumulativ) dødelighetsrisiko over flere måneder,for ***lokalitet\_nr*** $i$ fra måned $t$ til måned $t + n$, med notasjon $R^{\mathrm{tot}}_{i,t,t+n}$, kan regnes ut ved hjelp av følgende formel (Bang Jensen, Qviller \& Toft, 2020):
 
 $$
 R^{\mathrm{tot}}\_{i,t,t+n} = 1 - \prod\_{k = t}^{t+n}(1 - R_{ik}) = 1 - e^{-\sum_{k = t}^{t+n} \Delta M_{ik}} \hspace{10mm} (3)
 $$
 
-which is an equivalent way of expressing that the survival probabilities $(1 - \text{risk})$ can be multiplied.
+som egentlig er et litt omstendelig utrykk for at månedlige overlevelsessannsligheter $(1 - \text{risk})$ kan multipliseres til en total/ kumulativ overlevelsessannsynelighet.
 
-#### Monthly mortality
+#### Månedlig dødelighet
 
-Let $\mathit{S}$ denote a subset of sea sites representing a geographical aggregation level. The level may be a county or a combination of counties, a production area or a combination of production areas, or the national level. For subset $\mathit{S}$, the following quantities are calculated:
+La $\mathit{S}$ betegne en delmengde av lokalitetene som representerer et gografisk nivå dvs. produksjonområde(kombinasjon) eller fylke(kombinasjon). For delmengden $\mathit{S}$, gjennomføres følgende utregninger:
 
-- $n_{St}$: The number of active sea sites, i.e., sites with registrations of both dead fish and fish ***at risk*** in month $t$.
-- $M_{it}$ and $R_{it}$ are calculated for all sea sites in subset $S$, i.e., for $i = 1, \dots, n_{St}$, based on Equations (1) and (2). Only results based on mortality risk (i.e., $R_{it}$) are reported in Laksetap.
-- $\xi^{R_{St}}_{25}$, $\xi^{R_{St}}_{50}$, and $\xi^{R_{St}}_{75}$, i.e., the 25th, 50th (median), and 75th percentiles of the mortality risk within subset $S$, are calculated and reported in Laksetap.
+- $n_{St}$: Antall aktive lokaliteter, dvs. lokaliteter som har registreringer for både ***dode*** (dødfisk) og fisk ***i\risiko*** i måned $t$.
+- $M_{it}$ og $R_{it}$ regnes ut for alle lokaliteter i $S$, dvs. for $i = 1, \dots, n_{St}$, basert på ligning (1) og (2). Kun resultatet for dødelighetsrisiko ($R_{it}$) rapporteres Laksetap.
+- Dødelighetsrisikoen rapporteres som percentiler, henholdsvis $\xi^{R_{St}}_{25}$, $\xi^{R_{St}}_{50}$ og $\xi^{R_{St}}_{75}$, dvs 25 %, 50 % (median) og 75 % percentilet for dødelighetsrisikoen for lokalitene i $S$ for de respektive månedene.
 
-**Note:** The percentiles $\xi^{R_{St}}_{25}$ and $\xi^{R_{St}}_{75}$ represent the variation in mortality risk between sea sites. These percentiles are not systematically affected by the number of sites ($n_{St}$).
+*Merk:* Percentilene $\xi^{R_{St}}_{25}$ og $\xi^{R_{St}}_{75}$ representerer variasjon i dødelighetsrisiko mellom lokaliteter. Disse percentilene er ikke forventet å påvirkes systematisk dersom antall lokaliteter ($n_{St}$) endres.
 
-#### Yearly cumulative mortality
+#### Kumulativ årlig dødelighet
 
-##### Subset of sea sites
+##### Utvalg av lokaliteter
 
-Let $\mathit{S}_y$ denote the subset of sea sites within a given geographical aggregation level that have valid registrations for at least one month within year $y$. The yearly cumulative mortality is calculated and reported as follows:
+La $\mathit{S}_y$ betegne en delmengde av lokalitetene som representerer et gografisk nivå dvs. produksjonområde(kombinasjon) eller fylke(kombinasjon) som har gyldige observasjoner for minst en måned i år $y$.  Kumulativ årlig dødelighet blir regnet ut etter følgende prosedyre:
 
-- ***Step 1***: Calculate monthly mortality rates $\Delta M_{it}$ for all sea sites $i \in \mathit{S}_y$ and for all months with valid data, according to Equation (1).
+- ***Steg 1***: Månedlige dødelighetsrater, $\Delta M_{it}$, regnes ut for alle lokaliteter $i \in \mathit{S}_y$ og for alle måneder med gyldige data ut fra ligning (1).
 
-- ***Step 2***: Let $n_{\mathit{S}_{yt}}$ be the number of sea sites in $\mathit{S}_y$ with valid data in month $t$, where $t \in y$. The mean mortality rate in month $t$ is calculated as:
+- ***Steg 2***: La $n_{\mathit{S}_{yt}}$ betegne antall lokaliteter i $\mathit{S}_y$ med gyldige data i måned $t$, hvor $t \in y$. Gjennomsnittlig dødelighetsrate i måned $t$ ($\overline{\Delta M}\_{\mathit{S}\_{yt}}$) regnes da ut som:
 
 $$
 \overline{\Delta M}\_{\mathit{S}\_{yt}} = \frac{1}{n\_{\mathit{S}_{yt}}} \sum\_{i \in \mathit{S}\_{yt}} \Delta M\_{it} \hspace{10mm} (4)
 $$
 
-- ***Step 3***: The mean yearly cumulative mortality risk up to month $t = 1, \ldots, 12$ is calculated as:
+- ***Steg 3***: Kumulativ årlig dødelighet frem til måned $t = 1, \ldots, 12$ ($R^{\mathrm{tot}}\_{\mathit{S},t}$) regnes ut som:
 
 $$
 R^{\mathrm{tot}}\_{\mathit{S},t} = 1 - e^{-\sum\_{k = 1}^{t} \overline{\Delta M}\_{\mathit{S}\_{yk}}} \hspace{10mm} (5)
 $$
 
-- ***Step 4***: The mean yearly cumulative mortality risk for all months (January to December), across the different geographical aggregation levels, is reported in the Laksetap app.
+- ***Steg 4***: Kumulativ årlig dødelighet frem til måned for alle måneder, januar til desember, for de ulike kombinasjoner av produksjonsområder og fylker, blir rapportert i Laksetap. 
 
-#### Production cycle cumulative mortality
+#### Produksjonssyklusdødelighet
 
-##### Valid production cycles
+##### Gyldige produksjonssykluser
 
-The first step is to identify valid production cycles. The following criteria are used:
+Første steg er å identifisere gyldige produksjonssykluser. Følgende krav må oppfylles:
 
-- The production cycle has to be registered as slaughtered (the last month has registration "0" for variable ***months_at_sea***).
-- The production cycle has to have valid registrations for ***at_risk*** and ***dead*** for all months in the cycle, with no missing data. The observations must cover a continuous sequence of months (i.e., no gaps in time).
-- The production cycle has to have been at sea for a minimum of 8 months and a maximum of 24 months.
+- Lokaliteten må ha matfisktillatelse. 
+- Produksjonssyklusen må være registrert som slaktet, dvs. siste måned må ha verde "0" for variablen ***måneder\_i\_sjøen***. 
+- Produksjonssyklusen må ha gyldige registreringer for variablene ***i\_risiko*** og ***døde*** for alle månedene i syklusen uten manglende data. De gyldige observasjonene må gjelde for en kontinuerlig tidsserie.  
+- Produksjonssyklusen må ha vært minst 8 måneder og maksimalt 24 måneder i sjøen. 
 
-##### Subsets of production cycles
+##### Utvalg av produksjonssykluser
 
-Let $\mathit{S}_y$ denote a subset of valid production cycles that are slaughtered within a given year ($y$) and within a defined geographical aggregation level (PA, county, or the whole country). For each such subset, the following quantities are calculated:
+La $\mathit{S}_y$ betegne en delmengde av gyldige produksjonssykluser (se kulepunkt over) som representerer et gografisk nivå dvs. produksjonområde(kombinasjon) eller fylke(kombinasjon), og som ble slaktet i år $y$. For ulike geografiske nivåer ble de følgende tall beregnet:
 
-- $n_{\mathit{S}_y}$: The total number of production cycles ending in year $y$.
+- $n_{\mathit{S}_y}$: Totalt antall produksjonssykluser som ble slaktet i år $y$.
 
-- The cumulative mortality risk for each production cycle, $R^{\mathrm{tot}}_{i,t_{i1},\,t_{i1}+n_i-1}$, calculated using Equation (3). Here, $t_{i1}$ denotes the first month at sea for production cycle $i$, and $n_i$ denotes the total number of months the production cycle is at sea. Both the start month ($t_{i1}$) and the duration ($n_i$) may vary across production cycles. The end month, $t_{i1}+n_i-1$, must fall within year $y$, ensuring that production cycles are grouped by their slaughter year.
+- Den kumulative dødelighetsrisikoen, $R^{\mathrm{tot}}_{i,t_{i1},\,t_{i1}+n_i-1}$, for produksjonssyklus $i$ ble regnet ut etter ligning (3). I dette uttrykket representerer $t_{i1}$ den første måneden i sjøen for produksjonssyklus $i$ og $n_i$ er totalt antall måneder produkssjonssyklusen er i sjøen. Både den første måneden i sjøen ($t_{i1}$) og varigheten ($n_i$) kan variere mellom produksjonssykluser, men måneden for slakting, $t_{i1}+n_i-1$, må være en måned i år $y$, slik at produksjonssyklusene blir grupert etter året de slaktes. 
 
-- In Laksetap, $\xi^{25}_{R^{\mathrm{tot}}_{\mathit{S}_y}}$, $\xi^{50}_{R^{\mathrm{tot}}_{\mathit{S}_y}}$, and $\xi^{75}_{R^{\mathrm{tot}}_{\mathit{S}_y}}$, i.e., the 25th, 50th (median), and 75th percentiles of the cumulative mortality risk within subset $\mathit{S}_y$, are reported.
+- In Laksetap rapporteres $\xi^{25}_{R^{\mathrm{tot}}_{\mathit{S}_y}}$, $\xi^{50}_{R^{\mathrm{tot}}_{\mathit{S}_y}}$ og $\xi^{75}_{R^{\mathrm{tot}}_{\mathit{S}_y}}$, dvs. 25 %, 50 % (median) og and 75 % percentiles for kumulativ dødelighetsrisiko for produksjonnsykluser i $\mathit{S}_y$.
 
-#### References
+#### Referanser
 
 Bang Jensen, B., Qviller, L., og Toft, N. (2020). *Spatio-temporal variations in mortality during the seawater production phase of Atlantic salmon (Salmo salar) in Norway*. Journal of Fish Diseases, 43, 445–457.
 
