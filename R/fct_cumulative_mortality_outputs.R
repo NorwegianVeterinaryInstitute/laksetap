@@ -38,6 +38,7 @@ cumulative_mortality_plot <- function(dat) {
       date_breaks = "1 month",
       date_labels = "%b %Y"
     ) +
+    scale_y_continuous(limits = c(0, NA)) +
     guides(
       col = guide_legend(
         title = labels$output_functions$mortality_plot_label_title

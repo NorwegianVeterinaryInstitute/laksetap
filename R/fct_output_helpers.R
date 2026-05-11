@@ -30,7 +30,17 @@ style_plotly <- function(p) {
           sizey = 0.1,
           opacity = 0.5
         )
-      )
+      ),
+      xaxis = list(
+        showline = TRUE,
+        linecolor = "lightgray",
+        linewidth = 0.5
+        ), 
+      yaxis = list(
+        showline = TRUE,
+        linecolor = "lightgray",
+        linewidth = 0.5
+        )
     ) |>
     plotly::config(
       displaylogo = FALSE,
