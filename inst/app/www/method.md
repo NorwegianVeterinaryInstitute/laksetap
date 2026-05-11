@@ -8,7 +8,7 @@ Følgende variabler er benyttet som grunnlag for utregningene (engelske variabel
 - ***art (species)*** (tekststreng). De to artene som benyttes i Laksetap er "Laks" og "Regnbueørret".
 - ***dato (date)*** (dato i YYYY-MM-DD format). Datoen for registreringene. Oppløsningen er månedlig.
 - ***døde (dead)*** (integer). Antall fisk registert som dødfisk per lokalitet og måned. I det videre vil $M\_{it}$ betegne antall dødfisk registert ved lokalitet $i$ i måned $t$.
-- ***i\_risiko (at\_risk)*** (numerisk). Antall fisk som er under risiko for å dø i løpet av en måned, definert som gjennomsnittlig antall fisk i live ved en lokalitet gjennom en måned. I det videre benyttes notasjonen $\overline{N}\_{it}$ for antall fisk "i_risk" for lokalitet $i$, måned $t$. Videre er notasjonen $N\_{it}$ benyttet for antall fisk i live ved starten av måned $t$ for lokalitet $i$. Følgelig er $N\_{i(t+1)}$ antall fisk i live ved starten av påfølgende måned. Antall fisk "i_risiko" er definert som:
+- ***i\_risiko (at\_risk)*** (numerisk). Antall fisk som er under risiko for å dø i løpet av en måned, definert som gjennomsnittlig antall fisk i live ved en lokalitet gjennom en måned. I det videre benyttes notasjonen $\overline{N}_{it}$ for antall fisk "i_risk" for lokalitet $i$, måned $t$. Videre er notasjonen $N_{it}$ benyttet for antall fisk i live ved starten av måned $t$ for lokalitet $i$. Følgelig er $N_{i(t+1)}$ antall fisk i live ved starten av påfølgende måned. Antall fisk "i_risiko" er definert som:
   
   $$
   \overline{N}\_{it} = \frac{N\_{it} + N\_{i(t+1)}}{2},
