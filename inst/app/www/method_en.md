@@ -9,11 +9,11 @@ The following data is used as input for the different calculations:
 - ***date*** (Date, YYYY-MM-DD). Observation date with monthly resolution.
 - ***dead*** (integer). Number of dead fish per site and month. Let $M_{it}$ denote the number of dead fish for sea site $i$ in month $t$.
 - ***at_risk*** (numeric). Number of fish at risk of dying during a month, defined as the average number of fish present over the month. Let $N_{it}$ be the number of fish at the start of month $t$ for sea site $i$, and let $N_{i(t+1)}$ be the number at the start of the following month. The number of fish at risk is defined as:
-
-    $$
-    \overline{N}\_{it} = \frac{N\_{it} + N\_{i(t+1)}}{2}
-    $$
-    
+  
+  \[
+  \overline{N}_{it} = \frac{N_{it} + N_{i(t+1)}}{2},
+  \]
+  
   i.e., the average number of fish at the start and end of the month.  
   *Note:* $N_{i(t+1)}$ does not necessarily equal $N_{it} - M_{it}$, since fish may leave the sea site for reasons other than death (e.g. escape, discarded, or other causes).
   
@@ -49,7 +49,7 @@ The mortality risk $R_{it}$, on the other hand, is bounded between 0 and 1 and c
 An important point is that the total (cumulative) risk over several months, from month $t$ to month $t+n$, denoted $R^{\mathrm{tot}}_{i,t,t+n}$ for ***site_nr*** $i$, can be calculated as follows (see Bang Jensen, Qviller \& Toft, 2020):
 
 $$
-R^{\mathrm{tot}}\_{i,t,t+n} = 1 - \prod\_{k = t}^{t+n}(1 - R_{ik}) = 1 - e^{-\sum_{k = t}^{t+n} \Delta M_{ik}} \hspace{10mm} (3)
+R^{\mathrm{tot}}_{i,t,t+n} = 1 - \prod_{k = t}^{t+n}(1 - R_{ik}) = 1 - e^{-\sum_{k = t}^{t+n} \Delta M_{ik}} \hspace{10mm} (3)
 $$
 
 which is an equivalent way of expressing that the survival probabilities $(1 - \text{risk})$ can be multiplied.
@@ -74,15 +74,15 @@ Let $\mathit{S}_y$ denote the subset of sea sites within a given geographical ag
 
 - ***Step 2***: Let $n_{\mathit{S}_{yt}}$ be the number of sea sites in $\mathit{S}_y$ with valid data in month $t$, where $t \in y$. The mean mortality rate in month $t$ is calculated as:
 
-$$
-\overline{\Delta M}\_{\mathit{S}\_{yt}} = \frac{1}{n\_{\mathit{S}_{yt}}} \sum\_{i \in \mathit{S}\_{yt}} \Delta M\_{it} \hspace{10mm} (4)
-$$
+\[
+\overline{\Delta M}_{\mathit{S}_{yt}} = \frac{1}{n_{\mathit{S}_{yt}}} \sum_{i \in \mathit{S}_{yt}} \Delta M_{it} \hspace{10mm} (4)
+\]
 
 - ***Step 3***: The mean yearly cumulative mortality risk up to month $t = 1, \ldots, 12$ is calculated as:
 
-$$
-R^{\mathrm{tot}}\_{\mathit{S},t} = 1 - e^{-\sum\_{k = 1}^{t} \overline{\Delta M}\_{\mathit{S}\_{yk}}} \hspace{10mm} (5)
-$$
+\[
+R^{\mathrm{tot}}_{\mathit{S},t} = 1 - e^{-\sum_{k = 1}^{t} \overline{\Delta M}_{\mathit{S}_{yk}}} \hspace{10mm} (5)
+\]
 
 - ***Step 4***: The mean yearly cumulative mortality risk for all months (January to December), across the different geographical aggregation levels, is reported in the Laksetap app.
 
