@@ -5,14 +5,14 @@
 
 * add logo in the plots' background ([2a2d8aa](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/2a2d8aa46ea33d78c6f05494b0f7a144ddcd1211))
 * add methodology tab to about section. related to [#164](https://github.com/NorwegianVeterinaryInstitute/laksetap/issues/164). content is currently a draft. ([5a14e14](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/5a14e145e97803ed99d1d556807114ffec69d2f9))
-* explicitly add x and y axist to plots. ([4e37b50](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/4e37b5012e566a4d94875d2de593864c50f1e560))
+* explicitly add x and y axes to plots. ([4e37b50](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/4e37b5012e566a4d94875d2de593864c50f1e560))
 * remove ci in yearly plot. resolves [#163](https://github.com/NorwegianVeterinaryInstitute/laksetap/issues/163) ([2c8b4fb](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/2c8b4fb8ea6dcc14704e4f3f7929622a204d8b50))
 
 
 ### Bug Fixes
 
 * 0 coords in the cohort and losses plots ([0314dbf](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/0314dbf12f0da301f72d0361e4915cc2a64e1b0b))
-* aling plot title to center. ([c2b4a48](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/c2b4a48484e020ef0fc52ead3437d2181e7e4c41))
+* align plot title to center. ([c2b4a48](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/c2b4a48484e020ef0fc52ead3437d2181e7e4c41))
 * always show plotly controls for wcag compatibility ([9e1db0d](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/9e1db0dbbbb2fa3153395844c8e5220ef86c07b7))
 * bump S7 version as suggested at https://github.com/rstudio/rsconnect/issues/1317#issuecomment-4348146854 ([7ad09dc](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/7ad09dc91365690fa89e778da5dd62d2646f3081))
 * Connect-specific dependencies now in DESCRIPTION ([46bae22](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/46bae2242841c47c003fb3634e51bc89459d7c29))
@@ -49,7 +49,7 @@
 * add dev deploy workflow ([dfcabf0](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/dfcabf0faa423979e41ae64897773f1d2ce01365))
 * add favicon and keep tab links color consistent. ([5a5900b](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/5a5900bfa9aa4b218e33a4612928d34799acd220))
 * add new years ([afbefec](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/afbefec0a820acb528f01d4c9e9bb7e13266568a))
-* add toc on about tab because otherwise it renders thngs from the plots ([c5ca1dd](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/c5ca1dd1b6da35ce123ef75ace784c6c62bf975e))
+* add toc on about tab because otherwise it renders things from the plots ([c5ca1dd](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/c5ca1dd1b6da35ce123ef75ace784c6c62bf975e))
 * add vi footer ([a1716fd](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/a1716fd215c5102cc7b00bbaa48ae2a59230d3fc))
 * add vi footer ([73300a6](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/73300a65115f8dbff9e3e28ed039c1ca639bc710))
 * check for sensible inputs in the cumulative calculator ([669d494](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/669d4944ba0247fd8a307364bfe6bc50ff15cc3a))
@@ -60,7 +60,7 @@
 * implement reading of dev data and provide workflow/release improvements ([b96a4fa](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/b96a4fa151e581cba61a7f0f4385a402199555dc))
 * Introduce easy translation of the app ([d1d4976](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/d1d4976bf1beee3b31e0726e011fa9a9ddf513f7))
 * introduce release-please for R package ([69bbf22](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/69bbf229725540f1e26c1499cb7a6edfad77e9d5))
-* join the caclulator tabs. ([b49cf28](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/b49cf28c21bd019f03d196ff0b7b3bf8a99745fb))
+* join the calculator tabs. ([b49cf28](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/b49cf28c21bd019f03d196ff0b7b3bf8a99745fb))
 * make app aware of dev data ([c3354ed](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/c3354ed9db5f64a7e6acd9a8303c900a55a98abb))
 * motomo ([6231d85](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/6231d850d3e2cbbc975bda1a14f608311729b564))
 * plot montly mortality per areas ([eb5cc6a](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/eb5cc6acc53bd4f45471d261cdbaf6fd36ea9bb7))
@@ -71,7 +71,7 @@
 * resolve a task in [#102](https://github.com/NorwegianVeterinaryInstitute/laksetap/issues/102) ([725082a](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/725082ad9523ab871823a98023618918caf4d49d))
 * simplify month selection ([23a2bca](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/23a2bca774dff2bf4f66fa90be6ffb2897f0b752))
 * skip to main content ([f106051](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/f10605146740172c74eac25eecfd99ed266a9f18))
-* style widht and colors ([487e3b5](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/487e3b529b65e520145f90ffb92565a824ae6d44))
+* style width and colors ([487e3b5](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/487e3b529b65e520145f90ffb92565a824ae6d44))
 * table tests ([eafdd5c](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/eafdd5c826dc8d57bc4bfc05674df8f2c9df8e1e))
 * tabs and sidebar ([9a60844](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/9a60844ffe3a4125aa0db4e61ea510a9229d3b54))
 * years for select_input are generated from datasets ([57cf5a2](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/57cf5a2cd8468386f7839d346acff25a24decbc6))
