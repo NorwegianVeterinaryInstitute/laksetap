@@ -19,12 +19,8 @@ cumulative_mortality_plot <- function(dat) {
       y = mean,
       group = region,
       text = paste0(
-        labels$tooltips$lci,
-        lci,
         labels$tooltips$mean,
-        mean,
-        labels$tooltips$uci,
-        uci
+        mean
       )
     ) +
     labs(
@@ -34,16 +30,6 @@ cumulative_mortality_plot <- function(dat) {
     geom_line(aes(
       color = factor(region)
     )) +
-    geom_ribbon(
-      aes(
-        ymin = .data$lci,
-        ymax = .data$uci,
-        fill = factor(region)
-      ),
-      linetype = 0,
-      alpha = 0.1,
-      show.legend = FALSE
-    ) +
     theme_minimal() +
     theme(axis.text.x = element_text(angle = 45)) +
     scale_color_manual(values = vi_palette_named) +
@@ -52,6 +38,7 @@ cumulative_mortality_plot <- function(dat) {
       date_breaks = "1 month",
       date_labels = "%b %Y"
     ) +
+    scale_y_continuous(limits = c(0, NA)) +
     guides(
       col = guide_legend(
         title = labels$output_functions$mortality_plot_label_title

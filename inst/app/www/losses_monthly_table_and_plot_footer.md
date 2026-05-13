@@ -1,1 +1,1 @@
-Tapene er fordelt under kategoriene «dødfisk», «utkast», «rømming» og "annet".
+Tapene er fordelt under kategoriene «dødfisk», «utkast», «rømming» og "annet". Basert på tilgjengelig data per 30.04.2026.

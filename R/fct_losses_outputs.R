@@ -56,7 +56,8 @@ losses_plot <- function(dat) {
     ) +
     scale_fill_manual(values = vi_palette) +
     scale_y_continuous(
-      labels = scales::label_number(scale = 1e-6, suffix = "M")
+      labels = scales::label_number(scale = 1e-6, suffix = "M"),
+      limits = c(0, NA),
     ) +
     theme_minimal() +
     theme(legend.title = element_blank())

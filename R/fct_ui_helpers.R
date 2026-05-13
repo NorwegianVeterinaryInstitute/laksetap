@@ -11,7 +11,7 @@
 #' @returns a vector to be used in selectInput
 #'
 #' @noRd
-select_year <- function(id, dat, multiple = F) {
+select_year <- function(id, dat, multiple = FALSE) {
   labels <- golem::get_golem_options(which = "labels")
 
   if (multiple) {

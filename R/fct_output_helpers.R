@@ -16,11 +16,36 @@ style_plotly <- function(p) {
         x = 0.5,
         y = 1.1,
         xanchor = "center"
-      )
+      ),
+      images = list(
+        list(
+          source = base64enc::dataURI(
+            file = app_sys("app/www/vetinst-logo-no.png")
+          ),
+          xref = "paper",
+          yref = "paper",
+          x = 0,
+          y = 1.1,
+          sizex = 0.1,
+          sizey = 0.1,
+          opacity = 0.5
+        )
+      ),
+      xaxis = list(
+        showline = TRUE,
+        linecolor = "lightgray",
+        linewidth = 0.5
+        ), 
+      yaxis = list(
+        showline = TRUE,
+        linecolor = "lightgray",
+        linewidth = 0.5
+        )
     ) |>
     plotly::config(
       displaylogo = FALSE,
-      modeBarButtons = list(list("toImage"))
+      modeBarButtons = list(list("toImage")),
+      displayModeBar = TRUE
     )
 }
 

@@ -22,6 +22,7 @@ plot_cohorts_output <- function(dat, year) {
       )
     ) +
     scale_color_gradient(low = "#C7D9FF", high = "#1C4FB9") +
+    scale_y_continuous(limits = c(0, NA)) +
     geom_point(
       shape = 16,
       aes(
@@ -52,7 +53,8 @@ plot_cohorts_output <- function(dat, year) {
       y = labels$output_functions$cohorts_plot_label_y
     ) +
     theme_minimal() +
-    theme(legend.position = "none") +
+    theme(legend.position = "none",
+          plot.title = element_text(hjust = 0.5)) +
     guides(fill = "none")
 }
 

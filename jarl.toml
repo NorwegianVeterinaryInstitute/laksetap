@@ -1,2 +1,5 @@
 [lint]
 default-exclude = true
+
+[lint.unused_function]
+skipped-functions = ["get_golem_config"]

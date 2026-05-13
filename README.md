@@ -91,22 +91,3 @@ Running the app with docker *should* work:
     docker build -f Dockerfile --progress=plain -t laksetap:latest .
     docker run -p 80:80 laksetap:latest
     # then go to 127.0.0.1:80
-
-## Citation
-
-To cite package ‘laksetap’ in publications use:
-
-Nakov N, Silva De Oliveira V (2025). *laksetap: A Shiny app for
-reporting salmon and rainbow trout losses in Norway*. R package version
-1.1.0, <https://github.com/NorwegianVeterinaryInstitute/laksetap>.
-
-A BibTeX entry for LaTeX users is
-
-      @Manual{,
-        title = {laksetap: A Shiny app for reporting salmon and rainbow trout losses in
-    Norway},
-        author = {Novica Nakov and Victor Henrique {Silva De Oliveira}},
-        year = {2025},
-        note = {R package version 1.1.0},
-        url = {https://github.com/NorwegianVeterinaryInstitute/laksetap},
-      }

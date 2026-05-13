@@ -4,9 +4,21 @@ authors:
   - family-names: Nakov
     given-names: Novica
     orcid: https://orcid.org/0009-0005-7773-7718
-  - family-names: Victor Henrique
-    given-names: Silva De Oliveira
+  - family-names: Silva De Oliveira
+    given-names: Victor Henrique
     orcid: https://orcid.org/0000-0003-3817-9192
+  - family-names: Qviller
+    given-names: Lars
+    orcid: https://orcid.org/0000-0003-0663-5173
+  - family-names: Udhwani 
+    given-names: Trishang
+    orcid: https://orcid.org/0009-0000-8841-6497
+  - family-names:  Dean
+    given-names: Katharine Rose
+    orcid: https://orcid.org/0000-0003-2262-0385
+  - family-names:  Gangsei
+    given-names: Lars Erik
+    orcid: https://orcid.org/0000-0003-3171-544X
 title: laksetap
 version: 1.2.0
 doi: 10.5281/zenodo.17778248
