@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/laksetap-v1.3.0...laksetap-v1.3.1) (2026-05-13)
+
+
+### Bug Fixes
+
+* missing clossing } on previous css item ([be1243e](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/be1243ebdf8c9a38b9936e81d91a2abe198d61c7))
+
 ## [1.3.0](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/laksetap-v1.2.0...laksetap-v1.3.0) (2026-05-13)
 
 
