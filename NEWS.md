@@ -1,3 +1,37 @@
+## [1.3.0](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/laksetap-v1.2.0...laksetap-v1.3.0) (2026-05-13)
+
+
+### Features
+
+* add logo in the plots' background ([2a2d8aa](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/2a2d8aa46ea33d78c6f05494b0f7a144ddcd1211))
+* add methodology tab to about section. related to [#164](https://github.com/NorwegianVeterinaryInstitute/laksetap/issues/164). content is currently a draft. ([5a14e14](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/5a14e145e97803ed99d1d556807114ffec69d2f9))
+* explicitly add x and y axist to plots. ([4e37b50](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/4e37b5012e566a4d94875d2de593864c50f1e560))
+* remove ci in yearly plot. resolves [#163](https://github.com/NorwegianVeterinaryInstitute/laksetap/issues/163) ([2c8b4fb](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/2c8b4fb8ea6dcc14704e4f3f7929622a204d8b50))
+
+
+### Bug Fixes
+
+* 0 coords in the cohort and losses plots ([0314dbf](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/0314dbf12f0da301f72d0361e4915cc2a64e1b0b))
+* aling plot title to center. ([c2b4a48](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/c2b4a48484e020ef0fc52ead3437d2181e7e4c41))
+* always show plotly controls for wcag compatibility ([9e1db0d](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/9e1db0dbbbb2fa3153395844c8e5220ef86c07b7))
+* bump S7 version as suggested at https://github.com/rstudio/rsconnect/issues/1317#issuecomment-4348146854 ([7ad09dc](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/7ad09dc91365690fa89e778da5dd62d2646f3081))
+* Connect-specific dependencies now in DESCRIPTION ([46bae22](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/46bae2242841c47c003fb3634e51bc89459d7c29))
+* image resizing for the plot in methods. ([42442c2](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/42442c2947740d0c8208da472d40ce55b4b6b4f7))
+* lining ([03b97f0](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/03b97f0ca178c07577507fe646465c8ec61f2841))
+* link to data.norge.no ([09e318c](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/09e318cc484253e605e0c24831b71d96da2cbaee))
+* logo position on graphs ([41ce597](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/41ce5975f9c31d058e2a7504643525bd01ddaaea))
+* validate for y 2026 and species rt. ([c3a8337](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/c3a8337e93b5ae3dabc8201615079f78c3a5f875))
+
+
+### Documentation
+
+* header structure and formula markdown ([1678f29](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/1678f29bc15f506032887f50d36637a57ad918d5))
+* latex formatting ([1ecb907](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/1ecb907ac8f9d8d8a6ab84d0e4cc20ab2f70868b))
+* remove text about CI. CI's are gone from the plot. ([39f3ee5](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/39f3ee5f6e8595277a14eef488a239e0e20f83d6))
+* text clarification in cohorts plot ([c1754cc](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/c1754cc4c3f22ee601baacb929bbeb6c8ee1261f))
+* update link. resolves [#145](https://github.com/NorwegianVeterinaryInstitute/laksetap/issues/145). ([5b5fb4a](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/5b5fb4acfda02bbfb7d0371ee1bd38c4673e26ef))
+* update readme ([c69f775](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/c69f77560d08bef1d33d56632c5878ec66cbd94d))
+
 ## [1.2.0](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/laksetap-v1.1.0...laksetap-v1.2.0) (2026-02-04)
 
 
