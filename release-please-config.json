@@ -2,7 +2,7 @@
   "packages": {
     ".": {
       "release-type": "r",
-      "package-name": "laksetap",
+      "package-name": "",
       "extra-files": ["DESCRIPTION",
       {
           "jsonpath": "$.version",
