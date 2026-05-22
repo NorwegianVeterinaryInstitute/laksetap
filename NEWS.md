@@ -1,3 +1,15 @@
+## [1.4.1](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.4.0...v1.4.1) (2026-05-22)
+
+
+### Bug Fixes
+
+* issues with cff file; maybe related to zenodo webhook failing. ([31d7164](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/31d7164b73a2fcae697336a1315facf0b4f881b3))
+
+
+### Documentation
+
+* add vide to about page ([9f8f3ad](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/9f8f3ad8a8d6120fae32f00efb6449d95d51207d))
+
 ## [1.4.0](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.3.1...v1.4.0) (2026-05-18)
 
 
