@@ -27,7 +27,7 @@ jobs:
         run: |
           DATE=$(date +%Y-%m-%d)
           echo "Setting date-released: ${DATE}"
-          yq -i ".date-released = \"${DATE}\"" CITATION.cff
+          sed -i "s/^date-released:.*/date-released: \"${DATE}\"/" CITATION.cff
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
