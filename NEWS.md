@@ -1,3 +1,11 @@
+## [1.4.4](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.4.3...v1.4.4) (2026-05-22)
+
+
+### Bug Fixes
+
+* worfklow credientals ([f92a688](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/f92a6889934984f849093336afe85b297dcf297b))
+* worfklow credientals ([ba87d74](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/ba87d74e7a4c61774020e1d372f5e619ce23a09e))
+
 ## [1.4.3](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.4.2...v1.4.3) (2026-05-22)
 
 
