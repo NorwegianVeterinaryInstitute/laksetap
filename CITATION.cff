@@ -6,27 +6,27 @@ abstract: App for reporting salmon and rainbow trout losses in Norway.
 authors:
   - family-names: Nakov
     given-names: Novica
-    orcid: https://orcid.org/0009-0005-7773-7718
+    orcid: "https://orcid.org/0009-0005-7773-7718"
   - family-names: Silva De Oliveira
     given-names: Victor Henrique
-    orcid: https://orcid.org/0000-0003-3817-9192
+    orcid: "https://orcid.org/0000-0003-3817-9192"
   - family-names: Qviller
     given-names: Lars
-    orcid: https://orcid.org/0000-0003-0663-5173
+    orcid: "https://orcid.org/0000-0003-0663-5173"
   - family-names: Udhwani
     given-names: Trishang
-    orcid: https://orcid.org/0009-0000-8841-6497
+    orcid: "https://orcid.org/0009-0000-8841-6497"
   - family-names: Dean
     given-names: Katharine Rose
-    orcid: https://orcid.org/0000-0003-2262-0385
+    orcid: "https://orcid.org/0000-0003-2262-0385"
   - family-names: Gangsei
     given-names: Lars Erik
-    orcid: https://orcid.org/0000-0003-3171-544X
+    orcid: "https://orcid.org/0000-0003-3171-544X"
 identifiers:
   - description: This is the collection of archived snapshots of all versions of laksetap.
     type: doi
     value: 10.5281/zenodo.17778248
 license: Apache-2.0
-repository-code: https://github.com/NorwegianVeterinaryInstitute/laksetap
+repository-code: "https://github.com/NorwegianVeterinaryInstitute/laksetap"
 version: 1.4.4
-date-released: 2026-02-04T15:30:00.000Z
+date-released: "2026-05-22"
