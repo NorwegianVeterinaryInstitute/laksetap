@@ -1,3 +1,13 @@
+## [1.4.3](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.4.2...v1.4.3) (2026-05-22)
+
+
+### Bug Fixes
+
+* citation workflow to run on release-please branch; clean up other citation files; ([bad07b1](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/bad07b1f3fec346c99c45d42bfb5508644accd11))
+* citation workflow to run on release-please branch; clean up other citation files; ([53986bf](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/53986bf84569c6763cf0463df4a00859b84d60b1))
+* make PR for citation normalization ([09775be](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/09775be19a0ba91c64c46540e027633a8a01933f))
+* make PR for citation normalization ([a318b6a](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/a318b6afc377af4dd2b34e7238c983d9424fce36))
+
 ## [1.4.2](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.4.1...v1.4.2) (2026-05-22)
 
 
