@@ -1,3 +1,11 @@
+## [1.4.2](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.4.1...v1.4.2) (2026-05-22)
+
+
+### Bug Fixes
+
+* cff file needs normalizing and validation after release please edits it ([46c5e66](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/46c5e669c20980084fdb435eceb22251f1e43198))
+* permission and steps ([01439c7](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/01439c75710c2a3d436ca3d6a71c18f4d1147610))
+
 ## [1.4.1](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.4.0...v1.4.1) (2026-05-22)
 
 
