@@ -39,7 +39,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "chore: normalize CITATION.cff formatting (date/quotes)"
           branch: "normalize-citation/${{ github.run_id }}"
-          title: "Normalize CITATION.cff formatting"
+          title: "chore: Normalize CITATION.cff formatting"
           body: |
             Automated normalization of `CITATION.cff` to keep `date-released` in YYYY-MM-DD format and preserve quoted URL scalars.
           labels: automation
