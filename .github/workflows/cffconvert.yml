@@ -6,10 +6,10 @@ on:
       - CITATION.cff
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  normalize:
+  normalize-and-validate:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -29,6 +29,13 @@ jobs:
           sed -E -i 's/^( *orcid:\s*)"?([^\"]+)"?/\1"\2"/' CITATION.cff || true
           # sed -E -i 's/^( *value:\s*)"?([^\"]+)"?/\1"\2"/' CITATION.cff || true
 
+      - name: Validate CITATION.cff
+        uses: citation-file-format/cffconvert-github-action@2.0.0
+        with:
+          args: "--validate"
+
+      - name: Commit normalized CITATION.cff if needed
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add CITATION.cff
@@ -39,14 +46,3 @@ jobs:
             git commit -m "chore: normalize CITATION.cff formatting (date/quotes)"
             git push
           fi
-  validate:
-    name: "validate"
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out a copy of the repository
-        uses: actions/checkout@v4
-
-      - name: Check whether the citation metadata from CITATION.cff is valid
-        uses: citation-file-format/cffconvert-github-action@2.0.0
-        with:
-          args: "--validate"
