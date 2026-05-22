@@ -1,23 +1,20 @@
 name: cffconvert
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  push:
     paths:
       - CITATION.cff
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
-  validate-and-fix-release-pr:
-    if: startsWith(github.head_ref, 'release-please--branches--main')
+  normalize-and-propose:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
 
       - name: Normalize CITATION.cff
         run: |
@@ -29,17 +26,20 @@ jobs:
           sed -E -i 's/^( *repository-code:\s*)"?([^\"]+)"?/\1"\2"/' CITATION.cff || true
           sed -E -i 's/^( *orcid:\s*)"?([^\"]+)"?/\1"\2"/' CITATION.cff || true
 
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add CITATION.cff
-
-          if git commit -m "chore: normalize CITATION.cff formatting (date/quotes)"; then
-            git push
-          else
-            echo "No normalization changes needed."
-          fi
-
       - name: Validate CITATION.cff
         uses: citation-file-format/cffconvert-github-action@2.0.0
         with:
           args: "--validate"
+
+      - name: Create normalization PR if needed
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: normalize CITATION.cff formatting (date/quotes)"
+          branch: "normalize-citation/${{ github.run_id }}"
+          title: "Normalize CITATION.cff formatting"
+          body: |
+            Automated normalization of `CITATION.cff` to keep `date-released` in YYYY-MM-DD format and preserve quoted URL scalars.
+          labels: automation
+          base: main
+          draft: false
