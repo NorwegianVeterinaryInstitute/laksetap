@@ -1,3 +1,29 @@
+## [1.4.4](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.4.3...v1.4.4) (2026-05-22)
+
+
+### Bug Fixes
+
+* worfklow credientals ([f92a688](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/f92a6889934984f849093336afe85b297dcf297b))
+* worfklow credientals ([ba87d74](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/ba87d74e7a4c61774020e1d372f5e619ce23a09e))
+
+## [1.4.3](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.4.2...v1.4.3) (2026-05-22)
+
+
+### Bug Fixes
+
+* citation workflow to run on release-please branch; clean up other citation files; ([bad07b1](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/bad07b1f3fec346c99c45d42bfb5508644accd11))
+* citation workflow to run on release-please branch; clean up other citation files; ([53986bf](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/53986bf84569c6763cf0463df4a00859b84d60b1))
+* make PR for citation normalization ([09775be](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/09775be19a0ba91c64c46540e027633a8a01933f))
+* make PR for citation normalization ([a318b6a](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/a318b6afc377af4dd2b34e7238c983d9424fce36))
+
+## [1.4.2](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.4.1...v1.4.2) (2026-05-22)
+
+
+### Bug Fixes
+
+* cff file needs normalizing and validation after release please edits it ([46c5e66](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/46c5e669c20980084fdb435eceb22251f1e43198))
+* permission and steps ([01439c7](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/01439c75710c2a3d436ca3d6a71c18f4d1147610))
+
 ## [1.4.1](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.4.0...v1.4.1) (2026-05-22)
 
 
