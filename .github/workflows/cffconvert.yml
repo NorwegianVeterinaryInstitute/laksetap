@@ -1,7 +1,8 @@
 name: cffconvert
 
 on:
-  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
     paths:
       - CITATION.cff
 
@@ -9,11 +10,14 @@ permissions:
   contents: write
 
 jobs:
-  normalize-and-validate:
+  validate-and-fix-release-pr:
+    if: startsWith(github.head_ref, 'release-please--branches--main')
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Normalize CITATION.cff
         run: |
@@ -21,28 +25,21 @@ jobs:
           DATE=$(date +%Y-%m-%d)
           echo "Normalizing CITATION.cff to date-released: ${DATE} and quoting URLs"
 
-          # Normalize date-released to YYYY-MM-DD (handle ISO timestamps too)
           sed -E -i "s/^date-released:.*/date-released: \"${DATE}\"/" CITATION.cff || true
-
-          # Ensure common URL-like fields are quoted so YAML preserves them exactly
           sed -E -i 's/^( *repository-code:\s*)"?([^\"]+)"?/\1"\2"/' CITATION.cff || true
           sed -E -i 's/^( *orcid:\s*)"?([^\"]+)"?/\1"\2"/' CITATION.cff || true
-          # sed -E -i 's/^( *value:\s*)"?([^\"]+)"?/\1"\2"/' CITATION.cff || true
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add CITATION.cff
+
+          if git commit -m "chore: normalize CITATION.cff formatting (date/quotes)"; then
+            git push
+          else
+            echo "No normalization changes needed."
+          fi
 
       - name: Validate CITATION.cff
         uses: citation-file-format/cffconvert-github-action@2.0.0
         with:
           args: "--validate"
-
-      - name: Commit normalized CITATION.cff if needed
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add CITATION.cff
-
-          if git diff --cached --quiet; then
-            echo "No CITATION.cff changes needed."
-          else
-            git commit -m "chore: normalize CITATION.cff formatting (date/quotes)"
-            git push
-          fi
