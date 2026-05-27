@@ -34,7 +34,7 @@ jobs:
           args: "--validate"
 
       - name: Create normalization PR if needed
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "chore: normalize CITATION.cff formatting (date/quotes)"
