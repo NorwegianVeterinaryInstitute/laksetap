@@ -31,7 +31,7 @@ mod_top_bar_server <- function(id) {
     names(geo_group_choices) <- labels$input_functions$geo_group
 
     output$top_bar <- shiny::renderUI({
-      if (session$userData$active_tab() != "about") {
+      if (!(session$userData$active_tab() %in% c("about", "about_explanation"))) {
         shiny::tagList(
           shiny::fluidRow(
             shiny::column(
