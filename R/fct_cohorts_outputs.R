@@ -53,8 +53,7 @@ plot_cohorts_output <- function(dat, year) {
       y = labels$output_functions$cohorts_plot_label_y
     ) +
     theme_minimal() +
-    theme(legend.position = "none",
-          plot.title = element_text(hjust = 0.5)) +
+    theme(legend.position = "none", plot.title = element_text(hjust = 0.5)) +
     guides(fill = "none")
 }
 

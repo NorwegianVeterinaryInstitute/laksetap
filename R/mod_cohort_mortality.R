@@ -112,9 +112,10 @@ mod_cohort_mortality_server <- function(id) {
     #### Plot cohorts mortality ####
     output$plot_cohort <- plotly::renderPlotly({
       validate(need(
-         !(session$userData$species() == "rainbowtrout" && input$select_year_cohort == "2026"),
-         message = labels$modules$no_data_message
-       ))
+        !(session$userData$species() == "rainbowtrout" &&
+          input$select_year_cohort == "2026"),
+        message = labels$modules$no_data_message
+      ))
       req(input$select_year_cohort)
       req(session$userData$species())
       req(session$userData$geo_group())
