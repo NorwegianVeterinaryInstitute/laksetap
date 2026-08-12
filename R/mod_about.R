@@ -33,18 +33,12 @@ mod_about_ui <- function(id) {
       class = "container",
       bslib::navset_tab(
         bslib::nav_panel(
-          labels$modules$about,
-          shiny::column(
-            width = 9,
-            shiny::includeMarkdown(app_sys("app/www/about.md"))
-          )
-        ),
-        bslib::nav_panel(
           labels$modules$method,
           shiny::column(
             width = 9,
             shiny::withMathJax(
-            shiny::includeMarkdown(app_sys("app/www/method.md")))
+              shiny::includeMarkdown(app_sys("app/www/method.md"))
+            )
           )
         ),
         bslib::nav_panel(

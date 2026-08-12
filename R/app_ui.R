@@ -44,31 +44,43 @@ app_ui <- function(request) {
           )
         ),
 
-        #### Tab 1: top level tab monthly mortality ####
+        #### Tab 1: top level tab explanation and usage (moved from About) ####
+        bslib::nav_panel(
+          labels$modules$about,
+          value = "about_explanation",
+          shiny::div(
+            class = "container",
+            shiny::column(
+              width = 9,
+              shiny::includeMarkdown(app_sys("app/www/about.md"))
+            )
+          )
+        ),
+        #### Tab 2: top level tab monthly mortality ####
         bslib::nav_panel(
           labels$app_server$navbar_monthly_mortality,
           value = "monthly_mortality",
           mod_monthly_mortality_ui("monthly_mortality_1")
         ),
-        #### Tab 2 top level tab cumulative yearly mortality ####
+        #### Tab 3 top level tab cumulative yearly mortality ####
         bslib::nav_panel(
           labels$app_server$navbar_cumulative_mortality,
           value = "cumulative_mortality",
           mod_cumulative_mortality_ui("cumulative_mortality_1")
         ),
-        #### Tab 3: Top level tab cohorts ####
+        #### Tab 4: Top level tab cohorts ####
         bslib::nav_panel(
           labels$app_server$navbar_prod_mortality,
           value = "prod_mortality",
           mod_cohort_mortality_ui("cohort_mortality_1")
         ),
-        #### Tab 4: Top level tab for all losses ####
+        #### Tab 5: Top level tab for all losses ####
         bslib::nav_panel(
           labels$app_server$navbar_losses,
           value = "losses",
           mod_losses_ui("losses_1")
         ),
-        #### Tab 5: Top level tab for about the app ####
+        #### Tab 6: Top level tab for about the app ####
         bslib::nav_panel(
           labels$app_server$navbar_about,
           value = "about",

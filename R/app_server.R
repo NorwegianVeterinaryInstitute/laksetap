@@ -10,7 +10,9 @@ app_server <- function(input, output, session) {
 
   #### Make the title change with the tab ####
   output$tab_title <- shiny::renderUI({
-    if (input$navbar == "monthly_mortality") {
+    if (input$navbar == "about_explanation") {
+      shiny::h2(labels$modules$about)
+    } else if (input$navbar == "monthly_mortality") {
       shiny::h2(labels$app_server$navbar_monthly_mortality)
     } else if (input$navbar == "cumulative_mortality") {
       shiny::h2(labels$app_server$navbar_cumulative_mortality)
