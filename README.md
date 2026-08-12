@@ -91,3 +91,38 @@ Running the app with docker *should* work:
     docker build -f Dockerfile --progress=plain -t laksetap:latest .
     docker run -p 80:80 laksetap:latest
     # then go to 127.0.0.1:80
+
+## Deployment (Posit Connect via GitHub Actions)
+
+The `deploy.yml` (prod, triggered on release) and `deploy-dev.yml` (dev,
+triggered on push to `dev`) workflows call `rsconnect::writeManifest()` to
+build a Posit Connect manifest from `renv.lock`.
+
+`rsconnect` must be present in `renv.lock` itself, not installed ad-hoc in
+the workflow (e.g. `install.packages("rsconnect")`). Since rsconnect 1.0.2,
+`writeManifest()`/`deployApp()` error out if the installed library and
+`renv.lock` are out of sync, and an unpinned `install.packages()` call in CI
+introduces exactly that drift (a package present in the library that the
+lockfile knows nothing about).
+
+`rsconnect` is listed in `DESCRIPTION` under `Suggests` (it’s a deploy-only
+tool, not used at runtime), but `renv`’s `package.dependency.fields` setting
+(`renv/settings.json`) only scans `Imports`/`Depends`/`LinkingTo` when doing
+a regular `renv::snapshot()`, so a plain snapshot never picks it up. To add
+or update a package that isn’t reachable from those fields:
+
+- Use `renv::record("package_name")` — it updates just that package’s
+  lockfile entry without touching (or dropping) anything else.
+- Do **not** use `renv::snapshot(packages = "package_name")` for this.
+  Despite appearances, it recomputes the whole lockfile scoped to that
+  package’s own dependency tree and silently drops every unrelated package.
+- `renv::record()` only updates the named package, not its transitive
+  dependencies, and it records the latest version available in the
+  repository (not necessarily what’s installed locally). If that pulls in a
+  new dependency (e.g. `rsconnect` needing `httr2`) or raises another
+  package’s minimum required version (e.g. `httr2` needing a newer
+  `rlang`), record those packages too, or the CI install will fail with a
+  namespace version-mismatch error.
+
+Both deploy workflows read the top-level `renv.lock` (not `renv.lock.prod`,
+which is only used by the Docker builds).
