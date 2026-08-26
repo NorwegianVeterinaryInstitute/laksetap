@@ -22,6 +22,8 @@ app_server <- function(input, output, session) {
       shiny::h2(labels$app_server$navbar_calc_mortality)
     } else if (input$navbar == "losses") {
       shiny::h2(labels$app_server$navbar_losses)
+    } else if (input$navbar == "chat") {
+      shiny::h2(labels$app_server$navbar_chat)
     } else if (input$navbar == "about") {
       shiny::h2(labels$app_server$navbar_about)
     }
@@ -39,5 +41,6 @@ app_server <- function(input, output, session) {
   mod_cumulative_mortality_server("cumulative_mortality_1")
   mod_cohort_mortality_server("cohort_mortality_1")
   mod_losses_server("losses_1")
+  mod_chat_server("chat_1")
   mod_about_server("about_1")
 }

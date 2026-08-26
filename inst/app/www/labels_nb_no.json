@@ -9,6 +9,7 @@
     "navbar_prod_mortality": "Produksjonssyklus dødelighet %",
     "navbar_calc_mortality": "Dødelighetskalkulator",
     "navbar_losses": "Tapstall",
+    "navbar_chat": "Spør om data",
     "navbar_about": "Om tjenesten"
     },
   "modules": {
@@ -33,7 +34,10 @@
    "download_button_excel": "Last ned kalkulator (Excel)",
    "no_data_message": "Ingen data å vise",
    "dataset": "Datasettet",
-   "not-available": "er ikke tilgjengelig."
+   "not-available": "er ikke tilgjengelig.",
+   "chat_placeholder": "Skriv et spørsmål om dataene, f.eks. «Hva var dødeligheten for laks i produksjonsområde 5 i 2023?»",
+   "chat_greeting": "Hei! Jeg kan svare på spørsmål om dødelighet og tapstall for laks og regnbueørret, basert på dataene i denne appen.",
+   "chat_disclaimer": "Svarene genereres av en språkmodell som kjører lokalt, og kan ta feil. Dobbeltsjekk viktige tall i tabellene og diagrammene i de andre fanene."
    },
   "input_functions": {
     "select_species": "Velg art:",
@@ -105,5 +109,43 @@
       "q1": "<br>1 Kvartil %: ",
       "q3": "<br>3 Kvartil %: ",
       "median":  "<br>Median %: "
+    },
+    "chat_tools": {
+      "tool_descriptions": {
+        "monthly_mortality": "Hent månedlig dødelighet (%) i sjøfasen for laks eller regnbueørret, filtrert på art, geografisk nivå, område, år og måned.",
+        "cumulative_mortality": "Hent kumulativ årlig dødelighet (%) (gjennomsnitt), rapportert per måned, for laks eller regnbueørret.",
+        "cohort_mortality": "Hent dødelighet (%) for fullførte produksjonssykluser (kohorter), per år og område.",
+        "monthly_losses": "Hent månedlige tapstall (antall fisk): totalt, døde, utkast, rømt og annet, for laks eller regnbueørret.",
+        "yearly_losses": "Hent årlige tapstall (antall fisk): totalt, døde, utkast, rømt og annet, for laks eller regnbueørret.",
+        "list_regions": "List tilgjengelige områdenavn, gruppert per geografisk nivå (area/county/country). Art og geografisk nivå er valgfrie filtre - utelat dem for å se alle. Bruk denne når du er usikker på riktig områdenavn før du kaller de andre verktøyene.",
+        "list_years": "List hvilke år som har tilgjengelig data, per datasett/verktøy (f.eks. 'monthly_mortality', 'yearly_losses'). Art og geografisk nivå er valgfrie filtre - utelat dem for å se dekningen for alle kombinasjoner, siden dekningen kan variere. Bruk denne når brukeren spør hvilke år/hvilken tidsperiode det finnes data for."
+      },
+      "arg_descriptions": {
+        "species": "Fiskeart. 'salmon' = laks, 'rainbowtrout' = regnbueørret. Standard: 'salmon'.",
+        "geo_group": "Geografisk oppløsning: 'area' (produksjonsområde), 'county' (fylke) eller 'country' (hele Norge). Standard: 'area'.",
+        "region": "Navn på området/regionen, må passe til valgt geo_group. Bruk verktøyet 'list_regions' hvis du er usikker på riktig navn. La stå tom for alle områder.",
+        "year": "Årstall å filtrere på, f.eks. 2023. Utelat for alle år.",
+        "month": "Månedsnummer (1-12) å filtrere på. Utelat for alle måneder.",
+        "species_all": "Fiskeart å filtrere på. 'salmon' = laks, 'rainbowtrout' = regnbueørret. Utelat for å se alle arter.",
+        "geo_group_all": "Geografisk oppløsning å filtrere på: 'area' (produksjonsområde), 'county' (fylke) eller 'country' (hele Norge). Utelat for å se alle nivåer."
+      },
+      "all_species_label": "alle arter",
+      "all_geo_group_label": "alle geografiske nivåer",
+      "summaries": {
+        "monthly_mortality": "Månedlig dødelighet (%) i sjøfasen. q1/median/q3 er kvartiler for valgt utvalg.",
+        "cumulative_mortality": "Kumulativ årlig dødelighet (%) (gjennomsnitt), rapportert per måned.",
+        "cohort_mortality": "Dødelighet (%) for fullførte produksjonssykluser (kohorter, minst 8 måneder), per år og område. q1/median/q3 er kvartiler.",
+        "monthly_losses": "Månedlige tapstall (antall fisk): totalt (losses), døde, utkast, rømt og annet.",
+        "yearly_losses": "Årlige tapstall (antall fisk): totalt (losses), døde, utkast, rømt og annet.",
+        "list_regions": "Tilgjengelige områdenavn, gruppert per geografisk nivå, for species='%s', geo_group='%s'.",
+        "list_years": "Tilgjengelige år per verktøy/datasett, for species='%s', geo_group='%s'. Ulike verktøy kan dekke ulike årsperioder."
+      },
+      "messages": {
+        "region_not_found": "Fant ikke området '%s'. Tilgjengelige områder for geo_group='%s': %s.",
+        "year_not_found": "Fant ingen data for år %s. Tilgjengelige år: %s.",
+        "invalid_month": "Ugyldig måned '%s'. Bruk et tall 1-12.",
+        "month_not_found": "Fant ingen data for måned %s.",
+        "truncated_rows": "Viser de første %s av %s rader."
+      }
     }
 }

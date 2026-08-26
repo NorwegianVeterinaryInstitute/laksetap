@@ -80,7 +80,13 @@ app_ui <- function(request) {
           value = "losses",
           mod_losses_ui("losses_1")
         ),
-        #### Tab 6: Top level tab for about the app ####
+        #### Tab 6: Top level tab for asking questions about the data ####
+        bslib::nav_panel(
+          labels$app_server$navbar_chat,
+          value = "chat",
+          mod_chat_ui("chat_1")
+        ),
+        #### Tab 7: Top level tab for about the app ####
         bslib::nav_panel(
           labels$app_server$navbar_about,
           value = "about",

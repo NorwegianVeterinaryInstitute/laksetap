@@ -54,7 +54,9 @@ Imports:
     tidyr,
     scales,
     base64enc,
-    pkgload
+    pkgload,
+    ellmer,
+    shinychat
 Suggests:
   rsconnect,
   testthat,

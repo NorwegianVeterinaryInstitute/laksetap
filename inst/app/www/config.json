@@ -9,5 +9,9 @@
     "mod_top_bar": {
     "species_choices": ["salmon", "rainbowtrout"],
     "geo_group_choices": ["area", "county", "country"]
+    },
+    "mod_chat": {
+    "ollama_model": "llama3.1",
+    "ollama_base_url": "http://localhost:11434"
     }
 }
