@@ -1,3 +1,10 @@
+## [1.5.0](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.4.4...v1.5.0) (2026-08-12)
+
+
+### Features
+
+* tab reordering of about tab ([#186](https://github.com/NorwegianVeterinaryInstitute/laksetap/issues/186)) ([7e9f4e3](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/7e9f4e35206e974449a1a26b00aa9d07058f66ad))
+
 ## [1.4.4](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.4.3...v1.4.4) (2026-05-22)
 
 
