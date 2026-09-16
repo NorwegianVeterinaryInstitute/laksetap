@@ -187,6 +187,41 @@ losses_data_pivot_longer <- function(dat) {
 }
 
 
+#' data_as_of_date
+#' @description Latest date present in the monthly mortality data, used to
+#' tell users how current the app's data is.
+#'
+#' @returns a character string, formatted dd.mm.yyyy
+#'
+#' @noRd
+data_as_of_date <- function() {
+  monthly_mortality_data <- getOption("monthly_mortality_data_lc")
+  format(max(monthly_mortality_data$date, na.rm = TRUE), "%d.%m.%Y")
+}
+
+
+#' render_footer_md
+#' @description Reads a footer markdown file and substitutes the
+#' `{{DATA_DATE}}` placeholder with `data_as_of_date()` before rendering,
+#' as a drop-in replacement for `shiny::includeMarkdown()`. Mirrors
+#' `shiny::includeMarkdown()`'s own use of `markdown::mark()` (same
+#' rendering backend, same explicit UTF-8 handling) since the substitution
+#' has to happen on the raw text rather than the file path.
+#'
+#' @param path path to a markdown file, as returned by app_sys()
+#'
+#' @returns rendered markdown HTML
+#'
+#' @noRd
+render_footer_md <- function(path) {
+  txt <- readr::read_file(path)
+  txt <- gsub("{{DATA_DATE}}", data_as_of_date(), txt, fixed = TRUE)
+  html <- markdown::mark(text = txt, output = NULL)
+  Encoding(html) <- "UTF-8"
+  shiny::HTML(html)
+}
+
+
 #' locale_columns
 #' @description function to prepare columns for time variables
 #' in locale of country used in plots and tables

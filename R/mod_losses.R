@@ -32,7 +32,7 @@ mod_losses_ui <- function(id) {
           ),
           plotly::plotlyOutput(ns("plot_losses_monthly")),
           shiny::hr(),
-          shiny::includeMarkdown(app_sys(
+          render_footer_md(app_sys(
             "app/www/losses_monthly_table_and_plot_footer.md"
           ))
         ),
@@ -45,7 +45,7 @@ mod_losses_ui <- function(id) {
           ),
           shiny::hr(),
           shiny::div(
-            shiny::includeMarkdown(app_sys(
+            render_footer_md(app_sys(
               "app/www/losses_monthly_table_and_plot_footer.md"
             ))
           )
@@ -56,7 +56,7 @@ mod_losses_ui <- function(id) {
           shiny::uiOutput(ns("select_year_yearly_losses_ui")),
           plotly::plotlyOutput(ns("plot_losses")),
           shiny::hr(),
-          shiny::includeMarkdown(app_sys(
+          render_footer_md(app_sys(
             "app/www/losses_yearly_table_and_plot_footer.md"
           ))
         ),
@@ -69,7 +69,7 @@ mod_losses_ui <- function(id) {
           ),
           shiny::hr(),
           shiny::div(
-            shiny::includeMarkdown(app_sys(
+            render_footer_md(app_sys(
               "app/www/losses_yearly_table_and_plot_footer.md"
             ))
           )
