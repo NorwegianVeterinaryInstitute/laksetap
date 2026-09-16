@@ -23,7 +23,7 @@ mod_monthly_mortality_ui <- function(id) {
           shiny::uiOutput(ns("tab_filter_mortality_month_plot")),
           plotly::plotlyOutput(ns("plot_mortality_month")),
           shiny::hr(),
-          shiny::includeMarkdown(app_sys(
+          render_footer_md(app_sys(
             "app/www/mortality_monthly_plot_footer.md"
           )),
         ),
@@ -36,7 +36,7 @@ mod_monthly_mortality_ui <- function(id) {
           ) #,
           #shiny::hr(),
           # shiny::div(
-          #   shiny::includeMarkdown(app_sys(
+          #   render_footer_md(app_sys(
           #     "app/www/mortality_monthly_table_footer.md"
           #  ))
           # )
