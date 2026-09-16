@@ -197,13 +197,9 @@ losses_data_pivot_longer <- function(dat) {
 #' @noRd
 data_as_of_date <- function() {
   monthly_mortality_data <- getOption("monthly_mortality_data_lc")
-<<<<<<< HEAD
   last_month_start <- max(monthly_mortality_data$date, na.rm = TRUE)
   end_of_month <- seq(last_month_start, by = "1 month", length.out = 2)[2] - 1
   format(end_of_month, "%d.%m.%Y")
-=======
-  format(max(monthly_mortality_data$date, na.rm = TRUE), "%d.%m.%Y")
->>>>>>> 4364e58cf0c1e9f11cb748c23a54fafd527d52aa
 }
 
 
