@@ -27,7 +27,8 @@ Authors@R: c(
             role = "ctb",
             comment = c(ORCID = "0000-0003-3171-544X")),
     person("Norwegian Veterinary Institute", 
-          role = c("cph", "fnd"))
+          role = c("cph", "fnd"),
+          comment = c(ROR = "05m6y3182")))
   )
 Description: A Shiny app that displays losses and mortality statistics for
     the Norwegian fish production by zones and areas.
