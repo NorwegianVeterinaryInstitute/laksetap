@@ -85,7 +85,8 @@ mod_about_ui <- function(id) {
               )
             ),
             shiny::br(),
-            shiny::includeMarkdown(app_sys("app/www/license.md"))
+            shiny::includeMarkdown(app_sys("app/www/license.md")),
+            shiny::includeMarkdown(app_sys("app/www/citation.md"))
           )
         )
       )
