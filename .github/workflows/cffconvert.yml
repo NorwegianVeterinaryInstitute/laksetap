@@ -18,55 +18,29 @@ jobs:
         with:
           persist-credentials: false
 
+      # date-released is set on the release PR by the release-please workflow.
       - name: Normalize CITATION.cff
         run: |
           set -e
-          DATE=$(date +%Y-%m-%d)
-          echo "Normalizing CITATION.cff to date-released: ${DATE} and quoting URLs"
+          echo "Normalizing CITATION.cff quoting"
 
-          sed -E -i "s/^date-released:.*/date-released: \"${DATE}\"/" CITATION.cff || true
           sed -E -i 's/^( *repository-code:\s*)"?([^\"]+)"?/\1"\2"/' CITATION.cff || true
           sed -E -i 's/^( *orcid:\s*)"?([^\"]+)"?/\1"\2"/' CITATION.cff || true
-
-      - name: Sync .zenodo.json publication_date
-        run: |
-          set -e
-          DATE=$(date +%Y-%m-%d)
-          jq --indent 2 --arg d "${DATE}" '.publication_date = $d' .zenodo.json > .zenodo.json.tmp
-          mv .zenodo.json.tmp .zenodo.json
 
       - name: Validate CITATION.cff
         uses: citation-file-format/cffconvert-github-action@2.0.0
         with:
           args: "--validate"
 
-      - name: Generate citation.md for the app
-        run: |
-          set -e
-          APA=$(pipx run --spec cffconvert==2.0.0 cffconvert -i CITATION.cff -f apalike)
-          BIBTEX=$(pipx run --spec cffconvert==2.0.0 cffconvert -i CITATION.cff -f bibtex \
-            | sed 's/{YourReferenceHere,/{laksetap,/')
-          {
-            echo "### Sitering"
-            echo
-            echo "Hvis du bruker laksetap, vennligst siter:"
-            echo
-            echo "${APA}"
-            echo
-            echo '```bibtex'
-            echo "${BIBTEX}"
-            echo '```'
-          } > inst/app/www/citation.md
-
       - name: Create normalization PR if needed
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: normalize CITATION.cff formatting and sync release dates"
+          commit-message: "chore: normalize CITATION.cff formatting (quotes)"
           branch: "normalize-citation/${{ github.run_id }}"
-          title: "chore: Normalize CITATION.cff formatting and sync release dates"
+          title: "chore: Normalize CITATION.cff formatting"
           body: |
-            Automated normalization of `CITATION.cff` to keep `date-released` in YYYY-MM-DD format and preserve quoted URL scalars, sync `publication_date` in `.zenodo.json` to the same date, and regenerate the app's `inst/app/www/citation.md`.
+            Automated normalization of `CITATION.cff` to preserve quoted URL scalars.
           labels: automation
           base: main
           draft: false
