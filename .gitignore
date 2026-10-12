@@ -9,3 +9,5 @@ laksetap.Rproj
 laksetap.Rcheck/
 laksetap*.tar.gz
 laksetap*.tgz
+# roborev snapshots
+/.roborev/

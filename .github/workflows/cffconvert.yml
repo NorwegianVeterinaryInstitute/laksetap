@@ -18,13 +18,12 @@ jobs:
         with:
           persist-credentials: false
 
+      # date-released is set on the release PR by the release-please workflow.
       - name: Normalize CITATION.cff
         run: |
           set -e
-          DATE=$(date +%Y-%m-%d)
-          echo "Normalizing CITATION.cff to date-released: ${DATE} and quoting URLs"
+          echo "Normalizing CITATION.cff quoting"
 
-          sed -E -i "s/^date-released:.*/date-released: \"${DATE}\"/" CITATION.cff || true
           sed -E -i 's/^( *repository-code:\s*)"?([^\"]+)"?/\1"\2"/' CITATION.cff || true
           sed -E -i 's/^( *orcid:\s*)"?([^\"]+)"?/\1"\2"/' CITATION.cff || true
 
@@ -37,11 +36,11 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: normalize CITATION.cff formatting (date/quotes)"
+          commit-message: "chore: normalize CITATION.cff formatting (quotes)"
           branch: "normalize-citation/${{ github.run_id }}"
           title: "chore: Normalize CITATION.cff formatting"
           body: |
-            Automated normalization of `CITATION.cff` to keep `date-released` in YYYY-MM-DD format and preserve quoted URL scalars.
+            Automated normalization of `CITATION.cff` to preserve quoted URL scalars.
           labels: automation
           base: main
           draft: false

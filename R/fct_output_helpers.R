@@ -35,12 +35,12 @@ style_plotly <- function(p) {
         showline = TRUE,
         linecolor = "lightgray",
         linewidth = 0.5
-        ), 
+      ),
       yaxis = list(
         showline = TRUE,
         linecolor = "lightgray",
         linewidth = 0.5
-        )
+      )
     ) |>
     plotly::config(
       displaylogo = FALSE,

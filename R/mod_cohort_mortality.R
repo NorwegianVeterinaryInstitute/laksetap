@@ -22,7 +22,7 @@ mod_cohort_mortality_ui <- function(id) {
           shiny::uiOutput(ns("select_year_cohort_ui")),
           plotly::plotlyOutput(ns("plot_cohort")),
           shiny::hr(),
-          shiny::includeMarkdown(app_sys("app/www/cohorts_plot_footer.md"))
+          render_footer_md(app_sys("app/www/cohorts_plot_footer.md"))
         ),
         bslib::nav_panel(
           labels$modules$table,
@@ -34,7 +34,7 @@ mod_cohort_mortality_ui <- function(id) {
           #,
           #shiny::hr(),
           #shiny::div(
-          # shiny::includeMarkdown(app_sys("app/www/cohorts_table_footer.md"))
+          # render_footer_md(app_sys("app/www/cohorts_table_footer.md"))
           #)
         )
       )
@@ -112,9 +112,10 @@ mod_cohort_mortality_server <- function(id) {
     #### Plot cohorts mortality ####
     output$plot_cohort <- plotly::renderPlotly({
       validate(need(
-         !(session$userData$species() == "rainbowtrout" && input$select_year_cohort == "2026"),
-         message = labels$modules$no_data_message
-       ))
+        !(session$userData$species() == "rainbowtrout" &&
+          input$select_year_cohort == "2026"),
+        message = labels$modules$no_data_message
+      ))
       req(input$select_year_cohort)
       req(session$userData$species())
       req(session$userData$geo_group())

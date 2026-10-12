@@ -14,6 +14,57 @@ jobs:
 
     steps:
       - uses: googleapis/release-please-action@v5
+        id: release
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+      # Release-please only bumps versions; dates and the app's citation must
+      # land on the release PR so the tagged release (deploy, Zenodo) has them.
+      - name: Check out release PR branch
+        if: ${{ steps.release.outputs.pr }}
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ fromJSON(steps.release.outputs.pr).headBranchName }}
+
+      - name: Update release dates and citation
+        if: ${{ steps.release.outputs.pr }}
+        run: |
+          set -e
+          DATE=$(date -u +%Y-%m-%d)
+
+          sed -E -i "s/^date-released:.*/date-released: \"${DATE}\"/" CITATION.cff
+          sed -E -i 's/^( *repository-code:\s*)"?([^\"]+)"?/\1"\2"/' CITATION.cff
+          sed -E -i 's/^( *orcid:\s*)"?([^\"]+)"?/\1"\2"/' CITATION.cff
+
+          jq --indent 2 --arg d "${DATE}" '.publication_date = $d' .zenodo.json > .zenodo.json.tmp
+          mv .zenodo.json.tmp .zenodo.json
+
+          CFFCONVERT="pipx run --spec cffconvert==2.0.0 cffconvert -i CITATION.cff"
+          ${CFFCONVERT} --validate
+          APA=$(${CFFCONVERT} -f apalike)
+          BIBTEX=$(${CFFCONVERT} -f bibtex | sed 's/{YourReferenceHere,/{laksetap,/')
+          {
+            echo "### Sitering"
+            echo
+            echo "Hvis du bruker laksetap, vennligst siter:"
+            echo
+            echo "${APA}"
+            echo
+            echo '```bibtex'
+            echo "${BIBTEX}"
+            echo '```'
+          } > inst/app/www/citation.md
+
+      - name: Commit to release PR
+        if: ${{ steps.release.outputs.pr }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add CITATION.cff .zenodo.json inst/app/www/citation.md
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "chore: update release dates and citation"
+            git push
+          fi

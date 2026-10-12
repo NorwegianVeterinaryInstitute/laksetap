@@ -23,7 +23,7 @@ mod_cumulative_mortality_ui <- function(id) {
           shiny::uiOutput(ns("tab_filter_cumulative_mortality_plot")),
           plotly::plotlyOutput(ns("plot_cumulative_mortality")),
           shiny::hr(),
-          shiny::includeMarkdown(app_sys(
+          render_footer_md(app_sys(
             "app/www/cumulative_mortality_yearly_plot_footer.md"
           )),
         ),
