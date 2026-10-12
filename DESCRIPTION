@@ -29,7 +29,6 @@ Authors@R: c(
     person("Norwegian Veterinary Institute", 
           role = c("cph", "fnd"),
           comment = c(ROR = "05m6y3182")))
-  )
 Description: A Shiny app that displays losses and mortality statistics for
     the Norwegian fish production by zones and areas.
 License: Apache License (>= 2)
