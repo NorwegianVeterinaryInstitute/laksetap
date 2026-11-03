@@ -43,7 +43,7 @@ jobs:
           CFFCONVERT="pipx run --spec cffconvert==2.0.0 cffconvert -i CITATION.cff"
           ${CFFCONVERT} --validate
           APA=$(${CFFCONVERT} -f apalike)
-          BIBTEX=$(${CFFCONVERT} -f bibtex | sed 's/{YourReferenceHere,/{laksetap,/')
+          BIBTEX=$(${CFFCONVERT} -f bibtex | sed -e 's/^@misc{YourReferenceHere,/@software{laksetap,/')
           {
             echo "### Sitering"
             echo
