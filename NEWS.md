@@ -1,3 +1,15 @@
+## [1.6.0](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.5.0...v1.6.0) (2026-11-10)
+
+
+### Features
+
+* add citation to downloads page and derive date for latest update from data ([#193](https://github.com/NorwegianVeterinaryInstitute/laksetap/issues/193)) ([ea7df6c](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/ea7df6c2960321b9b9083db611cd44d87e939b05))
+
+
+### Bug Fixes
+
+* consistent citation gh/cff ([#195](https://github.com/NorwegianVeterinaryInstitute/laksetap/issues/195)) ([0791837](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/0791837139a27c290752470d8e8743f12b159c81))
+
 ## [1.5.0](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.4.4...v1.5.0) (2026-08-12)
 
 
