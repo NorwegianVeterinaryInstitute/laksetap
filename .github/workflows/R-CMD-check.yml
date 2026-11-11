@@ -3,14 +3,15 @@
 name: R CMD check
 
 on:
+  push:
+    branches: [main]
   pull_request:
     paths-ignore:
-      - "README.Rmd"
       - "docs/**"
       - "inst/**"
       - "*.md"
       - ".github/**"
-      - "*.json "
+      - "*.json"
       - "CITATION.cff"
 
 permissions: read-all

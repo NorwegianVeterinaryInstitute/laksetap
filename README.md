@@ -1,11 +1,8 @@
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # Laksetap
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/NorwegianVeterinaryInstitute/laksetap/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/NorwegianVeterinaryInstitute/laksetap/actions/workflows/R-CMD-check.yml)
+[![R-CMD-check](https://github.com/NorwegianVeterinaryInstitute/laksetap/actions/workflows/R-CMD-check.yml/badge.svg)](https://github.com/NorwegianVeterinaryInstitute/laksetap/actions/workflows/R-CMD-check.yml)
 [![DOI](https://zenodo.org/badge/251582797.svg)](https://doi.org/10.5281/zenodo.17778248)
 <!-- badges: end -->
 
