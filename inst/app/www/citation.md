@@ -2,7 +2,7 @@
 
 Hvis du bruker laksetap, vennligst siter:
 
-Nakov N., Silva De Oliveira V.H., Qviller L., Udhwani T., Dean K.R., Gangsei L.E. (2026). laksetap (version 1.6.0). DOI: 10.5281/zenodo.17778248 URL: https://github.com/NorwegianVeterinaryInstitute/laksetap
+Nakov N., Silva De Oliveira V.H., Qviller L., Udhwani T., Dean K.R., Gangsei L.E. (2026). laksetap (version 1.6.1). DOI: 10.5281/zenodo.17778248 URL: https://github.com/NorwegianVeterinaryInstitute/laksetap
 
 ```bibtex
 @software{laksetap,
