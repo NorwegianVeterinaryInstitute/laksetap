@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.6.0...v1.6.1) (2026-11-11)
+
+
+### Bug Fixes
+
+* correct Zenodo grant id and R CMD check badge ([#197](https://github.com/NorwegianVeterinaryInstitute/laksetap/issues/197)) ([e19b1b3](https://github.com/NorwegianVeterinaryInstitute/laksetap/commit/e19b1b32bc56837ac1e1cd51003493698ae08a71))
+
 ## [1.6.0](https://github.com/NorwegianVeterinaryInstitute/laksetap/compare/v1.5.0...v1.6.0) (2026-11-10)
 
 
